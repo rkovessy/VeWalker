@@ -1,0 +1,46 @@
+#ifndef MYWINDOW_H
+#define MYWINDOW_H
+
+#include <QWidget>
+#include <QPushButton>
+#include <QVBoxLayout>
+#include <QLayout>
+#include <QEvent>
+#include <QSlider>
+
+#include <QtGui>
+
+#include <QDebug>
+#include "glwidget.h"
+#include <QWidgetAction>
+
+class GLWidget;
+
+class MyWindow : public QWidget
+{
+    /* class that handles glWidget. Most connect() calls intended for glWidget come through
+       this class because of the type of class glWidget is I think. Also its here where the
+       window size is defined
+    */
+     Q_OBJECT
+
+public:
+     MyWindow();
+     GLWidget *glWidget;
+
+public slots:
+     void updateMotor(double magnitude, bool stepped, double zTrans); // connected to sendMotor(...) signal from legothread, updates GLWidget
+     void set(int pid); // sets up some recording stuff and the initial pedestrian location
+     void set_replay();
+     void updateCompass(double); // updates compass speed and sends to glWidget rotation(double)
+     void updateScene(); // calls glwidget.paintGL indirectly
+
+private:
+    void settingLayout(); // sets up physical dimensions of window
+    bool replay;
+
+    static const int window_width = 1680; // pixel width of screen
+    static const int window_height = 700; // pixel height of screen
+ };
+
+ #endif
