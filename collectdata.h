@@ -29,6 +29,7 @@ public:
     QTime time; // used for finding the time elaspsed between calling the nxt to send an appropriate NXT motor speed
     LegoThread legoThread; // collects nxt data
 
+
 signals:
     void updateScene(); // emitted to call paintGL() in glwidget
 

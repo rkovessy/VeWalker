@@ -35,6 +35,44 @@ void MyWindow::settingLayout() {
      replay = true;
  }
 
+ void MyWindow::keyPressEvent(QKeyEvent *e) {
+     switch ( e->key() )
+     {
+        case Qt::Key_Left:
+            glWidget->Zrotation(-1);
+            break;
+        case Qt::Key_Right:
+            glWidget->Zrotation(1);
+            break;
+        case Qt::Key_Up:
+            glWidget->Xrotation(1);
+            break;
+        case Qt::Key_Down:
+            glWidget->Xrotation(-1);
+            break;
+
+     }
+ }
+
+ void MyWindow::keyReleaseEvent(QKeyEvent *e) {
+     switch ( e->key() )
+     {
+        case Qt::Key_Left:
+            glWidget->Zrotation(0);
+            break;
+        case Qt::Key_Right:
+            glWidget->Zrotation(0);
+            break;
+        case Qt::Key_Up:
+            glWidget->Xrotation(0);
+            break;
+        case Qt::Key_Down:
+            glWidget->Xrotation(0);
+            break;
+
+     }
+ }
+
  void MyWindow::updateScene() {
      glWidget->updateScene();
  }

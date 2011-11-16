@@ -19,7 +19,7 @@ LegoThread::LegoThread() {
 void LegoThread::run()
 {
     qDebug("LegoThread is running!");
-    bool flag = false;
+    /*bool flag = false;
     do {
         time.restart();
         //UpdateRoll();
@@ -34,7 +34,7 @@ void LegoThread::run()
         //counter++;
     } while (!flag);
 
-    exec();
+    exec();*/
 }
 
 void LegoThread::set(double a, int t) {

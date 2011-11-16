@@ -98,10 +98,26 @@ void GLWidget::setTranslation(double mag, double z) { // connected to senddata(d
 
 void GLWidget::rotation(double anglediff)
 {
-    /*if (!(tc.get_screen()))
+    if (!(tc.get_screen()))
         compassSpeed = anglediff;
-    else*/
+    else
         compassSpeed = 0.0;
+}
+
+void GLWidget::Zrotation(double anglediff)
+{
+    if (!(tc.get_screen()))
+        compassSpeed = anglediff;
+    else
+        compassSpeed = 0.0;
+}
+
+void GLWidget::Xrotation(double anglediff)
+{
+    if (!(tc.get_screen()))
+        xcompassSpeed = anglediff;
+    else
+        xcompassSpeed = 0.0;
 }
 
 void GLWidget::updateScene() {
@@ -110,6 +126,7 @@ void GLWidget::updateScene() {
 
     else if (started) {
         setZRotation(zRot + compassSpeed);
+        setXRotation(xRot + xcompassSpeed);
 
         double y;
         if (zRot > 90.0 && zRot < 270.0)

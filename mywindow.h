@@ -28,6 +28,10 @@ public:
      MyWindow();
      GLWidget *glWidget;
 
+protected:
+     void keyPressEvent( QKeyEvent *e );
+     void keyReleaseEvent( QKeyEvent *e );
+
 public slots:
      void updateMotor(double magnitude, bool stepped, double zTrans); // connected to sendMotor(...) signal from legothread, updates GLWidget
      void set(int pid); // sets up some recording stuff and the initial pedestrian location
