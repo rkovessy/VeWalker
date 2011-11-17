@@ -1,7 +1,1 @@
                trial               start     time_starttrial         time_bumper           time_step        time_latency         time_arrive       time_crossing               steps          gap_chosen                   
-                  p1                   A                   0                   0                0.88                0.88                2.46                1.58                   4                   0                   
-                  p2                   A                2.64                3.22                3.64                0.42                 6.2                2.56                   2                   8                   
-                  p3                   A                9.36                3.22                 3.7                0.48                4.64                0.94                   3                   4                   
-            failed_1                   A                14.3                   0                0.88                0.88                   0                   0                   3                   0                   
-                   1                   A               17.34                3.22                   8                4.78                9.04                1.04                   5                   4                   
-                   2                   A               26.62                   0                0.78                0.78                1.14                0.36                   0                   0                   

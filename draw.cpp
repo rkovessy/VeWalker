@@ -21,6 +21,8 @@ Draw::Draw()
 
     CAR_LENGTH = CAR_LENGTH_DESIGN * CAR_SCALING;
     CAR_WIDTH = CAR_WIDTH_DESIGN * CAR_SCALING;
+
+
 }
 
 void Draw::environment() {

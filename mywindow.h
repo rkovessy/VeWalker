@@ -7,7 +7,7 @@
 #include <QLayout>
 #include <QEvent>
 #include <QSlider>
-
+#include <QMouseEvent>
 #include <QtGui>
 
 #include <QDebug>
@@ -31,6 +31,7 @@ public:
 protected:
      void keyPressEvent( QKeyEvent *e );
      void keyReleaseEvent( QKeyEvent *e );
+     void mouseMoveEvent( QMouseEvent *e );
 
 public slots:
      void updateMotor(double magnitude, bool stepped, double zTrans); // connected to sendMotor(...) signal from legothread, updates GLWidget
@@ -45,6 +46,8 @@ private:
 
     static const int window_width = 1680; // pixel width of screen
     static const int window_height = 700; // pixel height of screen
+    int previousXPos;
+    int previousYPos;
  };
 
  #endif

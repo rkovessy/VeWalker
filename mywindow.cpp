@@ -7,6 +7,7 @@ MyWindow::MyWindow()
     setWindowTitle(tr("Walker Scene"));
     replay = false;
     glWidget->set_window(window_width, window_height);
+    setMouseTracking(true);
 }
 
 void MyWindow::settingLayout() {
@@ -71,6 +72,30 @@ void MyWindow::settingLayout() {
             break;
 
      }
+ }
+
+ //captures the mouse movement to rotate the screen
+ void MyWindow::mouseMoveEvent(QMouseEvent *e) {
+
+     //up and down rotation
+     if(e->x() > previousXPos) {
+         glWidget->Zrotation(1);
+     } else if(e->x() < previousXPos) {
+         glWidget->Zrotation(-1);
+     } else
+         glWidget->Zrotation(0);
+
+     //left/right rotation
+     if(e->y() > previousYPos) {
+         glWidget->Xrotation(1);
+     } else if(e->y() < previousYPos) {
+         glWidget->Xrotation(-1);
+     } else
+         glWidget->Xrotation(0);
+
+     previousXPos = e->x();
+     previousYPos = e->y();
+
  }
 
  void MyWindow::updateScene() {

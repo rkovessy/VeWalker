@@ -10,6 +10,8 @@ GLWidget::GLWidget(QWidget *parent)
 
     time = 0.0;
     started = false;
+
+    setMouseTracking(true);
 }
 
 GLWidget::~GLWidget()
@@ -127,20 +129,33 @@ void GLWidget::updateScene() {
     else if (started) {
         setZRotation(zRot + compassSpeed);
         setXRotation(xRot + xcompassSpeed);
+        compassSpeed = 0;
+        xcompassSpeed = 0;
 
         double y;
-        if (zRot > 90.0 && zRot < 270.0)
-            y = yTrans - motorSpeed;
-        else
-            y = yTrans + motorSpeed;
+        double x;
 
-        if (fabs(y) <= maxTrans)
+        double pi=3.14159265;
+
+        if (zRot > 90.0 && zRot < 270.0){
+            y = (yTrans - (motorSpeed*cos(zRot*pi/180)));
+            x = (xTrans - (motorSpeed*sin(zRot*pi/180)));
+        } else {
+
+            y = (yTrans + (motorSpeed*cos(zRot*pi/180)));
+            x = (xTrans + (motorSpeed*sin
+                           (zRot*pi/180)));
+        }
+
+        if (fabs(y) <= maxTrans && fabs(x) >= maxTrans) {
             yTrans = y;
+            xTrans = x;
+        }
 
         tc.data.writePedestrian(tc.get_trials(), xTrans, yTrans, zTrans, xRot, yRot, zRot);
 
-        if ((startPos == "A" && yTrans >= startingyTrans[1]) || (startPos == "B" && yTrans <= startingyTrans[0])) {
-            tc.nexttrial();
+        /*if ((startPos == "A" && yTrans >= startingyTrans[1]) || (startPos == "B" && yTrans <= startingyTrans[0])) {
+            //tc.nexttrial();
             startPos = tc.get_start();
             if (startPos == "A")
                 start = 0;
@@ -148,7 +163,7 @@ void GLWidget::updateScene() {
                 start = 1;
             yTrans = startingyTrans[start];
             setZRotation(startingrotation[start]);
-        }
+        }*/
         updateGL();
     }
 }
