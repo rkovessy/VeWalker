@@ -21,10 +21,10 @@ GLWidget::~GLWidget()
 }
 
 void GLWidget::setPedestrian(double x, double y, double mid) {
-    xTrans = x;
 
     startingyTrans[0] = y;
     startingyTrans[1] = 0.0;
+    startingxTrans[0] = 5.0; //This is about at the cross walk
     startingrotation[0] = 315.0;
     startingrotation[1] = 225.0;
 
@@ -34,6 +34,7 @@ void GLWidget::setPedestrian(double x, double y, double mid) {
     else
         start = 1;
     yTrans = startingyTrans[start];
+    xTrans = startingxTrans[0];
     setZRotation(startingrotation[start]);
 
     maxTrans = fabs(y) + mid; // mid is half of walkway path width
@@ -137,33 +138,27 @@ void GLWidget::updateScene() {
 
         double pi=3.14159265;
 
-        if (zRot > 90.0 && zRot < 270.0){
-            y = (yTrans - (motorSpeed*cos(zRot*pi/180)));
-            x = (xTrans - (motorSpeed*sin(zRot*pi/180)));
-        } else {
+        y = (yTrans + (motorSpeed*cos(zRot*pi/180)));
+        x = (xTrans + (motorSpeed*sin(zRot*pi/180)));
 
-            y = (yTrans + (motorSpeed*cos(zRot*pi/180)));
-            x = (xTrans + (motorSpeed*sin
-                           (zRot*pi/180)));
-        }
-
-        if (fabs(y) <= maxTrans && fabs(x) >= maxTrans) {
+        //if (fabs(y) <= maxTrans && fabs(x) >= maxTrans) {
             yTrans = y;
             xTrans = x;
-        }
+        //}
 
         tc.data.writePedestrian(tc.get_trials(), xTrans, yTrans, zTrans, xRot, yRot, zRot);
 
-        /*if ((startPos == "A" && yTrans >= startingyTrans[1]) || (startPos == "B" && yTrans <= startingyTrans[0])) {
-            //tc.nexttrial();
+        if ((startPos == "A" && yTrans >= startingyTrans[1] && fabs(xTrans-startingxTrans[0]) <= 1) || (startPos == "B" && yTrans <= startingyTrans[0])) {
+            tc.nexttrial();
             startPos = tc.get_start();
             if (startPos == "A")
                 start = 0;
             else
                 start = 1;
             yTrans = startingyTrans[start];
+            xTrans = startingxTrans[start];
             setZRotation(startingrotation[start]);
-        }*/
+        }
         updateGL();
     }
 }
@@ -207,6 +202,7 @@ void GLWidget::paintGL()
 
     if (tc.limits.hit && !tc.get_failed()) {
         yTrans = startingyTrans[start];
+        xTrans = startingxTrans[0];
         setZRotation(startingrotation[start]);
         tc.resettrial();
     }

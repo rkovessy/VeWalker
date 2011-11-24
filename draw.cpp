@@ -26,17 +26,30 @@ Draw::Draw()
 }
 
 void Draw::environment() {
-        setTexture(STREET);
-        rectangle(0, 0, 1, -50.0, -50.0, 0.0, 'x', 100.0, 'y', 100.0);
+        setTexture(ASPHALT);
+        for(double i=0.0; i<=100.0; i+=2.5)
+        {
+            for(double j=0.0; j<=100.0; j+=2.5)
+                rectangle(0, 0, 1, -50.0+i, -50.0+j, 0.0, 'x', 2.5, 'y', 2.5);
+        }
 
-        setTexture(SKY);
-        rectangle(0, -1, 0, -50.0, 50.0, 0.0, 'x', 100.0, 'z', 50.0);
+        setTexture(CLOUD2);
+        gluQuadricOrientation(quad, GLU_INSIDE);
+        glNormal3d(0, 0, 1);
+        gluQuadricDrawStyle(quad, GLU_FILL);
+        gluQuadricTexture(quad, GL_TRUE);
+        gluSphere(quad, 75.0, 360, 360); // draws the center half sphere
+
+        gluQuadricOrientation(quad, GLU_OUTSIDE);
+        //glScaled(1, 1, centerRadius / centerHeight); // back to normal
+
+        /*rectangle(0, -1, 0, -50.0, 50.0, 0.0, 'x', 100.0, 'z', 50.0);
         rectangle(1, 0, 0, -50.0, -50.0, 0.0, 'y', 100.0, 'z', 50.0);
         rectangle(0, 1, 0, 50.0, -50.0, 0.0, 'x', -100.0, 'z', 50.0);
         rectangle(-1, 0, 0, 50.0, 50.0, 0.0, 'y', -100.0, 'z', 50.0);
 
         setTexture(SKYBLUE);
-        rectangle(0, 0, -1, 50.0, 50.0, 50.0, 'y', -100.0, 'x', -100.0);
+        rectangle(0, 0, -1, 50.0, 50.0, 50.0, 'y', -100.0, 'x', -100.0);*/
 
         for (int xcount = -1; xcount < 2; xcount += 2)
             for (int ycount = -1; ycount < 2; ycount += 2)
@@ -216,7 +229,7 @@ void Draw::loadTextures() {
     if (!QDir(folder).exists())
         qDebug() << "image folder not found";
 
-    glGenTextures( 32, &texture[0] );
+    glGenTextures( 40, &texture[0] );
 
     loadTexture(folder + "street.bmp", STREET);
     loadTexture(folder + "grassgreen.bmp", GRASSGREEN);
@@ -250,6 +263,15 @@ void Draw::loadTextures() {
     loadTexture(folder + "backleftturn.bmp", BLT);
     loadTexture(folder + "backleftstop.bmp", BLS);
     loadTexture(folder + "backleftstopturn.bmp", BLST);
+    loadTexture(folder + "TextureGrass01.bmp", TEXTUREGRASS01);
+    loadTexture(folder + "TextureGrass02.bmp", TEXTUREGRASS02);
+    loadTexture(folder + "TextureGrass03.bmp", TEXTUREGRASS03);
+    loadTexture(folder + "road-asphalt.bmp", ASPHALT);
+    loadTexture(folder + "sidewalk.bmp", SIDEWALK);
+    loadTexture(folder + "road-asphalt02.bmp", ASPHALT2);
+    loadTexture(folder + "cloud.bmp", CLOUD);
+    loadTexture(folder + "cloud02.bmp", CLOUD2);
+    loadTexture(folder + "cloud03.bmp", CLOUD3);
 }
 
 void Draw::loadTexture(QString filename, int index) { // loads texture via QImage
@@ -576,13 +598,13 @@ void Draw::center() {
     centersphere();
 
     glPushMatrix();
-    setTexture(WALKWAYGREY);
+    setTexture(SIDEWALK);
     glNormal3d(0, 1, 0);
     gluCylinder(quad, centerRadius, centerRadius, BORDER_Z, 36, 1); // center vertical
     glTranslated(0, 0, BORDER_Z);
     glNormal3d(0, 0, 1);
     gluDisk(quad, centerRadius - 0.04, centerRadius, 36, 1); // center horizontal border
-    setTexture(GRASSGREEN);
+    setTexture(TEXTUREGRASS02);
     gluDisk(quad, 0, centerRadius - 0.04, 36, 1); // center grass
     glPopMatrix();
 
@@ -629,8 +651,11 @@ void Draw::corners() {
         }
         glPopMatrix();
 
-        setTexture(WALKWAYGREY);
-        rectangle(0, 0, 1, -0.25, midzoneLength[0], BORDER_Z, 'x', MIDZONE_WIDTH, 'y', midzoneLength[1]); // refuge rectangle top
+        setTexture(SIDEWALK);
+
+        for(int i=0; i<midzoneLength[1];i++)
+            rectangle(0, 0, 1, -0.25, midzoneLength[0]+i, BORDER_Z, 'x', MIDZONE_WIDTH, 'y', 1.0); // refuge rectangle top
+
         trianglePoints('0', '0', MIDZONE_WIDTH / -2.0, midzoneVector[1], BORDER_Z, MIDZONE_WIDTH / 2.0, midzoneVector[1], BORDER_Z, 0.0, midzoneVector[1] + midzoneLength[2], BORDER_Z); // refuge triangle top
         rectangle(0, -1, 0, -0.25, midzoneLength[0], 0, 'x', MIDZONE_WIDTH, 'z', BORDER_Z); // refuge vertical
         rectangle(1, 0, 0, 0.25, midzoneLength[0], 0, 'y', midzoneLength[1], 'z', BORDER_Z); // refuge vertical
@@ -641,26 +666,35 @@ void Draw::corners() {
         glPushMatrix();
         glTranslated(cornerCoordinate, cornerCoordinate, 0.0);
         glNormal3d(0, 1, 0);
-        gluCylinder(quad, cornerRadius, cornerRadius, BORDER_Z + 0.001, 36, 1); // corner walkway vertical
-        rectangle(-1, 0, 0, -cornerRadius, 0, 0, 'z', BORDER_Z + 0.002, 'y', 50.0); // walkway vertical
-        rectangle(0, -1, 0, 0, -cornerRadius, 0, 'x', 50.0, 'z', BORDER_Z + 0.002); // walkway vertical
+        gluCylinder(quad, cornerRadius, cornerRadius, BORDER_Z + 0.002, 36, 1); // corner walkway vertical
+        rectangle(-1, 0, 0, -cornerRadius, 0, 0, 'z', BORDER_Z + 0.003, 'y', 50.0); // walkway vertical
+        rectangle(0, -1, 0, 0, -cornerRadius, 0, 'x', 50.0, 'z', BORDER_Z + 0.003); // walkway vertical
 
         glTranslated(0, 0, BORDER_Z);
         gluDisk(quad, cornerRadius - 0.05, cornerRadius, 36, 1); // corner border
-        rectangle(0, 0, 1, -cornerRadius, 0.0, 0.001, 'x', BORDER_X, 'y', 25.0); // border
-        rectangle(0, 0, 1, 0.0, -cornerRadius, 0.001, 'x', 25.0, 'y', BORDER_X); // border
-        rectangle(0, 0, 1, -cornerCoordinate + walkwayDistance, -cornerRadius, 0.002, 'x', 50.0, 'y', MIDZONE_WIDTH); // walkway
-        rectangle(0, 0, 1, -cornerRadius, -cornerCoordinate + walkwayDistance, 0.002, 'x', MIDZONE_WIDTH, 'y', 50.0); // walkway
-        quadPoints(0, 0, 1, -cornerRadius, -cornerCoordinate + walkwayDistance, 0.002,
-                   -cornerCoordinate + walkwayDistance, -cornerRadius, 0.002,
-                   -cornerCoordinate + walkwayDistance + sin(PI / 4.0), -cornerRadius, 0.002,
-                   -cornerRadius, -cornerCoordinate + walkwayDistance + sin(PI / 4.0), 0.002); // diagonal walkway
+        rectangle(0, 0, 1, -cornerRadius, 0.0, 0.002, 'x', BORDER_X, 'y', 25.0); // border
+        rectangle(0, 0, 1, 0.0, -cornerRadius, 0.002, 'x', 25.0, 'y', BORDER_X); // border
+        for (int i =0; i<=50; i++)
+        {
+            rectangle(0, 0, 1, -cornerCoordinate + walkwayDistance+i, -cornerRadius, 0.003, 'x', 1.0, 'y', MIDZONE_WIDTH); // roadside sidewalk
+            rectangle(0, 0, 1, -cornerRadius, -cornerCoordinate + walkwayDistance+i, 0.003, 'x', MIDZONE_WIDTH, 'y', 1.0); // roadside sidewalk
+        }
+        quadPoints(0, 0, 1, -cornerRadius, -cornerCoordinate + walkwayDistance, 0.003,
+                   -cornerCoordinate + walkwayDistance, -cornerRadius, 0.003,
+                   -cornerCoordinate + walkwayDistance + sin(PI / 4.0), -cornerRadius, 0.003,
+                   -cornerRadius, -cornerCoordinate + walkwayDistance + sin(PI / 4.0), 0.003); // diagonal walkway
 
+        setTexture(TEXTUREGRASS02);
         glTranslated(0, 0, 0.001);
-        setTexture(GRASSGREEN);
-        gluDisk(quad, 0.0, cornerRadius - BORDER_X, 36, 1); // corner grass
-        rectangle(0, 0, 1, BORDER_X - cornerRadius, 0, 0.0, 'x', 50.0, 'y', 50.0); // grass
-        rectangle(0, 0, 1, 0, BORDER_X - cornerRadius, 0.0, 'x', 50.0, 'y', cornerRadius); // grass
+        gluQuadricDrawStyle(quad, GLU_FILL);
+        gluQuadricTexture(quad, GL_TRUE);
+        gluDisk(quad, 0.0, cornerRadius - BORDER_X, 50, 1); // corner grass
+        for (int i=0; i<=50; i++) {
+            for (int j=-2; j<=50; j++)
+                rectangle(0, 0, 1, BORDER_X - cornerRadius+i, cornerRadius+j, 0.001, 'x', 1.0, 'y', 1.0); // grass
+
+            rectangle(0, 0, 1, i, BORDER_X - cornerRadius, 0.001, 'x', 1.0, 'y', cornerRadius); // grass
+        }
 
         glPopMatrix();
         glRotated(90, 0, 0, 1);

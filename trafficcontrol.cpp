@@ -266,6 +266,7 @@ bool TrafficControl::safeZone() { // determines whether pedestrian is in a safe 
         return true; 
     else
         return false;
+
 }
 
 double TrafficControl::magnitude(Point a, Point b) {

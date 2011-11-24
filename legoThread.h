@@ -69,7 +69,7 @@ private:
     bool left; // true when left foot on ground, false when right is
     bool stepped; // true when bool left has changed
 
-    const static int port = 6; // port for the bluetooth connection with the NXT
+    const static int port = 14; // port for the bluetooth connection with the NXT
 };
 
 #endif
