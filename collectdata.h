@@ -8,6 +8,7 @@
 #include <QDateTime>
 #include "nxt.h"
 #include "legoThread.h"
+#include "webcamcapture.h"
 
 #include <QDebug>
 

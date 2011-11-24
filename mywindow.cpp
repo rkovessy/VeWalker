@@ -112,3 +112,6 @@ void MyWindow::settingLayout() {
      glWidget->rotation(anglediff);
  }
 
+void MyWindow::updateCameraValues(int x1, int x2, int y1, int y2){
+
+}

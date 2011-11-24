@@ -10,6 +10,24 @@ TARGET = VeWalker
 TEMPLATE = app
 
 
+LIBS += -LC:\OpenCVNew\install\bin \
+-llibopencv_core231d \
+-llibopencv_highgui231d \
+-llibopencv_calib3d231d \
+-llibopencv_contrib231d \
+-llibopencv_features2d231d \
+-llibopencv_flann231d \
+-llibopencv_gpu231d \
+-llibopencv_imgproc231d \
+-llibopencv_legacy231d \
+-llibopencv_ml231d \
+-llibopencv_objdetect231d \
+-llibopencv_video231d \
+-lopencv_ffmpeg \
+
+INCLUDEPATH += C:\OpenCVNew\install\include \
+C:\OpenCVNew\install\include\opencv
+
 SOURCES += \
     startwindow.cpp \
     mainwindow.cpp \

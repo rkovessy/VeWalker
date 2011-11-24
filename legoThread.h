@@ -1,6 +1,10 @@
 #ifndef LEGOTHREAD_H
 #define LEGOTHREAD_H
 
+#include <stdio.h>
+#include "cv.h"
+#include "highgui.h"
+
 #include <QObject>
 #include <QThread>
 #include <QEventLoop>
@@ -31,12 +35,12 @@ public:
     LegoThread();
     void run();
     int id;
-
     double PI;
 
 signals:
     void sendMotor(double magnitude, bool stepped, double zTrans); //sends motor data to glwidget setTranslation(double, double) through mywindow
     void sendCompass(double angle); // sends compass data to glwidget rotation(double)
+    void sendCameraValues(int posX1, int posX2, int posY1, int posY2);
 
 public slots:
     void set(double height, int timer); // sets height info and allows data to be collected
@@ -70,6 +74,17 @@ private:
     bool stepped; // true when bool left has changed
 
     const static int port = 14; // port for the bluetooth connection with the NXT
+
+    double moment101;
+    double moment011;
+    double moment102;
+    double moment012;
+    double area1;
+    double area2;
+    int posX1;
+    int posY1;
+    int posX2;
+    int posY2;
 };
 
 #endif
