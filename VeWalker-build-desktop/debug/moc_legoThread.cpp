@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'legoThread.h'
 **
-** Created: Mon Nov 28 19:52:20 2011
+** Created: Tue Nov 29 00:07:47 2011
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_LegoThread[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-       6,   14, // methods
+       7,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -39,6 +39,7 @@ static const uint qt_meta_data_LegoThread[] = {
      164,  151,   11,   11, 0x0a,
      180,   11,   11,   11, 0x0a,
      197,   11,   11,   11, 0x0a,
+     210,   11,   11,   11, 0x0a,
 
        0        // eod
 };
@@ -50,6 +51,7 @@ static const char qt_meta_stringdata_LegoThread[] = {
     "sendCameraValues(int,int,int,int)\0"
     "height,timer\0set(double,int)\0"
     "UpdateRotation()\0UpdateRoll()\0"
+    "UpdateCamera()\0"
 };
 
 const QMetaObject LegoThread::staticMetaObject = {
@@ -87,9 +89,10 @@ int LegoThread::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 3: set((*reinterpret_cast< double(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         case 4: UpdateRotation(); break;
         case 5: UpdateRoll(); break;
+        case 6: UpdateCamera(); break;
         default: ;
         }
-        _id -= 6;
+        _id -= 7;
     }
     return _id;
 }

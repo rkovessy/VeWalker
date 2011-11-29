@@ -35,6 +35,7 @@ public:
     LegoThread();
     void run();
     IplImage* GetThresholdedImage(IplImage* img);
+    CvCapture* capture;
     int id;
     double PI;
 
@@ -47,6 +48,7 @@ public slots:
     void set(double height, int timer); // sets height info and allows data to be collected
     void UpdateRotation(); //calculates yTrans speed and zTrans and sends data via sendMotor(...)
     void UpdateRoll(); //updates Roll from compass
+    void UpdateCamera();
     //void UpdateTilt();//updates the tilt form accelerometer
 
 

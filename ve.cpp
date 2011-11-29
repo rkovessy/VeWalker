@@ -16,4 +16,5 @@ void VE::start(int pid) {
     collectdata.set(height);
     mywindow.show();
     mywindow.set(pid);
+    //cvNamedWindow("video");
 }

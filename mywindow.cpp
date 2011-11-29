@@ -113,5 +113,18 @@ void MyWindow::settingLayout() {
  }
 
 void MyWindow::updateCameraValues(int x1, int x2, int y1, int y2){
+    int oppositeSide = (y2-y1);
+    int adjacentSide = (x2-x1);
+    double angleRads;
+    double angleDegrees;
+    if (adjacentSide != 0)
+    {
+        angleRads = atan(oppositeSide/adjacentSide);
+        angleDegrees = angleRads*180/3.14159;
+    }
+    else
+        angleDegrees=0;
 
+    glWidget->Zrotation(angleRads*-2);
+    printf("angleDeg: [%f], angleRads[%f]\n",angleDegrees, angleRads);
 }

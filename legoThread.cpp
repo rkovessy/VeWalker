@@ -15,6 +15,16 @@ LegoThread::LegoThread() {
     //connection->connect(port); // '3' is the port the NXT is connected to via bluetooth. Different for every laptop
     qDebug() << "Connected to NXT" << endl;
 
+    // Initialize capturing from webcam
+    capture = NULL;
+    //Throw an error when no device is connected
+    if(NULL==(capture= cvCaptureFromCAM(0)))
+    {
+        printf("Could not detect camera.\n");
+    }
+    else
+        qDebug() << "Connected to webcam" << endl;
+
     posX1 = 0;
     posY1 = 0;
     posX2 = 0;
@@ -31,7 +41,7 @@ IplImage* LegoThread::GetThresholdedImage(IplImage* img)
     IplImage* imgHSV = cvCreateImage(cvGetSize(img), 8, 3);
     cvCvtColor(img, imgHSV, CV_BGR2HSV);
     IplImage* imgThreshed = cvCreateImage(cvGetSize(img), 8, 1);
-    cvInRangeS(imgHSV, cvScalar(110, 0, 236), cvScalar(130, 19, 255), imgThreshed);
+    cvInRangeS(imgHSV, cvScalar(0, 0, 236), cvScalar(119, 19, 255), imgThreshed);
     cvReleaseImage(&imgHSV);
     return imgThreshed;
 }
@@ -40,123 +50,20 @@ void LegoThread::run()
 {
     qDebug("LegoThread is running!");
     bool flag = false;
-   /* do {
+   do {
         time.restart();
         //UpdateRoll();
-        UpdateRotation();
+        //UpdateRotation();
+        UpdateCamera();
         msec = double(time.elapsed());
         if (msec == 0.0) {
-            qDebug() << "msec == 0, divided by 0";
-            emit sendMotor(magnitude * timer_interval, false, zTrans); // sends data to GLWidget and updates graphics
+            //qDebug() << "msec == 0, divided by 0";
+            //emit sendMotor(magnitude * timer_interval, false, zTrans); // sends data to GLWidget and updates graphics
         }
-        else
-            emit sendMotor(magnitude * timer_interval / msec, stepped, zTrans); // sends data to GLWidget and updates graphics
+        //else
+            //emit sendMotor(magnitude * timer_interval / msec, stepped, zTrans); // sends data to GLWidget and updates graphics
         //counter++;
-    } while (!flag);*/
-    // Initialize capturing from webcam
-    CvCapture* capture = NULL;
-
-    //Throw an error when no device is connected
-    if(NULL==(capture= cvCaptureFromCAM(-1)))
-    {
-        printf("Could not detect camera.\n");
-    }
-
-    //cvReleaseCapture(&capture);
-
-    // An infinite loop to capture the x and y coordinates
-    while(true)
-    {
-        // Hold a single frame captured from the camera
-        IplImage* frame = 0;
-        frame = cvQueryFrame(capture);
-
-        // Quit if no frame can be captured, return to capturing the next frame
-        if(!frame)
-            break;
-
-        //Setup sequences to get contours
-        CvSeq* contours;
-        CvSeq* result;
-        CvMemStorage *storage = cvCreateMemStorage(0);
-
-        //Create moments for both IR leds
-        CvMoments *moments = (CvMoments*)malloc(sizeof(CvMoments));
-        CvMoments *moments2 = (CvMoments*)malloc(sizeof(CvMoments));
-
-        IplImage* imgThresh = GetThresholdedImage(frame);
-
-        //Get the contour vectors and store in contours
-        cvFindContours(imgThresh, storage, &contours, sizeof(CvContour), CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE, cvPoint(0,0));
-
-        //If at least one contour vector exists, begin getting data on the contours
-        if(contours)
-        {
-            if (contours->first)
-            {
-                //For the first contour, store an array of points on the contour in result and then setup the moment data for the first vector
-                result = cvApproxPoly(contours, sizeof(CvContour), storage, CV_POLY_APPROX_DP, cvContourPerimeter(contours)*0.02, 0);
-                cvMoments(result, moments, 1);
-                moment101 = cvGetSpatialMoment(moments, 1, 0);
-                moment011 = cvGetSpatialMoment(moments, 0, 1);
-                area1 = cvGetCentralMoment(moments, 0, 0);
-
-                //Discard values that do not fit in range of camera for first point and set x and y values
-                if (abs(moment101/area1) < 1000 || abs(moment011/area1)< 1000)
-                {
-                    posX1 = moment101/area1;
-                    posY1 = moment011/area1;
-                    printf("LED1 position (%d,%d)\n", posX1, posY1);
-                }
-
-
-            }
-
-            if (contours->h_next)
-            {
-                //For the second contour, store an array of points on the contour in result and then setup the moment data for the first vector
-                result = cvApproxPoly(contours->h_next, sizeof(CvContour), storage, CV_POLY_APPROX_DP, cvContourPerimeter(contours)*0.02, 0);
-                cvMoments(result, moments2, 1);
-                moment102 = cvGetSpatialMoment(moments2, 1, 0);
-                moment012 = cvGetSpatialMoment(moments2, 0, 1);
-                area2 = cvGetCentralMoment(moments2, 0, 0);
-
-                //Discard values that do not fit in range of camera for second point and set x and y values
-                if (abs(moment102/area2) < 1000 || abs(moment012/area2)< 1000)
-                {
-                    posX2 = moment102/area2;
-                    posY2 = moment012/area2;
-                    //printf("LED2 position (%d,%d)\n", posX2, posY2);
-                }
-            }
-            //emit sendCameraValues(posX1, posX2, posY1, posY2);
-        }
-
-        else
-            printf("No contours detected.\n");
-        oppositeSide = abs(posY2-posY1);
-        adjacentSide = abs(posX2-posX1);
-        if (adjacentSide != 0)
-        {
-            angleRads = atan(oppositeSide/adjacentSide);
-            angleDegrees = angleRads*180/3.14159;
-        }
-        else
-            angleDegrees=0;
-
-
-
-        //printf("Theta: (%f)\n", angleDegrees);
-        // Release the thresholded image and moments
-        cvReleaseImage(&imgThresh);
-        cvReleaseMemStorage(&storage);
-        delete moments;
-        delete moments2;
-        //Now, repeat with the next frame
-    }
-
-    // Release camera on exit
-    cvReleaseCapture(&capture);
+    } while (!flag);
     exec();
 }
 
@@ -210,6 +117,100 @@ void LegoThread::UpdateRoll()// the left to right motion of the head
         anglediff = 0.0;
     emit sendCompass(anglediff);
 }
+
+void LegoThread::UpdateCamera()
+{
+    // Hold a single frame captured from the camera
+    IplImage* frame = 0;
+    frame = cvQueryFrame(capture);
+    // Quit if no frame can be captured, return to capturing the next frame
+    if(!frame) {
+        return;
+    }
+
+    //Setup sequences to get contours
+    CvSeq* contours;
+    CvSeq* result;
+    CvMemStorage *storage = cvCreateMemStorage(0);
+
+    //Create moments for both IR leds
+    CvMoments *moments = (CvMoments*)malloc(sizeof(CvMoments));
+    CvMoments *moments2 = (CvMoments*)malloc(sizeof(CvMoments));
+
+    IplImage* imgThresh = GetThresholdedImage(frame);
+
+    //cvShowImage("video", imgThresh);
+    //Get the contour vectors and store in contours
+    cvFindContours(imgThresh, storage, &contours, sizeof(CvContour), CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE, cvPoint(0,0));
+
+    //If at least one contour vector exists, begin getting data on the contours
+    if(contours)
+    {
+        if (contours->first)
+        {
+            //For the first contour, store an array of points on the contour in result and then setup the moment data for the first vector
+            result = cvApproxPoly(contours, sizeof(CvContour), storage, CV_POLY_APPROX_DP, cvContourPerimeter(contours)*0.02, 0);
+            cvMoments(result, moments, 1);
+            moment101 = cvGetSpatialMoment(moments, 1, 0);
+            moment011 = cvGetSpatialMoment(moments, 0, 1);
+            area1 = cvGetCentralMoment(moments, 0, 0);
+
+            //Discard values that do not fit in range of camera for first point and set x and y values
+            if (abs(moment101/area1) < 1000 || abs(moment011/area1)< 1000)
+            {
+                posX1 = moment101/area1;
+                posY1 = moment011/area1;
+                printf("LED1 position (%d,%d)\n", posX1, posY1);
+            }
+
+
+        }
+
+        if (contours->h_next)
+        {
+            //For the second contour, store an array of points on the contour in result and then setup the moment data for the first vector
+            result = cvApproxPoly(contours->h_next, sizeof(CvContour), storage, CV_POLY_APPROX_DP, cvContourPerimeter(contours)*0.02, 0);
+            cvMoments(result, moments2, 1);
+            moment102 = cvGetSpatialMoment(moments2, 1, 0);
+            moment012 = cvGetSpatialMoment(moments2, 0, 1);
+            area2 = cvGetCentralMoment(moments2, 0, 0);
+
+            //Discard values that do not fit in range of camera for second point and set x and y values
+            if (abs(moment102/area2) < 1000 || abs(moment012/area2)< 1000)
+            {
+                posX2 = moment102/area2;
+                posY2 = moment012/area2;
+                printf("LED2 position (%d,%d)\n", posX2, posY2);
+            }
+        }
+        emit sendCameraValues(posX1, posX2, posY1, posY2);
+    }
+
+    else
+        printf("No contours detected.\n");
+    oppositeSide = abs(posY2-posY1);
+    adjacentSide = abs(posX2-posX1);
+    if (adjacentSide != 0)
+    {
+        angleRads = atan(oppositeSide/adjacentSide);
+        angleDegrees = angleRads*180/3.14159;
+    }
+    else
+        angleDegrees=0;
+
+
+
+    //printf("Theta: (%f)\n", angleDegrees);
+    // Release the thresholded image and moments
+    cvReleaseImage(&imgThresh);
+    cvReleaseMemStorage(&storage);
+    delete moments;
+    delete moments2;
+
+    // Release camera on exit
+    //cvReleaseCapture(&capture);
+}
+
 /*
 void LegoThread::UpdateTilt()
 {
