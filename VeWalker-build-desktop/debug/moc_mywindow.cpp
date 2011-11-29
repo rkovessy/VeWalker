@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mywindow.h'
 **
-** Created: Wed Nov 23 19:51:15 2011
+** Created: Mon Nov 28 16:35:01 2011
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MyWindow[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-       5,   14, // methods
+       6,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -32,19 +32,21 @@ static const uint qt_meta_data_MyWindow[] = {
 
  // slots: signature, parameters, type, tag, flags
       35,   10,    9,    9, 0x0a,
-      71,   67,    9,    9, 0x0a,
-      80,    9,    9,    9, 0x0a,
-      93,    9,    9,    9, 0x0a,
-     115,    9,    9,    9, 0x0a,
+      79,   67,    9,    9, 0x0a,
+     119,  115,    9,    9, 0x0a,
+     128,    9,    9,    9, 0x0a,
+     141,    9,    9,    9, 0x0a,
+     163,    9,    9,    9, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_MyWindow[] = {
     "MyWindow\0\0magnitude,stepped,zTrans\0"
-    "updateMotor(double,bool,double)\0pid\0"
-    "set(int)\0set_replay()\0updateCompass(double)\0"
-    "updateScene()\0"
+    "updateMotor(double,bool,double)\0"
+    "x1,x2,y1,y2\0updateCameraValues(int,int,int,int)\0"
+    "pid\0set(int)\0set_replay()\0"
+    "updateCompass(double)\0updateScene()\0"
 };
 
 const QMetaObject MyWindow::staticMetaObject = {
@@ -77,13 +79,14 @@ int MyWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
         case 0: updateMotor((*reinterpret_cast< double(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2])),(*reinterpret_cast< double(*)>(_a[3]))); break;
-        case 1: set((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 2: set_replay(); break;
-        case 3: updateCompass((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 4: updateScene(); break;
+        case 1: updateCameraValues((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< int(*)>(_a[4]))); break;
+        case 2: set((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 3: set_replay(); break;
+        case 4: updateCompass((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 5: updateScene(); break;
         default: ;
         }
-        _id -= 5;
+        _id -= 6;
     }
     return _id;
 }

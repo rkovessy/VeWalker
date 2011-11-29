@@ -19,6 +19,21 @@ LegoThread::LegoThread() {
     posY1 = 0;
     posX2 = 0;
     posY2 = 0;
+    oppositeSide = 0;
+    adjacentSide = 0;
+    angleDegrees = 0;
+    angleRads = 0;
+}
+
+IplImage* LegoThread::GetThresholdedImage(IplImage* img)
+{
+    // Convert the image into an HSV image
+    IplImage* imgHSV = cvCreateImage(cvGetSize(img), 8, 3);
+    cvCvtColor(img, imgHSV, CV_BGR2HSV);
+    IplImage* imgThreshed = cvCreateImage(cvGetSize(img), 8, 1);
+    cvInRangeS(imgHSV, cvScalar(110, 0, 236), cvScalar(130, 19, 255), imgThreshed);
+    cvReleaseImage(&imgHSV);
+    return imgThreshed;
 }
 
 void LegoThread::run()
@@ -39,18 +54,18 @@ void LegoThread::run()
         //counter++;
     } while (!flag);*/
     // Initialize capturing from webcam
-    CvCapture* capture = 0;
-    capture = cvCaptureFromCAM(0);
+    CvCapture* capture = NULL;
 
-    // Throw an error when no device is connected
-    /*if(!capture)
+    //Throw an error when no device is connected
+    if(NULL==(capture= cvCaptureFromCAM(-1)))
     {
         printf("Could not detect camera.\n");
-        return;
-    }*/
+    }
+
+    //cvReleaseCapture(&capture);
 
     // An infinite loop to capture the x and y coordinates
-    /*while(true)
+    while(true)
     {
         // Hold a single frame captured from the camera
         IplImage* frame = 0;
@@ -69,16 +84,7 @@ void LegoThread::run()
         CvMoments *moments = (CvMoments*)malloc(sizeof(CvMoments));
         CvMoments *moments2 = (CvMoments*)malloc(sizeof(CvMoments));
 
-        // Convert the image into an HSV image
-        IplImage* imgHSV = cvCreateImage(cvGetSize(frame), 8, 3);
-        cvCvtColor(frame, imgHSV, CV_BGR2HSV);
-
-        IplImage* imgThreshed = cvCreateImage(cvGetSize(frame), 8, 1);
-        cvInRangeS(imgHSV, cvScalar(0, 0, 236), cvScalar(19, 19, 255), imgThreshed);
-
-        cvReleaseImage(&imgHSV);
-
-        IplImage* imgThresh = imgThreshed;
+        IplImage* imgThresh = GetThresholdedImage(frame);
 
         //Get the contour vectors and store in contours
         cvFindContours(imgThresh, storage, &contours, sizeof(CvContour), CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE, cvPoint(0,0));
@@ -100,11 +106,10 @@ void LegoThread::run()
                 {
                     posX1 = moment101/area1;
                     posY1 = moment011/area1;
-                    //printf("LED1 position (%d,%d)\n", posX1, posY1);
+                    printf("LED1 position (%d,%d)\n", posX1, posY1);
                 }
 
-                //else
-                    //printf("LED1 not detected\n");
+
             }
 
             if (contours->h_next)
@@ -123,26 +128,35 @@ void LegoThread::run()
                     posY2 = moment012/area2;
                     //printf("LED2 position (%d,%d)\n", posX2, posY2);
                 }
-
-                //else
-                    //printf("LED2 not detected \n");
             }
             //emit sendCameraValues(posX1, posX2, posY1, posY2);
         }
-        //Show distance between X and Y points (for debugging)
-        printf("Ydist [%f], Xdist [%f]\n",fabs(posY1-posY2), fabs(posX2-posX1));
 
+        else
+            printf("No contours detected.\n");
+        oppositeSide = abs(posY2-posY1);
+        adjacentSide = abs(posX2-posX1);
+        if (adjacentSide != 0)
+        {
+            angleRads = atan(oppositeSide/adjacentSide);
+            angleDegrees = angleRads*180/3.14159;
+        }
+        else
+            angleDegrees=0;
+
+
+
+        //printf("Theta: (%f)\n", angleDegrees);
         // Release the thresholded image and moments
         cvReleaseImage(&imgThresh);
         cvReleaseMemStorage(&storage);
         delete moments;
         delete moments2;
-
         //Now, repeat with the next frame
-    }*/
+    }
 
     // Release camera on exit
-    //cvReleaseCapture(&capture);
+    cvReleaseCapture(&capture);
     exec();
 }
 

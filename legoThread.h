@@ -34,6 +34,7 @@ class LegoThread : public QThread
 public:
     LegoThread();
     void run();
+    IplImage* GetThresholdedImage(IplImage* img);
     int id;
     double PI;
 
@@ -69,6 +70,11 @@ private:
     double anglediff; // speed of compass rotation
 
     double zTrans; // z coordinate of pedestrian
+
+    double angleRads; //Angle of bank in rads
+    double angleDegrees; //Angle of bank in degrees
+    double oppositeSide; //Y distance between LED points;
+    double adjacentSide; //X distance between LED points;
 
     bool left; // true when left foot on ground, false when right is
     bool stepped; // true when bool left has changed

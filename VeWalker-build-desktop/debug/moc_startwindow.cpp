@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'startwindow.h'
 **
-** Created: Wed Nov 23 19:51:01 2011
+** Created: Mon Nov 28 19:52:09 2011
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
