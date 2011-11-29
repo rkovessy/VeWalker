@@ -139,7 +139,7 @@ void LegoThread::UpdateCamera()
 
     IplImage* imgThresh = GetThresholdedImage(frame);
 
-    //cvShowImage("video", imgThresh);
+    cvShowImage("video", imgThresh);
     //Get the contour vectors and store in contours
     cvFindContours(imgThresh, storage, &contours, sizeof(CvContour), CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE, cvPoint(0,0));
 
