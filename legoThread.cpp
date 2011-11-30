@@ -126,7 +126,7 @@ void LegoThread::UpdateCamera()
     // Quit if no frame can be captured, return to capturing the next frame
     if(!frame) {
         return;
-    }
+    }   
 
     //Setup sequences to get contours
     CvSeq* contours;
@@ -139,7 +139,9 @@ void LegoThread::UpdateCamera()
 
     IplImage* imgThresh = GetThresholdedImage(frame);
 
+    cvFlip(imgThresh, NULL, 1);
     cvShowImage("video", imgThresh);
+
     //Get the contour vectors and store in contours
     cvFindContours(imgThresh, storage, &contours, sizeof(CvContour), CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE, cvPoint(0,0));
 
@@ -156,11 +158,11 @@ void LegoThread::UpdateCamera()
             area1 = cvGetCentralMoment(moments, 0, 0);
 
             //Discard values that do not fit in range of camera for first point and set x and y values
-            if (abs(moment101/area1) < 1000 || abs(moment011/area1)< 1000)
+            if (abs(moment101/area1) < 10000 || abs(moment011/area1)< 10000)
             {
                 posX1 = moment101/area1;
                 posY1 = moment011/area1;
-                printf("LED1 position (%d,%d)\n", posX1, posY1);
+                //printf("LED1 position (%d,%d)\n", posX1, posY1);
             }
 
 
@@ -176,17 +178,17 @@ void LegoThread::UpdateCamera()
             area2 = cvGetCentralMoment(moments2, 0, 0);
 
             //Discard values that do not fit in range of camera for second point and set x and y values
-            if (abs(moment102/area2) < 1000 || abs(moment012/area2)< 1000)
+            if (abs(moment102/area2) < 10000 || abs(moment012/area2)< 10000)
             {
                 posX2 = moment102/area2;
                 posY2 = moment012/area2;
-                printf("LED2 position (%d,%d)\n", posX2, posY2);
+                //printf("LED2 position (%d,%d)\n", posX2, posY2);
             }
         }
         emit sendCameraValues(posX1, posX2, posY1, posY2);
     }
 
-    else
+    /*else
         printf("No contours detected.\n");
     oppositeSide = abs(posY2-posY1);
     adjacentSide = abs(posX2-posX1);
@@ -196,7 +198,7 @@ void LegoThread::UpdateCamera()
         angleDegrees = angleRads*180/3.14159;
     }
     else
-        angleDegrees=0;
+        angleDegrees=0;*/
 
 
 

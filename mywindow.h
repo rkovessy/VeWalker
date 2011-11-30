@@ -45,8 +45,8 @@ private:
     void settingLayout(); // sets up physical dimensions of window
     bool replay;
 
-    static const int window_width = 1680; // pixel width of screen
-    static const int window_height = 700; // pixel height of screen
+    static const int window_width = 1920; // pixel width of screen
+    static const int window_height = 1080; // pixel height of screen
     int previousXPos;
     int previousYPos;
  };

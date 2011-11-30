@@ -78,7 +78,7 @@ void MyWindow::settingLayout() {
  void MyWindow::mouseMoveEvent(QMouseEvent *e) {
 
      //up and down rotation
-     if(e->x() > previousXPos) {
+     /*if(e->x() > previousXPos) {
          glWidget->Zrotation(1);
      } else if(e->x() < previousXPos) {
          glWidget->Zrotation(-1);
@@ -91,7 +91,7 @@ void MyWindow::settingLayout() {
      } else if(e->y() < previousYPos) {
          glWidget->Xrotation(-1);
      } else
-         glWidget->Xrotation(0);
+         glWidget->Xrotation(0);*/
 
      previousXPos = e->x();
      previousYPos = e->y();
@@ -113,18 +113,24 @@ void MyWindow::settingLayout() {
  }
 
 void MyWindow::updateCameraValues(int x1, int x2, int y1, int y2){
-    int oppositeSide = (y2-y1);
-    int adjacentSide = (x2-x1);
+    double oppositeSide = (y2-y1);
+    double adjacentSide = (x2-x1);
+    double angleThreshold = 0.175;
     double angleRads;
-    double angleDegrees;
-    if (adjacentSide != 0)
-    {
-        angleRads = atan(oppositeSide/adjacentSide);
-        angleDegrees = angleRads*180/3.14159;
-    }
-    else
-        angleDegrees=0;
 
-    glWidget->Zrotation(angleRads*-2);
-    printf("angleDeg: [%f], angleRads[%f]\n",angleDegrees, angleRads);
+    if (x1==0 || x2==0 || y1==0 || y2 == 0 ||adjacentSide == 0)
+        angleRads=0;
+
+    else{
+        double oppAdjParam = oppositeSide/adjacentSide;
+         angleRads = atan(oppAdjParam);
+    }
+
+
+    if(fabs(angleRads) >= angleThreshold)
+        glWidget->Zrotation(angleRads*7);
+    //else
+      //  glWidget->Zrotation(0);
+
+    printf("angleRads[%f] threshold [%f]\n",angleRads, angleThreshold);
 }
