@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'legoThread.h'
 **
-** Created: Tue Nov 29 00:07:47 2011
+** Created: Wed Nov 30 11:05:22 2011
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!

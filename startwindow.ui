@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>150</width>
-    <height>98</height>
+    <width>300</width>
+    <height>200</height>
    </rect>
   </property>
   <property name="maximumSize">
    <size>
-    <width>150</width>
-    <height>100</height>
+    <width>300</width>
+    <height>200</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -22,8 +22,8 @@
   <widget class="QWidget" name="centralWidget">
    <property name="maximumSize">
     <size>
-     <width>150</width>
-     <height>100</height>
+     <width>300</width>
+     <height>200</height>
     </size>
    </property>
    <widget class="QLabel" name="label">
@@ -42,7 +42,7 @@
    <widget class="QSpinBox" name="participant">
     <property name="geometry">
      <rect>
-      <x>90</x>
+      <x>120</x>
       <y>10</y>
       <width>42</width>
       <height>22</height>
@@ -55,8 +55,8 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>50</y>
+      <x>110</x>
+      <y>140</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -71,8 +71,8 @@
    <widget class="QLabel" name="error">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>80</y>
+      <x>80</x>
+      <y>170</y>
       <width>131</width>
       <height>16</height>
      </rect>
@@ -83,6 +83,35 @@
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; color:#ff0000;&quot;&gt;Overwrite participant data?&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="laneNum">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>50</y>
+      <width>42</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>2</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>50</y>
+      <width>91</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Number of Lanes:</string>
     </property>
    </widget>
   </widget>

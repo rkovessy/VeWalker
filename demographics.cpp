@@ -7,7 +7,10 @@ Demographics::Demographics(QWidget *parent) :
 {
     ui->setupUi(this);
 
-
+    //The values are initialized here as I could not find where they are defaulting to "da", so I am forcing a blank value.
+    ui->name->setText("Please enter your name");
+    ui->teProgram->setText("Please enter your program");
+    ui->age->setCurrentIndex(20);
     //this part removes the red stars which will only show up if no data is present
     setErrorStars(false);
 }

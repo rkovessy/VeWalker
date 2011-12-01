@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'demographics.ui'
 **
-** Created: Mon Nov 28 16:33:46 2011
+** Created: Wed Nov 30 12:49:40 2011
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -446,7 +446,7 @@ public:
 
         retranslateUi(Demographics);
 
-        age->setCurrentIndex(1);
+        age->setCurrentIndex(20);
         cbFaculty->setCurrentIndex(1);
 
 
@@ -560,7 +560,7 @@ public:
          << QApplication::translate("Demographics", "99", 0, QApplication::UnicodeUTF8)
          << QApplication::translate("Demographics", "100+", 0, QApplication::UnicodeUTF8)
         );
-        teProgram->setText(QApplication::translate("Demographics", "da", 0, QApplication::UnicodeUTF8));
+        teProgram->setText(QApplication::translate("Demographics", "Enter your program", 0, QApplication::UnicodeUTF8));
         quiterror->setText(QApplication::translate("Demographics", "Please complete all items before submitting", 0, QApplication::UnicodeUTF8));
         caucasian->setText(QApplication::translate("Demographics", "Caucasian", 0, QApplication::UnicodeUTF8));
         lbProgramError->setText(QApplication::translate("Demographics", "(*)", 0, QApplication::UnicodeUTF8));
@@ -582,7 +582,7 @@ public:
         female->setText(QApplication::translate("Demographics", "Female", 0, QApplication::UnicodeUTF8));
         iderror->setText(QApplication::translate("Demographics", "(*)", 0, QApplication::UnicodeUTF8));
         sexlabel->setText(QApplication::translate("Demographics", "Sex:", 0, QApplication::UnicodeUTF8));
-        name->setText(QApplication::translate("Demographics", "da", 0, QApplication::UnicodeUTF8));
+        name->setText(QApplication::translate("Demographics", "Enter your name", 0, QApplication::UnicodeUTF8));
         othertext->setText(QString());
         southasian->setText(QApplication::translate("Demographics", "South Asian", 0, QApplication::UnicodeUTF8));
         cbFaculty->clear();

@@ -34,7 +34,7 @@
     </font>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>20</number>
    </property>
    <item>
     <property name="text">
@@ -563,7 +563,7 @@
     </font>
    </property>
    <property name="text">
-    <string>da</string>
+    <string>Enter your program</string>
    </property>
   </widget>
   <widget class="QLabel" name="quiterror">
@@ -2196,7 +2196,7 @@
     </font>
    </property>
    <property name="text">
-    <string>da</string>
+    <string>Enter your name</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="othertext">

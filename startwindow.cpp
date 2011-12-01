@@ -8,6 +8,21 @@ Startwindow::Startwindow(QWidget *parent) :
     ui->setupUi(this);
     ui->error->setVisible(false);
     oldid = -1;
+
+    bool existingFlag = false;
+    while (existingFlag == false) {
+        id = ui->participant->value();
+        QString pid = QString::number(id);
+        if (id < 10)
+            pid.prepend("0");
+        QFile file("Data/P" + pid + "_Data.txt");
+
+        if (file.exists()) {
+            ui->participant->setValue(ui->participant->value()+1);
+        }
+        else
+            existingFlag = true;
+    }
 }
 
 Startwindow::~Startwindow()
