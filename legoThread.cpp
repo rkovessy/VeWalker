@@ -52,7 +52,7 @@ void LegoThread::run()
     bool flag = false;
    do {
         time.restart();
-        UpdateRoll();
+        //UpdateRoll();
         UpdateRotation();
         UpdateCamera();
         msec = double(time.elapsed());
