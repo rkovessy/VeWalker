@@ -1,8 +1,8 @@
 #include "legoThread.h"
 
-//Connection *connection = new Bluetooth();
-//Brick *nxt = new Brick(connection);
-//Motor *motor = new Motor(OUT_A, connection);
+Connection *connection = new Bluetooth();
+Brick *nxt = new Brick(connection);
+Motor *motor = new Motor(OUT_A, connection);
 //Tilt *tilt = new Tilt (IN_1, connection, 0x02);
 //Compass *compass = new Compass (IN_1, connection, 40, 0x02);
 //Xyz_position *result = new Xyz_position();
@@ -12,7 +12,7 @@ LegoThread::LegoThread() {
     counter = 0;
     magnitude = 0.0;
     lastrValueNXT = 0.0;
-    //connection->connect(port); // '3' is the port the NXT is connected to via bluetooth. Different for every laptop
+    connection->connect(port); // '3' is the port the NXT is connected to via bluetooth. Different for every laptop
     qDebug() << "Connected to NXT" << endl;
 
     // Initialize capturing from webcam
@@ -52,17 +52,19 @@ void LegoThread::run()
     bool flag = false;
    do {
         time.restart();
-        //UpdateRoll();
-        //UpdateRotation();
+        UpdateRoll();
+        UpdateRotation();
         UpdateCamera();
         msec = double(time.elapsed());
         if (msec == 0.0) {
-            //qDebug() << "msec == 0, divided by 0";
-            //emit sendMotor(magnitude * timer_interval, false, zTrans); // sends data to GLWidget and updates graphics
+            qDebug() << "msec == 0, divided by 0";
+            emit sendMotor(magnitude * timer_interval, false, zTrans); // sends data to GLWidget and updates graphics
         }
-        //else
-            //emit sendMotor(magnitude * timer_interval / msec, stepped, zTrans); // sends data to GLWidget and updates graphics
-        //counter++;
+        else {
+            //printf("values: [%f],[%f],[%f]\n", magnitude, stepped, zTrans);
+            emit sendMotor(magnitude * timer_interval / msec, stepped, zTrans); // sends data to GLWidget and updates graphics
+        }
+        counter++;
     } while (!flag);
     exec();
 }
@@ -81,7 +83,7 @@ void LegoThread::set(double a, int t) {
 
 void LegoThread::UpdateRotation()
 {
-   // rValueNXT = motor->get_rotation() - variance; // gets motors current position
+    rValueNXT = motor->get_rotation() - variance; // gets motors current position
     if (startupdating) {
         magnitude = abs(rValueNXT - lastrValueNXT) * PI / 180.0 * 0.3; // pi/180 to convert to rad, .3 = radius of walker, d = rtheta
         zTrans = height / 30.0 * sin(PI * (rValueNXT + 20) / 40) + height + height / 30;
@@ -96,6 +98,7 @@ void LegoThread::UpdateRotation()
     }
     else
         stepped = false;
+    printf("NXTvalues: %f %f\n",lastrValueNXT,rValueNXT);
     lastrValueNXT = rValueNXT; // present rValueNXT becomes the last one for the next UpdateRotation()
 }
 

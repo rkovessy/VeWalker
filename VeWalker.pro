@@ -78,7 +78,9 @@ HEADERS  += \
     ve.h \
     network.h \
     data.h \
-    popupscreen.h
+    popupscreen.h \
+    iweardrv.h \
+    iweardrv.h
 
 FORMS    += \
     startwindow.ui \
@@ -131,3 +133,11 @@ RESOURCES =
 #
 #LIBS += C:\Qt\4.4.2\externals\qwt-5.1.1\lib\qwt5.dll
 #INCLUDEPATH += C:\Qt\4.4.2\externals\qwt-5.1.1\src
+
+
+win32: LIBS += -L$$PWD/ -liweardrv
+
+INCLUDEPATH += $$PWD/
+DEPENDPATH += $$PWD/
+
+win32: PRE_TARGETDEPS += $$PWD/iweardrv.lib

@@ -132,5 +132,5 @@ void MyWindow::updateCameraValues(int x1, int x2, int y1, int y2){
     //else
       //  glWidget->Zrotation(0);
 
-    printf("angleRads[%f] threshold [%f]\n",angleRads, angleThreshold);
+    //printf("angleRads[%f] threshold [%f]\n",angleRads, angleThreshold);
 }
