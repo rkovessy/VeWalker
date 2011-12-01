@@ -105,7 +105,7 @@ void MyWindow::settingLayout() {
  void MyWindow::updateMotor(double m, bool s, double z) {
      if (s && glWidget->tc.data.step && glWidget->tc.data.time_arrive == 0.0)
          glWidget->tc.data.steps++;
-     glWidget->setTranslation(m, z); // updates GLWidget, connected to sendMotor(...) signal from legoThread
+     glWidget->setTranslation(m*1.25, z); // updates GLWidget, connected to sendMotor(...) signal from legoThread
  }
 
  void MyWindow::updateCompass(double anglediff) {
@@ -128,7 +128,7 @@ void MyWindow::updateCameraValues(int x1, int x2, int y1, int y2){
 
 
     if(fabs(angleRads) >= angleThreshold)
-        glWidget->Zrotation(angleRads*7);
+        glWidget->Zrotation(angleRads*10);
     //else
       //  glWidget->Zrotation(0);
 

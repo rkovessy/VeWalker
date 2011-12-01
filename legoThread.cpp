@@ -64,7 +64,7 @@ void LegoThread::run()
             //printf("values: [%f],[%f],[%f]\n", magnitude, stepped, zTrans);
             emit sendMotor(magnitude * timer_interval / msec, stepped, zTrans); // sends data to GLWidget and updates graphics
         }
-        counter++;
+        //counter++;
     } while (!flag);
     exec();
 }
@@ -73,7 +73,7 @@ void LegoThread::set(double a, int t) {
     timer_interval = double(t);
     double tmp = a / 2.0 + 2.0; // converts to feet from index of heights, ie 2' = 0, 2'6" = 1...
     height = tmp / 10.0; // converts to pixels
-   // variance = motor->get_rotation(); // person must be standing still at start to get variance correct
+    variance = motor->get_rotation(); // person must be standing still at start to get variance correct
     lastrValueNXT = 0;
     //firstroll = double(compass->read());
     emit sendMotor(0.0, false, height); // sends data to GLWidget and updates graphics
@@ -98,7 +98,6 @@ void LegoThread::UpdateRotation()
     }
     else
         stepped = false;
-    printf("NXTvalues: %f %f\n",lastrValueNXT,rValueNXT);
     lastrValueNXT = rValueNXT; // present rValueNXT becomes the last one for the next UpdateRotation()
 }
 
