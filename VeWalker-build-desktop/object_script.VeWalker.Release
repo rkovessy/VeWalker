@@ -28,6 +28,7 @@ INPUT(
 ./release\ve.o
 ./release\data.o
 ./release\popupscreen.o
+./release\vuzixthread.o
 ./release\moc_startwindow.o
 ./release\moc_mainwindow.o
 ./release\moc_demographics.o
@@ -38,4 +39,5 @@ INPUT(
 ./release\moc_collectdata.o
 ./release\moc_ve.o
 ./release\moc_popupscreen.o
+./release\moc_vuzixthread.o
 );

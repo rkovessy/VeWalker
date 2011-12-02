@@ -38,7 +38,8 @@ SOURCES += \
     adc_8591.cpp \
     ve.cpp \
     data.cpp \
-    popupscreen.cpp
+    popupscreen.cpp \
+    vuzixthread.cpp
 
 HEADERS  += \
     startwindow.h \
@@ -80,7 +81,8 @@ HEADERS  += \
     data.h \
     popupscreen.h \
     iweardrv.h \
-    iweardrv.h
+    iweardrv.h \
+    vuzixthread.h
 
 FORMS    += \
     startwindow.ui \
@@ -141,3 +143,5 @@ INCLUDEPATH += $$PWD/
 DEPENDPATH += $$PWD/
 
 win32: PRE_TARGETDEPS += $$PWD/iweardrv.lib
+
+

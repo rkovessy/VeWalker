@@ -57,6 +57,7 @@
      GLuint object; // holds code for static environment
      double xRot, yRot, zRot; // rotations of pedestrian for x, y, and z
      double compassSpeed; // speed that zRot is changing every updateScene()
+     double zcompassSpeed;
      double xcompassSpeed; // speed that xRot is changing every updateScene()
      double ycompassSpeed; // speed that yRot is changing every updateScene()
      double xTrans; // position left / right

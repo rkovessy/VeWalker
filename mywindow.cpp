@@ -51,6 +51,11 @@ void MyWindow::settingLayout() {
         case Qt::Key_Down:
             glWidget->Xrotation(-1);
             break;
+        case Qt::Key_Space:
+            glWidget->setXRotation(270.0);
+            glWidget->setYRotation(0.0);
+            glWidget->setZRotation(0.0);
+            break;
 
      }
  }
@@ -91,10 +96,10 @@ void MyWindow::settingLayout() {
      } else if(e->y() < previousYPos) {
          glWidget->Xrotation(-1);
      } else
-         glWidget->Xrotation(0);*/
+         glWidget->Xrotation(0);
 
      previousXPos = e->x();
-     previousYPos = e->y();
+     previousYPos = e->y();*/
 
  }
 
@@ -137,7 +142,7 @@ void MyWindow::updateCameraValues(int x1, int x2, int y1, int y2){
 
 void MyWindow::updateHTrackerValues(long HTyaw, long HTpitch, long HTroll)
 {
-    glWidget->Xrotation(HTpitch*-0.01);
+    glWidget->Xrotation(HTpitch*-0.01+270);
     glWidget->Yrotation(HTroll*-0.01);
     glWidget->Zrotation(HTyaw*-0.01);
 }

@@ -28,6 +28,7 @@ INPUT(
 ./debug\ve.o
 ./debug\data.o
 ./debug\popupscreen.o
+./debug\vuzixthread.o
 ./debug\moc_startwindow.o
 ./debug\moc_mainwindow.o
 ./debug\moc_demographics.o
@@ -38,4 +39,5 @@ INPUT(
 ./debug\moc_collectdata.o
 ./debug\moc_ve.o
 ./debug\moc_popupscreen.o
+./debug\moc_vuzixthread.o
 );
