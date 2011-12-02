@@ -123,6 +123,14 @@ void GLWidget::Xrotation(double anglediff)
         xcompassSpeed = 0.0;
 }
 
+void GLWidget::Yrotation(double anglediff)
+{
+    if(!tc.get_screen())
+        ycompassSpeed = anglediff;
+    else
+        ycompassSpeed = 0.0;
+}
+
 void GLWidget::updateScene() {
     if (tc.get_screen())
         updateGL();
@@ -130,8 +138,10 @@ void GLWidget::updateScene() {
     else if (started) {
         setZRotation(zRot + compassSpeed);
         setXRotation(xRot + xcompassSpeed);
+        setYRotation(yRot + ycompassSpeed);
         compassSpeed = 0;
         xcompassSpeed = 0;
+        ycompassSpeed = 0;
 
         double y;
         double x;

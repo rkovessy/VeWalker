@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'glwidget.h'
 **
-** Created: Wed Nov 30 23:09:11 2011
+** Created: Thu Dec 1 19:39:28 2011
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_GLWidget[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-       8,   14, // methods
+       9,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -39,6 +39,7 @@ static const uint qt_meta_data_GLWidget[] = {
      143,    9,    9,    9, 0x0a,
      161,    9,    9,    9, 0x0a,
      179,    9,    9,    9, 0x0a,
+     197,    9,    9,    9, 0x0a,
 
        0        // eod
 };
@@ -48,7 +49,8 @@ static const char qt_meta_stringdata_GLWidget[] = {
     "setYRotation(double)\0setZRotation(double)\0"
     "magnitude,zTrans\0setTranslation(double,double)\0"
     "rotation(double)\0Zrotation(double)\0"
-    "Xrotation(double)\0updateScene()\0"
+    "Xrotation(double)\0Yrotation(double)\0"
+    "updateScene()\0"
 };
 
 const QMetaObject GLWidget::staticMetaObject = {
@@ -87,10 +89,11 @@ int GLWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 4: rotation((*reinterpret_cast< double(*)>(_a[1]))); break;
         case 5: Zrotation((*reinterpret_cast< double(*)>(_a[1]))); break;
         case 6: Xrotation((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 7: updateScene(); break;
+        case 7: Yrotation((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 8: updateScene(); break;
         default: ;
         }
-        _id -= 8;
+        _id -= 9;
     }
     return _id;
 }

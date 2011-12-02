@@ -134,3 +134,10 @@ void MyWindow::updateCameraValues(int x1, int x2, int y1, int y2){
 
     //printf("angleRads[%f] threshold [%f]\n",angleRads, angleThreshold);
 }
+
+void MyWindow::updateHTrackerValues(long HTyaw, long HTpitch, long HTroll)
+{
+    glWidget->Xrotation(HTpitch*-0.01);
+    glWidget->Yrotation(HTroll*-0.01);
+    glWidget->Zrotation(HTyaw*-0.01);
+}
