@@ -146,12 +146,13 @@ DEPENDPATH += $$PWD/
 
 win32: PRE_TARGETDEPS += $$PWD/iweardrv.lib
 
-#serial port stuff from http://www.qtcentre.org/threads/32830-HowTo-use-QextSerialPort-classes
-INCLUDEPATH += C:\Users\Justin\qextserialport_rogerattempt\qextserialport-1.2win-alpha
-QMAKE_LIBDIR += C:\Users\Justin\qextserialport_rogerattempt\qextserialport-build-desktop-Qt_4_7_4_for_Desktop_-_MinGW_4_4__Qt_SDK__Debug\build
-CONFIG(debug, debug|release):LIBS += -lqextserialportd
-else:LIBS += -lqextserialport
-unix: DEFINES = _TTY_POSIX_
-win32: DEFINES = _TTY_WIN_
+OTHER_FILES += \
+    wilhelm.wav
+
+
+
+
+
+
 
 
