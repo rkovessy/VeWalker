@@ -29,6 +29,7 @@ INPUT(
 ./release\data.o
 ./release\popupscreen.o
 ./release\vuzixthread.o
+./release\arduino.o
 ./release\moc_startwindow.o
 ./release\moc_mainwindow.o
 ./release\moc_demographics.o

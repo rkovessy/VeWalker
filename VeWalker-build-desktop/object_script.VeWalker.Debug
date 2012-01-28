@@ -29,6 +29,7 @@ INPUT(
 ./debug\data.o
 ./debug\popupscreen.o
 ./debug\vuzixthread.o
+./debug\arduino.o
 ./debug\moc_startwindow.o
 ./debug\moc_mainwindow.o
 ./debug\moc_demographics.o
