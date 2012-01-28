@@ -50,6 +50,9 @@ IplImage* LegoThread::GetThresholdedImage(IplImage* img)
     IplImage* imgHSV = cvCreateImage(cvGetSize(img), 8, 3);
     cvCvtColor(img, imgHSV, CV_BGR2HSV);
     IplImage* imgThreshed = cvCreateImage(cvGetSize(img), 8, 1);
+
+    //Threshold image based on HSV color range
+    //Using Colorpic divide Hue values by 2 to convert to OCV number. Sat and Val values are normal.
     cvInRangeS(imgHSV, cvScalar(0, 0, 236), cvScalar(119, 19, 255), imgThreshed);
     cvReleaseImage(&imgHSV);
     return imgThreshed;
@@ -157,12 +160,18 @@ void LegoThread::UpdateCamera()
     CvSeq* result;
     CvMemStorage *storage = cvCreateMemStorage(0);
 
-    //Create moments for both IR leds
+    //Create moments for both blobs
     CvMoments *moments = (CvMoments*)malloc(sizeof(CvMoments));
     CvMoments *moments2 = (CvMoments*)malloc(sizeof(CvMoments));
 
+    //Blur the image to reduce noise sensitivity
+
+    //Apply Kalmann filter to improve detection
+
+    //Apply threshold for whatever color is being used for tracking
     IplImage* imgThresh = GetThresholdedImage(frame);
 
+    //Flip image and show on screen for debugging purposes
     cvFlip(imgThresh, NULL, 1);
     cvShowImage("video", imgThresh);
 
@@ -186,7 +195,7 @@ void LegoThread::UpdateCamera()
             {
                 posX1 = moment101/area1;
                 posY1 = moment011/area1;
-                //printf("LED1 position (%d,%d)\n", posX1, posY1);
+
             }
 
 
@@ -206,28 +215,12 @@ void LegoThread::UpdateCamera()
             {
                 posX2 = moment102/area2;
                 posY2 = moment012/area2;
-                //printf("LED2 position (%d,%d)\n", posX2, posY2);
+
             }
         }
         emit sendCameraValues(posX1, posX2, posY1, posY2);
     }
 
-    /*else
-        printf("No contours detected.\n");
-    oppositeSide = abs(posY2-posY1);
-    adjacentSide = abs(posX2-posX1);
-    if (adjacentSide != 0)
-    {
-        angleRads = atan(oppositeSide/adjacentSide);
-        angleDegrees = angleRads*180/3.14159;
-    }
-    else
-        angleDegrees=0;*/
-
-
-
-    //printf("Theta: (%f)\n", angleDegrees);
-    // Release the thresholded image and moments
     cvReleaseImage(&imgThresh);
     cvReleaseMemStorage(&storage);
     delete moments;
