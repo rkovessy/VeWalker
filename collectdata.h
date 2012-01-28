@@ -8,6 +8,7 @@
 #include <QDateTime>
 #include "nxt.h"
 #include "legoThread.h"
+#include "vuzixthread.h"
 
 #include <QDebug>
 
@@ -28,6 +29,8 @@ public:
 
     QTime time; // used for finding the time elaspsed between calling the nxt to send an appropriate NXT motor speed
     LegoThread legoThread; // collects nxt data
+    VuzixThread vuzikThread;
+
 
 signals:
     void updateScene(); // emitted to call paintGL() in glwidget

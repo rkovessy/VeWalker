@@ -1,6 +1,10 @@
 #ifndef LEGOTHREAD_H
 #define LEGOTHREAD_H
 
+#include <stdio.h>
+#include "cv.h"
+#include "highgui.h"
+
 #include <QObject>
 #include <QThread>
 #include <QEventLoop>
@@ -19,6 +23,7 @@
 #include <windows.h>
 #include <winbase.h>
 #include "rcx21.h"
+#include "iweardrv.h"
 
 class LegoThread : public QThread
 {
@@ -30,18 +35,23 @@ class LegoThread : public QThread
 public:
     LegoThread();
     void run();
+    IplImage* GetThresholdedImage(IplImage* img);
+    CvCapture* capture;
     int id;
-
     double PI;
 
 signals:
     void sendMotor(double magnitude, bool stepped, double zTrans); //sends motor data to glwidget setTranslation(double, double) through mywindow
     void sendCompass(double angle); // sends compass data to glwidget rotation(double)
+    void sendCameraValues(int posX1, int posX2, int posY1, int posY2);
+    void sendHTrackerValues(long HTyaw, long HTpitch, long HTroll);
 
 public slots:
     void set(double height, int timer); // sets height info and allows data to be collected
     void UpdateRotation(); //calculates yTrans speed and zTrans and sends data via sendMotor(...)
     void UpdateRoll(); //updates Roll from compass
+    void UpdateCamera();
+    void UpdateHTracking();
     //void UpdateTilt();//updates the tilt form accelerometer
 
 
@@ -66,10 +76,34 @@ private:
 
     double zTrans; // z coordinate of pedestrian
 
+    double angleRads; //Angle of bank in rads
+    double angleDegrees; //Angle of bank in degrees
+    double oppositeSide; //Y distance between LED points;
+    double adjacentSide; //X distance between LED points;
+
     bool left; // true when left foot on ground, false when right is
     bool stepped; // true when bool left has changed
 
-    const static int port = 8; // port for the bluetooth connection with the NXT
+    const static int port = 3; // port for the bluetooth connection with the NXT
+
+    double moment101;
+    double moment011;
+    double moment102;
+    double moment012;
+    double area1;
+    double area2;
+    int posX1;
+    int posY1;
+    int posX2;
+    int posY2;
+
+    double HTyaw2;
+    double HTpitch2;
+    double HTroll2;
+
+    long HTyaw;
+    long HTpitch;
+    long HTroll;
 };
 
 #endif

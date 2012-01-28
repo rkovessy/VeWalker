@@ -9,6 +9,7 @@
 #include <QString>
 #include "mywindow.h"
 #include "collectdata.h"
+#include "iweardrv.h"
 
 class VE : public QWidget
 {

@@ -9,7 +9,6 @@ QT       += core gui
 TARGET = VeWalker
 TEMPLATE = app
 
-
 SOURCES += \
     startwindow.cpp \
     mainwindow.cpp \
@@ -39,7 +38,9 @@ SOURCES += \
     adc_8591.cpp \
     ve.cpp \
     data.cpp \
-    popupscreen.cpp
+    popupscreen.cpp \
+    vuzixthread.cpp \
+    arduino.cpp
 
 HEADERS  += \
     startwindow.h \
@@ -79,13 +80,36 @@ HEADERS  += \
     ve.h \
     network.h \
     data.h \
-    popupscreen.h
+    popupscreen.h \
+    iweardrv.h \
+    iweardrv.h \
+    vuzixthread.h \
+    arduino.h
 
 FORMS    += \
     startwindow.ui \
     mainwindow.ui \
     demographics.ui \
     popupscreen.ui
+
+LIBS += -L C:\OpenCVNew\install\bin \
+-llibopencv_core231d \
+-llibopencv_highgui231d \
+-llibopencv_calib3d231d \
+-llibopencv_contrib231d \
+-llibopencv_features2d231d \
+-llibopencv_flann231d \
+-llibopencv_gpu231d \
+-llibopencv_imgproc231d \
+-llibopencv_legacy231d \
+-llibopencv_ml231d \
+-llibopencv_objdetect231d \
+-llibopencv_video231d \
+-lopencv_ffmpeg
+
+INCLUDEPATH += C:\OpenCVNew\install\include \
+C:\OpenCVNew\install\include\opencv
+
 
 QT           += opengl
 
@@ -113,3 +137,22 @@ RESOURCES =
 #
 #LIBS += C:\Qt\4.4.2\externals\qwt-5.1.1\lib\qwt5.dll
 #INCLUDEPATH += C:\Qt\4.4.2\externals\qwt-5.1.1\src
+
+
+win32: LIBS += -L$$PWD/ -liweardrv
+
+INCLUDEPATH += $$PWD/
+DEPENDPATH += $$PWD/
+
+win32: PRE_TARGETDEPS += $$PWD/iweardrv.lib
+
+OTHER_FILES += \
+    wilhelm.wav
+
+
+
+
+
+
+
+

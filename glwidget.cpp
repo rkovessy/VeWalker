@@ -10,6 +10,8 @@ GLWidget::GLWidget(QWidget *parent)
 
     time = 0.0;
     started = false;
+
+    setMouseTracking(true);
 }
 
 GLWidget::~GLWidget()
@@ -19,11 +21,11 @@ GLWidget::~GLWidget()
 }
 
 void GLWidget::setPedestrian(double x, double y, double mid) {
-    xTrans = x;
 
     startingyTrans[0] = y;
     startingyTrans[1] = 0.0;
-    startingrotation[0] = 315.0;
+    startingxTrans[0] = 5.0; //This is about at the cross walk
+    startingrotation[0] = 0.0;
     startingrotation[1] = 225.0;
 
     startPos = tc.get_start();
@@ -32,6 +34,7 @@ void GLWidget::setPedestrian(double x, double y, double mid) {
     else
         start = 1;
     yTrans = startingyTrans[start];
+    xTrans = startingxTrans[0];
     setZRotation(startingrotation[start]);
 
     maxTrans = fabs(y) + mid; // mid is half of walkway path width
@@ -98,10 +101,34 @@ void GLWidget::setTranslation(double mag, double z) { // connected to senddata(d
 
 void GLWidget::rotation(double anglediff)
 {
-    /*if (!(tc.get_screen()))
+    if (!(tc.get_screen()))
         compassSpeed = anglediff;
-    else*/
+    else
         compassSpeed = 0.0;
+}
+
+void GLWidget::Zrotation(double anglediff)
+{
+    if (!(tc.get_screen()))
+        compassSpeed = anglediff;
+    else
+        compassSpeed = 0.0;
+}
+
+void GLWidget::Xrotation(double anglediff)
+{
+    if (!(tc.get_screen()))
+        xcompassSpeed = anglediff;
+    else
+        xcompassSpeed = 0.0;
+}
+
+void GLWidget::Yrotation(double anglediff)
+{
+    if(!tc.get_screen())
+        ycompassSpeed = anglediff;
+    else
+        ycompassSpeed = 0.0;
 }
 
 void GLWidget::updateScene() {
@@ -109,20 +136,29 @@ void GLWidget::updateScene() {
         updateGL();
 
     else if (started) {
-        setZRotation(zRot + compassSpeed);
+        setZRotation(zRot + (compassSpeed/4));
+        setXRotation(xcompassSpeed);
+        setYRotation(ycompassSpeed);
+        compassSpeed = 0;
+        xcompassSpeed = 0;
+        ycompassSpeed = 0;
 
         double y;
-        if (zRot > 90.0 && zRot < 270.0)
-            y = yTrans - motorSpeed;
-        else
-            y = yTrans + motorSpeed;
+        double x;
 
-        if (fabs(y) <= maxTrans)
+        double pi=3.14159265;
+
+        y = (yTrans + (motorSpeed*cos(zRot*pi/180)));
+        x = (xTrans + (motorSpeed*sin(zRot*pi/180)));
+
+        //if (fabs(y) <= maxTrans && fabs(x) >= maxTrans) {
             yTrans = y;
+            xTrans = x;
+        //}
 
         tc.data.writePedestrian(tc.get_trials(), xTrans, yTrans, zTrans, xRot, yRot, zRot);
 
-        if ((startPos == "A" && yTrans >= startingyTrans[1]) || (startPos == "B" && yTrans <= startingyTrans[0])) {
+       if ((startPos == "A" && yTrans >= startingyTrans[1] && fabs(xTrans-startingxTrans[0]) <= 1) || (startPos == "B" && yTrans <= startingyTrans[0])) {
             tc.nexttrial();
             startPos = tc.get_start();
             if (startPos == "A")
@@ -130,7 +166,8 @@ void GLWidget::updateScene() {
             else
                 start = 1;
             yTrans = startingyTrans[start];
-            setZRotation(startingrotation[start]);
+            xTrans = startingxTrans[start];
+           // setZRotation(startingrotation[start]);
         }
         updateGL();
     }
@@ -139,7 +176,7 @@ void GLWidget::updateScene() {
 //! [6]
 void GLWidget::initializeGL()
 {
-    setXRotation(290.0); //270 results in normal view, 290 gives 20 degrees below horizontal
+    setXRotation(270.0); //270 results in normal view, 290 gives 20 degrees below horizontal
     setYRotation(0.0);
     setZRotation(0.0);
 
@@ -174,7 +211,9 @@ void GLWidget::paintGL()
     tc.updatePedestrian(xTrans, yTrans, zRot);
 
     if (tc.limits.hit && !tc.get_failed()) {
+        QSound::play("wilhelm.wav");
         yTrans = startingyTrans[start];
+        xTrans = startingxTrans[0];
         setZRotation(startingrotation[start]);
         tc.resettrial();
     }

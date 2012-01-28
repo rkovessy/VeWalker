@@ -41,6 +41,9 @@
      void setZRotation(double angle);
      void setTranslation(double magnitude, double zTrans); // updates the motor speed and zTrans
      void rotation (double); // updates the compass speed
+     void Zrotation (double);
+     void Xrotation (double);
+     void Yrotation (double);
      void updateScene(); // calls paintGL() and records/calls data for recording/replay
 
  protected:
@@ -54,9 +57,12 @@
      GLuint object; // holds code for static environment
      double xRot, yRot, zRot; // rotations of pedestrian for x, y, and z
      double compassSpeed; // speed that zRot is changing every updateScene()
+     double zcompassSpeed;
+     double xcompassSpeed; // speed that xRot is changing every updateScene()
+     double ycompassSpeed; // speed that yRot is changing every updateScene()
      double xTrans; // position left / right
      double yTrans; // position into the screen / forward
-     double startingyTrans[2], startingrotation[2]; // info for starting location of each starting point for each trial
+     double startingyTrans[2], startingxTrans[2], startingrotation[2]; // info for starting location of each starting point for each trial
      QString startPos; // A or B
      int start; // 0 for A, 1 for B, used for referencing arrays
      double maxTrans; // farthest away from center of road pedestrian can go
