@@ -36,6 +36,9 @@ public:
     LegoThread();
     void run();
     IplImage* GetThresholdedImage(IplImage* img);
+    IplImage* GetBlurredImage(IplImage* img);
+    IplImage* GetResizedImage(IplImage* img);
+    IplImage* GetDilatedImage(IplImage* img);
     CvCapture* capture;
     int id;
     double PI;
@@ -96,6 +99,8 @@ private:
     int posY1;
     int posX2;
     int posY2;
+    CvPoint moment_center1;
+    CvPoint moment_center2;
 
     double HTyaw2;
     double HTpitch2;

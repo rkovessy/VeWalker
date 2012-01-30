@@ -17,5 +17,9 @@ void VE::start(int pid) {
     collectdata.set(height);
     mywindow.show();
     mywindow.set(pid);
-    cvNamedWindow("video");
+    //cvNamedWindow("Dilated");
+    //cvNamedWindow("Thresholded");
+    //cvNamedWindow("Blurred");
+    cvNamedWindow("Raw Video");
+    cvNamedWindow("Processed Video");
 }

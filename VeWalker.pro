@@ -107,8 +107,12 @@ LIBS += -L C:\OpenCVNew\install\bin \
 -llibopencv_video231d \
 -lopencv_ffmpeg
 
+#INCLUDEPATH += C:\Users\Nulogy\Downloads\qserialdevice-qserialdevice-2.0\qserialdevice-qserialdevice\src
+#LIBS += -L "C:\Users\Nulogy\Downloads\qserialdevice-qserialdevice-2.0\qserialdevice-qserialdevice\src\release"
+LIBS += -qserialdevice
+
 INCLUDEPATH += C:\OpenCVNew\install\include \
-C:\OpenCVNew\install\include\opencv
+C:\OpenCVNew\install\include\opencv \
 
 
 QT           += opengl

@@ -16,7 +16,7 @@ LegoThread::LegoThread() {
     qDebug() << "Connected to NXT" << endl;
 
     // Initialize capturing from webcam
-    capture = NULL;
+    capture = cvCaptureFromCAM(-1);
     //Throw an error when no device is connected
    /* if(NULL==(capture= cvCaptureFromCAM(0)))
     {
@@ -49,10 +49,52 @@ IplImage* LegoThread::GetThresholdedImage(IplImage* img)
     // Convert the image into an HSV image
     IplImage* imgHSV = cvCreateImage(cvGetSize(img), 8, 3);
     cvCvtColor(img, imgHSV, CV_BGR2HSV);
-    IplImage* imgThreshed = cvCreateImage(cvGetSize(img), 8, 1);
-    cvInRangeS(imgHSV, cvScalar(0, 0, 236), cvScalar(119, 19, 255), imgThreshed);
+    IplImage* imgThreshed1 = cvCreateImage(cvGetSize(img), 8, 1);
+    //IplImage* imgThreshed2 = cvCreateImage(cvGetSize(img), 8, 1);
+
+    //Convert to thresholded image for HSV color range selected
+    //In Colorpic Hue needs to be divided by 2, as OCV has 180 range and ColorPic has 360. Sat and Val have 256 range
+    //in both programs.
+    CvScalar min_color1 = cvScalar(75,130,100,0);
+    CvScalar max_color1 = cvScalar(85,255,255,0);
+    //CvScalar min_color2 = cvScalar(170,50,170,0);
+    //CvScalar max_color2 = cvScalar(256,180,256,0);
+
+    //Combine two thresholded images to account for color wrap around (if color wrap around exists for color of objects tracked)
+    cvInRangeS(imgHSV, min_color1, max_color1, imgThreshed1);
+    //cvInRangeS(imgHSV, min_color2, max_color2, imgThreshed2);
+    //cvOr(imgThreshed1, imgThreshed2, imgThreshed1);
+
+    //Flip image horizontally for normal playback
+    cvFlip(imgThreshed1, NULL, 1);
     cvReleaseImage(&imgHSV);
-    return imgThreshed;
+    //cvReleaseImage(&imgThreshed2);
+    return imgThreshed1;
+}
+
+IplImage* LegoThread::GetBlurredImage(IplImage* img)
+{
+    //Convert raw image to a blurred image using a Gaussian blur
+    IplImage* imgBlur = cvCreateImage(cvGetSize(img), 8, 3);
+    cvSmooth(img, imgBlur, CV_GAUSSIAN, 11, 11);
+    return imgBlur;
+}
+
+IplImage* LegoThread::GetResizedImage(IplImage* img)
+{
+    //Resize image to 1/4 size to speed up processing
+    IplImage* imgResized = cvCreateImage(cvSize(img->width/4, img->height/4), 8, 3);
+    cvResize(img, imgResized, CV_INTER_AREA);
+    return imgResized;
+}
+
+IplImage* LegoThread::GetDilatedImage(IplImage* img)
+{
+    //(Optional) Perform iterations of erosion on the image to filter noise
+    cvErode(img, img, NULL, 1);
+    //Perform iterations of dilation on the threshed image
+    cvDilate(img, img, NULL, 6);
+    return img;
 }
 
 void LegoThread::run()
@@ -63,7 +105,7 @@ void LegoThread::run()
         time.restart();
         //UpdateRoll();
        // UpdateRotation();
-       // UpdateCamera();
+       UpdateCamera();
         //UpdateHTracking();
         msec = double(time.elapsed());
       /*  if (msec == 0.0) {
@@ -144,30 +186,45 @@ void LegoThread::UpdateHTracking()
 
 void LegoThread::UpdateCamera()
 {
+
     // Hold a single frame captured from the camera
     IplImage* frame = 0;
+
     frame = cvQueryFrame(capture);
     // Quit if no frame can be captured, return to capturing the next frame
     if(!frame) {
         return;
     }   
 
+    cvShowImage("Raw Video", frame);
+
     //Setup sequences to get contours
     CvSeq* contours;
     CvSeq* result;
     CvMemStorage *storage = cvCreateMemStorage(0);
 
-    //Create moments for both IR leds
+    //Create moments for both color blobs
     CvMoments *moments = (CvMoments*)malloc(sizeof(CvMoments));
     CvMoments *moments2 = (CvMoments*)malloc(sizeof(CvMoments));
 
-    IplImage* imgThresh = GetThresholdedImage(frame);
+    //Resize image to reduce processing time
+    IplImage* imgResized = GetResizedImage(frame);
 
-    cvFlip(imgThresh, NULL, 1);
-    cvShowImage("video", imgThresh);
+    //Apply blur to improve detection under different lighting
+    IplImage* imgBlurred = GetBlurredImage(imgResized);
+    //cvShowImage("Blurred", imgBlurred);
+
+    //Get threshed image based on color selected for tracking
+    IplImage* imgThresh = GetThresholdedImage(imgBlurred);
+    //cvShowImage("Thresholded", imgThresh);
+
+    //Dilate image
+    IplImage* imgDilated = GetDilatedImage(imgThresh);
+    cvShowImage("Processed Video", imgDilated);
+
 
     //Get the contour vectors and store in contours
-    cvFindContours(imgThresh, storage, &contours, sizeof(CvContour), CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE, cvPoint(0,0));
+    cvFindContours(imgDilated, storage, &contours, sizeof(CvContour), CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE, cvPoint(0,0));
 
     //If at least one contour vector exists, begin getting data on the contours
     if(contours)
@@ -186,10 +243,9 @@ void LegoThread::UpdateCamera()
             {
                 posX1 = moment101/area1;
                 posY1 = moment011/area1;
-                //printf("LED1 position (%d,%d)\n", posX1, posY1);
+                moment_center1= cvPoint(posX1, posY1);
+                printf("Shoulder position 1(%d,%d)\n", posX1, posY1);
             }
-
-
         }
 
         if (contours->h_next)
@@ -206,32 +262,30 @@ void LegoThread::UpdateCamera()
             {
                 posX2 = moment102/area2;
                 posY2 = moment012/area2;
-                //printf("LED2 position (%d,%d)\n", posX2, posY2);
+                moment_center2 = cvPoint(posX2, posY2);
+                printf("Shoulder position 2 (%d,%d)\n", posX2, posY2);
             }
         }
+
+        //Send cooridnates of moments as a signal
         emit sendCameraValues(posX1, posX2, posY1, posY2);
     }
 
-    /*else
-        printf("No contours detected.\n");
-    oppositeSide = abs(posY2-posY1);
-    adjacentSide = abs(posX2-posX1);
-    if (adjacentSide != 0)
-    {
-        angleRads = atan(oppositeSide/adjacentSide);
-        angleDegrees = angleRads*180/3.14159;
-    }
-    else
-        angleDegrees=0;*/
-
-
-
-    //printf("Theta: (%f)\n", angleDegrees);
-    // Release the thresholded image and moments
+    // Release images and moments
     cvReleaseImage(&imgThresh);
+    cvReleaseImage(&imgResized);
+    cvReleaseImage(&imgBlurred);
+    cvReleaseImage(&imgDilated);
     cvReleaseMemStorage(&storage);
     delete moments;
     delete moments2;
+
+    //Reset all position values - mywindow will not create a rotation around the z-axis if a value is zero,
+    //ie. one or more contours are not present. Therefore, in each loop all values must be reset.
+    posX2=0;
+    posY2=0;
+    posX1=0;
+    posY1=0;
 
     // Release camera on exit
     //cvReleaseCapture(&capture);
