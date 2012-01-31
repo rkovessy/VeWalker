@@ -55,8 +55,8 @@ IplImage* LegoThread::GetThresholdedImage(IplImage* img)
     //Convert to thresholded image for HSV color range selected
     //In Colorpic Hue needs to be divided by 2, as OCV has 180 range and ColorPic has 360. Sat and Val have 256 range
     //in both programs.
-    CvScalar min_color1 = cvScalar(75,130,100,0);
-    CvScalar max_color1 = cvScalar(85,255,255,0);
+    CvScalar min_color1 = cvScalar(50,60,60,0);
+    CvScalar max_color1 = cvScalar(80,180,256,0);
     //CvScalar min_color2 = cvScalar(170,50,170,0);
     //CvScalar max_color2 = cvScalar(256,180,256,0);
 
@@ -83,7 +83,7 @@ IplImage* LegoThread::GetBlurredImage(IplImage* img)
 IplImage* LegoThread::GetResizedImage(IplImage* img)
 {
     //Resize image to 1/4 size to speed up processing
-    IplImage* imgResized = cvCreateImage(cvSize(img->width/4, img->height/4), 8, 3);
+    IplImage* imgResized = cvCreateImage(cvSize(img->width, img->height), 8, 3);
     cvResize(img, imgResized, CV_INTER_AREA);
     return imgResized;
 }
