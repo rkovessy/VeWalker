@@ -10,6 +10,9 @@
 #include "mywindow.h"
 #include "collectdata.h"
 #include "iweardrv.h"
+#include "serialportinfo.h"
+#include "serialport.h"
+
 
 class VE : public QWidget
 {

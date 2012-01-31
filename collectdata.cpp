@@ -15,6 +15,7 @@ void CollectData::update() {
         if (!threading) {
             legoThread.start();
             vuzikThread.start();
+            //arduinoThread.start();
             threading = true;
         }
         emit updateScene();
@@ -24,5 +25,6 @@ void CollectData::update() {
 void CollectData::set(double a) {
     legoThread.set(a,timer_interval);
     vuzikThread.set(a, timer_interval);
+//    arduinoThread.set(a, timer_interval);
     started = true;
 }

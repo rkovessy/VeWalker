@@ -24,6 +24,9 @@
 #include <winbase.h>
 #include "rcx21.h"
 #include "iweardrv.h"
+#include "serialportinfo.h"
+#include "serialport.h"
+
 
 class LegoThread : public QThread
 {
@@ -48,6 +51,7 @@ signals:
     void sendCompass(double angle); // sends compass data to glwidget rotation(double)
     void sendCameraValues(int posX1, int posX2, int posY1, int posY2);
     void sendHTrackerValues(long HTyaw, long HTpitch, long HTroll);
+    void sendPotRotation(long potRotation);
 
 public slots:
     void set(double height, int timer); // sets height info and allows data to be collected
@@ -55,6 +59,7 @@ public slots:
     void UpdateRoll(); //updates Roll from compass
     void UpdateCamera();
     void UpdateHTracking();
+    void UpdatePotRotation();
     //void UpdateTilt();//updates the tilt form accelerometer
 
 
@@ -109,6 +114,8 @@ private:
     long HTyaw;
     long HTpitch;
     long HTroll;
+
+    long potRotation;
 };
 
 #endif

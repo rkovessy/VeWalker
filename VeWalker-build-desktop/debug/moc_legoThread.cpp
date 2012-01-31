@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'legoThread.h'
 **
-** Created: Mon Jan 30 16:45:01 2012
+** Created: Tue Jan 31 02:29:30 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,25 +23,27 @@ static const uint qt_meta_data_LegoThread[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-       9,   14, // methods
+      11,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       4,       // signalCount
+       5,       // signalCount
 
  // signals: signature, parameters, type, tag, flags
       37,   12,   11,   11, 0x05,
       73,   67,   11,   11, 0x05,
      117,   93,   11,   11, 0x05,
      172,  151,   11,   11, 0x05,
+     219,  207,   11,   11, 0x05,
 
  // slots: signature, parameters, type, tag, flags
-     220,  207,   11,   11, 0x0a,
-     236,   11,   11,   11, 0x0a,
-     253,   11,   11,   11, 0x0a,
-     266,   11,   11,   11, 0x0a,
-     281,   11,   11,   11, 0x0a,
+     254,  241,   11,   11, 0x0a,
+     270,   11,   11,   11, 0x0a,
+     287,   11,   11,   11, 0x0a,
+     300,   11,   11,   11, 0x0a,
+     315,   11,   11,   11, 0x0a,
+     333,   11,   11,   11, 0x0a,
 
        0        // eod
 };
@@ -53,9 +55,11 @@ static const char qt_meta_stringdata_LegoThread[] = {
     "sendCameraValues(int,int,int,int)\0"
     "HTyaw,HTpitch,HTroll\0"
     "sendHTrackerValues(long,long,long)\0"
+    "potRotation\0sendPotRotation(long)\0"
     "height,timer\0set(double,int)\0"
     "UpdateRotation()\0UpdateRoll()\0"
     "UpdateCamera()\0UpdateHTracking()\0"
+    "UpdatePotRotation()\0"
 };
 
 const QMetaObject LegoThread::staticMetaObject = {
@@ -91,14 +95,16 @@ int LegoThread::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 1: sendCompass((*reinterpret_cast< double(*)>(_a[1]))); break;
         case 2: sendCameraValues((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< int(*)>(_a[4]))); break;
         case 3: sendHTrackerValues((*reinterpret_cast< long(*)>(_a[1])),(*reinterpret_cast< long(*)>(_a[2])),(*reinterpret_cast< long(*)>(_a[3]))); break;
-        case 4: set((*reinterpret_cast< double(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 5: UpdateRotation(); break;
-        case 6: UpdateRoll(); break;
-        case 7: UpdateCamera(); break;
-        case 8: UpdateHTracking(); break;
+        case 4: sendPotRotation((*reinterpret_cast< long(*)>(_a[1]))); break;
+        case 5: set((*reinterpret_cast< double(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 6: UpdateRotation(); break;
+        case 7: UpdateRoll(); break;
+        case 8: UpdateCamera(); break;
+        case 9: UpdateHTracking(); break;
+        case 10: UpdatePotRotation(); break;
         default: ;
         }
-        _id -= 9;
+        _id -= 11;
     }
     return _id;
 }
@@ -129,5 +135,12 @@ void LegoThread::sendHTrackerValues(long _t1, long _t2, long _t3)
 {
     void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)) };
     QMetaObject::activate(this, &staticMetaObject, 3, _a);
+}
+
+// SIGNAL 4
+void LegoThread::sendPotRotation(long _t1)
+{
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 4, _a);
 }
 QT_END_MOC_NAMESPACE

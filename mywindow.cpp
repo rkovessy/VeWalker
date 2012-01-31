@@ -146,3 +146,8 @@ void MyWindow::updateHTrackerValues(long HTyaw, long HTpitch, long HTroll)
     glWidget->Yrotation(HTroll*-0.01);
     glWidget->Zrotation(HTyaw*-0.01);
 }
+
+void MyWindow::updatePotRotation(long potRotation)
+{
+    //do nothing right now
+}

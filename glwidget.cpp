@@ -90,6 +90,7 @@ void GLWidget::setZRotation(double angle)
 }
 
 void GLWidget::setTranslation(double mag, double z) { // connected to senddata(double,double) signal in collectdata which runs update slot in mywindow
+
     if (!hit) {
         if (!(tc.get_screen()))
             motorSpeed = mag;
@@ -132,6 +133,7 @@ void GLWidget::Yrotation(double anglediff)
 }
 
 void GLWidget::updateScene() {
+    arduinoThread.output();
     if (tc.get_screen())
         updateGL();
 

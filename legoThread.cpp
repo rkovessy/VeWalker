@@ -184,6 +184,15 @@ void LegoThread::UpdateHTracking()
 
 }
 
+void LegoThread::UpdatePotRotation()
+{
+
+    emit sendPotRotation(potRotation);
+    //printf("yaw: [%li], pitch: [%li], roll: [%li]\n", HTyaw, HTpitch, HTroll);
+
+
+}
+
 void LegoThread::UpdateCamera()
 {
 

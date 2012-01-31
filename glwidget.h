@@ -20,6 +20,7 @@
  #include "draw.h"
  #include "path.h"
  #include "trafficcontrol.h"
+#include "arduino.h"
 
  class GLWidget : public QGLWidget
  {
@@ -31,6 +32,8 @@
      GLWidget(QWidget *parent = 0);
      ~GLWidget();
      TrafficControl tc; // manages cars
+     ArduinoThread arduinoThread; //collects data from arduino data logger
+
      void setPedestrian(double x, double y, double mid); // sets pedestrian x and y
      void set_recording();
      void set_window(int x, int y); // sets window_height/width

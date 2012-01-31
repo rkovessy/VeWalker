@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mywindow.h'
 **
-** Created: Mon Jan 30 16:44:59 2012
+** Created: Tue Jan 31 12:29:59 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MyWindow[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -34,10 +34,11 @@ static const uint qt_meta_data_MyWindow[] = {
       35,   10,    9,    9, 0x0a,
       79,   67,    9,    9, 0x0a,
      136,  115,    9,    9, 0x0a,
-     177,  173,    9,    9, 0x0a,
-     186,    9,    9,    9, 0x0a,
-     199,    9,    9,    9, 0x0a,
-     221,    9,    9,    9, 0x0a,
+     185,  173,    9,    9, 0x0a,
+     213,  209,    9,    9, 0x0a,
+     222,    9,    9,    9, 0x0a,
+     235,    9,    9,    9, 0x0a,
+     257,    9,    9,    9, 0x0a,
 
        0        // eod
 };
@@ -48,6 +49,7 @@ static const char qt_meta_stringdata_MyWindow[] = {
     "x1,x2,y1,y2\0updateCameraValues(int,int,int,int)\0"
     "HTyaw,HTpitch,HTroll\0"
     "updateHTrackerValues(long,long,long)\0"
+    "potRotation\0updatePotRotation(long)\0"
     "pid\0set(int)\0set_replay()\0"
     "updateCompass(double)\0updateScene()\0"
 };
@@ -84,13 +86,14 @@ int MyWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 0: updateMotor((*reinterpret_cast< double(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2])),(*reinterpret_cast< double(*)>(_a[3]))); break;
         case 1: updateCameraValues((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< int(*)>(_a[4]))); break;
         case 2: updateHTrackerValues((*reinterpret_cast< long(*)>(_a[1])),(*reinterpret_cast< long(*)>(_a[2])),(*reinterpret_cast< long(*)>(_a[3]))); break;
-        case 3: set((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 4: set_replay(); break;
-        case 5: updateCompass((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 6: updateScene(); break;
+        case 3: updatePotRotation((*reinterpret_cast< long(*)>(_a[1]))); break;
+        case 4: set((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 5: set_replay(); break;
+        case 6: updateCompass((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 7: updateScene(); break;
         default: ;
         }
-        _id -= 7;
+        _id -= 8;
     }
     return _id;
 }

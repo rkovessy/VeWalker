@@ -9,6 +9,7 @@
 #include "nxt.h"
 #include "legoThread.h"
 #include "vuzixthread.h"
+#include "arduino.h"
 
 #include <QDebug>
 
@@ -29,7 +30,7 @@ public:
 
     QTime time; // used for finding the time elaspsed between calling the nxt to send an appropriate NXT motor speed
     LegoThread legoThread; // collects nxt data
-    VuzixThread vuzikThread;
+    VuzixThread vuzikThread; //collects data from vuzix headset
 
 
 signals:

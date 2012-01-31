@@ -38,6 +38,7 @@ public slots:
      void updateMotor(double magnitude, bool stepped, double zTrans); // connected to sendMotor(...) signal from legothread, updates GLWidget
      void updateCameraValues(int x1, int x2, int y1, int y2);
      void updateHTrackerValues(long HTyaw, long HTpitch, long HTroll);
+     void updatePotRotation(long potRotation);
      void set(int pid); // sets up some recording stuff and the initial pedestrian location
      void set_replay();
      void updateCompass(double); // updates compass speed and sends to glWidget rotation(double)

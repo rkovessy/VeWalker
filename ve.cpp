@@ -7,6 +7,7 @@ VE::VE()
     collectdata.connect(&collectdata.legoThread, SIGNAL(sendCompass(double)), &mywindow, SLOT(updateCompass(double)));
     collectdata.connect(&collectdata.legoThread, SIGNAL(sendCameraValues(int,int,int,int)), &mywindow, SLOT(updateCameraValues(int,int,int,int)));
     collectdata.connect(&collectdata.vuzikThread, SIGNAL(sendHTrackerValues(long,long,long)), &mywindow, SLOT(updateHTrackerValues(long,long,long)));
+//    collectdata.connect(&collectdata.arduinoThread, SIGNAL(sendPotRotation(long)), &mywindow, SLOT(updatePotRotation(long)));
     collectdata.setMouseTracking(true);
     mywindow.connect(&mywindow.glWidget->tc, SIGNAL(close_window()), qApp, SLOT(quit()));
     mywindow.setMouseTracking(true);

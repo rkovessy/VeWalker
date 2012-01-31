@@ -84,7 +84,9 @@ HEADERS  += \
     iweardrv.h \
     iweardrv.h \
     vuzixthread.h \
-    arduino.h
+    arduino.h \
+    serialportinfo.h \
+    serialport.h
 
 FORMS    += \
     startwindow.ui \
@@ -109,7 +111,7 @@ LIBS += -L C:\OpenCVNew\install\bin \
 
 #INCLUDEPATH += C:\Users\Nulogy\Downloads\qserialdevice-qserialdevice-2.0\qserialdevice-qserialdevice\src
 #LIBS += -L "C:\Users\Nulogy\Downloads\qserialdevice-qserialdevice-2.0\qserialdevice-qserialdevice\src\release"
-LIBS += -qserialdevice
+#LIBS += -qserialdevice
 
 INCLUDEPATH += C:\OpenCVNew\install\include \
 C:\OpenCVNew\install\include\opencv \
@@ -152,6 +154,13 @@ win32: PRE_TARGETDEPS += $$PWD/iweardrv.lib
 
 OTHER_FILES += \
     wilhelm.wav
+
+INCLUDEPATH += \
+    C:/qserialport/qserialdevice-qserialdevice/include \
+    C:/qserialport/qserialdevice-qserialdevice/src
+
+include(C:/qserialport/qserialdevice-qserialdevice/src/src.pri)
+
 
 
 
