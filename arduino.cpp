@@ -13,7 +13,7 @@ ArduinoThread::ArduinoThread(QObject *parent) :
 
 
     qDebug("made it here");
-    m_port->setPort("COM20");
+    m_port->setPort("COM3");
 
     if (m_port->open((QIODevice::OpenMode)1)) {
         qDebug("Arduino is running!\n");

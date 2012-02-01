@@ -1,2 +1,2 @@
                trial               start     time_starttrial         time_bumper           time_step        time_latency         time_arrive       time_crossing               steps          gap_chosen                   
-                  p1                   A                   0                   0                 1.2                 1.2                3.34                2.14                   0                   0                   
+                  p1                   A                   0                   0                0.16                0.16                0.78                0.62                   0                   0                   
