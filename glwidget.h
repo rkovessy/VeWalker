@@ -43,6 +43,7 @@
      void setYRotation(double angle);
      void setZRotation(double angle);
      void setTranslation(double magnitude, double zTrans); // updates the motor speed and zTrans
+     void setArduinoTranslation(int potRot);
      void rotation (double); // updates the compass speed
      void Zrotation (double);
      void Xrotation (double);
@@ -68,6 +69,8 @@
      double startingyTrans[2], startingxTrans[2], startingrotation[2]; // info for starting location of each starting point for each trial
      QString startPos; // A or B
      int start; // 0 for A, 1 for B, used for referencing arrays
+     int currRotation; //the current output from the potentiometer
+     int prevRotation; //the last output from the potentiometer
      double maxTrans; // farthest away from center of road pedestrian can go
      double motorSpeed; // speed that pedestrian is going forward every updateScene()
      double zTrans; // position up from ground

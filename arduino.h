@@ -35,7 +35,7 @@ class ArduinoThread : public QThread
     Q_OBJECT
 public:
     explicit ArduinoThread(QObject *parent = 0);
-    void output();
+    int output();
     ~ArduinoThread();
     void run();
 

@@ -128,7 +128,7 @@ void LegoThread::set(double a, int t) {
    // variance = motor->get_rotation(); // person must be standing still at start to get variance correct
     lastrValueNXT = 0;
     //firstroll = double(compass->read());
-   // emit sendMotor(0.0, false, height); // sends data to GLWidget and updates graphics
+    emit sendMotor(0.0, false, height); // sends data to GLWidget and updates graphics
     startupdating = true; // yTrans and zTrans can now be changed
     time.start();
 }

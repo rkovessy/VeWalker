@@ -86,11 +86,30 @@ void ArduinoThread::set(double a, int t) {
     time.start();
 }
 
-void ArduinoThread::output()
+int ArduinoThread::output()
 {
+    QByteArray garbage1;
+    QByteArray garbage2;
+    QByteArray data;
 
-    QByteArray data = m_port->readAll();
-    qDebug() << "Pot value:     " << data;
+    if(m_port->bytesAvailable())
+        garbage1 = m_port->readLine(8);
+
+    if(m_port->bytesAvailable())
+        data = m_port->readLine(8);
+    else
+        data = 0;
+
+    if(m_port->bytesAvailable())
+        garbage2 = m_port->readAll();
+
+    m_port->flush();
+    bool ok;
+    data.chop(2);
+    int returnVal = data.toInt(&ok, 10);
+    //qDebug() << "-------------" << returnVal;
+
+    return returnVal;
 }
 
 void ArduinoThread::UpdateArduino()

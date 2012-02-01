@@ -5,7 +5,7 @@ GLWidget::GLWidget(QWidget *parent)
 {
     object = 0;
     backgroundColor = Qt::white;
-
+    prevRotation = 0;
     hit = false;
 
     time = 0.0;
@@ -100,6 +100,19 @@ void GLWidget::setTranslation(double mag, double z) { // connected to senddata(d
     }
 }
 
+void GLWidget::setArduinoTranslation(int potRot)
+{
+    currRotation = potRot;
+    if(!hit) {
+        if(!(tc.get_screen()))
+            motorSpeed = abs(currRotation - prevRotation) * PI / 180.0 * 0.01;
+         else
+            motorSpeed = 0.0;
+    }
+    //zTrans = height / 30.0 * sin(PI * (rValueNXT + 20) / 40) + height + height / 30;
+    prevRotation = currRotation;
+}
+
 void GLWidget::rotation(double anglediff)
 {
     if (!(tc.get_screen()))
@@ -133,11 +146,11 @@ void GLWidget::Yrotation(double anglediff)
 }
 
 void GLWidget::updateScene() {
-    arduinoThread.output();
     if (tc.get_screen())
         updateGL();
 
     else if (started) {
+        setArduinoTranslation(arduinoThread.output());
         setZRotation(zRot + (compassSpeed/4));
         setXRotation(xcompassSpeed);
         setYRotation(ycompassSpeed);

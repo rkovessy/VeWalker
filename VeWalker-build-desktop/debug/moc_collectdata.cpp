@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'collectdata.h'
 **
-** Created: Tue Jan 31 12:30:14 2012
+** Created: Tue Jan 31 21:26:08 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
