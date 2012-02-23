@@ -206,6 +206,7 @@ void LegoThread::UpdateCamera()
     }   
 
     cvShowImage("Raw Video", frame);
+    cvSaveImage("Raw.jpg",frame);
 
     //Setup sequences to get contours
     CvSeq* contours;
@@ -221,14 +222,17 @@ void LegoThread::UpdateCamera()
 
     //Apply blur to improve detection under different lighting
     IplImage* imgBlurred = GetBlurredImage(imgResized);
+    cvSaveImage("imgBlurred.jpg",imgBlurred);
     //cvShowImage("Blurred", imgBlurred);
 
     //Get threshed image based on color selected for tracking
     IplImage* imgThresh = GetThresholdedImage(imgBlurred);
+    cvSaveImage("imgThresh.jpg",imgThresh);
     //cvShowImage("Thresholded", imgThresh);
 
     //Dilate image
     IplImage* imgDilated = GetDilatedImage(imgThresh);
+    cvSaveImage("imgDilated.jpg",imgDilated);
     cvShowImage("Processed Video", imgDilated);
 
 
@@ -253,7 +257,7 @@ void LegoThread::UpdateCamera()
                 posX1 = moment101/area1;
                 posY1 = moment011/area1;
                 moment_center1= cvPoint(posX1, posY1);
-                printf("Shoulder position 1(%d,%d)\n", posX1, posY1);
+                //printf("Shoulder position 1:(%d,%d)\n", posX1, posY1);
             }
         }
 
@@ -272,7 +276,7 @@ void LegoThread::UpdateCamera()
                 posX2 = moment102/area2;
                 posY2 = moment012/area2;
                 moment_center2 = cvPoint(posX2, posY2);
-                printf("Shoulder position 2 (%d,%d)\n", posX2, posY2);
+                //printf("      Shoulder position 2: (%d,%d)\n", posX2, posY2);
             }
         }
 

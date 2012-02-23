@@ -50,35 +50,6 @@ ArduinoThread::~ArduinoThread()
             m_port->close();
 }
 
-void ArduinoThread::run()
-{
-    m_port = new SerialPort(this);
-
-    qDebug("made it here");
-    m_port->setRate(SerialPort::Rate(3));
-    m_port->setDataBits(SerialPort::DataBits(3));
-    m_port->setParity(SerialPort::Parity(0));
-    m_port->setStopBits(SerialPort::StopBits(0));
-    m_port->setFlowControl(SerialPort::FlowControl(-1));
-    m_port->setDataErrorPolicy(SerialPort::DataErrorPolicy(2));
-
-    if (m_port->open((QIODevice::OpenMode)1)) {
-        qDebug("Arduino is running!!!\n");
-    }
-    else {
-        qDebug("Could not use arduino port\n");
-        m_port->close();
-    }
-
-
-    bool flag = false;
-    do {
-        time.restart();
-        output();
-
-    } while (!flag);
-    exec();
-}
 
 void ArduinoThread::set(double a, int t) {
     timer_interval = double(t);

@@ -130,8 +130,7 @@ void MyWindow::updateCameraValues(int x1, int x2, int y1, int y2){
         double oppAdjParam = oppositeSide/adjacentSide;
          angleRads = atan(oppAdjParam);
     }
-
-
+    //qDebug() << "angleRads: " << angleRads;
     if(fabs(angleRads) >= angleThreshold)
         glWidget->Zrotation(angleRads*10);
     //else

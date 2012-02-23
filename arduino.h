@@ -37,7 +37,6 @@ public:
     explicit ArduinoThread(QObject *parent = 0);
     int output();
     ~ArduinoThread();
-    void run();
 
 signals:
     void sendPotRotation(long potRotation);
