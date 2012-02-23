@@ -7,7 +7,7 @@ Data::Data()
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //DEMOGRAPHICS
 
-void Data::writeDemographics(int pid, QString name, QString age, QString gender, QString ethnicity, QString faculty)
+void Data::writeDemographics(int pid, QString age, QString sex, QString dominance)
 {
     QString f = "Demographics";
     if (!QDir(f).exists())

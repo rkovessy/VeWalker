@@ -36,6 +36,90 @@ void Demographics::on_male_clicked()
         ui->male->setChecked(true);
 }
 
+//logic to select only a right or left dominance, but not both
+void Demographics::on_right_clicked()
+{
+    if (ui->left->isChecked())
+        ui->left->setChecked(false);
+    else
+        ui->right->setChecked(true);
+}
+
+void Demographics::on_left_clicked()
+{
+    if(ui->right->isChecked())
+        ui->right->setChecked(false);
+    else
+        ui->left->setChecked(true);
+}
+
+//logic to select only trial or demo mode radio button, but not both
+void Demographics::on_trial_clicked()
+{
+    if (ui->demo->isChecked())
+        ui->demo->setChecked(false);
+    else
+        ui->trial->setChecked(true);
+}
+
+void Demographics::on_demo_clicked()
+{
+    if(ui->trial->isChecked())
+        ui->trial->setChecked(false);
+    else
+        ui->demo->setChecked(true);
+}
+
+//logic to select only single or double lane radio button, but not both
+void Demographics::on_singlelane_clicked()
+{
+    if (ui->doublelane->isChecked())
+        ui->doublelane->setChecked(false);
+    else
+        ui->singlelane->setChecked(true);
+}
+
+void Demographics::on_doublelane_clicked()
+{
+    if(ui->singlelane->isChecked())
+        ui->singlelane->setChecked(false);
+    else
+        ui->doublelane->setChecked(true);
+}
+
+//logic to select only traffic enabled or disabled radio button, but not both
+void Demographics::on_trafficdisable_clicked()
+{
+    if (ui->trafficenable->isChecked())
+        ui->trafficenable->setChecked(false);
+    else
+        ui->trafficdisable->setChecked(true);
+}
+
+void Demographics::on_trafficenable_clicked()
+{
+    if(ui->trafficdisable->isChecked())
+        ui->trafficdisable->setChecked(false);
+    else
+        ui->trafficenable->setChecked(true);
+}
+
+//logic to select only green, pink, or orange color tracking radio button, but not more than one
+void Demographics::on_green_clicked()
+{
+
+}
+
+void Demographics::on_orange_clicked()
+{
+
+}
+
+void Demographics::on_pink_clicked()
+{
+
+}
+
 void Demographics::on_quit_clicked()
 {
     bool inputError = false;
@@ -165,7 +249,7 @@ void Demographics::on_quit_clicked()
     }
     else
     {
-        data.writeDemographics(id, name, age, gender, ethnicity, faculty);
+        data.writeDemographics(id, age, sex, dominance);
         virtuale.start(id);
         this->hide();
     }
@@ -179,19 +263,16 @@ void Demographics::setPid(int personalIdentification)
 
 void Demographics::setErrorStars(bool flag)
 {
-    ui->nameerror->setVisible(flag);
     ui->iderror->setVisible(flag);
     ui->ageerror->setVisible(flag);
     ui->sexerror->setVisible(flag);
-    ui->ethnicityerror->setVisible(flag);
-    ui->lbFacultyError->setVisible(flag);
     ui->lbProgramError->setVisible(flag);
 }
 
-//get functions for gender, age, id, name, ethnicity, and faculty/program so that they can be written to a file from another class
-QString Demographics::getGender()
+//get functions for sex, age, id, height
+QString Demographics::getSex()
 {
-    return gender;
+    return sex;
 }
 QString Demographics::getAge()
 {
@@ -201,15 +282,11 @@ int Demographics::getId()
 {
     return id;
 }
-QString Demographics::getName()
+QString Demographics::getHeight()
 {
-    return name;
+    return height;
 }
-QString Demographics::getEthnicity()
+QString Demographics::getDominance()
 {
-    return ethnicity;
-}
-QString Demographics::getFaculty()
-{
-    return faculty+ ":"+ program;
+    return dominance;
 }
