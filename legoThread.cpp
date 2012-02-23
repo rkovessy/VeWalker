@@ -12,8 +12,6 @@ LegoThread::LegoThread() {
     counter = 0;
     magnitude = 0.0;
     lastrValueNXT = 0.0;
-   // connection->connect(port); // '3' is the port the NXT is connected to via bluetooth. Different for every laptop
-    qDebug() << "Connected to NXT" << endl;
 
     // Initialize capturing from webcam
     capture = cvCaptureFromCAM(-1);
@@ -103,20 +101,9 @@ void LegoThread::run()
     bool flag = false;
    do {
         time.restart();
-        //UpdateRoll();
-       // UpdateRotation();
        UpdateCamera();
         //UpdateHTracking();
         msec = double(time.elapsed());
-      /*  if (msec == 0.0) {
-            qDebug() << "msec == 0, divided by 0";
-            emit sendMotor(magnitude * timer_interval, false, zTrans); // sends data to GLWidget and updates graphics
-        }
-        else {
-            //printf("values: [%f],[%f],[%f]\n", magnitude, stepped, zTrans);
-            emit sendMotor(magnitude * timer_interval / msec, stepped, zTrans); // sends data to GLWidget and updates graphics
-        }*/
-        //counter++;
     } while (!flag);
     exec();
 }
@@ -128,11 +115,14 @@ void LegoThread::set(double a, int t) {
    // variance = motor->get_rotation(); // person must be standing still at start to get variance correct
     lastrValueNXT = 0;
     //firstroll = double(compass->read());
-    emit sendMotor(0.0, false, height); // sends data to GLWidget and updates graphics
+    //emit sendMotor(0.0, false, height); // sends data to GLWidget and updates graphics
     startupdating = true; // yTrans and zTrans can now be changed
     time.start();
 }
 
+
+//Now Defunct - Feb 5th, 2012
+/*
 void LegoThread::UpdateRotation()
 {
  //   rValueNXT = motor->get_rotation() - variance; // gets motors current position
@@ -152,9 +142,12 @@ void LegoThread::UpdateRotation()
         stepped = false;
     lastrValueNXT = rValueNXT; // present rValueNXT becomes the last one for the next UpdateRotation()
 }
+*/
 
-void LegoThread::UpdateRoll()// the left to right motion of the head
+//Now Defunct - Feb 5th, 2012
+/*void LegoThread::UpdateRoll()// the left to right motion of the head
 {
+
     if (counter % 2 == 0)
         //roll = double(compass->read());
 
@@ -170,9 +163,10 @@ void LegoThread::UpdateRoll()// the left to right motion of the head
     if (fabs(anglediff) < 0.15)
         anglediff = 0.0;
     emit sendCompass(anglediff);
-}
+}*/
 
-void LegoThread::UpdateHTracking()
+//In its own thread, vuzixthread
+/*void LegoThread::UpdateHTracking()
 {
     IWRZeroSet();
 
@@ -182,7 +176,7 @@ void LegoThread::UpdateHTracking()
     //printf("yaw: [%li], pitch: [%li], roll: [%li]\n", HTyaw, HTpitch, HTroll);
 
 
-}
+}*/
 
 void LegoThread::UpdatePotRotation()
 {

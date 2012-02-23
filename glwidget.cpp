@@ -111,6 +111,7 @@ void GLWidget::setArduinoTranslation(int potRot)
     }
     //zTrans = height / 30.0 * sin(PI * (rValueNXT + 20) / 40) + height + height / 30;
     prevRotation = currRotation;
+    zTrans = 0.5;
 }
 
 void GLWidget::rotation(double anglediff)

@@ -47,18 +47,12 @@ public:
     double PI;
 
 signals:
-    void sendMotor(double magnitude, bool stepped, double zTrans); //sends motor data to glwidget setTranslation(double, double) through mywindow
-    void sendCompass(double angle); // sends compass data to glwidget rotation(double)
     void sendCameraValues(int posX1, int posX2, int posY1, int posY2);
-    void sendHTrackerValues(long HTyaw, long HTpitch, long HTroll);
     void sendPotRotation(long potRotation);
 
 public slots:
     void set(double height, int timer); // sets height info and allows data to be collected
-    void UpdateRotation(); //calculates yTrans speed and zTrans and sends data via sendMotor(...)
-    void UpdateRoll(); //updates Roll from compass
     void UpdateCamera();
-    void UpdateHTracking();
     void UpdatePotRotation();
     //void UpdateTilt();//updates the tilt form accelerometer
 
