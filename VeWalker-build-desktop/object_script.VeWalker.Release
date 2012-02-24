@@ -1,5 +1,4 @@
 INPUT(
-./release\startwindow.o
 ./release\mainwindow.o
 ./release\main.o
 ./release\demographics.o
@@ -30,6 +29,8 @@ INPUT(
 ./release\popupscreen.o
 ./release\vuzixthread.o
 ./release\arduino.o
+./release\firstwindow.o
+./release\startwindow.o
 ./release\serialport.o
 ./release\serialportinfo.o
 ./release\serialportengine_p_win.o
@@ -47,5 +48,6 @@ INPUT(
 ./release\moc_vuzixthread.o
 ./release\moc_arduino.o
 ./release\moc_serialport.o
+./release\moc_firstwindow.o
 ./release\moc_serialportengine_p_win.o
 );

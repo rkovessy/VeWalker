@@ -10,7 +10,6 @@ TARGET = VeWalker
 TEMPLATE = app
 
 SOURCES += \
-    startwindow.cpp \
     mainwindow.cpp \
     main.cpp \
     demographics.cpp \
@@ -40,7 +39,9 @@ SOURCES += \
     data.cpp \
     popupscreen.cpp \
     vuzixthread.cpp \
-    arduino.cpp
+    arduino.cpp \
+    firstwindow.cpp \
+    startwindow.cpp
 
 HEADERS  += \
     startwindow.h \
@@ -86,13 +87,16 @@ HEADERS  += \
     vuzixthread.h \
     arduino.h \
     serialportinfo.h \
-    serialport.h
+    serialport.h \
+    firstwindow.h \
+    startwindow.h
 
 FORMS    += \
-    startwindow.ui \
     mainwindow.ui \
     demographics.ui \
-    popupscreen.ui
+    popupscreen.ui \
+    firstwindow.ui \
+    startwindow.ui
 
 LIBS += -L C:\OpenCVNew\install\bin \
 -llibopencv_core231d \

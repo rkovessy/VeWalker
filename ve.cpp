@@ -20,6 +20,6 @@ void VE::start(int pid) {
     //cvNamedWindow("Dilated");
     //cvNamedWindow("Thresholded");
     //cvNamedWindow("Blurred");
-    cvNamedWindow("Raw Video");
-    cvNamedWindow("Processed Video");
+    //cvNamedWindow("Raw Video");
+    //cvNamedWindow("Processed Video");
 }

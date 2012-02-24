@@ -205,8 +205,8 @@ void LegoThread::UpdateCamera()
         return;
     }   
 
-    cvShowImage("Raw Video", frame);
-    cvSaveImage("Raw.jpg",frame);
+    //cvShowImage("Raw Video", frame);
+    //cvSaveImage("Raw.jpg",frame);
 
     //Setup sequences to get contours
     CvSeq* contours;
@@ -222,18 +222,18 @@ void LegoThread::UpdateCamera()
 
     //Apply blur to improve detection under different lighting
     IplImage* imgBlurred = GetBlurredImage(imgResized);
-    cvSaveImage("imgBlurred.jpg",imgBlurred);
+    //cvSaveImage("imgBlurred.jpg",imgBlurred);
     //cvShowImage("Blurred", imgBlurred);
 
     //Get threshed image based on color selected for tracking
     IplImage* imgThresh = GetThresholdedImage(imgBlurred);
-    cvSaveImage("imgThresh.jpg",imgThresh);
+    //cvSaveImage("imgThresh.jpg",imgThresh);
     //cvShowImage("Thresholded", imgThresh);
 
     //Dilate image
     IplImage* imgDilated = GetDilatedImage(imgThresh);
-    cvSaveImage("imgDilated.jpg",imgDilated);
-    cvShowImage("Processed Video", imgDilated);
+    //cvSaveImage("imgDilated.jpg",imgDilated);
+    //cvShowImage("Processed Video", imgDilated);
 
 
     //Get the contour vectors and store in contours

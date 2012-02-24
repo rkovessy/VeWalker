@@ -6,10 +6,6 @@ Demographics::Demographics(QWidget *parent) :
     ui(new Ui::Demographics)
 {
     ui->setupUi(this);
-
-
-    //this part removes the red stars which will only show up if no data is present
-    setErrorStars(false);
 }
 
 //destructor
@@ -37,20 +33,20 @@ void Demographics::on_male_clicked()
 }
 
 //logic to select only a right or left dominance, but not both
-void Demographics::on_right_clicked()
+void Demographics::on_righthanded_clicked()
 {
-    if (ui->left->isChecked())
-        ui->left->setChecked(false);
+    if (ui->lefthanded->isChecked())
+        ui->lefthanded->setChecked(false);
     else
-        ui->right->setChecked(true);
+        ui->righthanded->setChecked(true);
 }
 
-void Demographics::on_left_clicked()
+void Demographics::on_lefthanded_clicked()
 {
-    if(ui->right->isChecked())
-        ui->right->setChecked(false);
+    if(ui->righthanded->isChecked())
+        ui->righthanded->setChecked(false);
     else
-        ui->left->setChecked(true);
+        ui->lefthanded->setChecked(true);
 }
 
 //logic to select only trial or demo mode radio button, but not both
@@ -105,141 +101,76 @@ void Demographics::on_trafficenable_clicked()
 }
 
 //logic to select only green, pink, or orange color tracking radio button, but not more than one
-void Demographics::on_green_clicked()
+void Demographics::on_neongreen_clicked()
 {
-
+    if(ui->neonorange->isChecked())
+        ui->neonorange->setChecked(false);
+    else if(ui->neonpink->isChecked())
+        ui->neonpink->setChecked(false);
+    else
+        ui->neongreen->setChecked(true);
 }
 
-void Demographics::on_orange_clicked()
+void Demographics::on_neonorange_clicked()
 {
-
+    if(ui->neongreen->isChecked())
+        ui->neongreen->setChecked(false);
+    else if(ui->neonpink->isChecked())
+        ui->neonpink->setChecked(false);
+    else
+        ui->neonorange->setChecked(true);
 }
 
-void Demographics::on_pink_clicked()
+void Demographics::on_neonpink_clicked()
 {
-
+    if(ui->neonorange->isChecked())
+        ui->neonorange->setChecked(false);
+    else if(ui->neongreen->isChecked())
+        ui->neongreen->setChecked(false);
+    else
+        ui->neonpink->setChecked(true);
 }
 
 void Demographics::on_quit_clicked()
 {
     bool inputError = false;
-    //defines variables in relation to objects to allow for better error checking code
-    name = ui->name->displayText();
+    //defines variables in relation to objects to allow for passing of variables to rest of program
+    age =ui->age->value();
+    participantheight =ui->participantheight->value();
+    trialquantity =ui->trialquantity->value();
     id = ui->id->value();
-    age =ui->age->currentText();
     bool male = ui->male->isChecked();
     bool female = ui->female->isChecked();
-    bool eastasian = ui->eastasian->isChecked();
-    bool southasian =  ui->southasian->isChecked();
-    bool black = ui->black->isChecked();
-    bool caucasian = ui->caucasian->isChecked();
-    bool hispanic = ui->hispanic->isChecked();
-    bool middleeastern = ui->middleeastern->isChecked();
-    bool other = ui->other->isChecked();
-    faculty = ui->cbFaculty->currentText();
-    program = ui->teProgram->text();
+    bool neongreen= ui->neongreen->isChecked();
+    bool neonpink= ui->neonpink->isChecked();
+    bool neonorange= ui->neonorange->isChecked();
+    bool trafficenable= ui->trafficenable->isChecked();
+    bool trafficdisable= ui->trafficdisable->isChecked();
+    bool singlelane= ui->singlelane->isChecked();
+    bool doublelane= ui->doublelane->isChecked();
+    bool demo= ui->demo->isChecked();
+    bool trial= ui->trial->isChecked();
+    bool left = ui->lefthanded->isChecked();
+    bool right= ui->righthanded->isChecked();
 
-    /*the below block does the following:
-      checks whether the items are blank, and if so,
-      graphically indicates that the field needs to be filled in
-      additionally, it will also create some public variables if the
-      data is validated, so that they can be written to a file
-    */
+    //sets the gender flag so that we can write the data to a file
+    if(male)
+    {
+        sex = "male";
+    }
+    else if (female)
+    {
+        sex = "female";
+    }
 
-    if(name == "")
+    //sets the dominance flag so that we can write the data to a file
+    if(right)
     {
-        inputError = true;
-        ui->nameerror->setVisible(true);
+        dominance = "right";
     }
-    else
+    else if (left)
     {
-        ui->nameerror->setVisible(false);
-    }
-    if(id == 0)
-    {
-        inputError = true;
-        ui->iderror->setVisible(true);
-    }
-    else
-    {
-        ui->iderror->setVisible(false);
-    }
-    if(age == "0")
-    {
-        inputError = true;
-        ui->ageerror->setVisible(true);
-    }
-    else
-    {
-        ui->ageerror->setVisible(false);
-    }
-    if(!(male || female))
-    {
-        inputError = true;
-        ui->sexerror->setVisible(true);
-    }
-    else
-    {
-        //sets the gender flag so that we can write the data to a file
-        if(male)
-        {
-            gender = "male";
-        }
-        else if (female)
-        {
-            gender = "female";
-        }
-        ui->sexerror->setVisible(false);
-    }
-    if(!( eastasian  ||  southasian  ||
-          black  ||  caucasian  ||
-          hispanic  ||  middleeastern  ||
-       ( other && ui->othertext->displayText() != "")))
-    {
-        inputError = true;
-        ui->ethnicityerror->setVisible(true);
-    }
-    else
-    {
-        //sets the ethnicity flag so that we can write the data to a file
-        if(eastasian)
-        {
-            ethnicity = "eastasian";
-        }
-        else if(southasian)
-        {
-            ethnicity = "southasian";
-        }
-        else if(black)
-        {
-            ethnicity ="black";
-        }
-        else if(caucasian)
-        {
-            ethnicity ="caucasian";
-        }
-        else if(hispanic)
-        {
-            ethnicity ="hispanic";
-        }
-        else if(middleeastern)
-        {
-            ethnicity ="middleeastern";
-        }
-        else if(other)
-        {
-            ethnicity ="other:"+ ui->othertext->displayText();
-        }
-        ui->ethnicityerror->setVisible(false);
-    }
-    if(faculty=="")
-    {
-        inputError = true;
-        ui->lbFacultyError->setVisible(true);
-    }
-    else
-    {
-        ui->lbFacultyError->setVisible(false);
+        dominance = "left";
     }
 
 //error handling finished, now we write to file by emitting a signal which is picked up in mainwindow.cpp:
@@ -261,14 +192,6 @@ void Demographics::setPid(int personalIdentification)
     ui->id->setValue(personalIdentification);
 }
 
-void Demographics::setErrorStars(bool flag)
-{
-    ui->iderror->setVisible(flag);
-    ui->ageerror->setVisible(flag);
-    ui->sexerror->setVisible(flag);
-    ui->lbProgramError->setVisible(flag);
-}
-
 //get functions for sex, age, id, height
 QString Demographics::getSex()
 {
@@ -284,7 +207,7 @@ int Demographics::getId()
 }
 QString Demographics::getHeight()
 {
-    return height;
+    return participantheight;
 }
 QString Demographics::getDominance()
 {

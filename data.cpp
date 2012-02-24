@@ -23,8 +23,8 @@ void Data::writeDemographics(int pid, QString age, QString sex, QString dominanc
     file[DEMOGRAPHICS].open(QIODevice::WriteOnly | QIODevice::Text);
 
     text[DEMOGRAPHICS].setFieldWidth(20);
-    text[DEMOGRAPHICS] << "PID" << "Name" << "Age" << "Gender" << "Ethnicity" << "Faculty" << endl;
-    text[DEMOGRAPHICS] << personId << name << age << gender << ethnicity << faculty;
+    text[DEMOGRAPHICS] << "PID" << "Age" << "Sex" << "Dominance" << endl;
+    text[DEMOGRAPHICS] << personId << age << sex << dominance;
 
     file[DEMOGRAPHICS].close();
 }

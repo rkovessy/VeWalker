@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'demographics.h'
 **
-** Created: Wed Feb 1 10:26:12 2012
+** Created: Fri Feb 24 12:03:28 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_Demographics[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+      14,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -34,6 +34,17 @@ static const uint qt_meta_data_Demographics[] = {
       14,   13,   13,   13, 0x08,
       32,   13,   13,   13, 0x08,
       50,   13,   13,   13, 0x08,
+      70,   13,   13,   13, 0x08,
+      93,   13,   13,   13, 0x08,
+     115,   13,   13,   13, 0x08,
+     139,   13,   13,   13, 0x08,
+     166,   13,   13,   13, 0x08,
+     194,   13,   13,   13, 0x08,
+     218,   13,   13,   13, 0x08,
+     242,   13,   13,   13, 0x08,
+     260,   13,   13,   13, 0x08,
+     279,   13,   13,   13, 0x08,
+     304,   13,   13,   13, 0x08,
 
        0        // eod
 };
@@ -41,6 +52,14 @@ static const uint qt_meta_data_Demographics[] = {
 static const char qt_meta_stringdata_Demographics[] = {
     "Demographics\0\0on_quit_clicked()\0"
     "on_male_clicked()\0on_female_clicked()\0"
+    "on_neongreen_clicked()\0on_neonpink_clicked()\0"
+    "on_neonorange_clicked()\0"
+    "on_trafficenable_clicked()\0"
+    "on_trafficdisable_clicked()\0"
+    "on_singlelane_clicked()\0on_doublelane_clicked()\0"
+    "on_demo_clicked()\0on_trial_clicked()\0"
+    "on_righthanded_clicked()\0"
+    "on_lefthanded_clicked()\0"
 };
 
 const QMetaObject Demographics::staticMetaObject = {
@@ -75,9 +94,20 @@ int Demographics::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 0: on_quit_clicked(); break;
         case 1: on_male_clicked(); break;
         case 2: on_female_clicked(); break;
+        case 3: on_neongreen_clicked(); break;
+        case 4: on_neonpink_clicked(); break;
+        case 5: on_neonorange_clicked(); break;
+        case 6: on_trafficenable_clicked(); break;
+        case 7: on_trafficdisable_clicked(); break;
+        case 8: on_singlelane_clicked(); break;
+        case 9: on_doublelane_clicked(); break;
+        case 10: on_demo_clicked(); break;
+        case 11: on_trial_clicked(); break;
+        case 12: on_righthanded_clicked(); break;
+        case 13: on_lefthanded_clicked(); break;
         default: ;
         }
-        _id -= 3;
+        _id -= 14;
     }
     return _id;
 }

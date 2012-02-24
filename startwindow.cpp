@@ -17,7 +17,7 @@ Startwindow::~Startwindow()
 
 void Startwindow::on_pushButton_clicked()
 {
-    id = ui->participant->value();
+    id = 1;
     QString pid = QString::number(id);
     if (id < 10)
         pid.prepend("0");

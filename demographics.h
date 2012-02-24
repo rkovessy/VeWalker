@@ -1,6 +1,7 @@
 #ifndef DEMOGRAPHICS_H
 #define DEMOGRAPHICS_H
 
+#include "ui_demographics.h"
 #include "data.h"
 #include "ve.h"
 #include <QDialog>
@@ -30,7 +31,6 @@ public:
     QString getDominance();
     QString getHeight();
 
-    QString name;
     int id;
     QString age;
     bool male;
@@ -44,11 +44,12 @@ public:
     bool doublelane;
     bool demo;
     bool trial;
-    bool left;
-    bool right;
+    bool lefthanded;
+    bool righthanded;
     QString sex;
     QString dominance;
-    QString height;
+    QString participantheight;
+    QString trialquantity;
 
     Data data; // writes files for demographics
     VE virtuale; // top class for all VE code
@@ -56,23 +57,22 @@ public:
 
 private:
     Ui::Demographics *ui;
-    void setErrorStars(bool flags);
 
 private slots:
     void on_quit_clicked();
     void on_male_clicked();
     void on_female_clicked();
-    void on_green_clicked();
-    void on_pink_clicked();
-    void on_orange_clicked();
+    void on_neongreen_clicked();
+    void on_neonpink_clicked();
+    void on_neonorange_clicked();
     void on_trafficenable_clicked();
-    void on_traffic_disable_clicked();
+    void on_trafficdisable_clicked();
     void on_singlelane_clicked();
     void on_doublelane_clicked();
     void on_demo_clicked();
     void on_trial_clicked();
-    void on_right_clicked();
-    void on_left_clicked();
+    void on_righthanded_clicked();
+    void on_lefthanded_clicked();
 
 };
 
