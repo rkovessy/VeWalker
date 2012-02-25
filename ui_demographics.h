@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'demographics.ui'
 **
-** Created: Fri Feb 24 12:02:25 2012
+** Created: Fri Feb 24 15:25:26 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -384,7 +384,7 @@ public:
         participantheight = new QSpinBox(layoutWidget);
         participantheight->setObjectName(QString::fromUtf8("participantheight"));
 
-        gridLayout_3->addWidget(participantheight, 2, 2, 1, 1);
+        gridLayout_3->addWidget(participantheight, 2, 2, 1, 2);
 
 
         gridLayout_4->addLayout(gridLayout_3, 1, 0, 1, 1);
