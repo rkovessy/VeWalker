@@ -40,7 +40,6 @@ SOURCES += \
     popupscreen.cpp \
     vuzixthread.cpp \
     arduino.cpp \
-    firstwindow.cpp \
     startwindow.cpp
 
 HEADERS  += \
@@ -88,14 +87,12 @@ HEADERS  += \
     arduino.h \
     serialportinfo.h \
     serialport.h \
-    firstwindow.h \
     startwindow.h
 
 FORMS    += \
     mainwindow.ui \
     demographics.ui \
     popupscreen.ui \
-    firstwindow.ui \
     startwindow.ui
 
 LIBS += -L C:\OpenCVNew\install\bin \

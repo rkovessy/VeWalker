@@ -29,7 +29,6 @@ INPUT(
 ./debug\popupscreen.o
 ./debug\vuzixthread.o
 ./debug\arduino.o
-./debug\firstwindow.o
 ./debug\startwindow.o
 ./debug\serialport.o
 ./debug\serialportinfo.o
@@ -48,6 +47,5 @@ INPUT(
 ./debug\moc_vuzixthread.o
 ./debug\moc_arduino.o
 ./debug\moc_serialport.o
-./debug\moc_firstwindow.o
 ./debug\moc_serialportengine_p_win.o
 );

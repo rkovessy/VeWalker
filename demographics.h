@@ -50,6 +50,8 @@ public:
     QString dominance;
     QString participantheight;
     QString trialquantity;
+    QString lowerDateRange;
+    QString upperDateRange;
 
     Data data; // writes files for demographics
     VE virtuale; // top class for all VE code
@@ -59,7 +61,11 @@ private:
     Ui::Demographics *ui;
 
 private slots:
-    void on_quit_clicked();
+    void on_start_clicked();
+    void on_cancel_clicked();
+    void on_datum_clicked();
+    void on_download_clicked();
+    void on_calibrate_clicked();
     void on_male_clicked();
     void on_female_clicked();
     void on_neongreen_clicked();

@@ -131,7 +131,27 @@ void Demographics::on_neonpink_clicked()
         ui->neonpink->setChecked(true);
 }
 
-void Demographics::on_quit_clicked()
+void Demographics::on_cancel_clicked()
+{
+    return;
+}
+
+void Demographics::on_datum_clicked()
+{
+    return;
+}
+
+void Demographics::on_download_clicked()
+{
+    return;
+}
+
+void Demographics::on_calibrate_clicked()
+{
+    return;
+}
+
+void Demographics::on_start_clicked()
 {
     bool inputError = false;
     //defines variables in relation to objects to allow for passing of variables to rest of program
@@ -152,7 +172,7 @@ void Demographics::on_quit_clicked()
     bool trial= ui->trial->isChecked();
     bool left = ui->lefthanded->isChecked();
     bool right= ui->righthanded->isChecked();
-
+    printf("Test");
     //sets the gender flag so that we can write the data to a file
     if(male)
     {

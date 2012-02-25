@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'demographics.h'
 **
-** Created: Fri Feb 24 12:03:28 2012
+** Created: Sat Feb 25 17:44:16 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_Demographics[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-      14,   14, // methods
+      18,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -32,25 +32,31 @@ static const uint qt_meta_data_Demographics[] = {
 
  // slots: signature, parameters, type, tag, flags
       14,   13,   13,   13, 0x08,
-      32,   13,   13,   13, 0x08,
-      50,   13,   13,   13, 0x08,
-      70,   13,   13,   13, 0x08,
-      93,   13,   13,   13, 0x08,
-     115,   13,   13,   13, 0x08,
-     139,   13,   13,   13, 0x08,
-     166,   13,   13,   13, 0x08,
-     194,   13,   13,   13, 0x08,
-     218,   13,   13,   13, 0x08,
-     242,   13,   13,   13, 0x08,
-     260,   13,   13,   13, 0x08,
+      33,   13,   13,   13, 0x08,
+      53,   13,   13,   13, 0x08,
+      72,   13,   13,   13, 0x08,
+      94,   13,   13,   13, 0x08,
+     117,   13,   13,   13, 0x08,
+     135,   13,   13,   13, 0x08,
+     155,   13,   13,   13, 0x08,
+     178,   13,   13,   13, 0x08,
+     200,   13,   13,   13, 0x08,
+     224,   13,   13,   13, 0x08,
+     251,   13,   13,   13, 0x08,
      279,   13,   13,   13, 0x08,
-     304,   13,   13,   13, 0x08,
+     303,   13,   13,   13, 0x08,
+     327,   13,   13,   13, 0x08,
+     345,   13,   13,   13, 0x08,
+     364,   13,   13,   13, 0x08,
+     389,   13,   13,   13, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_Demographics[] = {
-    "Demographics\0\0on_quit_clicked()\0"
+    "Demographics\0\0on_start_clicked()\0"
+    "on_cancel_clicked()\0on_datum_clicked()\0"
+    "on_download_clicked()\0on_calibrate_clicked()\0"
     "on_male_clicked()\0on_female_clicked()\0"
     "on_neongreen_clicked()\0on_neonpink_clicked()\0"
     "on_neonorange_clicked()\0"
@@ -91,23 +97,27 @@ int Demographics::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
-        case 0: on_quit_clicked(); break;
-        case 1: on_male_clicked(); break;
-        case 2: on_female_clicked(); break;
-        case 3: on_neongreen_clicked(); break;
-        case 4: on_neonpink_clicked(); break;
-        case 5: on_neonorange_clicked(); break;
-        case 6: on_trafficenable_clicked(); break;
-        case 7: on_trafficdisable_clicked(); break;
-        case 8: on_singlelane_clicked(); break;
-        case 9: on_doublelane_clicked(); break;
-        case 10: on_demo_clicked(); break;
-        case 11: on_trial_clicked(); break;
-        case 12: on_righthanded_clicked(); break;
-        case 13: on_lefthanded_clicked(); break;
+        case 0: on_start_clicked(); break;
+        case 1: on_cancel_clicked(); break;
+        case 2: on_datum_clicked(); break;
+        case 3: on_download_clicked(); break;
+        case 4: on_calibrate_clicked(); break;
+        case 5: on_male_clicked(); break;
+        case 6: on_female_clicked(); break;
+        case 7: on_neongreen_clicked(); break;
+        case 8: on_neonpink_clicked(); break;
+        case 9: on_neonorange_clicked(); break;
+        case 10: on_trafficenable_clicked(); break;
+        case 11: on_trafficdisable_clicked(); break;
+        case 12: on_singlelane_clicked(); break;
+        case 13: on_doublelane_clicked(); break;
+        case 14: on_demo_clicked(); break;
+        case 15: on_trial_clicked(); break;
+        case 16: on_righthanded_clicked(); break;
+        case 17: on_lefthanded_clicked(); break;
         default: ;
         }
-        _id -= 14;
+        _id -= 18;
     }
     return _id;
 }
