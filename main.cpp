@@ -1,5 +1,5 @@
 #include <QtGui/QApplication>
-#include "startwindow.h"
+#include "demographics.h"
 
 int main(int argc, char *argv[])
 {
