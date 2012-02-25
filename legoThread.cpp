@@ -53,8 +53,8 @@ IplImage* LegoThread::GetThresholdedImage(IplImage* img)
     //Convert to thresholded image for HSV color range selected
     //In Colorpic Hue needs to be divided by 2, as OCV has 180 range and ColorPic has 360. Sat and Val have 256 range
     //in both programs.
-    CvScalar min_color1 = cvScalar(75,130,100,0);
-    CvScalar max_color1 = cvScalar(85,255,255,0);
+    CvScalar min_color1 = cvScalar(50,60,60,0);
+    CvScalar max_color1 = cvScalar(80,180,256,0);
     //CvScalar min_color2 = cvScalar(170,50,170,0);
     //CvScalar max_color2 = cvScalar(256,180,256,0);
 
@@ -81,7 +81,7 @@ IplImage* LegoThread::GetBlurredImage(IplImage* img)
 IplImage* LegoThread::GetResizedImage(IplImage* img)
 {
     //Resize image to 1/4 size to speed up processing
-    IplImage* imgResized = cvCreateImage(cvSize(img->width/4, img->height/4), 8, 3);
+    IplImage* imgResized = cvCreateImage(cvSize(img->width, img->height), 8, 3);
     cvResize(img, imgResized, CV_INTER_AREA);
     return imgResized;
 }
@@ -100,10 +100,13 @@ void LegoThread::run()
     qDebug("LegoThread is running!");
     bool flag = false;
    do {
-        time.restart();
-       UpdateCamera();
-        //UpdateHTracking();
+
         msec = double(time.elapsed());
+        if (msec >= 40)
+        {
+            UpdateCamera();
+            time.restart();
+        }
     } while (!flag);
     exec();
 }
@@ -199,7 +202,7 @@ void LegoThread::UpdateCamera()
         return;
     }   
 
-    cvShowImage("Raw Video", frame);
+    //cvShowImage("Raw Video", frame);
 
     //Setup sequences to get contours
     CvSeq* contours;
@@ -223,7 +226,7 @@ void LegoThread::UpdateCamera()
 
     //Dilate image
     IplImage* imgDilated = GetDilatedImage(imgThresh);
-    cvShowImage("Processed Video", imgDilated);
+    //cvShowImage("Processed Video", imgDilated);
 
 
     //Get the contour vectors and store in contours
@@ -247,7 +250,7 @@ void LegoThread::UpdateCamera()
                 posX1 = moment101/area1;
                 posY1 = moment011/area1;
                 moment_center1= cvPoint(posX1, posY1);
-                printf("Shoulder position 1(%d,%d)\n", posX1, posY1);
+                //printf("Shoulder position 1(%d,%d)\n", posX1, posY1);
             }
         }
 
@@ -266,7 +269,7 @@ void LegoThread::UpdateCamera()
                 posX2 = moment102/area2;
                 posY2 = moment012/area2;
                 moment_center2 = cvPoint(posX2, posY2);
-                printf("Shoulder position 2 (%d,%d)\n", posX2, posY2);
+                //printf("Shoulder position 2 (%d,%d)\n", posX2, posY2);
             }
         }
 

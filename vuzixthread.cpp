@@ -22,15 +22,18 @@ void VuzixThread::run()
     qDebug("vuzikThread is running!");
     bool flag = false;
    do {
-        time.restart();
-        UpdateHTracking();
-
+        msec = double(time.elapsed());
+        if (msec >= 40) {
+            UpdateHTracking();
+            time.restart();
+         }
     } while (!flag);
     exec();
 }
 
 void VuzixThread::set(double a, int t) {
-    timer_interval = double(t);
+    printf("Timer interval: %i\n",t);
+    timer_interval = double(40);
     startupdating = true; // yTrans and zTrans can now be changed
     time.start();
 }
@@ -40,6 +43,7 @@ void VuzixThread::UpdateHTracking()
 
     DWORD trk_res=IWRGetTracking(&HTyaw,&HTpitch, &HTroll);
 
+    //printf("yaw [%li] pitch [%li] roll [%li] \n", HTyaw, HTpitch, HTroll);
     emit sendHTrackerValues(HTyaw, HTpitch, HTroll);
 
 

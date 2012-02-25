@@ -7,7 +7,7 @@ MyWindow::MyWindow()
     setWindowTitle(tr("Walker Scene"));
     replay = false;
     glWidget->set_window(window_width, window_height);
-    setMouseTracking(true);
+    //setMouseTracking(true);
 }
 
 void MyWindow::settingLayout() {
