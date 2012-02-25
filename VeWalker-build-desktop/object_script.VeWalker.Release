@@ -29,12 +29,10 @@ INPUT(
 ./release\popupscreen.o
 ./release\vuzixthread.o
 ./release\arduino.o
-./release\startwindow.o
 ./release\serialport.o
 ./release\serialportinfo.o
 ./release\serialportengine_p_win.o
 ./release\serialportinfo_win.o
-./release\moc_startwindow.o
 ./release\moc_mainwindow.o
 ./release\moc_demographics.o
 ./release\moc_trafficcontrol.o

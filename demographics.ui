@@ -333,7 +333,7 @@
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="Calibrate">
+   <widget class="QPushButton" name="calibrate">
     <property name="geometry">
      <rect>
       <x>159</x>
@@ -811,7 +811,7 @@
    <property name="title">
     <string>Trial History</string>
    </property>
-   <widget class="QPushButton" name="donwload">
+   <widget class="QPushButton" name="download">
     <property name="geometry">
      <rect>
       <x>11</x>
@@ -937,7 +937,7 @@
      </spacer>
     </item>
     <item>
-     <widget class="QPushButton" name="start">
+     <widget class="QPushButton" name="quit">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
         <horstretch>0</horstretch>

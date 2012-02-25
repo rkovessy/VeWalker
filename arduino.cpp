@@ -12,7 +12,7 @@ ArduinoThread::ArduinoThread(QObject *parent) :
     m_port = new SerialPort(this);
 
 
-    qDebug("made it here");
+    //qDebug("made it here");
     m_port->setPort("COM3");
 
     if (m_port->open((QIODevice::OpenMode)1)) {
@@ -38,7 +38,7 @@ ArduinoThread::ArduinoThread(QObject *parent) :
      qDebug() << "Stop bits              : " << m_port->stopBits();
      qDebug() << "Flow                   : " << m_port->flowControl();
 
-    qDebug("outputting\n");
+    //qDebug("outputting\n");
     output();
 
     bool flag = false;

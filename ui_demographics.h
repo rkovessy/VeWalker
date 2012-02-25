@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'demographics.ui'
 **
-** Created: Sat Feb 25 17:34:03 2012
+** Created: Sat Feb 25 18:42:23 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -45,7 +45,7 @@ public:
     QSpinBox *trialquantity;
     QGroupBox *groupBox_2;
     QRadioButton *neonpink;
-    QPushButton *Calibrate;
+    QPushButton *calibrate;
     QLabel *heightlabel;
     QSpinBox *participantheight;
     QLabel *trackinglabel;
@@ -66,7 +66,7 @@ public:
     QRadioButton *righthanded;
     QRadioButton *lefthanded;
     QGroupBox *groupBox_4;
-    QPushButton *donwload;
+    QPushButton *download;
     QLabel *heightlabel_2;
     QDateEdit *datelowerrange;
     QLabel *heightlabel_3;
@@ -168,13 +168,13 @@ public:
         neonpink->setSizePolicy(sizePolicy);
         neonpink->setFont(font1);
         neonpink->setAutoExclusive(false);
-        Calibrate = new QPushButton(groupBox_2);
-        Calibrate->setObjectName(QString::fromUtf8("Calibrate"));
-        Calibrate->setGeometry(QRect(159, 83, 75, 26));
-        Calibrate->setFont(font1);
-        Calibrate->setCheckable(false);
-        Calibrate->setDefault(true);
-        Calibrate->setFlat(false);
+        calibrate = new QPushButton(groupBox_2);
+        calibrate->setObjectName(QString::fromUtf8("calibrate"));
+        calibrate->setGeometry(QRect(159, 83, 75, 26));
+        calibrate->setFont(font1);
+        calibrate->setCheckable(false);
+        calibrate->setDefault(true);
+        calibrate->setFlat(false);
         heightlabel = new QLabel(groupBox_2);
         heightlabel->setObjectName(QString::fromUtf8("heightlabel"));
         heightlabel->setGeometry(QRect(11, 25, 142, 18));
@@ -274,16 +274,16 @@ public:
         groupBox_4->setObjectName(QString::fromUtf8("groupBox_4"));
         groupBox_4->setGeometry(QRect(410, 150, 291, 121));
         groupBox_4->setFont(font);
-        donwload = new QPushButton(groupBox_4);
-        donwload->setObjectName(QString::fromUtf8("donwload"));
-        donwload->setGeometry(QRect(11, 79, 75, 26));
-        donwload->setFont(font1);
-        donwload->setCheckable(false);
-        donwload->setDefault(true);
-        donwload->setFlat(false);
+        download = new QPushButton(groupBox_4);
+        download->setObjectName(QString::fromUtf8("download"));
+        download->setGeometry(QRect(11, 79, 75, 26));
+        download->setFont(font1);
+        download->setCheckable(false);
+        download->setDefault(true);
+        download->setFlat(false);
         heightlabel_2 = new QLabel(groupBox_4);
         heightlabel_2->setObjectName(QString::fromUtf8("heightlabel_2"));
-        heightlabel_2->setGeometry(QRect(11, 25, 119, 18));
+        heightlabel_2->setGeometry(QRect(11, 25, 221, 18));
         heightlabel_2->setFont(font1);
         datelowerrange = new QDateEdit(groupBox_4);
         datelowerrange->setObjectName(QString::fromUtf8("datelowerrange"));
@@ -345,7 +345,7 @@ public:
 
     void retranslateUi(QDialog *Demographics)
     {
-        Demographics->setWindowTitle(QApplication::translate("Demographics", "Dialog", 0, QApplication::UnicodeUTF8));
+        Demographics->setWindowTitle(QApplication::translate("Demographics", "VeWalker Configuration", 0, QApplication::UnicodeUTF8));
         groupBox->setTitle(QApplication::translate("Demographics", "Trial Configuration", 0, QApplication::UnicodeUTF8));
         trafficdisable->setText(QApplication::translate("Demographics", "Disable", 0, QApplication::UnicodeUTF8));
         trafficenable->setText(QApplication::translate("Demographics", "Enable", 0, QApplication::UnicodeUTF8));
@@ -359,7 +359,7 @@ public:
         trialquantitylabel->setText(QApplication::translate("Demographics", "Number of trials:", 0, QApplication::UnicodeUTF8));
         groupBox_2->setTitle(QApplication::translate("Demographics", "Simulation Calibration", 0, QApplication::UnicodeUTF8));
         neonpink->setText(QApplication::translate("Demographics", "Pink", 0, QApplication::UnicodeUTF8));
-        Calibrate->setText(QApplication::translate("Demographics", "Calibrate", 0, QApplication::UnicodeUTF8));
+        calibrate->setText(QApplication::translate("Demographics", "Calibrate", 0, QApplication::UnicodeUTF8));
         heightlabel->setText(QApplication::translate("Demographics", "Participant height (in):", 0, QApplication::UnicodeUTF8));
         trackinglabel->setText(QApplication::translate("Demographics", "Object tracking:", 0, QApplication::UnicodeUTF8));
         neongreen->setText(QApplication::translate("Demographics", "Green", 0, QApplication::UnicodeUTF8));
@@ -377,8 +377,8 @@ public:
         righthanded->setText(QApplication::translate("Demographics", "Right", 0, QApplication::UnicodeUTF8));
         lefthanded->setText(QApplication::translate("Demographics", "Left", 0, QApplication::UnicodeUTF8));
         groupBox_4->setTitle(QApplication::translate("Demographics", "Trial History", 0, QApplication::UnicodeUTF8));
-        donwload->setText(QApplication::translate("Demographics", "Download", 0, QApplication::UnicodeUTF8));
-        heightlabel_2->setText(QApplication::translate("Demographics", "Select date range:", 0, QApplication::UnicodeUTF8));
+        download->setText(QApplication::translate("Demographics", "Download", 0, QApplication::UnicodeUTF8));
+        heightlabel_2->setText(QApplication::translate("Demographics", "Specify date range(dd/mm/yyyy):", 0, QApplication::UnicodeUTF8));
         heightlabel_3->setText(QApplication::translate("Demographics", "to", 0, QApplication::UnicodeUTF8));
         quit->setText(QApplication::translate("Demographics", "Start", 0, QApplication::UnicodeUTF8));
         cancel->setText(QApplication::translate("Demographics", "Cancel", 0, QApplication::UnicodeUTF8));
