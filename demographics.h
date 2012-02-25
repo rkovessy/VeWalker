@@ -61,7 +61,7 @@ private:
     Ui::Demographics *ui;
 
 private slots:
-    void on_start_clicked();
+    void on_quit_clicked();
     void on_cancel_clicked();
     void on_datum_clicked();
     void on_download_clicked();

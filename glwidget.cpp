@@ -104,7 +104,7 @@ void GLWidget::setTranslation(double mag, double z) { // connected to senddata(d
 void GLWidget::setArduinoTranslation(int potRot)
 {
     currRotation = potRot;
-    qDebug() << "potRot:    " << potRot;
+    //qDebug() << "potRot:    " << potRot;
     if(!hit) {
         if(!(tc.get_screen()))
             motorSpeed = abs(currRotation - prevRotation) * PI / 180.0 * 0.01;

@@ -133,6 +133,7 @@ void Demographics::on_neonpink_clicked()
 
 void Demographics::on_cancel_clicked()
 {
+    this->hide();
     return;
 }
 
@@ -151,14 +152,22 @@ void Demographics::on_calibrate_clicked()
     return;
 }
 
-void Demographics::on_start_clicked()
+void Demographics::on_quit_clicked()
 {
+    id = ui->id->value();
+    QString pid = QString::number(id);
+    if (id < 10)
+        pid.prepend("0");
+    QFile file("Data/P" + pid + "_Data.txt");
+
+    QString f = "Data";
+    QDir().mkdir(f);
+
     bool inputError = false;
     //defines variables in relation to objects to allow for passing of variables to rest of program
     age =ui->age->value();
     participantheight =ui->participantheight->value();
     trialquantity =ui->trialquantity->value();
-    id = ui->id->value();
     bool male = ui->male->isChecked();
     bool female = ui->female->isChecked();
     bool neongreen= ui->neongreen->isChecked();
@@ -172,7 +181,6 @@ void Demographics::on_start_clicked()
     bool trial= ui->trial->isChecked();
     bool left = ui->lefthanded->isChecked();
     bool right= ui->righthanded->isChecked();
-    printf("Test");
     //sets the gender flag so that we can write the data to a file
     if(male)
     {
