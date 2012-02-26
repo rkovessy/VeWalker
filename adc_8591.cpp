@@ -51,7 +51,7 @@ Sensor_type Adc_8591::get_type(){
 
 std::string Adc_8591::print(){
   std::stringstream out;
-  //out << "P0=" << get_port_reading(0x00) << " P1=" + get_port_reading(0x01) << " P2=" + get_port_reading(0x02) << " P3=" + get_port_reading(0x03);
+  out << "P0=" << get_port_reading(0x00) << " P1=" + get_port_reading(0x01) << " P2=" + get_port_reading(0x02) << " P3=" + get_port_reading(0x03);
   return out.str();
 }
 

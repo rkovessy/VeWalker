@@ -47,6 +47,7 @@ LegoThread::LegoThread() {
 IplImage* LegoThread::GetThresholdedImage(IplImage* img)
 {
     // Convert the image into an HSV image
+
     IplImage* imgHSV = cvCreateImage(cvGetSize(img), 8, 3);
     cvCvtColor(img, imgHSV, CV_BGR2HSV);
     IplImage* imgThreshed1 = cvCreateImage(cvGetSize(img), 8, 1);
