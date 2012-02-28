@@ -18,8 +18,6 @@ class VE : public QWidget
 {
     /* main class for VE environment, contains the two main halves of the program, collectdata,
        which is responsible for the NXT and mywindow which contains everything else.
-       If you want to get rid of demographics class it would be easy to set this after startwindow
-       instead of demographics
     */
     Q_OBJECT
 public:

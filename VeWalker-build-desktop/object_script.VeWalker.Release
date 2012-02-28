@@ -1,5 +1,4 @@
 INPUT(
-./release\startwindow.o
 ./release\mainwindow.o
 ./release\main.o
 ./release\demographics.o
@@ -34,7 +33,6 @@ INPUT(
 ./release\serialportinfo.o
 ./release\serialportengine_p_win.o
 ./release\serialportinfo_win.o
-./release\moc_startwindow.o
 ./release\moc_mainwindow.o
 ./release\moc_demographics.o
 ./release\moc_trafficcontrol.o

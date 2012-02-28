@@ -1,5 +1,4 @@
 INPUT(
-./debug\startwindow.o
 ./debug\mainwindow.o
 ./debug\main.o
 ./debug\demographics.o
@@ -34,7 +33,6 @@ INPUT(
 ./debug\serialportinfo.o
 ./debug\serialportengine_p_win.o
 ./debug\serialportinfo_win.o
-./debug\moc_startwindow.o
 ./debug\moc_mainwindow.o
 ./debug\moc_demographics.o
 ./debug\moc_trafficcontrol.o

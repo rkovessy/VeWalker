@@ -77,6 +77,7 @@ void GLWidget::setZRotation(double angle)
 {
     if (angle != zRot) {
         zRot = angle;
+       // printf("Z:(%d)\n", zRot);
         if (zRot < 0.0) {
             do {
                 zRot += 360.0;
@@ -104,6 +105,7 @@ void GLWidget::setTranslation(double mag, double z) { // connected to senddata(d
 void GLWidget::setArduinoTranslation(int potRot)
 {
     currRotation = potRot;
+    //qDebug() << "potRot:    " << potRot;
     if(!hit) {
         if(!(tc.get_screen()))
             motorSpeed = abs(currRotation - prevRotation) * PI / 180.0 * 0.01;
@@ -125,8 +127,10 @@ void GLWidget::rotation(double anglediff)
 
 void GLWidget::Zrotation(double anglediff)
 {
-    if (!(tc.get_screen()))
+    if (!(tc.get_screen())) {
         compassSpeed = anglediff;
+        //qDebug() << "compassSpeed:  " << compassSpeed;
+    }
     else
         compassSpeed = 0.0;
 }
@@ -153,7 +157,8 @@ void GLWidget::updateScene() {
 
     else if (started) {
         setArduinoTranslation(arduinoThread.output());
-        setZRotation(zRot + (compassSpeed/4));
+        setZRotation(/*zRot + (*/compassSpeed/*/4)*/);
+        //qDebug() << "zRotation: " << compassSpeed;
         setXRotation(xcompassSpeed);
         setYRotation(ycompassSpeed);
 

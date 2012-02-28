@@ -10,7 +10,6 @@ TARGET = VeWalker
 TEMPLATE = app
 
 SOURCES += \
-    startwindow.cpp \
     mainwindow.cpp \
     main.cpp \
     demographics.cpp \
@@ -43,7 +42,6 @@ SOURCES += \
     arduino.cpp
 
 HEADERS  += \
-    startwindow.h \
     mainwindow.h \
     demographics.h \
     trafficcontrol.h \
@@ -89,7 +87,6 @@ HEADERS  += \
     serialport.h
 
 FORMS    += \
-    startwindow.ui \
     mainwindow.ui \
     demographics.ui \
     popupscreen.ui

@@ -55,7 +55,7 @@ public:
     const static double LINE_WIDTH = 0.05; // width of painted lane lines
     const static double LANE_WIDTH = 1.7;  // distance from edge of sidwalk to center of the white lane line or from the center of the white line to the center of the yellow line
 
-    static const int numberOfLanes = 1; // number of lanes
+    int numberOfLanes; // number of lanes
     static const double centerRadius = 1.5; // radius from (0,0,0) to the outside of the grey border of the center of the roundabout
     static const double centerHeight = 1.0 / 3.0; // height of the object in the center
 

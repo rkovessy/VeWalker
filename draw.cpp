@@ -1,10 +1,27 @@
 #include "draw.h"
+#include <string>
+using namespace std;
 
 Draw::Draw()
 {
     quad = gluNewQuadric();
     move = 0.0;
     loadTextures();
+
+    FILE * pFile;
+    pFile = fopen ("configdata.txt","r");
+
+    char laneBuffer [100];
+    fgets (laneBuffer , 100 , pFile );
+    fgets (laneBuffer , 100 , pFile );
+
+    if (laneBuffer[7] == '1')
+        numberOfLanes = 1;
+    else
+        numberOfLanes = 2;
+
+
+    fclose(pFile);
 
     cornerRadius = ((centerRadius + LANE_WIDTH * numberOfLanes) * sin(PI / 4.0) - LANE_WIDTH * numberOfLanes) / (1 - sin(PI / 4.0));
     cornerCoordinate = LANE_WIDTH * numberOfLanes + cornerRadius;
