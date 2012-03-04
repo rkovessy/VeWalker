@@ -32,6 +32,8 @@ public:
     QString getHeight();
 
     int id;
+    int trafficquantityslider;
+    int intensityslider;
     QString age;
     bool male;
     bool female;

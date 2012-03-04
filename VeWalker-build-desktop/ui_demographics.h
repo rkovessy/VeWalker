@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'demographics.ui'
 **
-** Created: Sun Mar 4 15:38:59 2012
+** Created: Sun Mar 4 16:15:09 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -84,6 +84,7 @@ public:
     {
         if (Demographics->objectName().isEmpty())
             Demographics->setObjectName(QString::fromUtf8("Demographics"));
+        Demographics->setEnabled(true);
         Demographics->resize(713, 442);
         groupBox = new QGroupBox(Demographics);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
@@ -158,6 +159,7 @@ public:
         trialquantity->setFont(font2);
         intensityslider = new QSlider(groupBox);
         intensityslider->setObjectName(QString::fromUtf8("intensityslider"));
+        intensityslider->setEnabled(true);
         intensityslider->setGeometry(QRect(149, 140, 171, 19));
         intensityslider->setOrientation(Qt::Horizontal);
         vehiclequantityslider = new QSlider(groupBox);
@@ -170,8 +172,10 @@ public:
         vehiclequantitylabel->setFont(font1);
         trafficintensitylabel = new QLabel(groupBox);
         trafficintensitylabel->setObjectName(QString::fromUtf8("trafficintensitylabel"));
+        trafficintensitylabel->setEnabled(true);
         trafficintensitylabel->setGeometry(QRect(13, 140, 101, 18));
         trafficintensitylabel->setFont(font1);
+        trafficintensitylabel->setTextFormat(Qt::AutoText);
         unsafedisable = new QRadioButton(groupBox);
         unsafedisable->setObjectName(QString::fromUtf8("unsafedisable"));
         unsafedisable->setGeometry(QRect(223, 108, 68, 22));
@@ -218,6 +222,7 @@ public:
         participantheight->setObjectName(QString::fromUtf8("participantheight"));
         participantheight->setGeometry(QRect(159, 25, 39, 24));
         participantheight->setFont(font1);
+        participantheight->setValue(70);
         trackinglabel = new QLabel(groupBox_2);
         trackinglabel->setObjectName(QString::fromUtf8("trackinglabel"));
         trackinglabel->setGeometry(QRect(11, 55, 103, 18));
@@ -271,6 +276,7 @@ public:
         participantnumberlabel->setFont(font1);
         id = new QSpinBox(groupBox_3);
         id->setObjectName(QString::fromUtf8("id"));
+        id->setEnabled(true);
         id->setGeometry(QRect(150, 27, 39, 24));
         id->setMaximumSize(QSize(116, 135));
         id->setFont(font2);

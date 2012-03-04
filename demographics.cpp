@@ -53,6 +53,31 @@ void Demographics::on_lefthanded_clicked()
 //logic to select only trial or demo mode radio button, but not both
 void Demographics::on_trial_clicked()
 {
+    //enable all settings for trials
+    ui->age->setEnabled(true);
+    ui->agelabel->setEnabled(true);
+    ui->doublelane->setEnabled(true);
+    ui->female->setEnabled(true);
+    ui->handdominancelabel->setEnabled(true);
+    ui->id->setEnabled(true);
+    ui->trafficlabel->setEnabled(true);
+    ui->trafficdisable->setEnabled(true);
+    ui->trafficenable->setEnabled(true);
+    ui->singlelane->setEnabled(true);
+    ui->sexlabel->setEnabled(true);
+    ui->righthanded->setEnabled(true);
+    ui->roundaboutsize->setEnabled(true);
+    ui->lefthanded->setEnabled(true);
+    ui->male->setEnabled(true);
+    ui->participantnumberlabel->setEnabled(true);
+    ui->unsafeenable->setEnabled(true);
+    ui->intensityslider->setEnabled(true);
+    ui->vehiclequantityslider->setEnabled(true);
+    ui->unsafedisable->setEnabled(true);
+    ui->vehiclequantitylabel->setEnabled(true);
+    ui->trafficintensitylabel->setEnabled(true);
+    ui->unsafeintensitylabel->setEnabled(true);
+
     if (ui->demo->isChecked())
         ui->demo->setChecked(false);
     else
@@ -61,6 +86,31 @@ void Demographics::on_trial_clicked()
 
 void Demographics::on_demo_clicked()
 {
+    //disable some settings for demo purposes and use default values instead
+    ui->age->setEnabled(false);
+    ui->agelabel->setEnabled(false);
+    ui->doublelane->setEnabled(false);
+    ui->female->setEnabled(false);
+    ui->handdominancelabel->setEnabled(false);
+    ui->id->setEnabled(false);
+    ui->trafficlabel->setEnabled(false);
+    ui->trafficdisable->setEnabled(false);
+    ui->trafficenable->setEnabled(false);
+    ui->singlelane->setEnabled(false);
+    ui->sexlabel->setEnabled(false);
+    ui->righthanded->setEnabled(false);
+    ui->roundaboutsize->setEnabled(false);
+    ui->lefthanded->setEnabled(false);
+    ui->male->setEnabled(false);
+    ui->participantnumberlabel->setEnabled(false);
+    ui->unsafeenable->setEnabled(false);
+    ui->intensityslider->setEnabled(false);
+    ui->vehiclequantityslider->setEnabled(false);
+    ui->unsafedisable->setEnabled(false);
+    ui->vehiclequantitylabel->setEnabled(false);
+    ui->trafficintensitylabel->setEnabled(false);
+    ui->unsafeintensitylabel->setEnabled(false);
+
     if(ui->trial->isChecked())
         ui->trial->setChecked(false);
     else
@@ -70,6 +120,12 @@ void Demographics::on_demo_clicked()
 //logic to select only unsafe intensity enable or disable, but not both
 void Demographics::on_unsafeenable_clicked()
 {
+    //diable quantity and intensity and use unsafe traffic pattern
+    ui->intensityslider->setEnabled(false);
+    ui->trafficintensitylabel->setEnabled(false);
+    ui->vehiclequantityslider->setEnabled(false);
+    ui->vehiclequantitylabel->setEnabled(false);
+
     if (ui->unsafedisable->isChecked())
         ui->unsafedisable->setChecked(false);
     else
@@ -78,6 +134,12 @@ void Demographics::on_unsafeenable_clicked()
 
 void Demographics::on_unsafedisable_clicked()
 {
+    //enable use of traffic instenity and quantity
+    ui->intensityslider->setEnabled(true);
+    ui->trafficintensitylabel->setEnabled(true);
+    ui->vehiclequantityslider->setEnabled(true);
+    ui->vehiclequantitylabel->setEnabled(true);
+
     if(ui->unsafeenable->isChecked())
         ui->unsafeenable->setChecked(false);
     else
