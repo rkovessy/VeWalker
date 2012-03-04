@@ -264,28 +264,9 @@ void Demographics::on_quit_clicked()
     bool trial= ui->trial->isChecked();
     bool left = ui->lefthanded->isChecked();
     bool right= ui->righthanded->isChecked();
-    //sets the gender flag so that we can write the data to a file
-    if(male)
-    {
-        sex = "male";
-    }
-    else if (female)
-    {
-        sex = "female";
-    }
+    bool unsafeenable = ui->unsafeenable->isChecked();
+    bool unsafedisable = ui->unsafedisable->isChecked();
 
-    //sets the dominance flag so that we can write the data to a file
-    if(right)
-    {
-        dominance = "right";
-    }
-    else if (left)
-    {
-        dominance = "left";
-    }
-
-    //fprintf(pFile, "age: %s\n", age);
-   // fprintf(pFile, "gender: %s\n", sex);
     if(trafficenable)
         fprintf(pFile, "traffic: yes\n");
     else
@@ -298,7 +279,19 @@ void Demographics::on_quit_clicked()
         fprintf(pFile, "demo: true\n");
     else
         fprintf(pFile, "demo: false\n");
-    //fprintf(pFile, "dominance: %s\n", dominance);
+    if(neongreen)
+        fprintf(pFile, "color: neon_green\n");
+    else if(neonpink)
+        fprintf(pFile, "color: neon_pink\n");
+    else
+        fprintf(pFile, "color: neon_orange\n");
+    if(unsafeenable)
+        fprintf(pFile, "unsafe: true\n");
+    else
+        fprintf(pFile, "unsafe: false\n");
+    fprintf(pFile, "trials: %d\n", ui->trialquantity->value());
+    fprintf(pFile, "height: %d\n", ui->participantheight->value());
+
 
     fclose(pFile);
 
@@ -313,15 +306,6 @@ void Demographics::on_quit_clicked()
         virtuale.start(id);
         this->hide();
     }
-
-
-
-}
-
-void Demographics::setPid(int personalIdentification)
-{
-    //set the ID of the user to be displayed in the GUI
-    ui->id->setValue(personalIdentification);
 }
 
 //get functions for sex, age, id, height
