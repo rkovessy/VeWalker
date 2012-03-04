@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>713</width>
-    <height>348</height>
+    <height>442</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>9</x>
      <y>9</y>
      <width>371</width>
-     <height>141</height>
+     <height>221</height>
     </rect>
    </property>
    <property name="font">
@@ -35,8 +35,8 @@
    <widget class="QRadioButton" name="trafficdisable">
     <property name="geometry">
      <rect>
-      <x>228</x>
-      <y>77</y>
+      <x>223</x>
+      <y>80</y>
       <width>68</width>
       <height>22</height>
      </rect>
@@ -58,8 +58,8 @@
    <widget class="QRadioButton" name="trafficenable">
     <property name="geometry">
      <rect>
-      <x>132</x>
-      <y>77</y>
+      <x>127</x>
+      <y>80</y>
       <width>65</width>
       <height>22</height>
      </rect>
@@ -87,8 +87,8 @@
    <widget class="QLabel" name="roundaboutsize">
     <property name="geometry">
      <rect>
-      <x>17</x>
-      <y>49</y>
+      <x>13</x>
+      <y>52</y>
       <width>83</width>
       <height>18</height>
      </rect>
@@ -107,8 +107,8 @@
    <widget class="QLabel" name="modelabel">
     <property name="geometry">
      <rect>
-      <x>17</x>
-      <y>21</y>
+      <x>13</x>
+      <y>24</y>
       <width>41</width>
       <height>18</height>
      </rect>
@@ -127,8 +127,8 @@
    <widget class="QRadioButton" name="trial">
     <property name="geometry">
      <rect>
-      <x>132</x>
-      <y>21</y>
+      <x>127</x>
+      <y>24</y>
       <width>48</width>
       <height>22</height>
      </rect>
@@ -156,8 +156,8 @@
    <widget class="QRadioButton" name="demo">
     <property name="geometry">
      <rect>
-      <x>228</x>
-      <y>21</y>
+      <x>223</x>
+      <y>24</y>
       <width>62</width>
       <height>22</height>
      </rect>
@@ -179,8 +179,8 @@
    <widget class="QRadioButton" name="singlelane">
     <property name="geometry">
      <rect>
-      <x>132</x>
-      <y>49</y>
+      <x>127</x>
+      <y>52</y>
       <width>90</width>
       <height>22</height>
      </rect>
@@ -208,8 +208,8 @@
    <widget class="QRadioButton" name="doublelane">
     <property name="geometry">
      <rect>
-      <x>228</x>
-      <y>49</y>
+      <x>223</x>
+      <y>52</y>
       <width>98</width>
       <height>22</height>
      </rect>
@@ -231,8 +231,8 @@
    <widget class="QLabel" name="trafficlabel">
     <property name="geometry">
      <rect>
-      <x>17</x>
-      <y>77</y>
+      <x>13</x>
+      <y>80</y>
       <width>90</width>
       <height>18</height>
      </rect>
@@ -251,8 +251,8 @@
    <widget class="QLabel" name="trialquantitylabel">
     <property name="geometry">
      <rect>
-      <x>17</x>
-      <y>105</y>
+      <x>13</x>
+      <y>190</y>
       <width>109</width>
       <height>18</height>
      </rect>
@@ -271,8 +271,8 @@
    <widget class="QSpinBox" name="trialquantity">
     <property name="geometry">
      <rect>
-      <x>132</x>
-      <y>105</y>
+      <x>149</x>
+      <y>190</y>
       <width>39</width>
       <height>24</height>
      </rect>
@@ -284,12 +284,156 @@
      </font>
     </property>
    </widget>
+   <widget class="QSlider" name="intensityslider">
+    <property name="geometry">
+     <rect>
+      <x>149</x>
+      <y>140</y>
+      <width>171</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QSlider" name="vehiclequantityslider">
+    <property name="geometry">
+     <rect>
+      <x>149</x>
+      <y>165</y>
+      <width>171</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="vehiclequantitylabel">
+    <property name="geometry">
+     <rect>
+      <x>13</x>
+      <y>165</y>
+      <width>130</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Number of vehicles:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="trafficintensitylabel">
+    <property name="geometry">
+     <rect>
+      <x>13</x>
+      <y>140</y>
+      <width>101</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Traffic intensty:</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="unsafedisable">
+    <property name="geometry">
+     <rect>
+      <x>223</x>
+      <y>108</y>
+      <width>68</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Disable</string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
+    <property name="autoExclusive">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="unsafeenable">
+    <property name="geometry">
+     <rect>
+      <x>127</x>
+      <y>108</y>
+      <width>65</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Enable</string>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+    <property name="autoExclusive">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="unsafeintensitylabel">
+    <property name="geometry">
+     <rect>
+      <x>13</x>
+      <y>108</y>
+      <width>108</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string>Inter-vehicle distance prevents safe crossing.</string>
+    </property>
+    <property name="text">
+     <string>Unsafe crossing:</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QGroupBox" name="groupBox_2">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>150</y>
+     <y>240</y>
      <width>371</width>
      <height>151</height>
     </rect>
@@ -348,6 +492,9 @@
       <weight>50</weight>
       <bold>false</bold>
      </font>
+    </property>
+    <property name="toolTip">
+     <string>Calibrate rotational speed based on lean extents.</string>
     </property>
     <property name="text">
      <string>Calibrate</string>
@@ -538,6 +685,9 @@
       <weight>50</weight>
       <bold>false</bold>
      </font>
+    </property>
+    <property name="toolTip">
+     <string>Calibrate zero position of head.</string>
     </property>
     <property name="text">
      <string>Datum</string>
@@ -875,6 +1025,16 @@
       <bold>false</bold>
      </font>
     </property>
+    <property name="date">
+     <date>
+      <year>2012</year>
+      <month>1</month>
+      <day>1</day>
+     </date>
+    </property>
+    <property name="calendarPopup">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QLabel" name="heightlabel_3">
     <property name="geometry">
@@ -911,90 +1071,74 @@
       <bold>false</bold>
      </font>
     </property>
+    <property name="date">
+     <date>
+      <year>2012</year>
+      <month>1</month>
+      <day>1</day>
+     </date>
+    </property>
+    <property name="calendarPopup">
+     <bool>true</bool>
+    </property>
    </widget>
   </widget>
-  <widget class="QWidget" name="layoutWidget">
+  <widget class="QPushButton" name="quit">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>310</y>
-     <width>691</width>
-     <height>28</height>
+     <x>278</x>
+     <y>401</y>
+     <width>75</width>
+     <height>26</height>
     </rect>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <item>
-     <spacer name="horizontalSpacer_11">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item>
-     <widget class="QPushButton" name="quit">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>11</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Start</string>
-      </property>
-      <property name="checkable">
-       <bool>false</bool>
-      </property>
-      <property name="default">
-       <bool>true</bool>
-      </property>
-      <property name="flat">
-       <bool>false</bool>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="cancel">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>11</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Cancel</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <spacer name="horizontalSpacer_12">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-   </layout>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Start</string>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="default">
+    <bool>true</bool>
+   </property>
+   <property name="flat">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="cancel">
+   <property name="geometry">
+    <rect>
+     <x>359</x>
+     <y>401</y>
+     <width>75</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Cancel</string>
+   </property>
   </widget>
   <zorder>groupBox_4</zorder>
   <zorder>groupBox_3</zorder>

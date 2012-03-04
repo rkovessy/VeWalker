@@ -6,6 +6,7 @@ Demographics::Demographics(QWidget *parent) :
     ui(new Ui::Demographics)
 {
     ui->setupUi(this);
+    ui->dateupperrange->setDate(QDate::currentDate());
 }
 
 //destructor
@@ -64,6 +65,23 @@ void Demographics::on_demo_clicked()
         ui->trial->setChecked(false);
     else
         ui->demo->setChecked(true);
+}
+
+//logic to select only unsafe intensity enable or disable, but not both
+void Demographics::on_unsafeenable_clicked()
+{
+    if (ui->unsafedisable->isChecked())
+        ui->unsafedisable->setChecked(false);
+    else
+        ui->unsafeenable->setChecked(true);
+}
+
+void Demographics::on_unsafedisable_clicked()
+{
+    if(ui->unsafeenable->isChecked())
+        ui->unsafeenable->setChecked(false);
+    else
+        ui->unsafedisable->setChecked(true);
 }
 
 //logic to select only single or double lane radio button, but not both

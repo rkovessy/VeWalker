@@ -41,6 +41,8 @@ public:
     bool trafficenable;
     bool trafficdisable;
     bool singlelane;
+    bool unsafeenable;
+    bool unsafedisable;
     bool doublelane;
     bool demo;
     bool trial;
@@ -79,6 +81,8 @@ private slots:
     void on_trial_clicked();
     void on_righthanded_clicked();
     void on_lefthanded_clicked();
+    void on_unsafeenable_clicked();
+    void on_unsafedisable_clicked();
 
 };
 
