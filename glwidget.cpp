@@ -11,7 +11,8 @@ GLWidget::GLWidget(QWidget *parent)
     time = 0.0;
     started = false;
 
-    setMouseTracking(true);
+
+    //setMouseTracking(true);
 }
 
 GLWidget::~GLWidget()
@@ -113,6 +114,7 @@ void GLWidget::setArduinoTranslation(int potRot)
     }
     //zTrans = height / 30.0 * sin(PI * (rValueNXT + 20) / 40) + height + height / 30;
     prevRotation = currRotation;
+    zTrans = 0.5;
 }
 
 void GLWidget::rotation(double anglediff)
@@ -159,9 +161,10 @@ void GLWidget::updateScene() {
         //qDebug() << "zRotation: " << compassSpeed;
         setXRotation(xcompassSpeed);
         setYRotation(ycompassSpeed);
-        compassSpeed = 0;
-        xcompassSpeed = 0;
-        ycompassSpeed = 0;
+
+        //compassSpeed = 0;
+        //xcompassSpeed = 0;
+        //ycompassSpeed = 0;
 
         double y;
         double x;
@@ -176,7 +179,8 @@ void GLWidget::updateScene() {
             xTrans = x;
         //}
 
-        tc.data.writePedestrian(tc.get_trials(), xTrans, yTrans, zTrans, xRot, yRot, zRot);
+            //printf("xRot [%f] yRot [%f] zRot[%f}\n", xRot, yRot, zRot);
+        //tc.data.writePedestrian(tc.get_trials(), xTrans, yTrans, zTrans, xRot, yRot, zRot);
 
        if ((startPos == "A" && yTrans >= startingyTrans[1] && fabs(xTrans-startingxTrans[0]) <= 1) || (startPos == "B" && yTrans <= startingyTrans[0])) {
             tc.nexttrial();

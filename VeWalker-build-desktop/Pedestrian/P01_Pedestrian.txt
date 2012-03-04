@@ -1,0 +1,1 @@
+     trial      time    xTrans    yTrans    zTrans      xRot      yRot      zRot         

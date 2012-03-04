@@ -10,10 +10,7 @@ ArduinoThread::ArduinoThread(QObject *parent) :
     potRotation = 0;
 
     m_port = new SerialPort(this);
-
-
-    //qDebug("made it here");
-    m_port->setPort("COM3");
+    m_port->setPort("COM22");
 
     if (m_port->open((QIODevice::OpenMode)1)) {
         qDebug("Arduino is running!\n");
@@ -33,12 +30,11 @@ ArduinoThread::ArduinoThread(QObject *parent) :
     qDebug() << "= Defaults parameters =";
     qDebug() << "Serial Port            : "  << m_port->portName();
     qDebug() << "Baud rate              : " << m_port->rate();
-     qDebug() << "Data bits              : " << m_port->dataBits();
-     qDebug() << "Parity                 : " << m_port->parity();
-     qDebug() << "Stop bits              : " << m_port->stopBits();
-     qDebug() << "Flow                   : " << m_port->flowControl();
+    qDebug() << "Data bits              : " << m_port->dataBits();
+    qDebug() << "Parity                 : " << m_port->parity();
+    qDebug() << "Stop bits              : " << m_port->stopBits();
+    qDebug() << "Flow                   : " << m_port->flowControl();
 
-    //qDebug("outputting\n");
     output();
 
     bool flag = false;

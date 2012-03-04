@@ -165,6 +165,9 @@ void Demographics::on_quit_clicked()
 
     bool inputError = false;
     //defines variables in relation to objects to allow for passing of variables to rest of program
+    FILE * pFile;
+    pFile = fopen ("configdata.txt", "w+");
+
     age =ui->age->value();
     participantheight =ui->participantheight->value();
     trialquantity =ui->trialquantity->value();
@@ -201,6 +204,24 @@ void Demographics::on_quit_clicked()
         dominance = "left";
     }
 
+    //fprintf(pFile, "age: %s\n", age);
+   // fprintf(pFile, "gender: %s\n", sex);
+    if(trafficenable)
+        fprintf(pFile, "traffic: yes\n");
+    else
+        fprintf(pFile, "traffic: no\n");
+    if (singlelane)
+        fprintf(pFile, "lanes: 1\n");
+    else
+        fprintf(pFile, "lanes: 2\n");
+    if(demo)
+        fprintf(pFile, "demo: true\n");
+    else
+        fprintf(pFile, "demo: false\n");
+    //fprintf(pFile, "dominance: %s\n", dominance);
+
+    fclose(pFile);
+
 //error handling finished, now we write to file by emitting a signal which is picked up in mainwindow.cpp:
     if(inputError)
     {
@@ -212,6 +233,9 @@ void Demographics::on_quit_clicked()
         virtuale.start(id);
         this->hide();
     }
+
+
+
 }
 
 void Demographics::setPid(int personalIdentification)

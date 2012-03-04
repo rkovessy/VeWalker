@@ -12,8 +12,6 @@ LegoThread::LegoThread() {
     counter = 0;
     magnitude = 0.0;
     lastrValueNXT = 0.0;
-   // connection->connect(port); // '3' is the port the NXT is connected to via bluetooth. Different for every laptop
-    qDebug() << "Connected to NXT" << endl;
 
     // Initialize capturing from webcam
     capture = cvCaptureFromCAM(-1);
@@ -103,21 +101,13 @@ void LegoThread::run()
     qDebug("LegoThread is running!");
     bool flag = false;
    do {
-        time.restart();
-        //UpdateRoll();
-       // UpdateRotation();
-       UpdateCamera();
-        //UpdateHTracking();
+
         msec = double(time.elapsed());
-      /*  if (msec == 0.0) {
-            qDebug() << "msec == 0, divided by 0";
-            emit sendMotor(magnitude * timer_interval, false, zTrans); // sends data to GLWidget and updates graphics
+        if (msec >= 40)
+        {
+            UpdateCamera();
+            time.restart();
         }
-        else {
-            //printf("values: [%f],[%f],[%f]\n", magnitude, stepped, zTrans);
-            emit sendMotor(magnitude * timer_interval / msec, stepped, zTrans); // sends data to GLWidget and updates graphics
-        }*/
-        //counter++;
     } while (!flag);
     exec();
 }
@@ -129,14 +119,17 @@ void LegoThread::set(double a, int t) {
    // variance = motor->get_rotation(); // person must be standing still at start to get variance correct
     lastrValueNXT = 0;
     //firstroll = double(compass->read());
-    emit sendMotor(0.0, false, height); // sends data to GLWidget and updates graphics
+    //emit sendMotor(0.0, false, height); // sends data to GLWidget and updates graphics
     startupdating = true; // yTrans and zTrans can now be changed
     time.start();
 }
 
+
+//Now Defunct - Feb 5th, 2012
+/*
 void LegoThread::UpdateRotation()
 {
- //   rValueNXT = motor->get_rotation() - variance; // gets motors current position
+    rValueNXT = motor->get_rotation() - variance; // gets motors current position
     if (startupdating) {
         magnitude = abs(rValueNXT - lastrValueNXT) * PI / 180.0 * 0.3; // pi/180 to convert to rad, .3 = radius of walker, d = rtheta
         zTrans = height / 30.0 * sin(PI * (rValueNXT + 20) / 40) + height + height / 30;
@@ -153,9 +146,12 @@ void LegoThread::UpdateRotation()
         stepped = false;
     lastrValueNXT = rValueNXT; // present rValueNXT becomes the last one for the next UpdateRotation()
 }
+*/
 
-void LegoThread::UpdateRoll()// the left to right motion of the head
+//Now Defunct - Feb 5th, 2012
+/*void LegoThread::UpdateRoll()// the left to right motion of the head
 {
+
     if (counter % 2 == 0)
         //roll = double(compass->read());
 
@@ -171,9 +167,10 @@ void LegoThread::UpdateRoll()// the left to right motion of the head
     if (fabs(anglediff) < 0.15)
         anglediff = 0.0;
     emit sendCompass(anglediff);
-}
+}*/
 
-void LegoThread::UpdateHTracking()
+//In its own thread, vuzixthread
+/*void LegoThread::UpdateHTracking()
 {
     IWRZeroSet();
 
@@ -183,7 +180,7 @@ void LegoThread::UpdateHTracking()
     //printf("yaw: [%li], pitch: [%li], roll: [%li]\n", HTyaw, HTpitch, HTroll);
 
 
-}
+}*/
 
 void LegoThread::UpdatePotRotation()
 {
@@ -208,6 +205,7 @@ void LegoThread::UpdateCamera()
 
     //cvShowImage("Raw Video", frame);
     //cvSaveImage("Raw.jpg",frame);
+
 
     //Setup sequences to get contours
     CvSeq* contours;
@@ -258,7 +256,8 @@ void LegoThread::UpdateCamera()
                 posX1 = moment101/area1;
                 posY1 = moment011/area1;
                 moment_center1= cvPoint(posX1, posY1);
-                //printf("Shoulder position 1:(%d,%d)\n", posX1, posY1);
+                //printf("Shoulder position 1(%d,%d)\n", posX1, posY1);
+
             }
         }
 
