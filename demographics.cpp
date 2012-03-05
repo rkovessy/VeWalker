@@ -285,6 +285,8 @@ void Demographics::on_quit_clicked()
     bool right= ui->righthanded->isChecked();
     bool unsafeenable = ui->unsafeenable->isChecked();
     bool unsafedisable = ui->unsafedisable->isChecked();
+    int vehiclequantityslider = ui->vehiclequantityslider ->value();
+    int intensityslider = ui ->intensityslider->value();
 
     if(trafficenable)
         fprintf(pFile, "traffic: yes\n");
@@ -310,8 +312,8 @@ void Demographics::on_quit_clicked()
         fprintf(pFile, "unsafe: false\n");
     fprintf(pFile, "trials: %d\n", ui->trialquantity->value());
     fprintf(pFile, "height: %d\n", ui->participantheight->value());
-
-
+    fprintf(pFile, "vehicle_quantity: %d\n", vehiclequantityslider);
+    fprintf(pFile, "intensity: %d\n", ui->intensityslider->value());
     fclose(pFile);
 
 //error handling finished, now we write to file by emitting a signal which is picked up in mainwindow.cpp:
