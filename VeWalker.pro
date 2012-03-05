@@ -39,7 +39,8 @@ SOURCES += \
     data.cpp \
     popupscreen.cpp \
     vuzixthread.cpp \
-    arduino.cpp
+    arduino.cpp \
+    calibratecam.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -84,7 +85,8 @@ HEADERS  += \
     vuzixthread.h \
     arduino.h \
     serialportinfo.h \
-    serialport.h
+    serialport.h \
+    calibratecam.h
 
 FORMS    += \
     mainwindow.ui \
