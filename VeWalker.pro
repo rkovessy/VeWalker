@@ -39,8 +39,7 @@ SOURCES += \
     data.cpp \
     popupscreen.cpp \
     vuzixthread.cpp \
-    arduino.cpp \
-    calibration.cpp
+    arduino.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -85,14 +84,12 @@ HEADERS  += \
     vuzixthread.h \
     arduino.h \
     serialportinfo.h \
-    serialport.h \
-    calibration.h
+    serialport.h
 
 FORMS    += \
     mainwindow.ui \
     demographics.ui \
-    popupscreen.ui \
-    calibration.ui
+    popupscreen.ui
 
 LIBS += -L C:\OpenCVNew\install\bin \
 -llibopencv_core231d \
