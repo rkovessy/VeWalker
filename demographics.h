@@ -4,6 +4,9 @@
 #include "ui_demographics.h"
 #include "data.h"
 #include "ve.h"
+#include "vuzixthread.h"
+#include "calibratecam.h"
+#include "iweardrv.h"
 #include <QDialog>
 #include <QDebug>
 #include <QString>

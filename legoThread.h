@@ -80,8 +80,8 @@ private:
 
     double angleRads; //Angle of bank in rads
     double angleDegrees; //Angle of bank in degrees
-    double oppositeSide; //Y distance between LED points;
-    double adjacentSide; //X distance between LED points;
+    double oppositeSide; //Y distance between points;
+    double adjacentSide; //X distance between points;
 
     bool left; // true when left foot on ground, false when right is
     bool stepped; // true when bool left has changed

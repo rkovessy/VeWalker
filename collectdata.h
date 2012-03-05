@@ -10,6 +10,12 @@
 #include "legoThread.h"
 #include "vuzixthread.h"
 #include "arduino.h"
+#include "mywindow.h"
+#include "collectdata.h"
+#include "iweardrv.h"
+#include "serialportinfo.h"
+#include "serialport.h"
+
 
 #include <QDebug>
 
@@ -18,6 +24,7 @@
 #include <windows.h>
 #include <winbase.h>
 #include "rcx21.h"
+
 
 class CollectData : public QWidget
 {

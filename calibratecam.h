@@ -27,6 +27,12 @@
 #include "serialportinfo.h"
 #include "serialport.h"
 
+#include "collectdata.h"
+#include "nxt.h"
+#include "legoThread.h"
+#include "vuzixthread.h"
+#include "arduino.h"
+
 
 class calibratecam : public QThread
 {
@@ -34,13 +40,37 @@ class calibratecam : public QThread
 
 public:
     calibratecam();
+    IplImage* GetThresholdedImage(IplImage* img);
+    IplImage* GetBlurredImage(IplImage* img);
+    IplImage* GetResizedImage(IplImage* img);
+    IplImage* GetDilatedImage(IplImage* img);
+    CvCapture* capture;
 
 signals:
 
 public slots:
+    void calibrate();
 
 private:
+    double angleRads; //Angle of bank in rads
+    double angleDegrees; //Angle of bank in degrees
+    double oppositeSide; //Y distance between points;
+    double adjacentSide; //X distance between points;
 
+    double moment101;
+    double moment011;
+    double moment102;
+    double moment012;
+    double area1;
+    double area2;
+    int posX1;
+    int posY1;
+    int posX2;
+    int posY2;
+    CvPoint moment_center1;
+    CvPoint moment_center2;
+    CvScalar min_color1;
+    CvScalar max_color1;
 };
 
 #endif

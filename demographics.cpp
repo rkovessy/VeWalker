@@ -235,6 +235,7 @@ void Demographics::on_cancel_clicked()
 
 void Demographics::on_datum_clicked()
 {
+    IWRZeroSet();
     return;
 }
 
@@ -245,6 +246,8 @@ void Demographics::on_download_clicked()
 
 void Demographics::on_calibrate_clicked()
 {
+    calibratecam calibration;
+    calibration.calibrate();
     return;
 }
 
