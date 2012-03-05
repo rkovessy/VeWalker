@@ -29,7 +29,7 @@ INPUT(
 ./release\popupscreen.o
 ./release\vuzixthread.o
 ./release\arduino.o
-./release\calibratecam.o
+./release\calibraterotation.o
 ./release\serialport.o
 ./release\serialportinfo.o
 ./release\serialportengine_p_win.o
@@ -46,6 +46,6 @@ INPUT(
 ./release\moc_vuzixthread.o
 ./release\moc_arduino.o
 ./release\moc_serialport.o
-./release\moc_calibratecam.o
+./release\moc_calibraterotation.o
 ./release\moc_serialportengine_p_win.o
 );

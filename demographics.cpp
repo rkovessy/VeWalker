@@ -246,7 +246,7 @@ void Demographics::on_download_clicked()
 
 void Demographics::on_calibrate_clicked()
 {
-    calibratecam calibration;
+    calibrateRotation calibration;
     calibration.calibrate();
     return;
 }

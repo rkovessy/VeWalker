@@ -5,7 +5,7 @@
 #include "data.h"
 #include "ve.h"
 #include "vuzixthread.h"
-#include "calibratecam.h"
+#include "calibrateRotation.h"
 #include "iweardrv.h"
 #include <QDialog>
 #include <QDebug>
