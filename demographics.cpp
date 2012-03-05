@@ -77,6 +77,10 @@ void Demographics::on_trial_clicked()
     ui->vehiclequantitylabel->setEnabled(true);
     ui->trafficintensitylabel->setEnabled(true);
     ui->unsafeintensitylabel->setEnabled(true);
+    ui->minlabel1->setEnabled(true);
+    ui->maxlabel1->setEnabled(true);
+    ui->minlabel2->setEnabled(true);
+    ui->maxlabel2->setEnabled(true);
 
     if (ui->demo->isChecked())
         ui->demo->setChecked(false);
@@ -110,6 +114,10 @@ void Demographics::on_demo_clicked()
     ui->vehiclequantitylabel->setEnabled(false);
     ui->trafficintensitylabel->setEnabled(false);
     ui->unsafeintensitylabel->setEnabled(false);
+    ui->minlabel1->setEnabled(false);
+    ui->maxlabel1->setEnabled(false);
+    ui->minlabel2->setEnabled(false);
+    ui->maxlabel2->setEnabled(false);
 
     if(ui->trial->isChecked())
         ui->trial->setChecked(false);
@@ -125,6 +133,10 @@ void Demographics::on_unsafeenable_clicked()
     ui->trafficintensitylabel->setEnabled(false);
     ui->vehiclequantityslider->setEnabled(false);
     ui->vehiclequantitylabel->setEnabled(false);
+    ui->minlabel1->setEnabled(false);
+    ui->maxlabel1->setEnabled(false);
+    ui->minlabel2->setEnabled(false);
+    ui->maxlabel2->setEnabled(false);
 
     if (ui->unsafedisable->isChecked())
         ui->unsafedisable->setChecked(false);
@@ -139,6 +151,10 @@ void Demographics::on_unsafedisable_clicked()
     ui->trafficintensitylabel->setEnabled(true);
     ui->vehiclequantityslider->setEnabled(true);
     ui->vehiclequantitylabel->setEnabled(true);
+    ui->minlabel1->setEnabled(true);
+    ui->maxlabel1->setEnabled(true);
+    ui->minlabel2->setEnabled(true);
+    ui->maxlabel2->setEnabled(true);
 
     if(ui->unsafeenable->isChecked())
         ui->unsafeenable->setChecked(false);

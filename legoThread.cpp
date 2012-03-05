@@ -54,10 +54,39 @@ IplImage* LegoThread::GetThresholdedImage(IplImage* img)
     //Convert to thresholded image for HSV color range selected
     //In Colorpic Hue needs to be divided by 2, as OCV has 180 range and ColorPic has 360. Sat and Val have 256 range
     //in both programs.
-    CvScalar min_color1 = cvScalar(50,60,60,0);
-    CvScalar max_color1 = cvScalar(80,180,256,0);
-    //CvScalar min_color2 = cvScalar(170,50,170,0);
-    //CvScalar max_color2 = cvScalar(256,180,256,0);
+    //Change color based on what was selected from the demographics menu.
+//    FILE * pFile;
+//    pFile = fopen ("configdata.txt","r");
+
+//    char trackingColor [100];
+//    fgets (trackingColor , 100 , pFile );
+//    fgets (trackingColor , 100 , pFile );
+//    fgets (trackingColor , 100 , pFile );
+//    fgets (trackingColor , 100 , pFile );
+
+//    //Select green
+//    if (trackingColor[12] == 'g')
+//    {
+//        printf("Green selected \n");
+//        min_color1 = cvScalar(50,60,60,0);
+//        max_color1 = cvScalar(80,180,256,0);
+//    }
+//    //Select orange
+//    else if (trackingColor[12] == 'o')
+//    {
+//        printf("Orange selected \n");
+//        min_color1 = cvScalar(50,60,60,0);
+//        max_color1 = cvScalar(80,180,256,0);
+//    }
+//    //Select pink
+//    else if (trackingColor[12] == 'p')
+//    {
+//        printf("Pink selected \n");
+//        min_color1 = cvScalar(50,60,60,0);
+//        max_color1 = cvScalar(80,180,256,0);
+//    }
+//    else
+//        printf("Nothing selected \n");
 
     //Combine two thresholded images to account for color wrap around (if color wrap around exists for color of objects tracked)
     cvInRangeS(imgHSV, min_color1, max_color1, imgThreshed1);

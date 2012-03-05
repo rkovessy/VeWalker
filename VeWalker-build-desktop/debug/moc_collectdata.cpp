@@ -1,11 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'collectdata.h'
 **
-<<<<<<< HEAD
-** Created: Wed Feb 22 19:56:57 2012
-=======
-** Created: Fri Feb 24 12:03:42 2012
->>>>>>> origin/macgregor_demo_code
+** Created: Mon Mar 5 14:01:02 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!

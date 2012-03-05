@@ -100,6 +100,8 @@ private:
     int posY2;
     CvPoint moment_center1;
     CvPoint moment_center2;
+    CvScalar min_color1;
+    CvScalar max_color1;
 
     double HTyaw2;
     double HTpitch2;
