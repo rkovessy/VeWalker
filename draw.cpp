@@ -20,7 +20,6 @@ Draw::Draw()
     else
         numberOfLanes = 2;
 
-
     fclose(pFile);
 
     cornerRadius = ((centerRadius + LANE_WIDTH * numberOfLanes) * sin(PI / 4.0) - LANE_WIDTH * numberOfLanes) / (1 - sin(PI / 4.0));

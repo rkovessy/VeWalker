@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'demographics.ui'
 **
-** Created: Mon Mar 5 20:04:43 2012
+** Created: Mon Mar 5 20:22:14 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -189,14 +189,14 @@ public:
         unsafedisable->setObjectName(QString::fromUtf8("unsafedisable"));
         unsafedisable->setGeometry(QRect(223, 108, 68, 22));
         unsafedisable->setFont(font1);
-        unsafedisable->setChecked(false);
+        unsafedisable->setChecked(true);
         unsafedisable->setAutoExclusive(false);
         unsafeenable = new QRadioButton(groupBox_1);
         unsafeenable->setObjectName(QString::fromUtf8("unsafeenable"));
         unsafeenable->setGeometry(QRect(127, 108, 65, 22));
         unsafeenable->setFont(font1);
         unsafeenable->setCheckable(true);
-        unsafeenable->setChecked(true);
+        unsafeenable->setChecked(false);
         unsafeenable->setAutoExclusive(false);
         unsafeintensitylabel = new QLabel(groupBox_1);
         unsafeintensitylabel->setObjectName(QString::fromUtf8("unsafeintensitylabel"));

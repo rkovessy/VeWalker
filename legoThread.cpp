@@ -54,39 +54,49 @@ IplImage* LegoThread::GetThresholdedImage(IplImage* img)
     //Convert to thresholded image for HSV color range selected
     //In Colorpic Hue needs to be divided by 2, as OCV has 180 range and ColorPic has 360. Sat and Val have 256 range
     //in both programs.
+
     //Change color based on what was selected from the demographics menu.
-//    FILE * pFile;
-//    pFile = fopen ("configdata.txt","r");
+    /*FILE * pFile;
+    pFile = fopen ("configdata.txt","r");
 
-//    char trackingColor [100];
-//    fgets (trackingColor , 100 , pFile );
-//    fgets (trackingColor , 100 , pFile );
-//    fgets (trackingColor , 100 , pFile );
-//    fgets (trackingColor , 100 , pFile );
+    char trackingColor [100];
+    fgets (trackingColor , 100 , pFile );
+    fgets (trackingColor , 100 , pFile );
+    fgets (trackingColor , 100 , pFile );
+    fgets (trackingColor , 100 , pFile );
 
-//    //Select green
-//    if (trackingColor[12] == 'g')
-//    {
-//        printf("Green selected \n");
-//        min_color1 = cvScalar(50,60,60,0);
-//        max_color1 = cvScalar(80,180,256,0);
-//    }
-//    //Select orange
-//    else if (trackingColor[12] == 'o')
-//    {
-//        printf("Orange selected \n");
-//        min_color1 = cvScalar(50,60,60,0);
-//        max_color1 = cvScalar(80,180,256,0);
-//    }
-//    //Select pink
-//    else if (trackingColor[12] == 'p')
-//    {
-//        printf("Pink selected \n");
-//        min_color1 = cvScalar(50,60,60,0);
-//        max_color1 = cvScalar(80,180,256,0);
-//    }
-//    else
-//        printf("Nothing selected \n");
+    //Select green
+    if (trackingColor[13] == 'g')
+    {
+        qDebug() << "Green selected";
+        printf("Green selected \n");
+        min_color1 = cvScalar(50,60,60,0);
+        max_color1 = cvScalar(80,180,256,0);
+    }
+    //Select orange
+    else if (trackingColor[13] == 'o')
+    {
+        qDebug() << "Orange selected";
+        printf("Orange selected \n");
+        min_color1 = cvScalar(50,60,60,0);
+        max_color1 = cvScalar(80,180,256,0);
+    }
+    //Select pink
+    else if (trackingColor[13] == 'p')
+    {
+        qDebug() << "Pink selected";
+        printf("Pink selected \n");
+        min_color1 = cvScalar(50,60,60,0);
+        max_color1 = cvScalar(80,180,256,0);
+    }
+    //Choose green by default
+    else
+    {
+        qDebug() << "Nothing selected - use green by default";
+        printf("Nothing selected - use green by default \n");
+        min_color1 = cvScalar(50,60,60,0);
+        max_color1 = cvScalar(80,180,256,0);
+    }*/
 
     //Combine two thresholded images to account for color wrap around (if color wrap around exists for color of objects tracked)
     cvInRangeS(imgHSV, min_color1, max_color1, imgThreshed1);
@@ -232,10 +242,6 @@ void LegoThread::UpdateCamera()
         return;
     }   
 
-    //cvShowImage("Raw Video", frame);
-    //cvSaveImage("Raw.jpg",frame);
-
-
     //Setup sequences to get contours
     CvSeq* contours;
     CvSeq* result;
@@ -245,24 +251,11 @@ void LegoThread::UpdateCamera()
     CvMoments *moments = (CvMoments*)malloc(sizeof(CvMoments));
     CvMoments *moments2 = (CvMoments*)malloc(sizeof(CvMoments));
 
-    //Resize image to reduce processing time
+    //Process image
     IplImage* imgResized = GetResizedImage(frame);
-
-    //Apply blur to improve detection under different lighting
     IplImage* imgBlurred = GetBlurredImage(imgResized);
-    //cvSaveImage("imgBlurred.jpg",imgBlurred);
-    //cvShowImage("Blurred", imgBlurred);
-
-    //Get threshed image based on color selected for tracking
     IplImage* imgThresh = GetThresholdedImage(imgBlurred);
-    //cvSaveImage("imgThresh.jpg",imgThresh);
-    //cvShowImage("Thresholded", imgThresh);
-
-    //Dilate image
     IplImage* imgDilated = GetDilatedImage(imgThresh);
-    //cvSaveImage("imgDilated.jpg",imgDilated);
-    //cvShowImage("Processed Video", imgDilated);
-
 
     //Get the contour vectors and store in contours
     cvFindContours(imgDilated, storage, &contours, sizeof(CvContour), CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE, cvPoint(0,0));
@@ -285,8 +278,6 @@ void LegoThread::UpdateCamera()
                 posX1 = moment101/area1;
                 posY1 = moment011/area1;
                 moment_center1= cvPoint(posX1, posY1);
-                //printf("Shoulder position 1(%d,%d)\n", posX1, posY1);
-
             }
         }
 
@@ -305,7 +296,6 @@ void LegoThread::UpdateCamera()
                 posX2 = moment102/area2;
                 posY2 = moment012/area2;
                 moment_center2 = cvPoint(posX2, posY2);
-                //printf("      Shoulder position 2: (%d,%d)\n", posX2, posY2);
             }
         }
 
