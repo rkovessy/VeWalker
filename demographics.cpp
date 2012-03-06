@@ -235,7 +235,7 @@ void Demographics::on_cancel_clicked()
 
 void Demographics::on_datum_clicked()
 {
-//    IWRZeroSet();
+    IWRZeroSet();
     return;
 }
 
@@ -246,8 +246,8 @@ void Demographics::on_download_clicked()
 
 void Demographics::on_calibrate_clicked()
 {
-//    calibrateRotation calibration;
-//    calibration.calibrate();
+    calibrateRotation calibration;
+    calibration.calibrate();
     return;
 }
 
