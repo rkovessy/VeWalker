@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'demographics.ui'
 **
-** Created: Mon Mar 5 16:20:44 2012
+** Created: Mon Mar 5 20:07:11 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -30,7 +30,7 @@ QT_BEGIN_NAMESPACE
 class Ui_Demographics
 {
 public:
-    QGroupBox *minlabel1;
+    QGroupBox *groupBox_1;
     QRadioButton *trafficdisable;
     QRadioButton *trafficenable;
     QLabel *roundaboutsize;
@@ -49,7 +49,7 @@ public:
     QRadioButton *unsafedisable;
     QRadioButton *unsafeenable;
     QLabel *unsafeintensitylabel;
-    QLabel *label;
+    QLabel *minlabel1;
     QLabel *minlabel2;
     QLabel *maxlabel1;
     QLabel *maxlabel2;
@@ -90,15 +90,15 @@ public:
             Demographics->setObjectName(QString::fromUtf8("Demographics"));
         Demographics->setEnabled(true);
         Demographics->resize(713, 442);
-        minlabel1 = new QGroupBox(Demographics);
-        minlabel1->setObjectName(QString::fromUtf8("minlabel1"));
-        minlabel1->setGeometry(QRect(9, 9, 371, 241));
+        groupBox_1 = new QGroupBox(Demographics);
+        groupBox_1->setObjectName(QString::fromUtf8("groupBox_1"));
+        groupBox_1->setGeometry(QRect(9, 9, 371, 241));
         QFont font;
         font.setPointSize(11);
         font.setBold(true);
         font.setWeight(75);
-        minlabel1->setFont(font);
-        trafficdisable = new QRadioButton(minlabel1);
+        groupBox_1->setFont(font);
+        trafficdisable = new QRadioButton(groupBox_1);
         trafficdisable->setObjectName(QString::fromUtf8("trafficdisable"));
         trafficdisable->setGeometry(QRect(223, 80, 68, 22));
         QFont font1;
@@ -107,54 +107,54 @@ public:
         font1.setWeight(50);
         trafficdisable->setFont(font1);
         trafficdisable->setAutoExclusive(false);
-        trafficenable = new QRadioButton(minlabel1);
+        trafficenable = new QRadioButton(groupBox_1);
         trafficenable->setObjectName(QString::fromUtf8("trafficenable"));
         trafficenable->setGeometry(QRect(127, 80, 65, 22));
         trafficenable->setFont(font1);
         trafficenable->setCheckable(true);
         trafficenable->setChecked(true);
         trafficenable->setAutoExclusive(false);
-        roundaboutsize = new QLabel(minlabel1);
+        roundaboutsize = new QLabel(groupBox_1);
         roundaboutsize->setObjectName(QString::fromUtf8("roundaboutsize"));
         roundaboutsize->setGeometry(QRect(13, 52, 83, 18));
         roundaboutsize->setFont(font1);
-        modelabel = new QLabel(minlabel1);
+        modelabel = new QLabel(groupBox_1);
         modelabel->setObjectName(QString::fromUtf8("modelabel"));
         modelabel->setGeometry(QRect(13, 24, 41, 18));
         modelabel->setFont(font1);
-        trial = new QRadioButton(minlabel1);
+        trial = new QRadioButton(groupBox_1);
         trial->setObjectName(QString::fromUtf8("trial"));
         trial->setGeometry(QRect(127, 24, 48, 22));
         trial->setFont(font1);
         trial->setCheckable(true);
         trial->setChecked(true);
         trial->setAutoExclusive(false);
-        demo = new QRadioButton(minlabel1);
+        demo = new QRadioButton(groupBox_1);
         demo->setObjectName(QString::fromUtf8("demo"));
         demo->setGeometry(QRect(223, 24, 62, 22));
         demo->setFont(font1);
         demo->setAutoExclusive(false);
-        singlelane = new QRadioButton(minlabel1);
+        singlelane = new QRadioButton(groupBox_1);
         singlelane->setObjectName(QString::fromUtf8("singlelane"));
         singlelane->setGeometry(QRect(127, 52, 90, 22));
         singlelane->setFont(font1);
         singlelane->setCheckable(true);
         singlelane->setChecked(true);
         singlelane->setAutoExclusive(false);
-        doublelane = new QRadioButton(minlabel1);
+        doublelane = new QRadioButton(groupBox_1);
         doublelane->setObjectName(QString::fromUtf8("doublelane"));
         doublelane->setGeometry(QRect(223, 52, 98, 22));
         doublelane->setFont(font1);
         doublelane->setAutoExclusive(false);
-        trafficlabel = new QLabel(minlabel1);
+        trafficlabel = new QLabel(groupBox_1);
         trafficlabel->setObjectName(QString::fromUtf8("trafficlabel"));
         trafficlabel->setGeometry(QRect(13, 80, 90, 18));
         trafficlabel->setFont(font1);
-        trialquantitylabel = new QLabel(minlabel1);
+        trialquantitylabel = new QLabel(groupBox_1);
         trialquantitylabel->setObjectName(QString::fromUtf8("trialquantitylabel"));
         trialquantitylabel->setGeometry(QRect(14, 201, 109, 18));
         trialquantitylabel->setFont(font1);
-        trialquantity = new QSpinBox(minlabel1);
+        trialquantity = new QSpinBox(groupBox_1);
         trialquantity->setObjectName(QString::fromUtf8("trialquantity"));
         trialquantity->setGeometry(QRect(150, 201, 39, 24));
         QFont font2;
@@ -162,63 +162,63 @@ public:
         font2.setWeight(50);
         trialquantity->setFont(font2);
         trialquantity->setValue(60);
-        intensityslider = new QSlider(minlabel1);
+        intensityslider = new QSlider(groupBox_1);
         intensityslider->setObjectName(QString::fromUtf8("intensityslider"));
         intensityslider->setEnabled(true);
         intensityslider->setGeometry(QRect(172, 141, 151, 24));
         intensityslider->setMaximum(10);
         intensityslider->setOrientation(Qt::Horizontal);
         intensityslider->setTickPosition(QSlider::TicksBelow);
-        vehiclequantityslider = new QSlider(minlabel1);
+        vehiclequantityslider = new QSlider(groupBox_1);
         vehiclequantityslider->setObjectName(QString::fromUtf8("vehiclequantityslider"));
         vehiclequantityslider->setGeometry(QRect(172, 171, 151, 24));
         vehiclequantityslider->setMaximum(10);
         vehiclequantityslider->setOrientation(Qt::Horizontal);
         vehiclequantityslider->setTickPosition(QSlider::TicksBelow);
-        vehiclequantitylabel = new QLabel(minlabel1);
+        vehiclequantitylabel = new QLabel(groupBox_1);
         vehiclequantitylabel->setObjectName(QString::fromUtf8("vehiclequantitylabel"));
         vehiclequantitylabel->setGeometry(QRect(14, 171, 130, 18));
         vehiclequantitylabel->setFont(font1);
-        trafficintensitylabel = new QLabel(minlabel1);
+        trafficintensitylabel = new QLabel(groupBox_1);
         trafficintensitylabel->setObjectName(QString::fromUtf8("trafficintensitylabel"));
         trafficintensitylabel->setEnabled(true);
         trafficintensitylabel->setGeometry(QRect(14, 141, 101, 18));
         trafficintensitylabel->setFont(font1);
         trafficintensitylabel->setTextFormat(Qt::AutoText);
-        unsafedisable = new QRadioButton(minlabel1);
+        unsafedisable = new QRadioButton(groupBox_1);
         unsafedisable->setObjectName(QString::fromUtf8("unsafedisable"));
         unsafedisable->setGeometry(QRect(223, 108, 68, 22));
         unsafedisable->setFont(font1);
         unsafedisable->setChecked(true);
         unsafedisable->setAutoExclusive(false);
-        unsafeenable = new QRadioButton(minlabel1);
+        unsafeenable = new QRadioButton(groupBox_1);
         unsafeenable->setObjectName(QString::fromUtf8("unsafeenable"));
         unsafeenable->setGeometry(QRect(127, 108, 65, 22));
         unsafeenable->setFont(font1);
         unsafeenable->setCheckable(true);
         unsafeenable->setChecked(false);
         unsafeenable->setAutoExclusive(false);
-        unsafeintensitylabel = new QLabel(minlabel1);
+        unsafeintensitylabel = new QLabel(groupBox_1);
         unsafeintensitylabel->setObjectName(QString::fromUtf8("unsafeintensitylabel"));
         unsafeintensitylabel->setGeometry(QRect(13, 108, 108, 18));
         unsafeintensitylabel->setFont(font1);
-        label = new QLabel(minlabel1);
-        label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(150, 141, 16, 16));
+        minlabel1 = new QLabel(groupBox_1);
+        minlabel1->setObjectName(QString::fromUtf8("minlabel1"));
+        minlabel1->setGeometry(QRect(150, 141, 16, 16));
         QFont font3;
         font3.setPointSize(8);
         font3.setBold(false);
         font3.setWeight(50);
-        label->setFont(font3);
-        minlabel2 = new QLabel(minlabel1);
+        minlabel1->setFont(font3);
+        minlabel2 = new QLabel(groupBox_1);
         minlabel2->setObjectName(QString::fromUtf8("minlabel2"));
         minlabel2->setGeometry(QRect(150, 171, 16, 16));
         minlabel2->setFont(font3);
-        maxlabel1 = new QLabel(minlabel1);
+        maxlabel1 = new QLabel(groupBox_1);
         maxlabel1->setObjectName(QString::fromUtf8("maxlabel1"));
         maxlabel1->setGeometry(QRect(333, 141, 20, 16));
         maxlabel1->setFont(font3);
-        maxlabel2 = new QLabel(minlabel1);
+        maxlabel2 = new QLabel(groupBox_1);
         maxlabel2->setObjectName(QString::fromUtf8("maxlabel2"));
         maxlabel2->setGeometry(QRect(333, 171, 20, 16));
         maxlabel2->setFont(font3);
@@ -391,7 +391,7 @@ public:
         groupBox_4->raise();
         groupBox_3->raise();
         groupBox_2->raise();
-        minlabel1->raise();
+        groupBox_1->raise();
 
         retranslateUi(Demographics);
 
@@ -401,7 +401,7 @@ public:
     void retranslateUi(QDialog *Demographics)
     {
         Demographics->setWindowTitle(QApplication::translate("Demographics", "VeWalker Configuration", 0, QApplication::UnicodeUTF8));
-        minlabel1->setTitle(QApplication::translate("Demographics", "Trial Configuration", 0, QApplication::UnicodeUTF8));
+        groupBox_1->setTitle(QApplication::translate("Demographics", "Trial Configuration", 0, QApplication::UnicodeUTF8));
         trafficdisable->setText(QApplication::translate("Demographics", "Disable", 0, QApplication::UnicodeUTF8));
         trafficenable->setText(QApplication::translate("Demographics", "Enable", 0, QApplication::UnicodeUTF8));
         roundaboutsize->setText(QApplication::translate("Demographics", "Roundabout:", 0, QApplication::UnicodeUTF8));
@@ -420,7 +420,7 @@ public:
         unsafeintensitylabel->setToolTip(QApplication::translate("Demographics", "Inter-vehicle distance prevents safe crossing.", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
         unsafeintensitylabel->setText(QApplication::translate("Demographics", "Unsafe crossing:", 0, QApplication::UnicodeUTF8));
-        label->setText(QApplication::translate("Demographics", "Min", 0, QApplication::UnicodeUTF8));
+        minlabel1->setText(QApplication::translate("Demographics", "Min", 0, QApplication::UnicodeUTF8));
         minlabel2->setText(QApplication::translate("Demographics", "Min", 0, QApplication::UnicodeUTF8));
         maxlabel1->setText(QApplication::translate("Demographics", "Max", 0, QApplication::UnicodeUTF8));
         maxlabel2->setText(QApplication::translate("Demographics", "Max", 0, QApplication::UnicodeUTF8));
