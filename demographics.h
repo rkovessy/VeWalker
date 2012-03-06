@@ -56,7 +56,7 @@ public:
     QString sex;
     QString dominance;
     QString participantheight;
-    QString trialquantity;
+    int trialquantity;
     QString lowerDateRange;
     QString upperDateRange;
 

@@ -38,19 +38,8 @@ void TrafficControl::set(int pid) {
     QString id = data.setCars(pid);
     data.writeIntro("Data/P" + id + "_Data.txt");
 
-    //data.read_specs();
-    FILE * pFile;
-    pFile = fopen ("configdata.txt","r");
-    char trialQuantity [100];
-    fgets (trialQuantity , 100 , pFile );
-    fgets (trialQuantity , 100 , pFile );
-    fgets (trialQuantity , 100 , pFile );
-    fgets (trialQuantity , 100 , pFile );
-    fgets (trialQuantity , 100 , pFile );
-    fgets (trialQuantity , 100 , pFile );
-    int trialQuantityDigit1 = trialQuantity[9]*10;
-    int trialQuantityDigit2 = trialQuantity[10];
-    numberOfTrials = trialQuantityDigit1+trialQuantityDigit2;
+    data.read_specs();
+    numberOfTrials = data.numberOfTrials;
     for (int count = 0; count < numberOfTrials; ++count) {
         trials[count] = data.trials[count];
         startPos[count] = data.startPos[count];

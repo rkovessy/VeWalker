@@ -287,6 +287,7 @@ void Demographics::on_quit_clicked()
     bool unsafedisable = ui->unsafedisable->isChecked();
     int vehiclequantityslider = ui->vehiclequantityslider ->value();
     int intensityslider = ui ->intensityslider->value();
+    int trialquantity = ui->trialquantity->value();
 
     if(trafficenable)
         fprintf(pFile, "traffic: yes\n");
