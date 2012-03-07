@@ -62,6 +62,7 @@ public:
 
     Data data; // writes files for demographics
     VE virtuale; // top class for all VE code
+    //calibrateRotation *calibrateMe; //class for opening calibration menu
 
 
 private:
@@ -88,6 +89,9 @@ private slots:
     void on_lefthanded_clicked();
     void on_unsafeenable_clicked();
     void on_unsafedisable_clicked();
+
+private:
+    calibrateRotation calibration; //Needed to open the calibrateRotation window
 
 };
 

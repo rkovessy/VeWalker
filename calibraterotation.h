@@ -33,6 +33,7 @@
 #include "legoThread.h"
 #include "vuzixthread.h"
 #include "arduino.h"
+#include "ui_calibraterotation.h"
 
 namespace Ui {
 class calibrateRotation;
@@ -45,6 +46,12 @@ class calibrateRotation : public QWidget
 public slots:
     void calibrate();
 
+private slots:
+    void on_rightExtentCapture_clicked();
+    void on_leftExtentCapture_clicked();
+    void on_completeButton_clicked();
+    void on_cancelButton_clicked();
+
 public:
     explicit calibrateRotation(QWidget *parent = 0);
     ~calibrateRotation();
@@ -53,7 +60,10 @@ public:
     IplImage* GetResizedImage(IplImage* img);
     IplImage* GetDilatedImage(IplImage* img);
     CvCapture* capture;
-    
+
+//signals:
+//    void clicked();
+
 private:
     Ui::calibrateRotation *ui;
     double angleRads; //Angle of bank in rads

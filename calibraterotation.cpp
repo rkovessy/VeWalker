@@ -24,11 +24,11 @@ calibrateRotation::~calibrateRotation()
 
 void calibrateRotation::calibrate()
 {
-    cvNamedWindow("Calibration");
     IplImage* frame = 0;
     frame = cvQueryFrame(capture);
     // Quit if no frame can be captured, return to capturing the next frame
     if(!frame) {
+        ui->captureError->setEnabled(true);
         return;
     }
     cvShowImage("Calibration", frame);
@@ -182,4 +182,26 @@ IplImage* calibrateRotation::GetDilatedImage(IplImage* img)
     //Perform iterations of dilation on the threshed image
     cvDilate(img, img, NULL, 6);
     return img;
+}
+
+void calibrateRotation::on_rightExtentCapture_clicked()
+{
+    return;
+}
+
+void calibrateRotation::on_leftExtentCapture_clicked()
+{
+    return;
+}
+
+void calibrateRotation::on_completeButton_clicked()
+{
+//    emit clicked();
+    this->hide();
+}
+
+void calibrateRotation::on_cancelButton_clicked()
+{
+//    emit clicked();
+    this->hide();
 }

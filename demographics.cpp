@@ -7,6 +7,7 @@ Demographics::Demographics(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->dateupperrange->setDate(QDate::currentDate());
+    //connect(&calibrateRotation, SIGNAL(clicked()), this, SLOT(clicked()));
 }
 
 //destructor
@@ -246,9 +247,8 @@ void Demographics::on_download_clicked()
 
 void Demographics::on_calibrate_clicked()
 {
-    calibrateRotation calibration;
-    calibration.calibrate();
-    return;
+    calibrateRotation *calibrateMe = new calibrateRotation();
+    calibrateMe->show();
 }
 
 void Demographics::on_quit_clicked()
