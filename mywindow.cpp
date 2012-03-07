@@ -130,13 +130,13 @@ void MyWindow::updateCameraValues(int x1, int x2, int y1, int y2){
         double oppAdjParam = oppositeSide/adjacentSide;
          angleRads = atan(oppAdjParam);
     }
-    //qDebug() << "angleRads: " << angleRads;
-    if(fabs(angleRads) >= angleThreshold)
-        glWidget->Zrotation(angleRads*10);
-    //else
-      //  glWidget->Zrotation(0);
-
-    //printf("angleRads[%f] threshold [%f]\n",angleRads, angleThreshold);
+    if(fabs(angleRads) >= angleThreshold){
+        glWidget->determineAngularAccel(angleRads);
+        glWidget->Zrotation(angleRads); //To be removed when determineAngularAccel working
+    }
+    else
+        glWidget->determineAngularAccel(0);
+        glWidget->Zrotation(angleRads); //To be removed when determineAngularAccel working
 }
 
 void MyWindow::updateHTrackerValues(long HTyaw, long HTpitch, long HTroll)
@@ -144,6 +144,7 @@ void MyWindow::updateHTrackerValues(long HTyaw, long HTpitch, long HTroll)
     glWidget->Xrotation(HTpitch*-0.01+270);
     glWidget->Yrotation(HTroll*-0.01);
     glWidget->Zrotation(HTyaw*-0.01);
+
 }
 
 void MyWindow::updatePotRotation(long potRotation)

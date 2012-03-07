@@ -16,6 +16,8 @@ calibrateRotation::calibrateRotation(QWidget *parent) :
     adjacentSide = 0;
     angleDegrees = 0;
     angleRads = 0;
+    bool rightExtentCalibrated = false;
+    bool leftExtentCalibrated = false;
 }
 
 calibrateRotation::~calibrateRotation()
@@ -108,8 +110,6 @@ void calibrateRotation::calibrate(int leftRightIndex)
         ui->captureError->setVisible(true);
     }
 
-    //Write these angle maximums to the DB to use in adjusting angular acceleration
-
     // Release images and moments
     cvReleaseImage(&imgThresh);
     cvReleaseImage(&imgResized);
@@ -193,6 +193,7 @@ IplImage* calibrateRotation::GetDilatedImage(IplImage* img)
 void calibrateRotation::on_rightExtentCapture_clicked()
 {
     int rightIndex = 2;
+    rightExtentCalibrated = true;
     calibrate(rightIndex);
     return;
 }
@@ -200,21 +201,28 @@ void calibrateRotation::on_rightExtentCapture_clicked()
 void calibrateRotation::on_leftExtentCapture_clicked()
 {
     int leftIndex = 1;
+    leftExtentCalibrated=true;
     calibrate(leftIndex);
     return;
 }
 
 void calibrateRotation::on_completeButton_clicked()
 {
+    //Write alphaRightActual and alphaLeftActual to DB
+    //If left and right were not calibrated,just write zeros.
+//    if (rightExtentCalibrated == true && leftExtentCalibrated == true)
+//    {
 
-    //Wite calibration values to database
+//    }
+//    else
+//    {
 
+//    }
     this->hide();
 }
 
 void calibrateRotation::on_cancelButton_clicked()
 {
-//    emit clicked();
     this->hide();
 }
 

@@ -49,6 +49,7 @@
      void Xrotation (double);
      void Yrotation (double);
      void updateScene(); // calls paintGL() and records/calls data for recording/replay
+     void determineAngularAccel(double);
 
  protected:
      void initializeGL();
@@ -75,6 +76,13 @@
      double motorSpeed; // speed that pedestrian is going forward every updateScene()
      double zTrans; // position up from ground
      double elevated; // elevates zTrans when pedestrian is on sidewalk
+     double angularAccelActual; //Angular acceleration of avatar
+     double angularAccelMaximum; //Maximum turning speed, needs to be calibrated
+     double alphaRightMin;
+     double alphaLeftMin;
+     double alphaRightMax;
+     double alphaLeftMax;
+     double alphaActual;
      QPoint lastPos;
      QColor backgroundColor;
 

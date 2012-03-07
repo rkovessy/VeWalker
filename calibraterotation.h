@@ -82,6 +82,8 @@ private:
     double area2;
     double alphaLeftActual;
     double alphaRightActual;
+    bool rightExtentCalibrated;
+    bool leftExtentCalibrated;
     int posX1;
     int posY1;
     int posX2;

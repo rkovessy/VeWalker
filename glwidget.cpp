@@ -171,8 +171,11 @@ void GLWidget::updateScene() {
 
         double pi=3.14159265;
 
-        y = (yTrans + (motorSpeed*cos(zRot*pi/180)));
-        x = (xTrans + (motorSpeed*sin(zRot*pi/180)));
+//        y = (yTrans + (motorSpeed*cos(zRot*pi/180)));
+//        x = (xTrans + (motorSpeed*sin(zRot*pi/180)));
+
+        y = (yTrans + (motorSpeed*cos(angularAccelActual*pi/180)));
+        x = (xTrans + (motorSpeed*sin(angularAccelActual*pi/180)));
 
         //if (fabs(y) <= maxTrans && fabs(x) >= maxTrans) {
             yTrans = y;
@@ -302,4 +305,37 @@ GLuint GLWidget::makeObject()
     glEndList();
     return list;
 
+}
+
+//Determine value of angularAccelActual
+void GLWidget::determineAngularAccel(double alphaActual)
+{
+    angularAccelMaximum = 1; //Maximum turning speed, needs to be calibrated
+    alphaRightMin = .000485; //5 degree tolerance
+    alphaLeftMin = .000485;
+
+    //Call alphaLeftMax and alphaRightMax values from the DB
+    alphaLeftMax = 0;
+    alphaRightMax = 0;
+
+    //If it has not been calibrated, just use a default weighting to turn
+    if (alphaRightMax == 0 && alphaLeftMax ==0)
+    {
+        if(alphaActual > 0)
+        angularAccelActual = angularAccelMaximum;
+
+        else
+            angularAccelActual = -1*angularAccelMaximum;
+    }
+    else
+    {
+        if (alphaActual > 0)
+        {
+            angularAccelActual = (alphaRightMax-alphaActual)/(alphaRightMax-alphaRightMin);
+        }
+        else
+        {
+            angularAccelActual = (alphaLeftMax-alphaActual)/(alphaLeftMax-alphaLeftMin);
+        }
+    }
 }
