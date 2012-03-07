@@ -44,13 +44,16 @@ class calibrateRotation : public QWidget
     Q_OBJECT
 
 public slots:
-    void calibrate();
+    void calibrate(int leftRightIndex);
 
 private slots:
     void on_rightExtentCapture_clicked();
     void on_leftExtentCapture_clicked();
     void on_completeButton_clicked();
     void on_cancelButton_clicked();
+    void on_neonPink_clicked();
+    void on_neonGreen_clicked();
+    void on_neonOrange_clicked();
 
 public:
     explicit calibrateRotation(QWidget *parent = 0);
@@ -77,10 +80,15 @@ private:
     double moment012;
     double area1;
     double area2;
+    double alphaLeftActual;
+    double alphaRightActual;
     int posX1;
     int posY1;
     int posX2;
     int posY2;
+    bool neonGreen;
+    bool neonOrange;
+    bool neonPink;
     CvPoint moment_center1;
     CvPoint moment_center2;
     CvScalar min_color1;

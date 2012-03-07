@@ -6,6 +6,7 @@ calibrateRotation::calibrateRotation(QWidget *parent) :
     ui(new Ui::calibrateRotation)
 {
     ui->setupUi(this);
+    ui->captureError->setVisible(false);
     capture = cvCaptureFromCAM(-1);
     posX1 = 0;
     posY1 = 0;
@@ -22,16 +23,17 @@ calibrateRotation::~calibrateRotation()
     delete ui;
 }
 
-void calibrateRotation::calibrate()
+void calibrateRotation::calibrate(int leftRightIndex)
 {
     IplImage* frame = 0;
     frame = cvQueryFrame(capture);
     // Quit if no frame can be captured, return to capturing the next frame
     if(!frame) {
-        ui->captureError->setEnabled(true);
+        ui->captureError->setVisible(true);
         return;
     }
-    cvShowImage("Calibration", frame);
+
+    ui->captureError->setVisible(false);
 
     //Setup sequences to get contours
     CvSeq* contours;
@@ -66,9 +68,9 @@ void calibrateRotation::calibrate()
             //Discard values that do not fit in range of camera for first point and set x and y values
             if (abs(moment101/area1) < 10000 || abs(moment011/area1)< 10000)
             {
-                posX1 = moment101/area1;
-                posY1 = moment011/area1;
-                moment_center1= cvPoint(posX1, posY1);
+                    posX1 = moment101/area1;
+                    posY1 = moment011/area1;
+                    moment_center1= cvPoint(posX1, posY1);
             }
         }
 
@@ -84,12 +86,29 @@ void calibrateRotation::calibrate()
             //Discard values that do not fit in range of camera for second point and set x and y values
             if (abs(moment102/area2) < 10000 || abs(moment012/area2)< 10000)
             {
-                posX2 = moment102/area2;
-                posY2 = moment012/area2;
-                moment_center2 = cvPoint(posX2, posY2);
+                    posX2 = moment102/area2;
+                    posY2 = moment012/area2;
+                    moment_center2 = cvPoint(posX2, posY2);
             }
         }
     }
+
+    //Write angles to correct variable
+    if(posY2 != posY1)
+    {
+        if (leftRightIndex == 1){
+            alphaLeftActual = abs(posX2-posX1)/abs(posY2-posY1);
+        }
+        else{
+            alphaRightActual = abs(posX2-posX1)/abs(posY2-posY1);
+        }
+    }
+    else
+    {
+        ui->captureError->setVisible(true);
+    }
+
+    //Write these angle maximums to the DB to use in adjusting angular acceleration
 
     // Release images and moments
     cvReleaseImage(&imgThresh);
@@ -113,39 +132,26 @@ IplImage* calibrateRotation::GetThresholdedImage(IplImage* img)
     //Convert to thresholded image for HSV color range selected
     //In Colorpic Hue needs to be divided by 2, as OCV has 180 range and ColorPic has 360. Sat and Val have 256 range
     //in both programs.
-    //Change color based on what was selected from the demographics menu.
-    //    FILE * pFile;
-    //    pFile = fopen ("configdata.txt","r");
+    //Change color based on what was selected from the configuration toolbox in the calibration menu
 
-    //    char trackingColor [100];
-    //    fgets (trackingColor , 100 , pFile );
-    //    fgets (trackingColor , 100 , pFile );
-    //    fgets (trackingColor , 100 , pFile );
-    //    fgets (trackingColor , 100 , pFile );
-
-    //    //Select green
-    //    if (trackingColor[12] == 'g')
-    //    {
-    //        printf("Green selected \n");
-    //        min_color1 = cvScalar(50,60,60,0);
-    //        max_color1 = cvScalar(80,180,256,0);
-    //    }
-    //    //Select orange
-    //    else if (trackingColor[12] == 'o')
-    //    {
-    //        printf("Orange selected \n");
-    //        min_color1 = cvScalar(50,60,60,0);
-    //        max_color1 = cvScalar(80,180,256,0);
-    //    }
-    //    //Select pink
-    //    else if (trackingColor[12] == 'p')
-    //    {
-    //        printf("Pink selected \n");
-    //        min_color1 = cvScalar(50,60,60,0);
-    //        max_color1 = cvScalar(80,180,256,0);
-    //    }
-    //    else
-    //        printf("Nothing selected \n");
+        //Select orange
+        if (ui->neonOrange->isChecked())
+        {
+            min_color1 = cvScalar(50,60,60,0);
+            max_color1 = cvScalar(80,180,256,0);
+        }
+        //Select pink
+        else if (ui->neonPink->isChecked())
+        {
+            min_color1 = cvScalar(50,60,60,0);
+            max_color1 = cvScalar(80,180,256,0);
+        }
+        //Choose green by default
+        else
+        {
+            min_color1 = cvScalar(50,60,60,0);
+            max_color1 = cvScalar(80,180,256,0);
+        }
 
     //Combine two thresholded images to account for color wrap around (if color wrap around exists for color of objects tracked)
     cvInRangeS(imgHSV, min_color1, max_color1, imgThreshed1);
@@ -186,17 +192,23 @@ IplImage* calibrateRotation::GetDilatedImage(IplImage* img)
 
 void calibrateRotation::on_rightExtentCapture_clicked()
 {
+    int rightIndex = 2;
+    calibrate(rightIndex);
     return;
 }
 
 void calibrateRotation::on_leftExtentCapture_clicked()
 {
+    int leftIndex = 1;
+    calibrate(leftIndex);
     return;
 }
 
 void calibrateRotation::on_completeButton_clicked()
 {
-//    emit clicked();
+
+    //Wite calibration values to database
+
     this->hide();
 }
 
@@ -204,4 +216,35 @@ void calibrateRotation::on_cancelButton_clicked()
 {
 //    emit clicked();
     this->hide();
+}
+
+//logic to select only green, pink, or orange color tracking radio button, but not more than one
+void calibrateRotation::on_neonGreen_clicked()
+{
+    if(ui->neonOrange->isChecked())
+        ui->neonOrange->setChecked(false);
+    else if(ui->neonPink->isChecked())
+        ui->neonPink->setChecked(false);
+    else
+        ui->neonGreen->setChecked(true);
+}
+
+void calibrateRotation::on_neonOrange_clicked()
+{
+    if(ui->neonGreen->isChecked())
+        ui->neonGreen->setChecked(false);
+    else if(ui->neonPink->isChecked())
+        ui->neonPink->setChecked(false);
+    else
+        ui->neonOrange->setChecked(true);
+}
+
+void calibrateRotation::on_neonPink_clicked()
+{
+    if(ui->neonOrange->isChecked())
+        ui->neonOrange->setChecked(false);
+    else if(ui->neonGreen->isChecked())
+        ui->neonGreen->setChecked(false);
+    else
+        ui->neonPink->setChecked(true);
 }
