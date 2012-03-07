@@ -237,6 +237,7 @@ void LegoThread::UpdateCamera()
     IplImage* frame = 0;
 
     frame = cvQueryFrame(capture);
+    cvSaveImage("frame.jpg", frame);
     // Quit if no frame can be captured, return to capturing the next frame
     if(!frame) {
         return;
