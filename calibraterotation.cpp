@@ -29,7 +29,9 @@ void calibrateRotation::calibrate(int leftRightIndex)
 {
     IplImage* frame = 0;
     frame = cvQueryFrame(capture);
+    cvFlip(frame, NULL, 1);
     // Quit if no frame can be captured, return to capturing the next frame
+    frame=cvLoadImage("test_frame.jpg",1);
     if(!frame) {
         ui->captureError->setVisible(true);
         return;
@@ -96,13 +98,18 @@ void calibrateRotation::calibrate(int leftRightIndex)
     }
 
     //Write angles to correct variable
+    double oppositeSide = (posY2-posY1);
+    double adjacentSide = (posX2-posX1);
+    double oppAdjParam = oppositeSide/adjacentSide;
     if(posY2 != posY1)
     {
         if (leftRightIndex == 1){
-            alphaLeftActual = abs(posX2-posX1)/abs(posY2-posY1);
+            alphaRightActual = atan(oppAdjParam);
+            printf("Alpha Right Actual: %f \n", alphaRightActual);
         }
         else{
-            alphaRightActual = abs(posX2-posX1)/abs(posY2-posY1);
+            alphaLeftActual = atan(oppAdjParam);
+            printf("Alpha Left Actual: %f \n", alphaLeftActual);
         }
     }
     else
@@ -158,8 +165,6 @@ IplImage* calibrateRotation::GetThresholdedImage(IplImage* img)
     //cvInRangeS(imgHSV, min_color2, max_color2, imgThreshed2);
     //cvOr(imgThreshed1, imgThreshed2, imgThreshed1);
 
-    //Flip image horizontally for normal playback
-    cvFlip(imgThreshed1, NULL, 1);
     cvReleaseImage(&imgHSV);
     //cvReleaseImage(&imgThreshed2);
     return imgThreshed1;
@@ -192,7 +197,7 @@ IplImage* calibrateRotation::GetDilatedImage(IplImage* img)
 
 void calibrateRotation::on_rightExtentCapture_clicked()
 {
-    int rightIndex = 2;
+    int rightIndex = 1;
     rightExtentCalibrated = true;
     calibrate(rightIndex);
     return;
@@ -200,7 +205,7 @@ void calibrateRotation::on_rightExtentCapture_clicked()
 
 void calibrateRotation::on_leftExtentCapture_clicked()
 {
-    int leftIndex = 1;
+    int leftIndex = 2;
     leftExtentCalibrated=true;
     calibrate(leftIndex);
     return;

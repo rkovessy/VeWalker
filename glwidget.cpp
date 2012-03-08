@@ -318,7 +318,7 @@ void GLWidget::determineAngularAccel(double alphaActual)
     //If it has not been calibrated, just use a default weighting to turn
     if (alphaRightMax == 0 && alphaLeftMax ==0)
     {
-        //printf("First if statement \n");
+        printf("Alpha Actual %f \n", alphaActual);
         if(alphaActual > 0.0){
             angularAccelActual = angularAccelMaximum;
         }
