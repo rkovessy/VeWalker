@@ -170,7 +170,8 @@ void GLWidget::updateScene() {
         double x;
 
         double pi=3.14159265;
-
+        motorSpeed = .1;
+        printf("Angular Acceleration %f \n", angularAccelActual);
         y = (yTrans + (motorSpeed*cos(angularAccelActual*pi/180)));
         x = (xTrans + (motorSpeed*sin(angularAccelActual*pi/180)));
 
@@ -307,8 +308,7 @@ GLuint GLWidget::makeObject()
 //Determine value of angularAccelActual
 void GLWidget::determineAngularAccel(double alphaActual)
 {
-    printf("determineAngularAccel running \n");
-    angularAccelMaximum = 100; //Maximum turning speed, needs to be calibrated
+    angularAccelMaximum = 1000.0; //Maximum turning speed, needs to be calibrated
     alphaRightMin = .000485; //5 degree tolerance
     alphaLeftMin = .000485;
 
@@ -319,13 +319,16 @@ void GLWidget::determineAngularAccel(double alphaActual)
     //If it has not been calibrated, just use a default weighting to turn
     if (alphaRightMax == 0 && alphaLeftMax ==0)
     {
-        if(alphaActual > 0.0)
+        //printf("First if statement \n");
+        if(alphaActual > 0.0){
             angularAccelActual = angularAccelMaximum;
+        }
         else
             angularAccelActual = -1*angularAccelMaximum;
     }
     else
     {
+        //printf("First else statement \n");
         if (alphaActual > 0)
         {
             angularAccelActual = (alphaRightMax-alphaActual)/(alphaRightMax-alphaRightMin);
