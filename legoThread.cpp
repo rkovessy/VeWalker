@@ -228,8 +228,8 @@ void LegoThread::UpdateCamera()
 
     frame = cvQueryFrame(capture);
     cvFlip(frame, NULL, 1);
-    cvShowImage("Raw Video", frame);
-    frame=cvLoadImage("test_frame.jpg",1);
+    //cvShowImage("Raw Video", frame);
+    //frame=cvLoadImage("test_frame.jpg",1);
 
     // Quit if no frame can be captured, return to capturing the next frame
     if(!frame) {

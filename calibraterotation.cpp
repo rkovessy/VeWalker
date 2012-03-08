@@ -31,7 +31,7 @@ void calibrateRotation::calibrate(int leftRightIndex)
     frame = cvQueryFrame(capture);
     cvFlip(frame, NULL, 1);
     // Quit if no frame can be captured, return to capturing the next frame
-    frame=cvLoadImage("test_frame.jpg",1);
+    //frame=cvLoadImage("test_frame.jpg",1);
     if(!frame) {
         ui->captureError->setVisible(true);
         return;
@@ -105,11 +105,11 @@ void calibrateRotation::calibrate(int leftRightIndex)
     {
         if (leftRightIndex == 1){
             alphaRightActual = atan(oppAdjParam);
-            printf("Alpha Right Actual: %f \n", alphaRightActual);
+            //printf("Alpha Right Actual: %f \n", alphaRightActual);
         }
         else{
             alphaLeftActual = atan(oppAdjParam);
-            printf("Alpha Left Actual: %f \n", alphaLeftActual);
+            //printf("Alpha Left Actual: %f \n", alphaLeftActual);
         }
     }
     else

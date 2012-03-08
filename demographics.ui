@@ -492,7 +492,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Min</string>
+     <string>0</string>
     </property>
    </widget>
    <widget class="QLabel" name="maxlabel1">
@@ -532,7 +532,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Max</string>
+     <string>10</string>
     </property>
    </widget>
   </widget>
@@ -1253,11 +1253,12 @@
     <string>Cancel</string>
    </property>
   </widget>
+  <zorder>quit</zorder>
+  <zorder>cancel</zorder>
   <zorder>groupBox_4</zorder>
   <zorder>groupBox_3</zorder>
   <zorder>groupBox_2</zorder>
   <zorder>groupBox_1</zorder>
-  <zorder>layoutWidget</zorder>
  </widget>
  <resources/>
  <connections/>

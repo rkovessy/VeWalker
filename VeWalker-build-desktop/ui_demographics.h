@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'demographics.ui'
 **
-** Created: Wed Mar 7 13:22:52 2012
+** Created: Wed Mar 7 21:34:30 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -388,6 +388,8 @@ public:
         sizePolicy.setHeightForWidth(cancel->sizePolicy().hasHeightForWidth());
         cancel->setSizePolicy(sizePolicy);
         cancel->setFont(font4);
+        quit->raise();
+        cancel->raise();
         groupBox_4->raise();
         groupBox_3->raise();
         groupBox_2->raise();
@@ -421,9 +423,9 @@ public:
 #endif // QT_NO_TOOLTIP
         unsafeintensitylabel->setText(QApplication::translate("Demographics", "Unsafe crossing:", 0, QApplication::UnicodeUTF8));
         minlabel1->setText(QApplication::translate("Demographics", "Min", 0, QApplication::UnicodeUTF8));
-        minlabel2->setText(QApplication::translate("Demographics", "Min", 0, QApplication::UnicodeUTF8));
+        minlabel2->setText(QApplication::translate("Demographics", "0", 0, QApplication::UnicodeUTF8));
         maxlabel1->setText(QApplication::translate("Demographics", "Max", 0, QApplication::UnicodeUTF8));
-        maxlabel2->setText(QApplication::translate("Demographics", "Max", 0, QApplication::UnicodeUTF8));
+        maxlabel2->setText(QApplication::translate("Demographics", "10", 0, QApplication::UnicodeUTF8));
         groupBox_2->setTitle(QApplication::translate("Demographics", "Simulation Calibration", 0, QApplication::UnicodeUTF8));
         neonpink->setText(QApplication::translate("Demographics", "Pink", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP

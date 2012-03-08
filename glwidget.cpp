@@ -170,7 +170,7 @@ void GLWidget::updateScene() {
         double x;
 
         double pi=3.14159265;
-        motorSpeed = .1; //Remove when working with actual motor
+        //motorSpeed = .1; //Remove when working with actual motor
         y = (yTrans + (motorSpeed*cos(angularAccelActual)));
         x = (xTrans + (motorSpeed*sin(angularAccelActual)));
 
@@ -318,7 +318,6 @@ void GLWidget::determineAngularAccel(double alphaActual)
     //If it has not been calibrated, just use a default weighting to turn
     if (alphaRightMax == 0 && alphaLeftMax ==0)
     {
-        printf("Alpha Actual %f \n", alphaActual);
         if(alphaActual > 0.0){
             angularAccelActual = angularAccelMaximum;
         }
@@ -327,14 +326,13 @@ void GLWidget::determineAngularAccel(double alphaActual)
     }
     else
     {
-        //printf("First else statement \n");
-        if (alphaActual > 0)
+        if (alphaActual > 0.0)
         {
-            angularAccelActual = (alphaRightMax-alphaActual)/(alphaRightMax-alphaRightMin);
+            angularAccelActual = (abs(alphaRightMax)-abs(alphaActual))/(abs(alphaRightMax)-abs(alphaRightMin));
         }
         else
         {
-            angularAccelActual = (alphaLeftMax-alphaActual)/(alphaLeftMax-alphaLeftMin);
+            angularAccelActual = -1*(abs(alphaLeftMax)-abs(alphaActual))/(abs(alphaLeftMax)-abs(alphaLeftMin));
         }
     }
 }
