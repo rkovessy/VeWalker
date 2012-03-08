@@ -24,13 +24,25 @@ TrafficControl::TrafficControl(QWidget *parent) :
     startpractice = "startpractice";
     fail = "fail";
 
+    db = QSqlDatabase::addDatabase("QPSQL", "trafficConnect");
+    db.setHostName("localhost");
+    db.setUserName("postgres");
+    db.setPassword("abc123");
+    db.setDatabaseName("configDb");
+    db.open();
+
     connect(&popupscreen, SIGNAL(clicked()), this, SLOT(clicked()));
+}
+
+TrafficControl::~TrafficControl()
+{
+    QSqlDatabase::database("trafficConnect").close();
+    QSqlDatabase::removeDatabase("trafficConnect");
 }
 
 void TrafficControl::set(int pid) {
     path.set(draw.centerRadius, draw.LANE_WIDTH);
-
-    for (count; count < numberOfCars; ++count)
+    for (int count = 0; count < numberOfCars; ++count)
         cars[count].setCar(path.speed);
 
     time = 0.0;
@@ -389,35 +401,26 @@ void TrafficControl::clicked() {
 
 void TrafficControl::database_connect()
 {
-    db = QSqlDatabase::addDatabase("QPSQL");
-    db.setHostName("localhost");
-    db.setUserName("postgres");
-    db.setPassword("abc123");
-    db.setDatabaseName("configDb");
 }
 
 void TrafficControl::database_get_vals()
 {
-    if (db.open())
+    if (db.isOpen())
     {
         QString readStatement = ("SELECT vehicle_quantity FROM loadconfig order by id desc limit 1");
-        QSqlQuery qry;
-        QVariant countVariant;
+        QSqlQuery qry(db);
 
         if (qry.exec(readStatement))
         {
             while(qry.next()){
-                countVariant = qry.value(1);
-                qDebug() << "Database:" << count;
+                numberOfCars = qry.value(1).toInt();
+                qDebug() << "Number of Cars:" << numberOfCars;
             }
         }
         else {
             qDebug() << "DbError";
             QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
         }
-
-        db.close();
-        QSqlDatabase::removeDatabase("QPSQL");
     }
     else
     {

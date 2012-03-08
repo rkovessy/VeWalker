@@ -38,7 +38,6 @@ public:
     void database_connect();
     void database_insert_config();
     void database_select_config();
-    LegoThread legoThread;
 
     //get functions
     QString getSex();

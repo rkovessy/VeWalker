@@ -36,8 +36,6 @@ ArduinoThread::ArduinoThread(QObject *parent) :
     qDebug() << "Flow                   : " << m_port->flowControl();
 
     output();
-
-    bool flag = false;
 }
 
 ArduinoThread::~ArduinoThread()

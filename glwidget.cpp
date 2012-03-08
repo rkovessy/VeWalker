@@ -168,8 +168,6 @@ void GLWidget::updateScene() {
 
         double y;
         double x;
-
-        double pi=3.14159265;
         //motorSpeed = .1; //Remove when working with actual motor
         y = (yTrans + (motorSpeed*cos(angularAccelActual)));
         x = (xTrans + (motorSpeed*sin(angularAccelActual)));

@@ -8,30 +8,38 @@ Demographics::Demographics(QWidget *parent) :
     ui->setupUi(this);
     ui->dateupperrange->setDate(QDate::currentDate());
     //connect(&calibrateRotation, SIGNAL(clicked()), this, SLOT(clicked()));
+
+    db = QSqlDatabase::addDatabase("QPSQL", "demoConnect");
+    db.setHostName("localhost");
+    db.setUserName("postgres");
+    db.setPassword("abc123");
+    db.setDatabaseName("configDb");
+    db.open();
+    if (db.lastError().isValid());
+        qDebug() << "lastDB error from opening connection " << db.lastError();
 }
 
 //destructor
 Demographics::~Demographics()
 {
+    QSqlDatabase::database("demoConnect").close();
+    QSqlDatabase::removeDatabase("demoConnect");
     delete ui;
 }
 
 
 void Demographics::database_connect()
 {
-    db = QSqlDatabase::addDatabase("QPSQL");
-    db.setHostName("localhost");
-    db.setUserName("postgres");
-    db.setPassword("abc123");
-    db.setDatabaseName("configDb");
+
 }
 
 void Demographics::database_insert_config()
 {
-    if (db.open())
+
+    if (db.isOpen())
     {
         QString inStatement = "INSERT INTO loadconfig (id, sex, age, hand_dom, mode, roundabout, vehicle_traffic, unsafe_crossing, traffic_intensity, vehicle_quantity, trial_quantity, participant_height, object_tracking, right_calibration, left_calibration, trial_date) VALUES (:id, :sex, :age, :hand_dom, :mode, :roundabout, :vehicle_traffic, :unsafe_crossing, :traffic_intensity, :vehicle_quantity, :trial_quantity, :participant_height, :object_tracking, :right_calibration, :left_calibration, :trial_date)";
-        QSqlQuery qry;
+        QSqlQuery qry(db);
 
         qry.prepare(inStatement);
 
@@ -90,12 +98,12 @@ void Demographics::database_insert_config()
         else
             qDebug() << "Insertion failed";
 
-        db.close();
-        QSqlDatabase::removeDatabase("QPSQL");
     }
     else
     {
-        qDebug() << "Demographics failed to open database connection to insert data.";
+        if (db.lastError().isValid());
+            qDebug() << db.lastError();
+            qDebug() << "Demographics failed to open database connection to insert data.";
     }
 }
 
@@ -353,24 +361,24 @@ void Demographics::on_quit_clicked()
     age = ui->age->value();
     participantheight =ui->participantheight->value();
     trialquantity =ui->trialquantity->value();
-    bool male = ui->male->isChecked();
-    bool female = ui->female->isChecked();
-    bool neongreen= ui->neongreen->isChecked();
-    bool neonpink= ui->neonpink->isChecked();
-    bool neonorange= ui->neonorange->isChecked();
-    bool trafficenable= ui->trafficenable->isChecked();
-    bool trafficdisable= ui->trafficdisable->isChecked();
-    bool singlelane= ui->singlelane->isChecked();
-    bool doublelane= ui->doublelane->isChecked();
-    bool demo= ui->demo->isChecked();
-    bool trial= ui->trial->isChecked();
-    bool left = ui->lefthanded->isChecked();
-    bool right= ui->righthanded->isChecked();
-    bool unsafeenable = ui->unsafeenable->isChecked();
-    bool unsafedisable = ui->unsafedisable->isChecked();
-    int vehiclequantityslider = ui->vehiclequantityslider ->value();
-    int intensityslider = ui ->intensityslider->value();
-    int trialquantity = ui->trialquantity->value();
+    male = ui->male->isChecked();
+    female = ui->female->isChecked();
+    neongreen= ui->neongreen->isChecked();
+    neonpink= ui->neonpink->isChecked();
+    neonorange= ui->neonorange->isChecked();
+    trafficenable= ui->trafficenable->isChecked();
+    trafficdisable= ui->trafficdisable->isChecked();
+    singlelane= ui->singlelane->isChecked();
+    doublelane= ui->doublelane->isChecked();
+    demo= ui->demo->isChecked();
+    trial= ui->trial->isChecked();
+    lefthanded = ui->lefthanded->isChecked();
+    righthanded = ui->righthanded->isChecked();
+    unsafeenable = ui->unsafeenable->isChecked();
+    unsafedisable = ui->unsafedisable->isChecked();
+    vehiclequantityslider = ui->vehiclequantityslider ->value();
+    intensityslider = ui ->intensityslider->value();
+    trialquantity = ui->trialquantity->value();
 
 //        QString pid = QString::number(id);
 //        if (id < 10)

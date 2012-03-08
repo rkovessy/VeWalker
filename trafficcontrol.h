@@ -35,6 +35,7 @@ class TrafficControl : public QWidget
 
 public:
     explicit TrafficControl(QWidget *parent = 0);
+    ~TrafficControl();
 
     void set(int pid); // called in mywindow, gives required information to path, draw, and cars
     void update(); // called in paintGL() updates the scene by checking/setting status and drawing all cars
@@ -70,7 +71,6 @@ private:
     double angle(Car a, Point b, bool sightadjusted = true); // returns the angle from Car a normal to Point b. sightadjusted is for changing the normal when Car a is turning
     double differenceRotation(Car a, Car b); // returns the difference in rotation between two cars
     bool pointCollision(Car a, Point p); // returns true if Car a intersects with Point p
-    int count; //Vehicle quantity
     QSqlDatabase db; //Database variables
 
     void setCarstart(); // cycles through updateCar()'s till first car is at start position, i think 3.22 seconds from pedestrian
@@ -104,7 +104,7 @@ private:
     double speeds[100]; // speeds defined for each trial
     int gaps[100][5]; // seperation times, where array is path, trial, time
 
-    const static int numberOfCars = 6; // number of cars chosen in form
+    int numberOfCars; // number of cars chosen in form
 
     PopUpScreen popupscreen; // responsible for notifying user of changes from trial to practice or vice versa and when they fail, requires a response from them
 };
