@@ -56,47 +56,38 @@ IplImage* LegoThread::GetThresholdedImage(IplImage* img)
     //in both programs.
 
     //Change color based on what was selected from the demographics menu.
-    /*FILE * pFile;
-    pFile = fopen ("configdata.txt","r");
-
-    char trackingColor [100];
-    fgets (trackingColor , 100 , pFile );
-    fgets (trackingColor , 100 , pFile );
-    fgets (trackingColor , 100 , pFile );
-    fgets (trackingColor , 100 , pFile );
-
     //Select green
-    if (trackingColor[13] == 'g')
-    {
-        qDebug() << "Green selected";
-        printf("Green selected \n");
+//    if (trackingColor[13] == 'g')
+//    {
+//        qDebug() << "Green selected";
+//        printf("Green selected \n");
         min_color1 = cvScalar(50,60,60,0);
         max_color1 = cvScalar(80,180,256,0);
-    }
-    //Select orange
-    else if (trackingColor[13] == 'o')
-    {
-        qDebug() << "Orange selected";
-        printf("Orange selected \n");
-        min_color1 = cvScalar(50,60,60,0);
-        max_color1 = cvScalar(80,180,256,0);
-    }
-    //Select pink
-    else if (trackingColor[13] == 'p')
-    {
-        qDebug() << "Pink selected";
-        printf("Pink selected \n");
-        min_color1 = cvScalar(50,60,60,0);
-        max_color1 = cvScalar(80,180,256,0);
-    }
-    //Choose green by default
-    else
-    {
-        qDebug() << "Nothing selected - use green by default";
-        printf("Nothing selected - use green by default \n");
-        min_color1 = cvScalar(50,60,60,0);
-        max_color1 = cvScalar(80,180,256,0);
-    }*/
+//    }
+//    //Select orange
+//    else if (trackingColor[13] == 'o')
+//    {
+//        qDebug() << "Orange selected";
+//        printf("Orange selected \n");
+//        min_color1 = cvScalar(50,60,60,0);
+//        max_color1 = cvScalar(80,180,256,0);
+//    }
+//    //Select pink
+//    else if (trackingColor[13] == 'p')
+//    {
+//        qDebug() << "Pink selected";
+//        printf("Pink selected \n");
+//        min_color1 = cvScalar(50,60,60,0);
+//        max_color1 = cvScalar(80,180,256,0);
+//    }
+//    //Choose green by default
+//    else
+//    {
+//        qDebug() << "Nothing selected - use green by default";
+//        printf("Nothing selected - use green by default \n");
+//        min_color1 = cvScalar(50,60,60,0);
+//        max_color1 = cvScalar(80,180,256,0);
+//    }
 
     //Combine two thresholded images to account for color wrap around (if color wrap around exists for color of objects tracked)
     cvInRangeS(imgHSV, min_color1, max_color1, imgThreshed1);
@@ -236,13 +227,15 @@ void LegoThread::UpdateCamera()
     // Hold a single frame captured from the camera
     IplImage* frame = 0;
 
-    frame = cvQueryFrame(capture);
-    cvSaveImage("frame.jpg", frame);
+    //frame = cvQueryFrame(capture);
+    //cvSaveImage("frame.jpg", frame);
+    frame=cvLoadImage("test_frame.jpg",1);
+    //cvShowImage("Raw Video", frame);
+
     // Quit if no frame can be captured, return to capturing the next frame
     if(!frame) {
         return;
     }   
-
     //Setup sequences to get contours
     CvSeq* contours;
     CvSeq* result;

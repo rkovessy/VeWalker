@@ -128,7 +128,7 @@ void MyWindow::updateCameraValues(int x1, int x2, int y1, int y2){
 
     else{
         double oppAdjParam = oppositeSide/adjacentSide;
-         angleRads = atan(oppAdjParam);
+        angleRads = atan(oppAdjParam);
     }
     if(fabs(angleRads) >= angleThreshold){
         glWidget->determineAngularAccel(angleRads);
