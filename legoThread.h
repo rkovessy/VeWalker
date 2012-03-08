@@ -4,20 +4,16 @@
 #include <stdio.h>
 #include "cv.h"
 #include "highgui.h"
-
 #include <QObject>
 #include <QThread>
 #include <QEventLoop>
-
 #include "math.h"
 #include <QWidget>
 #include <QString>
 #include <QTimer>
 #include <QDateTime>
 #include "nxt.h"
-
 #include <QDebug>
-
 #include <conio.h>
 #include <stdio.h>
 #include <windows.h>
@@ -26,7 +22,10 @@
 #include "iweardrv.h"
 #include "serialportinfo.h"
 #include "serialport.h"
-
+#include <QSqlDatabase>
+#include <QtSql>
+#include <QSqlDriver>
+#include <QMessageBox>
 
 class LegoThread : public QThread
 {
@@ -42,6 +41,8 @@ public:
     IplImage* GetBlurredImage(IplImage* img);
     IplImage* GetResizedImage(IplImage* img);
     IplImage* GetDilatedImage(IplImage* img);
+    void database_connect();
+    void database_get_vals();
     CvCapture* capture;
     int id;
     double PI;
@@ -58,10 +59,12 @@ public slots:
 
 
 private:
+    QSqlDatabase db; //Database variables
     QEventLoop eventloop;
     QTime time; // used for determining time elapsed between motor readings to calculate speed
     double msec; // time between motor values
     double timer_interval;
+    QString colorSelected;
 
     int rValueNXT;//new motor value
     int lastrValueNXT; // last motor value

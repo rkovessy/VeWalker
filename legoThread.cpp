@@ -40,6 +40,9 @@ LegoThread::LegoThread() {
     HTyaw = 0;
     HTpitch = 0;
     HTroll = 0;
+    colorSelected = 'green';
+    //this->database_connect();
+    //this->database_get_vals();
 }
 
 IplImage* LegoThread::GetThresholdedImage(IplImage* img)
@@ -57,37 +60,29 @@ IplImage* LegoThread::GetThresholdedImage(IplImage* img)
 
     //Change color based on what was selected from the demographics menu.
     //Select green
-//    if (trackingColor[13] == 'g')
-//    {
-//        qDebug() << "Green selected";
-//        printf("Green selected \n");
+    if (QString::compare("green", colorSelected, Qt::CaseInsensitive)==0)
+    {
         min_color1 = cvScalar(50,60,60,0);
         max_color1 = cvScalar(80,180,256,0);
-//    }
-//    //Select orange
-//    else if (trackingColor[13] == 'o')
-//    {
-//        qDebug() << "Orange selected";
-//        printf("Orange selected \n");
-//        min_color1 = cvScalar(50,60,60,0);
-//        max_color1 = cvScalar(80,180,256,0);
-//    }
-//    //Select pink
-//    else if (trackingColor[13] == 'p')
-//    {
-//        qDebug() << "Pink selected";
-//        printf("Pink selected \n");
-//        min_color1 = cvScalar(50,60,60,0);
-//        max_color1 = cvScalar(80,180,256,0);
-//    }
-//    //Choose green by default
-//    else
-//    {
-//        qDebug() << "Nothing selected - use green by default";
-//        printf("Nothing selected - use green by default \n");
-//        min_color1 = cvScalar(50,60,60,0);
-//        max_color1 = cvScalar(80,180,256,0);
-//    }
+    }
+    //Select orange
+    else if (QString::compare("orange", colorSelected, Qt::CaseInsensitive)==0)
+    {
+        min_color1 = cvScalar(50,60,60,0);
+        max_color1 = cvScalar(80,180,256,0);
+    }
+    //Select pink
+    else if (QString::compare("pink", colorSelected, Qt::CaseInsensitive)==0)
+    {
+        min_color1 = cvScalar(50,60,60,0);
+        max_color1 = cvScalar(80,180,256,0);
+    }
+    //Choose green by default
+    else
+    {
+        min_color1 = cvScalar(50,60,60,0);
+        max_color1 = cvScalar(80,180,256,0);
+    }
 
     //Combine two thresholded images to account for color wrap around (if color wrap around exists for color of objects tracked)
     cvInRangeS(imgHSV, min_color1, max_color1, imgThreshed1);
@@ -327,3 +322,40 @@ void LegoThread::UpdateTilt()
     qDebug()<< "x =" << tiltx << "y=" << tilty << "z=" << tiltz;
 }
 }*/
+
+void LegoThread::database_connect()
+{
+    db = QSqlDatabase::addDatabase("QPSQL");
+    db.setHostName("localhost");
+    db.setUserName("postgres");
+    db.setPassword("abc123");
+    db.setDatabaseName("configDb");
+}
+
+void LegoThread::database_get_vals()
+{
+    if (db.open())
+    {
+        QString readStatement = ("SELECT object_tracking FROM loadconfig order by id desc limit 1");
+        QSqlQuery qry;
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                colorSelected = qry.value(1).toString();
+                qDebug() << "Database:" << colorSelected;
+            }
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+
+        db.close();
+        QSqlDatabase::removeDatabase("QPSQL");
+    }
+    else
+    {
+        qDebug() << "Demographics failed to open database connection to insert data.";
+    }
+}
