@@ -95,7 +95,6 @@ IplImage* LegoThread::GetThresholdedImage(IplImage* img)
     //cvOr(imgThreshed1, imgThreshed2, imgThreshed1);
 
     //Flip image horizontally for normal playback
-    cvFlip(imgThreshed1, NULL, 1);
     cvReleaseImage(&imgHSV);
     //cvReleaseImage(&imgThreshed2);
     return imgThreshed1;
@@ -227,10 +226,10 @@ void LegoThread::UpdateCamera()
     // Hold a single frame captured from the camera
     IplImage* frame = 0;
 
-    //frame = cvQueryFrame(capture);
-    //cvSaveImage("frame.jpg", frame);
+    frame = cvQueryFrame(capture);
+    cvFlip(frame, NULL, 1);
+    cvShowImage("Raw Video", frame);
     frame=cvLoadImage("test_frame.jpg",1);
-    //cvShowImage("Raw Video", frame);
 
     // Quit if no frame can be captured, return to capturing the next frame
     if(!frame) {

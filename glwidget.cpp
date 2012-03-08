@@ -171,9 +171,8 @@ void GLWidget::updateScene() {
 
         double pi=3.14159265;
         motorSpeed = .1; //Remove when working with actual motor
-        printf("Angular Acceleration %f \n", angularAccelActual);
-        y = (yTrans + (motorSpeed*cos(angularAccelActual*pi/180)));
-        x = (xTrans + (motorSpeed*sin(angularAccelActual*pi/180)));
+        y = (yTrans + (motorSpeed*cos(angularAccelActual)));
+        x = (xTrans + (motorSpeed*sin(angularAccelActual)));
 
         //if (fabs(y) <= maxTrans && fabs(x) >= maxTrans) {
             yTrans = y;
