@@ -14,6 +14,10 @@
 #include <QTextStream>
 #include <QString>
 #include <QTime>
+#include <QSqlDatabase>
+#include <QtSql>
+#include <QSqlDriver>
+#include <QMessageBox>
 
 using namespace std;
 
@@ -48,6 +52,9 @@ public:
     Data data; // writes info for pedestrian, data, and cars
     Limits limits; // limits for pedestrian
 
+    void database_get_vals();
+    void database_connect();
+
 public slots:
     void clicked(); // executed after aknowledgement from user after failed trial or start of real trials.
 
@@ -63,6 +70,8 @@ private:
     double angle(Car a, Point b, bool sightadjusted = true); // returns the angle from Car a normal to Point b. sightadjusted is for changing the normal when Car a is turning
     double differenceRotation(Car a, Car b); // returns the difference in rotation between two cars
     bool pointCollision(Car a, Point p); // returns true if Car a intersects with Point p
+    int count; //Vehicle quantity
+    QSqlDatabase db; //Database variables
 
     void setCarstart(); // cycles through updateCar()'s till first car is at start position, i think 3.22 seconds from pedestrian
 

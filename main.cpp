@@ -16,37 +16,6 @@ int main(int argc, char *argv[])
    Demographics w;
    w.show();
 
-/*
-    if (!db.open())
-    {
-        QMessageBox::critical(0, QObject::tr("DB - ERROR!"),
-                              db.lastError().text());
-    }
 
-        QSqlQuery qry;
-
-        if (qry.exec("INSERT INTO loadconfig (sex, age) VALUES ('male', '23')"))
-            qDebug() << "Insert success";
-        else
-            qDebug() << "Insert fail";
-
-        if (qry.exec("SELECT * FROM loadconfig"))
-        {
-            while(qry.next()){
-                QString sex = qry.value(0).toString();
-                qDebug() << sex;
-            }
-        }
-        else {
-            qDebug() << "DbError";
-            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),
-                                  db.lastError().text());
-        }
-
-        qDebug() << "size " << qry.size();
-
-    qDebug() << "addDatabase() " << (db.isValid() ? "VALID" : "ERROR");
-
-    db.close();*/
     return a.exec();
 }

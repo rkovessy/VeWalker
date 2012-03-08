@@ -38,6 +38,7 @@ public:
     void database_connect();
     void database_insert_config();
     void database_select_config();
+    LegoThread legoThread;
 
     //get functions
     QString getSex();
@@ -45,6 +46,7 @@ public:
     int getId();
     QString getDominance();
     int getHeight();
+    VE virtuale;
 
     int id;
     int vehiclequantityslider;
@@ -73,13 +75,13 @@ public:
     QString upperDateRange;
 
     Data data; // writes files for demographics
-    VE virtuale; // top class for all VE code
+     // top class for all VE code
     //calibrateRotation *calibrateMe; //class for opening calibration menu
 
 
 private:
     Ui::Demographics *ui;
-
+    //const static int timer_interval = 20; // number of msecs updateScene() is called
     //Database variables
     QSqlDatabase db;
 

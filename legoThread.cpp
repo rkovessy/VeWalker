@@ -12,7 +12,7 @@ LegoThread::LegoThread() {
     counter = 0;
     magnitude = 0.0;
     lastrValueNXT = 0.0;
-
+    printf("LegoThread initialized \n");
     // Initialize capturing from webcam
     capture = cvCaptureFromCAM(-1);
     //Throw an error when no device is connected
@@ -356,6 +356,6 @@ void LegoThread::database_get_vals()
     }
     else
     {
-        qDebug() << "Demographics failed to open database connection to insert data.";
+        qDebug() << "LegoThread failed to open database connection to pull data.";
     }
 }

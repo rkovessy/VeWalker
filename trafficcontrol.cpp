@@ -30,7 +30,7 @@ TrafficControl::TrafficControl(QWidget *parent) :
 void TrafficControl::set(int pid) {
     path.set(draw.centerRadius, draw.LANE_WIDTH);
 
-    for (int count = 0; count < numberOfCars; ++count)
+    for (count; count < numberOfCars; ++count)
         cars[count].setCar(path.speed);
 
     time = 0.0;
@@ -348,6 +348,9 @@ bool TrafficControl::pointCollision(Car a, Point p) { // determines whether Poin
 }
 
 void TrafficControl::setCarstart() {
+    this->database_connect();
+    this->database_get_vals();
+
     if (speeds[trial] != 0) {
         double t = path.distance_tostart / (speeds[trial] * path.DISTANCE / 0.02);
         cars[0].newCar(speeds[trial]);
@@ -382,4 +385,42 @@ void TrafficControl::clicked() {
     starttrialsscreen = false;
     startpracticescreen = false;
     whitescreen = true;
+}
+
+void TrafficControl::database_connect()
+{
+    db = QSqlDatabase::addDatabase("QPSQL");
+    db.setHostName("localhost");
+    db.setUserName("postgres");
+    db.setPassword("abc123");
+    db.setDatabaseName("configDb");
+}
+
+void TrafficControl::database_get_vals()
+{
+    if (db.open())
+    {
+        QString readStatement = ("SELECT vehicle_quantity FROM loadconfig order by id desc limit 1");
+        QSqlQuery qry;
+        QVariant countVariant;
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                countVariant = qry.value(1);
+                qDebug() << "Database:" << count;
+            }
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+
+        db.close();
+        QSqlDatabase::removeDatabase("QPSQL");
+    }
+    else
+    {
+        qDebug() << "TrafficControl failed to open database connection to pull data.";
+    }
 }
