@@ -17,6 +17,101 @@ Demographics::~Demographics()
 }
 
 
+void Demographics::database_connect()
+{
+    db = QSqlDatabase::addDatabase("QPSQL");
+    db.setHostName("localhost");
+    db.setUserName("postgres");
+    db.setPassword("abc123");
+    db.setDatabaseName("configDb");
+}
+
+void Demographics::database_insert_config()
+{
+    if (db.open())
+    {
+        QString inStatement = "INSERT INTO loadconfig (id, sex, age, hand_dom, mode, roundabout, vehicle_traffic, unsafe_crossing, traffic_intensity, vehicle_quantity, trial_quantity, participant_height, object_tracking, right_calibration, left_calibration, trial_date) VALUES (:id, :sex, :age, :hand_dom, :mode, :roundabout, :vehicle_traffic, :unsafe_crossing, :traffic_intensity, :vehicle_quantity, :trial_quantity, :participant_height, :object_tracking, :right_calibration, :left_calibration, :trial_date)";
+        QSqlQuery qry;
+
+        qry.prepare(inStatement);
+
+        qry.bindValue(":id", id);
+
+        if (male)
+            qry.bindValue(":sex", "male");
+        else
+            qry.bindValue(":sex", "female");
+
+        qry.bindValue(":age", age);
+
+        if (righthanded)
+            qry.bindValue(":hand_dom", "right");
+        else
+            qry.bindValue(":hand_dom", "left");
+
+        if (demo)
+            qry.bindValue(":mode", "demo");
+        else
+            qry.bindValue(":mode", "trial");
+
+        if (singlelane)
+            qry.bindValue(":roundabout", 1);
+        else
+            qry.bindValue(":roundabout", 2);
+
+        if (trafficenable)
+            qry.bindValue(":vehicle_traffic", 1);
+        else
+            qry.bindValue(":vehicle_traffic", 0);
+
+        if (unsafeenable)
+            qry.bindValue(":unsafe_crossing", 1);
+        else
+            qry.bindValue(":unsafe_crossing", 0);
+
+        qry.bindValue(":vehicle_quantity", vehiclequantityslider);
+        qry.bindValue(":traffic_intensity", intensityslider);
+        qry.bindValue(":trial_quantity", trialquantity);
+        qry.bindValue(":participant_height", participantheight);
+
+        if (neongreen)
+            qry.bindValue(":object_tracking", "green");
+        else if(neonpink)
+            qry.bindValue(":object_tracking", "pink");
+        else
+            qry.bindValue(":object_tracking", "orange");
+
+        qry.bindValue(":right_calibration", 0.0);
+        qry.bindValue(":left_calibration", 0.0);
+        qry.bindValue(":trial_date", "01/01/1999");
+
+        if (qry.exec())
+            qDebug() << "Insert successful";
+        else
+            qDebug() << "Insertion failed";
+
+        db.close();
+        QSqlDatabase::removeDatabase("QPSQL");
+    }
+    else
+    {
+        qDebug() << "Demographics failed to open database connection to insert data.";
+    }
+}
+
+void Demographics::database_select_config()
+{
+    if (db.open())
+    {
+
+        db.close();
+    }
+    else
+    {
+        qDebug() << "Demographics failed to open database connection to get data.";
+    }
+}
+
 //logic to select only a male or female radio button, but not both
 void Demographics::on_female_clicked()
 {
@@ -254,20 +349,8 @@ void Demographics::on_calibrate_clicked()
 void Demographics::on_quit_clicked()
 {
     id = ui->id->value();
-    QString pid = QString::number(id);
-    if (id < 10)
-        pid.prepend("0");
-    QFile file("Data/P" + pid + "_Data.txt");
-
-    QString f = "Data";
-    QDir().mkdir(f);
-
     bool inputError = false;
-    //defines variables in relation to objects to allow for passing of variables to rest of program
-    FILE * pFile;
-    pFile = fopen ("configdata.txt", "w+");
-
-    age =ui->age->value();
+    age = ui->age->value();
     participantheight =ui->participantheight->value();
     trialquantity =ui->trialquantity->value();
     bool male = ui->male->isChecked();
@@ -289,33 +372,47 @@ void Demographics::on_quit_clicked()
     int intensityslider = ui ->intensityslider->value();
     int trialquantity = ui->trialquantity->value();
 
-    if(trafficenable)
-        fprintf(pFile, "traffic: yes\n");
-    else
-        fprintf(pFile, "traffic: no\n");
-    if (singlelane)
-        fprintf(pFile, "lanes: 1\n");
-    else
-        fprintf(pFile, "lanes: 2\n");
-    if(demo)
-        fprintf(pFile, "demo: true\n");
-    else
-        fprintf(pFile, "demo: false\n");
-    if(neongreen)
-        fprintf(pFile, "color: neon_green\n");
-    else if(neonpink)
-        fprintf(pFile, "color: neon_pink\n");
-    else
-        fprintf(pFile, "color: neon_orange\n");
-    if(unsafeenable)
-        fprintf(pFile, "unsafe: true\n");
-    else
-        fprintf(pFile, "unsafe: false\n");
-    fprintf(pFile, "trials: %d\n", ui->trialquantity->value());
-    fprintf(pFile, "height: %d\n", ui->participantheight->value());
-    fprintf(pFile, "vehicle_quantity: %d\n", vehiclequantityslider);
-    fprintf(pFile, "intensity: %d\n", ui->intensityslider->value());
-    fclose(pFile);
+//        QString pid = QString::number(id);
+//        if (id < 10)
+//            pid.prepend("0");
+//        QFile file("Data/P" + pid + "_Data.txt");
+
+//        QString f = "Data";
+//        QDir().mkdir(f);
+
+//        //defines variables in relation to objects to allow for passing of variables to rest of program
+//        FILE * pFile;
+//        pFile = fopen ("configdata.txt", "w+");
+//    if(trafficenable)
+//        fprintf(pFile, "traffic: yes\n");
+//    else
+//        fprintf(pFile, "traffic: no\n");
+//    if (singlelane)
+//        fprintf(pFile, "lanes: 1\n");
+//    else
+//        fprintf(pFile, "lanes: 2\n");
+//    if(demo)
+//        fprintf(pFile, "demo: true\n");
+//    else
+//        fprintf(pFile, "demo: false\n");
+//    if(neongreen)
+//        fprintf(pFile, "color: neon_green\n");
+//    else if(neonpink)
+//        fprintf(pFile, "color: neon_pink\n");
+//    else
+//        fprintf(pFile, "color: neon_orange\n");
+//    if(unsafeenable)
+//        fprintf(pFile, "unsafe: true\n");
+//    else
+//        fprintf(pFile, "unsafe: false\n");
+//    fprintf(pFile, "trials: %d\n", ui->trialquantity->value());
+//    fprintf(pFile, "height: %d\n", ui->participantheight->value());
+//    fprintf(pFile, "vehicle_quantity: %d\n", vehiclequantityslider);
+//    fprintf(pFile, "intensity: %d\n", ui->intensityslider->value());
+//    fclose(pFile);
+
+    this->database_connect();
+    this->database_insert_config();
 
 //error handling finished, now we write to file by emitting a signal which is picked up in mainwindow.cpp:
     if(inputError)
@@ -324,7 +421,7 @@ void Demographics::on_quit_clicked()
     }
     else
     {
-        data.writeDemographics(id, age, sex, dominance);
+        //data.writeDemographics(id, age, sex, dominance);
         virtuale.start(id);
         this->hide();
     }
@@ -335,7 +432,7 @@ QString Demographics::getSex()
 {
     return sex;
 }
-QString Demographics::getAge()
+int Demographics::getAge()
 {
     return age;
 }
@@ -343,7 +440,7 @@ int Demographics::getId()
 {
     return id;
 }
-QString Demographics::getHeight()
+int Demographics::getHeight()
 {
     return participantheight;
 }

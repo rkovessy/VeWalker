@@ -10,6 +10,15 @@
 #include <QDialog>
 #include <QDebug>
 #include <QString>
+#include <QtGui/QApplication>
+#include <QtCore/QCoreApplication>
+#include <QSqlDatabase>
+#include <QStringList>
+#include <QtSql>
+#include <QSqlDriver>
+#include <QMessageBox>
+#include <QObject>
+
 
 namespace Ui {
     class Demographics;
@@ -26,18 +35,21 @@ public:
     explicit Demographics(QWidget *parent = 0);
     ~Demographics();
     void setPid(int personalIdentification);
+    void database_connect();
+    void database_insert_config();
+    void database_select_config();
 
     //get functions
     QString getSex();
-    QString getAge();
+    int getAge();
     int getId();
     QString getDominance();
-    QString getHeight();
+    int getHeight();
 
     int id;
     int vehiclequantityslider;
     int intensityslider;
-    QString age;
+    int age;
     bool male;
     bool female;
     bool neongreen;
@@ -55,7 +67,7 @@ public:
     bool righthanded;
     QString sex;
     QString dominance;
-    QString participantheight;
+    int participantheight;
     int trialquantity;
     QString lowerDateRange;
     QString upperDateRange;
@@ -67,6 +79,10 @@ public:
 
 private:
     Ui::Demographics *ui;
+
+    //Database variables
+    QSqlDatabase db;
+
 
 private slots:
     void on_quit_clicked();

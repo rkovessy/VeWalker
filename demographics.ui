@@ -867,6 +867,9 @@
       <bold>false</bold>
      </font>
     </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
    </widget>
    <widget class="QLabel" name="participantnumberlabel">
     <property name="geometry">
