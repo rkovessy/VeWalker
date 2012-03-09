@@ -36,6 +36,7 @@ class LegoThread : public QThread
 
 public:
     LegoThread();
+    ~LegoThread();
     void run();
     IplImage* GetThresholdedImage(IplImage* img);
     IplImage* GetBlurredImage(IplImage* img);

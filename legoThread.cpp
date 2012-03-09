@@ -43,6 +43,19 @@ LegoThread::LegoThread() {
     colorSelected = 'green';
     //this->database_connect();
     //this->database_get_vals();
+
+    db = QSqlDatabase::addDatabase("QPSQL", "legoDBConn");
+    db.setHostName("localhost");
+    db.setUserName("postgres");
+    db.setPassword("abc123");
+    db.setDatabaseName("configDb");
+    db.open();
+}
+
+LegoThread::~LegoThread()
+{
+    QSqlDatabase::database("legoDBConn").close();
+    QSqlDatabase::removeDatabase("legoDBConn");
 }
 
 IplImage* LegoThread::GetThresholdedImage(IplImage* img)
@@ -325,19 +338,15 @@ void LegoThread::UpdateTilt()
 
 void LegoThread::database_connect()
 {
-    db = QSqlDatabase::addDatabase("QPSQL");
-    db.setHostName("localhost");
-    db.setUserName("postgres");
-    db.setPassword("abc123");
-    db.setDatabaseName("configDb");
+
 }
 
 void LegoThread::database_get_vals()
 {
-    if (db.open())
+    if (db.isOpen())
     {
         QString readStatement = ("SELECT object_tracking FROM loadconfig order by id desc limit 1");
-        QSqlQuery qry;
+        QSqlQuery qry(db);
 
         if (qry.exec(readStatement))
         {
@@ -351,8 +360,6 @@ void LegoThread::database_get_vals()
             QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
         }
 
-        db.close();
-        QSqlDatabase::removeDatabase("QPSQL");
     }
     else
     {
