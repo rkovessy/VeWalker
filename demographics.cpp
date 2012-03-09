@@ -8,7 +8,6 @@ Demographics::Demographics(QWidget *parent) :
     ui->setupUi(this);
     ui->dateupperrange->setDate(QDate::currentDate());
     referenceid=1;
-
     db = QSqlDatabase::addDatabase("QPSQL", "demoConnect");
     db.setHostName("localhost");
     db.setUserName("postgres");

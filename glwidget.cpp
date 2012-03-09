@@ -29,7 +29,6 @@ void GLWidget::setPedestrian(double x, double y, double mid) {
     startingyTrans[1] = 0.0;
     startingxTrans[0] = x; //This is about at the cross walk
     startingrotation[0] = 0.0;
-    startingrotation[1] = 225.0;
 
     startPos = tc.get_start();
     if (startPos == "A")

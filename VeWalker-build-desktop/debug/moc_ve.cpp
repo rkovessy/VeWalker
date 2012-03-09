@@ -1,7 +1,11 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 've.h'
 **
+<<<<<<< .merge_file_a02192
 ** Created: Fri Mar 9 13:59:08 2012
+=======
+** Created: Wed Nov 30 14:54:21 2011
+>>>>>>> .merge_file_a02904
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!

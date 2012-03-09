@@ -28,6 +28,7 @@ void MyWindow::settingLayout() {
      glWidget->tc.set(pid);
      double x = glWidget->tc.draw.get_walkwayDistance() + glWidget->tc.draw.MIDZONE_WIDTH / 2.0;
      double y = -1 * (glWidget->tc.draw.LANE_WIDTH * glWidget->tc.draw.get_numberOfLanes() + glWidget->tc.draw.MIDZONE_WIDTH / 2.0);
+
      glWidget->setPedestrian(x, y, glWidget->tc.draw.MIDZONE_WIDTH / 2.0);
      glWidget->set_recording();
  }

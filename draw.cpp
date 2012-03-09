@@ -84,6 +84,7 @@ void Draw::environment() {
         gluQuadricOrientation(quad, GLU_OUTSIDE);
         //glScaled(1, 1, centerRadius / centerHeight); // back to normal
 
+        //These were the previously used rectangles for the sky.  Changed to sphere model above.
         /*rectangle(0, -1, 0, -50.0, 50.0, 0.0, 'x', 100.0, 'z', 50.0);
         rectangle(1, 0, 0, -50.0, -50.0, 0.0, 'y', 100.0, 'z', 50.0);
         rectangle(0, 1, 0, 50.0, -50.0, 0.0, 'x', -100.0, 'z', 50.0);
@@ -737,6 +738,10 @@ void Draw::corners() {
             rectangle(0, 0, 1, i, BORDER_X - cornerRadius, 0.001, 'x', 1.0, 'y', cornerRadius); // grass
         }
 
+        //setTexture(GRASSGREEN);
+        //gluDisk(quad, 0.0, cornerRadius - BORDER_X, 36, 1); // corner grass
+        //rectangle(0, 0, 1, BORDER_X - cornerRadius, 0, 0.0, 'x', 50.0, 'y', 50.0); // grass
+        //rectangle(0, 0, 1, 0, BORDER_X - cornerRadius, 0.0, 'x', 50.0, 'y', cornerRadius); // grass
         glPopMatrix();
         glRotated(90, 0, 0, 1);
     }

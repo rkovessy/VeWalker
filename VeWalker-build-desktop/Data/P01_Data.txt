@@ -1,1 +1,0 @@
-               trial               start     time_starttrial         time_bumper           time_step        time_latency         time_arrive       time_crossing               steps          gap_chosen                   

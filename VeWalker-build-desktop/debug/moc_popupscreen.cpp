@@ -1,7 +1,11 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'popupscreen.h'
 **
+<<<<<<< .merge_file_a02888
 ** Created: Thu Mar 8 15:40:48 2012
+=======
+** Created: Wed Nov 30 11:05:38 2011
+>>>>>>> .merge_file_a03664
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
