@@ -73,7 +73,7 @@ public:
     QString lowerDateRange;
     QString upperDateRange;
 
-    Data data; // writes files for demographics
+    //Data data; // writes files for demographics
      // top class for all VE code
     //calibrateRotation *calibrateMe; //class for opening calibration menu
 

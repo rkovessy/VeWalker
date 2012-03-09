@@ -2,7 +2,7 @@
 
 VE::VE()
 {
-
+    qDebug() << "constructor was called";
 //    mywindow.setMouseTracking(true);
 }
 

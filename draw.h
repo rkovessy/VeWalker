@@ -14,6 +14,14 @@
 #include <QImage>
 #include <QDir>
 #include <qgl.h>
+#include <QtGui/QApplication>
+#include <QtCore/QCoreApplication>
+#include <QSqlDatabase>
+#include <QStringList>
+#include <QtSql>
+#include <QSqlDriver>
+#include <QMessageBox>
+#include <QObject>
 
 #include "path.h"
 #include "car.h"
@@ -28,7 +36,7 @@ class Draw
     */
 public:
     Draw();
-
+    ~Draw();
     void setDimensions(double height); // sets parameters of the environment
 
     void environment(); // draws the enviornment, ie the grass, road, sidewalk, trees, the refuges, the center
@@ -71,6 +79,8 @@ private:
     void triangle(char horizontal, char vertical, double x, double y, double z, char direction1, double length1, char direction2, double length2); // draws a triangle parrallel to x, y, and z axes
     void trianglePoints(char horizontal, char vertical, double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3); // draws a triangle using points
     void triangleVectors(char horizontal, char vertical, double x, double y, double z, double x1, double y1, double z1, double x2, double y2, double z2); // draws a triangle using vectors
+
+    QSqlDatabase db;
 
     void center(); // draws the center of the roundabout and the circular lane line if needed
     void centersphere(); // draws the half sphere at center()

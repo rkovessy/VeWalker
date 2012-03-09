@@ -1,6 +1,1 @@
                trial               start     time_starttrial         time_bumper           time_step        time_latency         time_arrive       time_crossing               steps          gap_chosen                   
-<<<<<<< HEAD
-                  p1                   A                   0                   0                0.78                0.78               37.58                36.8                   0                   0                   
-           failed_p2                   A               58.24               13.24               12.28                9.06                   0                   0                   0                   6                   
-=======
->>>>>>> origin/macgregor_demo_code
