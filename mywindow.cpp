@@ -39,18 +39,6 @@ void MyWindow::settingLayout() {
  void MyWindow::keyPressEvent(QKeyEvent *e) {
      switch ( e->key() )
      {
-        case Qt::Key_Left:
-            glWidget->Zrotation(-1);
-            break;
-        case Qt::Key_Right:
-            glWidget->Zrotation(1);
-            break;
-        case Qt::Key_Up:
-            glWidget->Xrotation(1);
-            break;
-        case Qt::Key_Down:
-            glWidget->Xrotation(-1);
-            break;
         case Qt::Key_Space:
             glWidget->setXRotation(270.0);
             glWidget->setYRotation(0.0);
@@ -61,45 +49,10 @@ void MyWindow::settingLayout() {
  }
 
  void MyWindow::keyReleaseEvent(QKeyEvent *e) {
-     switch ( e->key() )
-     {
-        case Qt::Key_Left:
-            glWidget->Zrotation(0);
-            break;
-        case Qt::Key_Right:
-            glWidget->Zrotation(0);
-            break;
-        case Qt::Key_Up:
-            glWidget->Xrotation(0);
-            break;
-        case Qt::Key_Down:
-            glWidget->Xrotation(0);
-            break;
-
-     }
  }
 
  //captures the mouse movement to rotate the screen
  void MyWindow::mouseMoveEvent(QMouseEvent *e) {
-
-     //up and down rotation
-     /*if(e->x() > previousXPos) {
-         glWidget->Zrotation(1);
-     } else if(e->x() < previousXPos) {
-         glWidget->Zrotation(-1);
-     } else
-         glWidget->Zrotation(0);
-
-     //left/right rotation
-     if(e->y() > previousYPos) {
-         glWidget->Xrotation(1);
-     } else if(e->y() < previousYPos) {
-         glWidget->Xrotation(-1);
-     } else
-         glWidget->Xrotation(0);
-
-     previousXPos = e->x();
-     previousYPos = e->y();*/
 
  }
 
@@ -108,13 +61,13 @@ void MyWindow::settingLayout() {
  }
 
  void MyWindow::updateMotor(double m, bool s, double z) {
-     if (s && glWidget->tc.data.step && glWidget->tc.data.time_arrive == 0.0)
-         glWidget->tc.data.steps++;
-     glWidget->setTranslation(m*1.25, z); // updates GLWidget, connected to sendMotor(...) signal from legoThread
+//     if (s && glWidget->tc.data.step && glWidget->tc.data.time_arrive == 0.0)
+//         glWidget->tc.data.steps++;
+//     glWidget->setTranslation(m*1.25, z); // updates GLWidget, connected to sendMotor(...) signal from legoThread
  }
 
  void MyWindow::updateCompass(double anglediff) {
-     glWidget->rotation(anglediff);
+     //glWidget->rotation(anglediff);
  }
 
 void MyWindow::updateCameraValues(int x1, int x2, int y1, int y2){
@@ -141,8 +94,8 @@ void MyWindow::updateCameraValues(int x1, int x2, int y1, int y2){
 
 void MyWindow::updateHTrackerValues(long HTyaw, long HTpitch, long HTroll)
 {
-    glWidget->Xrotation(HTpitch*-0.01+270);
-    glWidget->Yrotation(HTroll*-0.01);
+    glWidget->Xrotation(HTpitch*-0.006+270);
+    glWidget->Yrotation(HTroll*-0.006);
     glWidget->Zrotation(HTyaw*-0.01);
 
 }

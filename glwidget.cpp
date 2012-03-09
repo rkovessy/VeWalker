@@ -8,6 +8,8 @@ GLWidget::GLWidget(QWidget *parent)
     prevRotation = 0;
     hit = false;
 
+    shoulderRot = 0.0;
+    headRot = 0.0;
     time = 0.0;
     started = false;
 
@@ -77,7 +79,6 @@ void GLWidget::setZRotation(double angle)
 {
     if (angle != zRot) {
         zRot = angle;
-       // printf("Z:(%d)\n", zRot);
         if (zRot < 0.0) {
             do {
                 zRot += 360.0;
@@ -93,6 +94,7 @@ void GLWidget::setZRotation(double angle)
 
 void GLWidget::setTranslation(double mag, double z) { // connected to senddata(double,double) signal in collectdata which runs update slot in mywindow
 
+    qDebug() << "mag " << mag << " z " << z;
     if (!hit) {
         if (!(tc.get_screen()))
             motorSpeed = mag;
@@ -108,7 +110,7 @@ void GLWidget::setArduinoTranslation(int potRot)
     //qDebug() << "potRot:    " << potRot;
     if(!hit) {
         if(!(tc.get_screen()))
-            motorSpeed = abs(currRotation - prevRotation) * PI / 180.0 * 0.01;
+            motorSpeed = abs(currRotation - prevRotation) * PI / 180.0 * 0.14;
          else
             motorSpeed = 0.0;
     }
@@ -123,16 +125,18 @@ void GLWidget::rotation(double anglediff)
         compassSpeed = anglediff;
     else
         compassSpeed = 0.0;
+
+    qDebug() << "compassSpeed rotation" << compassSpeed;
 }
 
 void GLWidget::Zrotation(double anglediff)
 {
     if (!(tc.get_screen())) {
-        compassSpeed = anglediff;
-        //qDebug() << "compassSpeed:  " << compassSpeed;
+        zcompassSpeed = anglediff;
+       // qDebug() << "compassSpeed Zrotation  " << compassSpeed;
     }
     else
-        compassSpeed = 0.0;
+        zcompassSpeed = 0.0;
 }
 
 void GLWidget::Xrotation(double anglediff)
@@ -157,21 +161,23 @@ void GLWidget::updateScene() {
 
     else if (started) {
         setArduinoTranslation(arduinoThread.output());
-        setZRotation(/*zRot + (*/compassSpeed/*/4)*/);
         //qDebug() << "zRotation: " << compassSpeed;
         setXRotation(xcompassSpeed);
         setYRotation(ycompassSpeed);
+        setZRotation(zRot+(zcompassSpeed*2.20)+(angularAccelActual*0.0075));
 
-        //compassSpeed = 0;
-        //xcompassSpeed = 0;
-        //ycompassSpeed = 0;
-
+        shoulderRot += (angularAccelActual*0.0075);
+        headRot += (zcompassSpeed*2.25);
         double y;
         double x;
-        //motorSpeed = .1; //Remove when working with actual motor
-        y = (yTrans + (motorSpeed*cos(angularAccelActual)));
-        x = (xTrans + (motorSpeed*sin(angularAccelActual)));
 
+        qDebug() << "calc " << (zRot+(zcompassSpeed*2.25)+(angularAccelActual*0.0075));
+        //motorSpeed = .1; //Remove when working with actual motor
+        y = (yTrans + (motorSpeed*cos(shoulderRot*PI/180)));//(zRot-(zcompassSpeed*2.25)+(angularAccelActual*0.0075))*PI/180)));
+        x = (xTrans + (motorSpeed*sin(shoulderRot*PI/180)));//(zRot-(zcompassSpeed*2.25)+(angularAccelActual*0.0075))*PI/180)));
+
+        qDebug() << "xy [" << x << "," << y << "]";
+        //qDebug() << "motorSpeed " << motorSpeed << " angle: " << angularAccelActual << "xy [" << x << "," << y << "]";
         //if (fabs(y) <= maxTrans && fabs(x) >= maxTrans) {
             yTrans = y;
             xTrans = x;
@@ -307,7 +313,7 @@ void GLWidget::determineAngularAccel(double alphaActual)
 {
     angularAccelMaximum = 1000.0; //Maximum turning speed, needs to be calibrated
     alphaRightMin = .000485; //5 degree tolerance
-    alphaLeftMin = .000485;
+    alphaLeftMin = -.000485;
 
     //Call alphaLeftMax and alphaRightMax values from the DB
     alphaLeftMax = 0;
@@ -316,11 +322,13 @@ void GLWidget::determineAngularAccel(double alphaActual)
     //If it has not been calibrated, just use a default weighting to turn
     if (alphaRightMax == 0 && alphaLeftMax ==0)
     {
-        if(alphaActual > 0.0){
+        if(alphaActual > alphaRightMin){
             angularAccelActual = angularAccelMaximum;
         }
-        else
+        else if (alphaActual < alphaLeftMin)
             angularAccelActual = -1*angularAccelMaximum;
+        else
+            angularAccelActual = alphaActual;
     }
     else
     {

@@ -83,6 +83,8 @@
      double alphaRightMax;
      double alphaLeftMax;
      double alphaActual;
+     double shoulderRot;
+     double headRot;
      QPoint lastPos;
      QColor backgroundColor;
 

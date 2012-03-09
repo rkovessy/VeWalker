@@ -151,7 +151,7 @@ void LegoThread::run()
    do {
 
         msec = double(time.elapsed());
-        if (msec >= 40)
+        if (msec >= 20)
         {
             UpdateCamera();
             time.restart();

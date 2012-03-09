@@ -3,7 +3,6 @@
 VE::VE()
 {
     qDebug() << "constructor was called";
-//    mywindow.setMouseTracking(true);
 }
 
 void VE::start(int pid) {
@@ -14,8 +13,6 @@ void VE::start(int pid) {
     collectdata.connect(&collectdata.vuzikThread, SIGNAL(sendHTrackerValues(long,long,long)), &mywindow, SLOT(updateHTrackerValues(long,long,long)));
     //collectdata.setMouseTracking(true);
     mywindow.connect(&mywindow.glWidget->tc, SIGNAL(close_window()), qApp, SLOT(quit()));
-
-
 
     srand(clock.currentTime().msec());
     collectdata.set(height);

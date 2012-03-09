@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'trafficcontrol.h'
 **
-** Created: Thu Mar 8 20:06:59 2012
+** Created: Fri Mar 9 02:17:53 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!

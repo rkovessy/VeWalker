@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'demographics.ui'
 **
-** Created: Thu Mar 8 15:39:39 2012
+** Created: Fri Mar 9 02:32:25 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -310,6 +310,7 @@ public:
         id->setGeometry(QRect(150, 27, 39, 24));
         id->setMaximumSize(QSize(116, 135));
         id->setFont(font2);
+        id->setValue(1);
         sexlabel = new QLabel(groupBox_3);
         sexlabel->setObjectName(QString::fromUtf8("sexlabel"));
         sexlabel->setGeometry(QRect(13, 57, 29, 18));

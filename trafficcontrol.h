@@ -45,6 +45,8 @@ public:
     QString get_trials();
     QString get_start();
     int get_display(); // for the countdown lcd in glwidget
+    void database_get_trafficenable();
+    void database_get_traffic_intensity();
 
     void nexttrial(); // sets up trafficcontrol for next trial, called after pedestrian reaches end
     void resettrial(); // called after failed trial
@@ -72,6 +74,7 @@ private:
     double differenceRotation(Car a, Car b); // returns the difference in rotation between two cars
     bool pointCollision(Car a, Point p); // returns true if Car a intersects with Point p
     QSqlDatabase db; //Database variables
+    int trafficIntensity;
 
     void setCarstart(); // cycles through updateCar()'s till first car is at start position, i think 3.22 seconds from pedestrian
 
