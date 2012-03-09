@@ -60,6 +60,7 @@ private slots:
     void on_neonPink_clicked();
     void on_neonGreen_clicked();
     void on_neonOrange_clicked();
+    void on_centerCapture_clicked();
 
 public:
     explicit calibrateRotation(QWidget *parent = 0);
@@ -71,6 +72,7 @@ public:
     CvCapture* capture;
     double alphaLeftActual;
     double alphaRightActual;
+    double alphaCenterActual;
     void database_connect();
     void get_current_id();
     void write_calibration_values();
@@ -96,6 +98,7 @@ private:
     double area2;
     bool rightExtentCalibrated;
     bool leftExtentCalibrated;
+    bool centerCalibrated;
     int posX1;
     int posY1;
     int posX2;

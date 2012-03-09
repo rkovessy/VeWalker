@@ -119,6 +119,11 @@ void calibrateRotation::calibrate(int leftRightIndex)
             alphaRightActual = atan(oppAdjParam);
             //printf("Alpha Right Actual: %f \n", alphaRightActual);
         }
+        else if (leftRightIndex == 3)
+        {
+            alphaCenterActual = atan(oppAdjParam);
+            //printf("Alpha Left Actual: %f \n", alphaLeftActual);
+        }
         else{
             alphaLeftActual = atan(oppAdjParam);
             //printf("Alpha Left Actual: %f \n", alphaLeftActual);
@@ -303,13 +308,14 @@ void calibrateRotation::write_calibration_values()
 {
     if (db.isOpen())
     {
-        QString inStatement = "update loadconfig set right_calibration = :right_calibration, left_calibration = :left_calibration WHERE reference_id = :reference_id;";
+        QString inStatement = "update loadconfig set right_calibration = :right_calibration, left_calibration = :left_calibration, center_calibration = :center_calibration WHERE reference_id = :reference_id;";
         QSqlQuery qry(db);
 
         qry.prepare(inStatement);
 
         qry.bindValue(":right_calibration", alphaRightActual);
         qry.bindValue(":left_calibration", alphaLeftActual);
+        qry.bindValue(":center_calibration", alphaCenterActual);
         qry.bindValue(":reference_id", referenceid);
 
         qry.exec();
@@ -320,4 +326,12 @@ void calibrateRotation::write_calibration_values()
                 qDebug() << db.lastError();
                 qDebug() << "Calibrate Rotation failed to open database connection to insert data.";
         }
+}
+
+void calibrateRotation::on_centerCapture_clicked()
+{
+    int centerIndex = 3; //ie. choose center
+    centerCalibrated=true;
+    calibrate(centerIndex);
+    return;
 }
