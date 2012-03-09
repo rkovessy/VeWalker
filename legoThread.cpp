@@ -146,7 +146,7 @@ IplImage* LegoThread::GetDilatedImage(IplImage* img)
 
 void LegoThread::run()
 {
-    qDebug("LegoThread is running!");
+    //qDebug("LegoThread is running!");
     bool flag = false;
    do {
 
@@ -268,6 +268,7 @@ void LegoThread::UpdateCamera()
     IplImage* imgBlurred = GetBlurredImage(imgResized);
     IplImage* imgThresh = GetThresholdedImage(imgBlurred);
     IplImage* imgDilated = GetDilatedImage(imgThresh);
+    cvShowImage("Processed Video", imgDilated);
 
     //Get the contour vectors and store in contours
     cvFindContours(imgDilated, storage, &contours, sizeof(CvContour), CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE, cvPoint(0,0));

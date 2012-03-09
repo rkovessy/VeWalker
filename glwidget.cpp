@@ -13,6 +13,8 @@ GLWidget::GLWidget(QWidget *parent)
     time = 0.0;
     started = false;
 
+    this->database_connect();
+
 
     //setMouseTracking(true);
 }
@@ -155,8 +157,7 @@ void GLWidget::Yrotation(double anglediff)
 }
 
 void GLWidget::updateScene() {
-    //this->database_connect();
-    //get_tracker_settings();
+    get_tracker_settings();
 
     if (tc.get_screen())
         updateGL();
@@ -166,10 +167,19 @@ void GLWidget::updateScene() {
         //qDebug() << "zRotation: " << compassSpeed;
         setXRotation(xcompassSpeed);
         setYRotation(ycompassSpeed);
-        setZRotation(zRot+(zcompassSpeed*2.20)+(angularAccelActual*0.0075));
+        if (QString::compare("shoulder", directionalControlMethod, Qt::CaseInsensitive)==0)
+        {
+            shoulderRot += (angularAccelActual*0.0075);
+            headRot += (zcompassSpeed*2.25);
+            setZRotation(zRot+(zcompassSpeed*2.20)+(angularAccelActual*0.0075));
+        }
+        else
+        {
+            headRot += (zcompassSpeed*2.25);
+            setZRotation(zRot+(zcompassSpeed*2.20));
+        }
 
-        shoulderRot += (angularAccelActual*0.0075);
-        headRot += (zcompassSpeed*2.25);
+
         double y;
         double x;
 
@@ -179,14 +189,13 @@ void GLWidget::updateScene() {
 
         if (QString::compare("shoulder", directionalControlMethod, Qt::CaseInsensitive)==0)
         {
-            printf("shoulder rotation selected \n");
-            y = (yTrans + (motorSpeed*cos(shoulderRot*PI/180)));//(zRot-(zcompassSpeed*2.25)+(angularAccelActual*0.0075))*PI/180)));
-            x = (xTrans + (motorSpeed*sin(shoulderRot*PI/180)));//(zRot-(zcompassSpeed*2.25)+(angularAccelActual*0.0075))*PI/180)));
+            y = (yTrans + (motorSpeed*cos(shoulderRot*PI/180)));
+            x = (xTrans + (motorSpeed*sin(shoulderRot*PI/180)));
         }
-        else
-            printf("head rotation selected \n");
+        else{
             y = (yTrans + (motorSpeed*cos((zRot-(zcompassSpeed*2.25))*PI/180)));
             x = (xTrans + (motorSpeed*sin((zRot-(zcompassSpeed*2.25))*PI/180)));
+        }
 
         //qDebug() << "xy [" << x << "," << y << "]";
         //qDebug() << "motorSpeed " << motorSpeed << " angle: " << angularAccelActual << "xy [" << x << "," << y << "]";
@@ -376,7 +385,7 @@ void GLWidget::get_tracker_settings()
         {
             while(qry.next()){
                 directionalControlMethod = qry.value(0).toString();
-                //qDebug() << "Color selected from DB:" << colorSelected;
+                //qDebug() << "Control selected from DB:" << directionalControlMethod;
             }
         }
         else {

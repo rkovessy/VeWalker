@@ -86,11 +86,11 @@ void MyWindow::updateCameraValues(int x1, int x2, int y1, int y2){
     }
     if(fabs(angleRads) >= angleThreshold){
         glWidget->determineAngularAccel(angleRads);
-        glWidget->Zrotation(angleRads); //To be removed when determineAngularAccel working
+        //glWidget->Zrotation(angleRads); //To be removed when determineAngularAccel working
     }
     else
         glWidget->determineAngularAccel(0);
-        glWidget->Zrotation(angleRads); //To be removed when determineAngularAccel working
+        //glWidget->Zrotation(0); //To be removed when determineAngularAccel working
 }
 
 void MyWindow::updateHTrackerValues(long HTyaw, long HTpitch, long HTroll)
