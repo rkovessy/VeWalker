@@ -39,6 +39,7 @@ public:
     void database_insert_config();
     void database_select_config();
     void get_last_id();
+    void write_new_id();
 
     //get functions
     QString getSex();

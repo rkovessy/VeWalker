@@ -34,6 +34,12 @@
 #include "vuzixthread.h"
 #include "arduino.h"
 #include "ui_calibraterotation.h"
+#include <QSqlDatabase>
+#include <QStringList>
+#include <QtSql>
+#include <QSqlDriver>
+#include <QMessageBox>
+#include <QObject>
 
 namespace Ui {
 class calibrateRotation;
@@ -63,16 +69,24 @@ public:
     IplImage* GetResizedImage(IplImage* img);
     IplImage* GetDilatedImage(IplImage* img);
     CvCapture* capture;
+    double alphaLeftActual;
+    double alphaRightActual;
+    void database_connect();
+    void get_current_id();
+    void write_calibration_values();
 
 //signals:
 //    void clicked();
 
 private:
     Ui::calibrateRotation *ui;
+    QSqlDatabase db; //Database variables
+    QEventLoop eventloop;
     double angleRads; //Angle of bank in rads
     double angleDegrees; //Angle of bank in degrees
     double oppositeSide; //Y distance between points;
     double adjacentSide; //X distance between points;
+    int referenceid;
 
     double moment101;
     double moment011;
@@ -80,8 +94,6 @@ private:
     double moment012;
     double area1;
     double area2;
-    double alphaLeftActual;
-    double alphaRightActual;
     bool rightExtentCalibrated;
     bool leftExtentCalibrated;
     int posX1;

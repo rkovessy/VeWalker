@@ -22,7 +22,19 @@ calibrateRotation::calibrateRotation(QWidget *parent) :
 
 calibrateRotation::~calibrateRotation()
 {
+    QSqlDatabase::database("calibrateRotationConnection").close();
+    QSqlDatabase::removeDatabase("calibrateRotationConnection");
     delete ui;
+}
+
+void calibrateRotation::database_connect()
+{
+    db = QSqlDatabase::addDatabase("QPSQL", "calibrateRotationConnection");
+    db.setHostName("localhost");
+    db.setUserName("postgres");
+    db.setPassword("abc123");
+    db.setDatabaseName("configDb");
+    db.open();
 }
 
 void calibrateRotation::calibrate(int leftRightIndex)
@@ -219,16 +231,9 @@ void calibrateRotation::on_leftExtentCapture_clicked()
 
 void calibrateRotation::on_completeButton_clicked()
 {
-    //Write alphaRightActual and alphaLeftActual to DB
-    //If left and right were not calibrated,just write zeros.
-//    if (rightExtentCalibrated == true && leftExtentCalibrated == true)
-//    {
-
-//    }
-//    else
-//    {
-
-//    }
+    this->database_connect();
+    get_current_id();
+    write_calibration_values();
     this->hide();
 }
 
@@ -266,4 +271,56 @@ void calibrateRotation::on_neonPink_clicked()
         ui->neonGreen->setChecked(false);
     else
         ui->neonPink->setChecked(true);
+}
+
+void calibrateRotation::get_current_id()
+{
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT reference_id FROM loadconfig order by reference_id desc limit 1");
+        QSqlQuery qry(db);
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                referenceid = qry.value(0).toInt();
+                qDebug() << "Last Reference ID:" << referenceid;
+            }
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+
+    }
+    else
+    {
+        qDebug() << "Calibrate Rotation failed to open database connection to pull data.";
+    }
+}
+
+void calibrateRotation::write_calibration_values()
+{
+    if (db.isOpen())
+    {
+        QString inStatement = "update loadconfig set right_calibration = :right_calibration, left_calibration = :left_calibration WHERE reference_id = :reference_id;";
+        QSqlQuery qry(db);
+
+        qry.prepare(inStatement);
+
+        qry.bindValue(":right_calibration", alphaRightActual);
+        qry.bindValue(":left_calibration", alphaLeftActual);
+        qry.bindValue(":reference_id", referenceid);
+
+        if (qry.exec())
+            qDebug() << "Insert successful";
+        else
+            qDebug() << "Insertion failed";
+    }
+        else
+        {
+            if (db.lastError().isValid());
+                qDebug() << db.lastError();
+                qDebug() << "Calibrate Rotation failed to open database connection to insert data.";
+        }
 }
