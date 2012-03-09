@@ -156,6 +156,9 @@ void GLWidget::Yrotation(double anglediff)
 }
 
 void GLWidget::updateScene() {
+    //this->database_connect();
+    //get_tracker_settings();
+
     if (tc.get_screen())
         updateGL();
 
@@ -341,5 +344,41 @@ void GLWidget::determineAngularAccel(double alphaActual)
         {
             angularAccelActual = -1*(abs(alphaLeftMax)-abs(alphaActual))/(abs(alphaLeftMax)-abs(alphaLeftMin));
         }
+    }
+}
+
+void GLWidget::database_connect()
+{
+    db = QSqlDatabase::addDatabase("QPSQL", "glWidgetConnect");
+    db.setHostName("localhost");
+    db.setUserName("postgres");
+    db.setPassword("abc123");
+    db.setDatabaseName("configDb");
+    db.open();
+}
+
+void GLWidget::get_tracker_settings()
+{
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT directional_control FROM loadconfig order by reference_id desc limit 1");
+        QSqlQuery qry(db);
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                directionalControlMethod = qry.value(0).toString();
+                //qDebug() << "Color selected from DB:" << colorSelected;
+            }
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+
+    }
+    else
+    {
+        qDebug() << "GLWidget failed to open database connection to pull data.";
     }
 }

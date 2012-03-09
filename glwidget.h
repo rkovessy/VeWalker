@@ -21,6 +21,13 @@
  #include "path.h"
  #include "trafficcontrol.h"
 #include "arduino.h"
+#include <QSqlDatabase>
+#include <QStringList>
+#include <QtSql>
+#include <QSqlDriver>
+#include <QMessageBox>
+#include <QObject>
+
 
  class GLWidget : public QGLWidget
  {
@@ -37,6 +44,8 @@
      void setPedestrian(double x, double y, double mid); // sets pedestrian x and y
      void set_recording();
      void set_window(int x, int y); // sets window_height/width
+     void get_tracker_settings();
+     void database_connect();
 
  public slots:
      void setXRotation(double angle);
@@ -57,8 +66,9 @@
      void resizeGL(int width, int height);
 
  private:
+     QSqlDatabase db;
      GLuint makeObject();
-
+     QString directionalControlMethod;
      GLuint object; // holds code for static environment
      double xRot, yRot, zRot; // rotations of pedestrian for x, y, and z
      double compassSpeed; // speed that zRot is changing every updateScene()
