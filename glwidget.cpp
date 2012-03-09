@@ -171,7 +171,8 @@ void GLWidget::updateScene() {
         double y;
         double x;
 
-        qDebug() << "calc " << (zRot+(zcompassSpeed*2.25)+(angularAccelActual*0.0075));
+        qDebug() << "motoSpeed" << motorSpeed;
+        //qDebug() << "calc " << (zRot+(zcompassSpeed*2.25)+(angularAccelActual*0.0075));
         //motorSpeed = .1; //Remove when working with actual motor
         y = (yTrans + (motorSpeed*cos(shoulderRot*PI/180)));//(zRot-(zcompassSpeed*2.25)+(angularAccelActual*0.0075))*PI/180)));
         x = (xTrans + (motorSpeed*sin(shoulderRot*PI/180)));//(zRot-(zcompassSpeed*2.25)+(angularAccelActual*0.0075))*PI/180)));

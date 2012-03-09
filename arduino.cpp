@@ -10,7 +10,7 @@ ArduinoThread::ArduinoThread(QObject *parent) :
     potRotation = 0;
 
     m_port = new SerialPort(this);
-    m_port->setPort("COM3");
+    m_port->setPort("COM4");
 
     if (m_port->open((QIODevice::OpenMode)1)) {
         qDebug("Arduino is running!\n");
@@ -72,7 +72,7 @@ int ArduinoThread::output()
     bool ok;
     data.chop(2);
     int returnVal = data.toInt(&ok, 10);
-    //qDebug() << "-------------" << returnVal;
+    qDebug() << "-------------" << returnVal;
 
     return returnVal;
 }

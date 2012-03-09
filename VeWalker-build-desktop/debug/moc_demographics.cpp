@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'demographics.h'
 **
-** Created: Fri Mar 9 03:34:51 2012
+** Created: Fri Mar 9 13:03:53 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_Demographics[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-      20,   14, // methods
+      22,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -51,6 +51,8 @@ static const uint qt_meta_data_Demographics[] = {
      388,   13,   13,   13, 0x08,
      412,   13,   13,   13, 0x08,
      438,   13,   13,   13, 0x08,
+     465,   13,   13,   13, 0x08,
+     494,   13,   13,   13, 0x08,
 
        0        // eod
 };
@@ -70,6 +72,8 @@ static const char qt_meta_stringdata_Demographics[] = {
     "on_lefthanded_clicked()\0"
     "on_unsafeenable_clicked()\0"
     "on_unsafedisable_clicked()\0"
+    "on_shoulderControl_clicked()\0"
+    "on_headControl_clicked()\0"
 };
 
 const QMetaObject Demographics::staticMetaObject = {
@@ -121,9 +125,11 @@ int Demographics::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 17: on_lefthanded_clicked(); break;
         case 18: on_unsafeenable_clicked(); break;
         case 19: on_unsafedisable_clicked(); break;
+        case 20: on_shoulderControl_clicked(); break;
+        case 21: on_headControl_clicked(); break;
         default: ;
         }
-        _id -= 20;
+        _id -= 22;
     }
     return _id;
 }

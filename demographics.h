@@ -75,6 +75,8 @@ public:
     int trialquantity;
     QString lowerDateRange;
     QString upperDateRange;
+    bool headControl;
+    bool shoulderControl;
 
     //Data data; // writes files for demographics
      // top class for all VE code
@@ -109,6 +111,8 @@ private slots:
     void on_lefthanded_clicked();
     void on_unsafeenable_clicked();
     void on_unsafedisable_clicked();
+    void on_shoulderControl_clicked();
+    void on_headControl_clicked();
 
 private:
     calibrateRotation calibration; //Needed to open the calibrateRotation window

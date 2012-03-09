@@ -41,7 +41,7 @@ void Demographics::database_insert_config()
 
     if (db.isOpen())
     {
-        QString inStatement = "UPDATE loadconfig set participant_id = :participant_id, sex = :sex, age = :age, hand_dom = :hand_dom, mode = :mode, roundabout = :roundabout, vehicle_traffic = :vehicle_traffic, unsafe_crossing = :unsafe_crossing, traffic_intensity = :traffic_intensity, vehicle_quantity = :vehicle_quantity, trial_quantity = :trial_quantity, participant_height = :participant_height, object_tracking = :object_tracking, trial_date = :trial_date where reference_id = :reference_id;";
+        QString inStatement = "UPDATE loadconfig set participant_id = :participant_id, sex = :sex, age = :age, hand_dom = :hand_dom, mode = :mode, roundabout = :roundabout, vehicle_traffic = :vehicle_traffic, unsafe_crossing = :unsafe_crossing, traffic_intensity = :traffic_intensity, vehicle_quantity = :vehicle_quantity, trial_quantity = :trial_quantity, participant_height = :participant_height, directional_control = :directional_control, object_tracking = :object_tracking, trial_date = :trial_date where reference_id = :reference_id;";
         QSqlQuery qry(db);
 
         qry.prepare(inStatement);
@@ -87,6 +87,11 @@ void Demographics::database_insert_config()
         qry.bindValue(":trial_quantity", trialquantity);
         qry.bindValue(":participant_height", participantheight);
 
+        if (shoulderControl)
+            qry.bindValue(":directional_control", "shoulder");
+        else
+            qry.bindValue(":directional_control", "head");
+
         if (neongreen)
             qry.bindValue(":object_tracking", "green");
         else if(neonpink)
@@ -100,6 +105,7 @@ void Demographics::database_insert_config()
             qDebug() << "Insert successful";
         else
             qDebug() << "Insertion failed";
+
 
     }
     else
@@ -382,45 +388,8 @@ void Demographics::on_quit_clicked()
     vehiclequantityslider = ui->vehiclequantityslider ->value();
     intensityslider = ui ->intensityslider->value();
     trialquantity = ui->trialquantity->value();
-
-//        QString pid = QString::number(id);
-//        if (id < 10)
-//            pid.prepend("0");
-//        QFile file("Data/P" + pid + "_Data.txt");
-
-//        QString f = "Data";
-//        QDir().mkdir(f);
-
-//        //defines variables in relation to objects to allow for passing of variables to rest of program
-//        FILE * pFile;
-//        pFile = fopen ("configdata.txt", "w+");
-//    if(trafficenable)
-//        fprintf(pFile, "traffic: yes\n");
-//    else
-//        fprintf(pFile, "traffic: no\n");
-//    if (singlelane)
-//        fprintf(pFile, "lanes: 1\n");
-//    else
-//        fprintf(pFile, "lanes: 2\n");
-//    if(demo)
-//        fprintf(pFile, "demo: true\n");
-//    else
-//        fprintf(pFile, "demo: false\n");
-//    if(neongreen)
-//        fprintf(pFile, "color: neon_green\n");
-//    else if(neonpink)
-//        fprintf(pFile, "color: neon_pink\n");
-//    else
-//        fprintf(pFile, "color: neon_orange\n");
-//    if(unsafeenable)
-//        fprintf(pFile, "unsafe: true\n");
-//    else
-//        fprintf(pFile, "unsafe: false\n");
-//    fprintf(pFile, "trials: %d\n", ui->trialquantity->value());
-//    fprintf(pFile, "height: %d\n", ui->participantheight->value());
-//    fprintf(pFile, "vehicle_quantity: %d\n", vehiclequantityslider);
-//    fprintf(pFile, "intensity: %d\n", ui->intensityslider->value());
-//    fclose(pFile);
+    headControl = ui -> headControl ->isChecked();
+    shoulderControl = ui->shoulderControl->isChecked();
 
     this->database_connect();
     this->database_insert_config();
@@ -512,4 +481,21 @@ void Demographics::write_new_id()
                 qDebug() << db.lastError();
                 qDebug() << "Demographics failed to open database connection to insert data.";
         }
+}
+
+void Demographics::on_shoulderControl_clicked()
+{
+    if (ui->headControl->isChecked())
+        ui->headControl->setChecked(false);
+    else
+        ui->shoulderControl->setChecked(true);
+
+}
+
+void Demographics::on_headControl_clicked()
+{
+    if (ui->shoulderControl->isChecked())
+        ui->shoulderControl->setChecked(false);
+    else
+        ui->headControl->setChecked(true);
 }
