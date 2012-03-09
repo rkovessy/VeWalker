@@ -12,7 +12,7 @@ LegoThread::LegoThread() {
     counter = 0;
     magnitude = 0.0;
     lastrValueNXT = 0.0;
-    printf("LegoThread initialized \n");
+    //printf("LegoThread initialized \n");
     // Initialize capturing from webcam
     capture = cvCaptureFromCAM(-1);
     //Throw an error when no device is connected

@@ -173,13 +173,22 @@ void GLWidget::updateScene() {
         double y;
         double x;
 
-        qDebug() << "motoSpeed" << motorSpeed;
+        //qDebug() << "motoSpeed" << motorSpeed;
         //qDebug() << "calc " << (zRot+(zcompassSpeed*2.25)+(angularAccelActual*0.0075));
         //motorSpeed = .1; //Remove when working with actual motor
-        y = (yTrans + (motorSpeed*cos(shoulderRot*PI/180)));//(zRot-(zcompassSpeed*2.25)+(angularAccelActual*0.0075))*PI/180)));
-        x = (xTrans + (motorSpeed*sin(shoulderRot*PI/180)));//(zRot-(zcompassSpeed*2.25)+(angularAccelActual*0.0075))*PI/180)));
 
-        qDebug() << "xy [" << x << "," << y << "]";
+        if (QString::compare("shoulder", directionalControlMethod, Qt::CaseInsensitive)==0)
+        {
+            printf("shoulder rotation selected \n");
+            y = (yTrans + (motorSpeed*cos(shoulderRot*PI/180)));//(zRot-(zcompassSpeed*2.25)+(angularAccelActual*0.0075))*PI/180)));
+            x = (xTrans + (motorSpeed*sin(shoulderRot*PI/180)));//(zRot-(zcompassSpeed*2.25)+(angularAccelActual*0.0075))*PI/180)));
+        }
+        else
+            printf("head rotation selected \n");
+            y = (yTrans + (motorSpeed*cos((zRot-(zcompassSpeed*2.25))*PI/180)));
+            x = (xTrans + (motorSpeed*sin((zRot-(zcompassSpeed*2.25))*PI/180)));
+
+        //qDebug() << "xy [" << x << "," << y << "]";
         //qDebug() << "motorSpeed " << motorSpeed << " angle: " << angularAccelActual << "xy [" << x << "," << y << "]";
         //if (fabs(y) <= maxTrans && fabs(x) >= maxTrans) {
             yTrans = y;

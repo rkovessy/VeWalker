@@ -72,7 +72,7 @@ int ArduinoThread::output()
     bool ok;
     data.chop(2);
     int returnVal = data.toInt(&ok, 10);
-    qDebug() << "-------------" << returnVal;
+    //Debug() << "-------------" << returnVal;
 
     return returnVal;
 }

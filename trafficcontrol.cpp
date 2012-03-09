@@ -418,7 +418,7 @@ void TrafficControl::database_get_vals()
         {
             while(qry.next()){
                 numberOfCars = qry.value(0).toInt();
-                qDebug() << "Number of Cars:" << numberOfCars;
+                //qDebug() << "Number of Cars:" << numberOfCars;
             }
         }
         else {

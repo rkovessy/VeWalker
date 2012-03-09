@@ -312,10 +312,7 @@ void calibrateRotation::write_calibration_values()
         qry.bindValue(":left_calibration", alphaLeftActual);
         qry.bindValue(":reference_id", referenceid);
 
-        if (qry.exec())
-            qDebug() << "Insert successful";
-        else
-            qDebug() << "Insertion failed";
+        qry.exec();
     }
         else
         {
