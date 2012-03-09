@@ -295,7 +295,16 @@ void Demographics::on_doublelane_clicked()
 //logic to select only traffic enabled or disabled radio button, but not both
 void Demographics::on_trafficdisable_clicked()
 {
-    if (ui->trafficenable->isChecked())
+    ui->intensityslider->setEnabled(false);
+    ui->trafficintensitylabel->setEnabled(false);
+    ui->vehiclequantityslider->setEnabled(false);
+    ui->vehiclequantitylabel->setEnabled(false);
+    ui->minlabel1->setEnabled(false);
+    ui->maxlabel1->setEnabled(false);
+    ui->minlabel2->setEnabled(false);
+    ui->maxlabel2->setEnabled(false);
+
+    if(ui->trafficenable->isChecked())
         ui->trafficenable->setChecked(false);
     else
         ui->trafficdisable->setChecked(true);
@@ -303,6 +312,15 @@ void Demographics::on_trafficdisable_clicked()
 
 void Demographics::on_trafficenable_clicked()
 {
+    ui->intensityslider->setEnabled(true);
+    ui->trafficintensitylabel->setEnabled(true);
+    ui->vehiclequantityslider->setEnabled(true);
+    ui->vehiclequantitylabel->setEnabled(true);
+    ui->minlabel1->setEnabled(true);
+    ui->maxlabel1->setEnabled(true);
+    ui->minlabel2->setEnabled(true);
+    ui->maxlabel2->setEnabled(true);
+
     if(ui->trafficdisable->isChecked())
         ui->trafficdisable->setChecked(false);
     else
