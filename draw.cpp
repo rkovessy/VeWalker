@@ -705,9 +705,9 @@ void Draw::corners() {
         gluQuadricDrawStyle(quad, GLU_FILL);
         gluQuadricTexture(quad, GL_TRUE);
         gluDisk(quad, 0.0, cornerRadius - BORDER_X, 50, 1); // corner grass
-        for (int i=0; i<=50; i++) {
-            for (int j=-2; j<=50; j++)
-                rectangle(0, 0, 1, BORDER_X - cornerRadius+i, cornerRadius+j, 0.001, 'x', 1.0, 'y', 1.0); // grass
+        for (int i=0; i<50; i++) {
+            for (int j=0; j<50; j++)
+                rectangle(0, 0, 1, i-cornerRadius+BORDER_X, j, 0.001, 'x', 1.0, 'y', 1.0); // grass
 
             rectangle(0, 0, 1, i, BORDER_X - cornerRadius, 0.001, 'x', 1.0, 'y', cornerRadius); // grass
         }
