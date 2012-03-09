@@ -134,7 +134,7 @@ IplImage* calibrateRotation::GetThresholdedImage(IplImage* img)
     IplImage* imgHSV = cvCreateImage(cvGetSize(img), 8, 3);
     cvCvtColor(img, imgHSV, CV_BGR2HSV);
     IplImage* imgThreshed1 = cvCreateImage(cvGetSize(img), 8, 1);
-    //IplImage* imgThreshed2 = cvCreateImage(cvGetSize(img), 8, 1);
+    IplImage* imgThreshed2 = cvCreateImage(cvGetSize(img), 8, 1);
 
     //Convert to thresholded image for HSV color range selected
     //In Colorpic Hue needs to be divided by 2, as OCV has 180 range and ColorPic has 360. Sat and Val have 256 range
@@ -144,29 +144,35 @@ IplImage* calibrateRotation::GetThresholdedImage(IplImage* img)
         //Select orange
         if (ui->neonOrange->isChecked())
         {
-            min_color1 = cvScalar(50,60,60,0);
-            max_color1 = cvScalar(80,180,256,0);
+            min_color1 = cvScalar(173,125,150,0);
+            max_color1 = cvScalar(180,216,256,0);
+            min_color2 = cvScalar(0,125,150,0);
+            max_color2 = cvScalar(15,216,256,0);
         }
         //Select pink
         else if (ui->neonPink->isChecked())
         {
-            min_color1 = cvScalar(50,60,60,0);
-            max_color1 = cvScalar(80,180,256,0);
+            min_color1 = cvScalar(167,80,130,0);
+            max_color1 = cvScalar(179,205,256,0);
+            min_color2 = cvScalar(0,80,130,0);
+            max_color2 = cvScalar(10,205,256,0);
         }
         //Choose green by default
         else
         {
             min_color1 = cvScalar(50,60,60,0);
             max_color1 = cvScalar(80,180,256,0);
+            min_color2 = cvScalar(50,60,60,0);
+            max_color2 = cvScalar(80,180,256,0);
         }
 
     //Combine two thresholded images to account for color wrap around (if color wrap around exists for color of objects tracked)
     cvInRangeS(imgHSV, min_color1, max_color1, imgThreshed1);
-    //cvInRangeS(imgHSV, min_color2, max_color2, imgThreshed2);
-    //cvOr(imgThreshed1, imgThreshed2, imgThreshed1);
+    cvInRangeS(imgHSV, min_color2, max_color2, imgThreshed2);
+    cvOr(imgThreshed1, imgThreshed2, imgThreshed1);
 
     cvReleaseImage(&imgHSV);
-    //cvReleaseImage(&imgThreshed2);
+    cvReleaseImage(&imgThreshed2);
     return imgThreshed1;
 }
 

@@ -38,6 +38,7 @@ public:
     void database_connect();
     void database_insert_config();
     void database_select_config();
+    void get_last_id();
 
     //get functions
     QString getSex();
@@ -47,7 +48,8 @@ public:
     int getHeight();
     VE virtuale;
 
-    int id;
+    int participantid;
+    int referenceid;
     int vehiclequantityslider;
     int intensityslider;
     int age;

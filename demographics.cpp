@@ -8,6 +8,7 @@ Demographics::Demographics(QWidget *parent) :
     ui->setupUi(this);
     ui->dateupperrange->setDate(QDate::currentDate());
     //connect(&calibrateRotation, SIGNAL(clicked()), this, SLOT(clicked()));
+    referenceid=1;
 
     db = QSqlDatabase::addDatabase("QPSQL", "demoConnect");
     db.setHostName("localhost");
@@ -17,6 +18,7 @@ Demographics::Demographics(QWidget *parent) :
     db.open();
     if (db.lastError().isValid());
         qDebug() << "lastDB error from opening connection " << db.lastError();
+    get_last_id();
 }
 
 //destructor
@@ -38,12 +40,13 @@ void Demographics::database_insert_config()
 
     if (db.isOpen())
     {
-        QString inStatement = "INSERT INTO loadconfig (id, sex, age, hand_dom, mode, roundabout, vehicle_traffic, unsafe_crossing, traffic_intensity, vehicle_quantity, trial_quantity, participant_height, object_tracking, right_calibration, left_calibration, trial_date) VALUES (:id, :sex, :age, :hand_dom, :mode, :roundabout, :vehicle_traffic, :unsafe_crossing, :traffic_intensity, :vehicle_quantity, :trial_quantity, :participant_height, :object_tracking, :right_calibration, :left_calibration, :trial_date)";
+        QString inStatement = "INSERT INTO loadconfig (reference_id, participant_id, sex, age, hand_dom, mode, roundabout, vehicle_traffic, unsafe_crossing, traffic_intensity, vehicle_quantity, trial_quantity, participant_height, object_tracking, right_calibration, left_calibration, trial_date) VALUES (:reference_id, :participant_id, :sex, :age, :hand_dom, :mode, :roundabout, :vehicle_traffic, :unsafe_crossing, :traffic_intensity, :vehicle_quantity, :trial_quantity, :participant_height, :object_tracking, :right_calibration, :left_calibration, :trial_date)";
         QSqlQuery qry(db);
 
         qry.prepare(inStatement);
 
-        qry.bindValue(":id", id);
+        qry.bindValue(":reference_id", referenceid);
+        qry.bindValue(":participant_id", participantid);
 
         if (male)
             qry.bindValue(":sex", "male");
@@ -356,7 +359,7 @@ void Demographics::on_calibrate_clicked()
 
 void Demographics::on_quit_clicked()
 {
-    id = ui->id->value();
+    participantid = ui->id->value();
     bool inputError = false;
     age = ui->age->value();
     participantheight =ui->participantheight->value();
@@ -431,7 +434,7 @@ void Demographics::on_quit_clicked()
     {
         //data.writeDemographics(id, age, sex, dominance);
 
-        virtuale.start(id);
+        virtuale.start(participantid);
         this->hide();
     }
 }
@@ -447,7 +450,7 @@ int Demographics::getAge()
 }
 int Demographics::getId()
 {
-    return id;
+    return participantid;
 }
 int Demographics::getHeight()
 {
@@ -456,4 +459,31 @@ int Demographics::getHeight()
 QString Demographics::getDominance()
 {
     return dominance;
+}
+
+void Demographics::get_last_id()
+{
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT reference_id FROM loadconfig order by reference_id desc limit 1");
+        QSqlQuery qry(db);
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                referenceid = qry.value(0).toInt();
+                qDebug() << "Last Reference ID:" << referenceid;
+            }
+            referenceid++;
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+
+    }
+    else
+    {
+        qDebug() << "Demographics failed to open database connection to pull data.";
+    }
 }

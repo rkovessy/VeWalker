@@ -106,6 +106,8 @@ private:
     CvPoint moment_center2;
     CvScalar min_color1;
     CvScalar max_color1;
+    CvScalar min_color2;
+    CvScalar max_color2;
 
     double HTyaw2;
     double HTpitch2;

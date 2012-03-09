@@ -407,13 +407,13 @@ void TrafficControl::database_get_vals()
 {
     if (db.isOpen())
     {
-        QString readStatement = ("SELECT vehicle_quantity FROM loadconfig order by id desc limit 1");
+        QString readStatement = ("SELECT vehicle_quantity FROM loadconfig order by reference_id desc limit 1");
         QSqlQuery qry(db);
 
         if (qry.exec(readStatement))
         {
             while(qry.next()){
-                numberOfCars = qry.value(1).toInt();
+                numberOfCars = qry.value(0).toInt();
                 qDebug() << "Number of Cars:" << numberOfCars;
             }
         }
