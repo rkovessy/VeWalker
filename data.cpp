@@ -19,7 +19,7 @@ void Data::read_specs()
             gaps[count][gap] = 6;
         }
     }
-    time =0;
+    //time =0;
 
 //    filename[SPECS] = "Setup/specs.txt";
 
@@ -156,7 +156,8 @@ void Data::writeData(QString trial, bool failed) {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //CARS
 
-QString Data::setCars(int pid) {
+QString Data::setCars(int pid)
+{
 //    filename[CARS] = "Cars";
 //    if (!QDir(filename[CARS]).exists())
 //        QDir().mkdir(filename[CARS]);

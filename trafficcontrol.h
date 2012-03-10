@@ -75,9 +75,7 @@ private:
     bool pointCollision(Car a, Point p); // returns true if Car a intersects with Point p
     QSqlDatabase db; //Database variables
     int trafficIntensity;
-
     void setCarstart(); // cycles through updateCar()'s till first car is at start position, i think 3.22 seconds from pedestrian
-
     Path path; // stores the paths
     Car cars[6]; // stores the cars
     Point pedestrian; // stores x, y, and rotation of pedestrian
