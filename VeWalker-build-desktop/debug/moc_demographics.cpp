@@ -1,11 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'demographics.h'
 **
-<<<<<<< .merge_file_a05636
-** Created: Wed Nov 30 14:54:02 2011
-=======
-** Created: Fri Mar 9 13:58:54 2012
->>>>>>> .merge_file_a04124
+** Created: Sat Mar 10 14:27:05 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
