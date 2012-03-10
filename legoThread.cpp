@@ -12,18 +12,22 @@ LegoThread::LegoThread() {
     counter = 0;
     magnitude = 0.0;
     lastrValueNXT = 0.0;
-    //connection->connect(port); // '3' is the port the NXT is connected to via bluetooth. Different for every laptop
-    qDebug() << "Connected to NXT" << endl;
-
+    printf("LegoThread initialized \n");
     // Initialize capturing from webcam
-    capture = NULL;
+    capture = cvCaptureFromCAM(-1);
     //Throw an error when no device is connected
-    if(NULL==(capture= cvCaptureFromCAM(0)))
+   /* if(NULL==(capture= cvCaptureFromCAM(0)))
     {
         printf("Could not detect camera.\n");
     }
     else
-        qDebug() << "Connected to webcam" << endl;
+        qDebug() << "Connected to webcam" << endl;*/
+
+    /*if (IWROpenTracker() == ERROR_SUCCESS) {
+        qDebug() << "Connected to headset" << endl;
+        if (IWRSetFilterState)
+            IWRSetFilterState(TRUE);
+    }*/
 
     posX1 = 0;
     posY1 = 0;
@@ -33,17 +37,111 @@ LegoThread::LegoThread() {
     adjacentSide = 0;
     angleDegrees = 0;
     angleRads = 0;
+    HTyaw = 0;
+    HTpitch = 0;
+    HTroll = 0;
+    colorSelected = 'green';
+
+    db = QSqlDatabase::addDatabase("QPSQL", "legoDBConn");
+    db.setHostName("localhost");
+    db.setUserName("postgres");
+    db.setPassword("abc123");
+    db.setDatabaseName("configDb");
+    db.open();
+
+    this->database_connect();
+}
+
+LegoThread::~LegoThread()
+{
+    QSqlDatabase::database("legoDBConn").close();
+    QSqlDatabase::removeDatabase("legoDBConn");
 }
 
 IplImage* LegoThread::GetThresholdedImage(IplImage* img)
 {
     // Convert the image into an HSV image
+    this->database_get_vals();
     IplImage* imgHSV = cvCreateImage(cvGetSize(img), 8, 3);
     cvCvtColor(img, imgHSV, CV_BGR2HSV);
-    IplImage* imgThreshed = cvCreateImage(cvGetSize(img), 8, 1);
-    cvInRangeS(imgHSV, cvScalar(0, 0, 236), cvScalar(119, 19, 255), imgThreshed);
+    IplImage* imgThreshed1 = cvCreateImage(cvGetSize(img), 8, 1);
+    IplImage* imgThreshed2 = cvCreateImage(cvGetSize(img), 8, 1);
+
+    //Convert to thresholded image for HSV color range selected
+    //In Colorpic Hue needs to be divided by 2, as OCV has 180 range and ColorPic has 360. Sat and Val have 256 range
+    //in both programs.
+
+    //Change color based on what was selected from the demographics menu.
+    //Select green
+    if (QString::compare("green", colorSelected, Qt::CaseInsensitive)==0)
+    {
+        //printf("green \n");
+        min_color1 = cvScalar(50,60,60,0);
+        max_color1 = cvScalar(80,180,256,0);
+        min_color2 = cvScalar(50,60,60,0);
+        max_color2 = cvScalar(80,180,256,0);
+    }
+    //Select orange
+    else if (QString::compare("orange", colorSelected, Qt::CaseInsensitive)==0)
+    {
+        //printf("orange \n");
+        min_color1 = cvScalar(173,125,150,0);
+        max_color1 = cvScalar(180,216,256,0);
+        min_color2 = cvScalar(0,125,150,0);
+        max_color2 = cvScalar(15,216,256,0);
+    }
+    //Select pink
+    else if (QString::compare("pink", colorSelected, Qt::CaseInsensitive)==0)
+    {
+        //printf("pink \n");
+        min_color1 = cvScalar(167,80,130,0);
+        max_color1 = cvScalar(179,205,256,0);
+        min_color2 = cvScalar(0,80,130,0);
+        max_color2 = cvScalar(10,205,256,0);
+    }
+    //Choose green by default
+    else
+    {
+        //printf("green default \n");
+        min_color1 = cvScalar(50,60,60,0);
+        max_color1 = cvScalar(80,180,256,0);
+        min_color2 = cvScalar(50,60,60,0);
+        max_color2 = cvScalar(80,180,256,0);
+    }
+
+    //Combine two thresholded images to account for color wrap around (if color wrap around exists for color of objects tracked)
+    cvInRangeS(imgHSV, min_color1, max_color1, imgThreshed1);
+    cvInRangeS(imgHSV, min_color2, max_color2, imgThreshed2);
+    cvOr(imgThreshed1, imgThreshed2, imgThreshed1);
+
     cvReleaseImage(&imgHSV);
-    return imgThreshed;
+    cvReleaseImage(&imgThreshed2);
+    return imgThreshed1;
+}
+
+IplImage* LegoThread::GetBlurredImage(IplImage* img)
+{
+    //Convert raw image to a blurred image using a Gaussian blur
+    IplImage* imgBlur = cvCreateImage(cvGetSize(img), 8, 3);
+    cvSmooth(img, imgBlur, CV_GAUSSIAN, 11, 11);
+    return imgBlur;
+}
+
+IplImage* LegoThread::GetResizedImage(IplImage* img)
+{
+    //Resize image to 1/4 size to speed up processing
+    IplImage* imgResized = cvCreateImage(cvSize(img->width, img->height), 8, 3);
+    cvResize(img, imgResized, CV_INTER_AREA);
+    return imgResized;
+}
+
+IplImage* LegoThread::GetDilatedImage(IplImage* img)
+{
+    //(Optional) Perform iterations of erosion on the image to filter noise
+    cvErode(img, img, NULL, 1);
+    //Perform iterations of dilation on the threshed image
+    cvDilate(img, img, NULL, 6);
+    return img;
 }
 
 void LegoThread::run()
@@ -51,18 +149,13 @@ void LegoThread::run()
     qDebug("LegoThread is running!");
     bool flag = false;
    do {
-        time.restart();
-        //UpdateRoll();
-        //UpdateRotation();
-        UpdateCamera();
+
         msec = double(time.elapsed());
-        if (msec == 0.0) {
-            //qDebug() << "msec == 0, divided by 0";
-            //emit sendMotor(magnitude * timer_interval, false, zTrans); // sends data to GLWidget and updates graphics
+        if (msec >= 20)
+        {
+            UpdateCamera();
+            time.restart();
         }
-        //else
-            //emit sendMotor(magnitude * timer_interval / msec, stepped, zTrans); // sends data to GLWidget and updates graphics
-        //counter++;
     } while (!flag);
     exec();
 }
@@ -74,14 +167,17 @@ void LegoThread::set(double a, int t) {
    // variance = motor->get_rotation(); // person must be standing still at start to get variance correct
     lastrValueNXT = 0;
     //firstroll = double(compass->read());
-    emit sendMotor(0.0, false, height); // sends data to GLWidget and updates graphics
+    //emit sendMotor(0.0, false, height); // sends data to GLWidget and updates graphics
     startupdating = true; // yTrans and zTrans can now be changed
     time.start();
 }
 
+
+//Now Defunct - Feb 5th, 2012
+/*
 void LegoThread::UpdateRotation()
 {
-   // rValueNXT = motor->get_rotation() - variance; // gets motors current position
+    rValueNXT = motor->get_rotation() - variance; // gets motors current position
     if (startupdating) {
         magnitude = abs(rValueNXT - lastrValueNXT) * PI / 180.0 * 0.3; // pi/180 to convert to rad, .3 = radius of walker, d = rtheta
         zTrans = height / 30.0 * sin(PI * (rValueNXT + 20) / 40) + height + height / 30;
@@ -98,9 +194,12 @@ void LegoThread::UpdateRotation()
         stepped = false;
     lastrValueNXT = rValueNXT; // present rValueNXT becomes the last one for the next UpdateRotation()
 }
+*/
 
-void LegoThread::UpdateRoll()// the left to right motion of the head
+//Now Defunct - Feb 5th, 2012
+/*void LegoThread::UpdateRoll()// the left to right motion of the head
 {
+
     if (counter % 2 == 0)
         //roll = double(compass->read());
 
@@ -116,32 +215,62 @@ void LegoThread::UpdateRoll()// the left to right motion of the head
     if (fabs(anglediff) < 0.15)
         anglediff = 0.0;
     emit sendCompass(anglediff);
+}*/
+
+//In its own thread, vuzixthread
+/*void LegoThread::UpdateHTracking()
+{
+    IWRZeroSet();
+
+    DWORD trk_res=IWRGetTracking(&HTyaw,&HTpitch, &HTroll);
+
+    emit sendHTrackerValues(HTyaw, HTpitch, HTroll);
+    //printf("yaw: [%li], pitch: [%li], roll: [%li]\n", HTyaw, HTpitch, HTroll);
+
+
+}*/
+
+void LegoThread::UpdatePotRotation()
+{
+
+    emit sendPotRotation(potRotation);
+    //printf("yaw: [%li], pitch: [%li], roll: [%li]\n", HTyaw, HTpitch, HTroll);
+
+
 }
 
 void LegoThread::UpdateCamera()
 {
+
     // Hold a single frame captured from the camera
     IplImage* frame = 0;
+
     frame = cvQueryFrame(capture);
+    cvFlip(frame, NULL, 1);
+    //cvShowImage("Raw Video", frame);
+    //frame=cvLoadImage("test_frame.jpg",1);
+
     // Quit if no frame can be captured, return to capturing the next frame
     if(!frame) {
         return;
-    }
-
+    }   
     //Setup sequences to get contours
     CvSeq* contours;
     CvSeq* result;
     CvMemStorage *storage = cvCreateMemStorage(0);
 
-    //Create moments for both IR leds
+    //Create moments for both color blobs
     CvMoments *moments = (CvMoments*)malloc(sizeof(CvMoments));
     CvMoments *moments2 = (CvMoments*)malloc(sizeof(CvMoments));
 
-    IplImage* imgThresh = GetThresholdedImage(frame);
+    //Process image
+    IplImage* imgResized = GetResizedImage(frame);
+    IplImage* imgBlurred = GetBlurredImage(imgResized);
+    IplImage* imgThresh = GetThresholdedImage(imgBlurred);
+    IplImage* imgDilated = GetDilatedImage(imgThresh);
 
-    cvShowImage("video", imgThresh);
     //Get the contour vectors and store in contours
-    cvFindContours(imgThresh, storage, &contours, sizeof(CvContour), CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE, cvPoint(0,0));
+    cvFindContours(imgDilated, storage, &contours, sizeof(CvContour), CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE, cvPoint(0,0));
 
     //If at least one contour vector exists, begin getting data on the contours
     if(contours)
@@ -156,14 +285,12 @@ void LegoThread::UpdateCamera()
             area1 = cvGetCentralMoment(moments, 0, 0);
 
             //Discard values that do not fit in range of camera for first point and set x and y values
-            if (abs(moment101/area1) < 1000 || abs(moment011/area1)< 1000)
+            if (abs(moment101/area1) < 10000 || abs(moment011/area1)< 10000)
             {
                 posX1 = moment101/area1;
                 posY1 = moment011/area1;
-                printf("LED1 position (%d,%d)\n", posX1, posY1);
+                moment_center1= cvPoint(posX1, posY1);
             }
-
-
         }
 
         if (contours->h_next)
@@ -176,36 +303,33 @@ void LegoThread::UpdateCamera()
             area2 = cvGetCentralMoment(moments2, 0, 0);
 
             //Discard values that do not fit in range of camera for second point and set x and y values
-            if (abs(moment102/area2) < 1000 || abs(moment012/area2)< 1000)
+            if (abs(moment102/area2) < 10000 || abs(moment012/area2)< 10000)
             {
                 posX2 = moment102/area2;
                 posY2 = moment012/area2;
-                printf("LED2 position (%d,%d)\n", posX2, posY2);
+                moment_center2 = cvPoint(posX2, posY2);
             }
         }
+
+        //Send cooridnates of moments as a signal
         emit sendCameraValues(posX1, posX2, posY1, posY2);
     }
 
-    else
-        printf("No contours detected.\n");
-    oppositeSide = abs(posY2-posY1);
-    adjacentSide = abs(posX2-posX1);
-    if (adjacentSide != 0)
-    {
-        angleRads = atan(oppositeSide/adjacentSide);
-        angleDegrees = angleRads*180/3.14159;
-    }
-    else
-        angleDegrees=0;
-
-
-
-    //printf("Theta: (%f)\n", angleDegrees);
-    // Release the thresholded image and moments
+    // Release images and moments
     cvReleaseImage(&imgThresh);
+    cvReleaseImage(&imgResized);
+    cvReleaseImage(&imgBlurred);
+    cvReleaseImage(&imgDilated);
     cvReleaseMemStorage(&storage);
     delete moments;
     delete moments2;
+
+    //Reset all position values - mywindow will not create a rotation around the z-axis if a value is zero,
+    //ie. one or more contours are not present. Therefore, in each loop all values must be reset.
+    posX2=0;
+    posY2=0;
+    posX1=0;
+    posY1=0;
 
     // Release camera on exit
     //cvReleaseCapture(&capture);
@@ -222,3 +346,34 @@ void LegoThread::UpdateTilt()
     qDebug()<< "x =" << tiltx << "y=" << tilty << "z=" << tiltz;
 }
 }*/
+
+void LegoThread::database_connect()
+{
+
+}
+
+void LegoThread::database_get_vals()
+{
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT object_tracking FROM loadconfig order by reference_id desc limit 1");
+        QSqlQuery qry(db);
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                colorSelected = qry.value(0).toString();
+                //qDebug() << "Color selected from DB:" << colorSelected;
+            }
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+
+    }
+    else
+    {
+        qDebug() << "LegoThread failed to open database connection to pull data.";
+    }
+}

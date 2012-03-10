@@ -1,7 +1,11 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'trafficcontrol.h'
 **
+<<<<<<< .merge_file_a06176
 ** Created: Wed Nov 30 14:54:07 2011
+=======
+** Created: Fri Mar 9 02:17:53 2012
+>>>>>>> .merge_file_a02800
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!

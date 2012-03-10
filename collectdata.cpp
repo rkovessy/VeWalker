@@ -6,7 +6,7 @@ CollectData::CollectData(QWidget *parent) :
    threading = false;
    started = false;
 
-   updater.start(timer_interval); // connected to update()
+   updater.start(40); // connected to update()
    connect(&updater, SIGNAL(timeout()), this, SLOT(update()));
 }
 
@@ -14,6 +14,8 @@ void CollectData::update() {
     if (started) {
         if (!threading) {
             legoThread.start();
+            vuzikThread.start();
+           // arduinoThread.start();
             threading = true;
         }
         emit updateScene();
@@ -22,5 +24,7 @@ void CollectData::update() {
 
 void CollectData::set(double a) {
     legoThread.set(a,timer_interval);
+    vuzikThread.set(a, timer_interval);
+    //arduinoThread.set(a, timer_interval);
     started = true;
 }

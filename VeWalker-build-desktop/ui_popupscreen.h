@@ -1,7 +1,11 @@
 /********************************************************************************
 ** Form generated from reading UI file 'popupscreen.ui'
 **
+<<<<<<< .merge_file_a03492
 ** Created: Wed Nov 30 11:04:03 2011
+=======
+** Created: Thu Mar 8 15:39:39 2012
+>>>>>>> .merge_file_a05180
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -63,7 +67,7 @@ public:
     void retranslateUi(QMainWindow *PopUpScreen)
     {
         PopUpScreen->setWindowTitle(QApplication::translate("PopUpScreen", "MainWindow", 0, QApplication::UnicodeUTF8));
-        label->setText(QApplication::translate("PopUpScreen", "Are you ready to start the experimental trials?", 0, QApplication::UnicodeUTF8));
+        label->setText(QApplication::translate("PopUpScreen", "Click continue to initiate experimental trials.", 0, QApplication::UnicodeUTF8));
         resume->setText(QApplication::translate("PopUpScreen", "Continue", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 

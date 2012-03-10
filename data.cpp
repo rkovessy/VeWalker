@@ -7,7 +7,7 @@ Data::Data()
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //DEMOGRAPHICS
 
-void Data::writeDemographics(int pid, QString name, QString age, QString gender, QString ethnicity, QString faculty)
+void Data::writeDemographics(int pid, QString age, QString sex, QString dominance)
 {
     QString f = "Demographics";
     if (!QDir(f).exists())
@@ -23,8 +23,8 @@ void Data::writeDemographics(int pid, QString name, QString age, QString gender,
     file[DEMOGRAPHICS].open(QIODevice::WriteOnly | QIODevice::Text);
 
     text[DEMOGRAPHICS].setFieldWidth(20);
-    text[DEMOGRAPHICS] << "PID" << "Name" << "Age" << "Gender" << "Ethnicity" << "Faculty" << endl;
-    text[DEMOGRAPHICS] << personId << name << age << gender << ethnicity << faculty;
+    text[DEMOGRAPHICS] << "PID" << "Age" << "Sex" << "Dominance" << endl;
+    text[DEMOGRAPHICS] << personId << age << sex << dominance;
 
     file[DEMOGRAPHICS].close();
 }

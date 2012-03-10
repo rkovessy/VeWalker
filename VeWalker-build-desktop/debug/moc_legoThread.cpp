@@ -1,7 +1,11 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'legoThread.h'
 **
+<<<<<<< .merge_file_a06244
 ** Created: Wed Nov 30 11:05:22 2011
+=======
+** Created: Thu Mar 8 20:44:12 2012
+>>>>>>> .merge_file_a02264
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,35 +27,31 @@ static const uint qt_meta_data_LegoThread[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       3,       // signalCount
+       2,       // signalCount
 
  // signals: signature, parameters, type, tag, flags
-      37,   12,   11,   11, 0x05,
-      73,   67,   11,   11, 0x05,
-     117,   93,   11,   11, 0x05,
+      36,   12,   11,   11, 0x05,
+      82,   70,   11,   11, 0x05,
 
  // slots: signature, parameters, type, tag, flags
-     164,  151,   11,   11, 0x0a,
-     180,   11,   11,   11, 0x0a,
-     197,   11,   11,   11, 0x0a,
-     210,   11,   11,   11, 0x0a,
+     117,  104,   11,   11, 0x0a,
+     133,   11,   11,   11, 0x0a,
+     148,   11,   11,   11, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_LegoThread[] = {
-    "LegoThread\0\0magnitude,stepped,zTrans\0"
-    "sendMotor(double,bool,double)\0angle\0"
-    "sendCompass(double)\0posX1,posX2,posY1,posY2\0"
+    "LegoThread\0\0posX1,posX2,posY1,posY2\0"
     "sendCameraValues(int,int,int,int)\0"
+    "potRotation\0sendPotRotation(long)\0"
     "height,timer\0set(double,int)\0"
-    "UpdateRotation()\0UpdateRoll()\0"
-    "UpdateCamera()\0"
+    "UpdateCamera()\0UpdatePotRotation()\0"
 };
 
 const QMetaObject LegoThread::staticMetaObject = {
@@ -83,38 +83,29 @@ int LegoThread::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
-        case 0: sendMotor((*reinterpret_cast< double(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2])),(*reinterpret_cast< double(*)>(_a[3]))); break;
-        case 1: sendCompass((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 2: sendCameraValues((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< int(*)>(_a[4]))); break;
-        case 3: set((*reinterpret_cast< double(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 4: UpdateRotation(); break;
-        case 5: UpdateRoll(); break;
-        case 6: UpdateCamera(); break;
+        case 0: sendCameraValues((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< int(*)>(_a[4]))); break;
+        case 1: sendPotRotation((*reinterpret_cast< long(*)>(_a[1]))); break;
+        case 2: set((*reinterpret_cast< double(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 3: UpdateCamera(); break;
+        case 4: UpdatePotRotation(); break;
         default: ;
         }
-        _id -= 7;
+        _id -= 5;
     }
     return _id;
 }
 
 // SIGNAL 0
-void LegoThread::sendMotor(double _t1, bool _t2, double _t3)
+void LegoThread::sendCameraValues(int _t1, int _t2, int _t3, int _t4)
 {
-    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)) };
+    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)), const_cast<void*>(reinterpret_cast<const void*>(&_t4)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 
 // SIGNAL 1
-void LegoThread::sendCompass(double _t1)
+void LegoThread::sendPotRotation(long _t1)
 {
     void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 1, _a);
-}
-
-// SIGNAL 2
-void LegoThread::sendCameraValues(int _t1, int _t2, int _t3, int _t4)
-{
-    void *_a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)), const_cast<void*>(reinterpret_cast<const void*>(&_t4)) };
-    QMetaObject::activate(this, &staticMetaObject, 2, _a);
 }
 QT_END_MOC_NAMESPACE

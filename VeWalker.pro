@@ -4,13 +4,12 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui sql
 
 TARGET = VeWalker
 TEMPLATE = app
 
 SOURCES += \
-    startwindow.cpp \
     mainwindow.cpp \
     main.cpp \
     demographics.cpp \
@@ -38,10 +37,12 @@ SOURCES += \
     adc_8591.cpp \
     ve.cpp \
     data.cpp \
-    popupscreen.cpp
+    popupscreen.cpp \
+    vuzixthread.cpp \
+    arduino.cpp \
+    calibraterotation.cpp
 
 HEADERS  += \
-    startwindow.h \
     mainwindow.h \
     demographics.h \
     trafficcontrol.h \
@@ -78,13 +79,20 @@ HEADERS  += \
     ve.h \
     network.h \
     data.h \
-    popupscreen.h
+    popupscreen.h \
+    iweardrv.h \
+    iweardrv.h \
+    vuzixthread.h \
+    arduino.h \
+    serialportinfo.h \
+    serialport.h \
+    calibraterotation.h
 
 FORMS    += \
-    startwindow.ui \
     mainwindow.ui \
     demographics.ui \
-    popupscreen.ui
+    popupscreen.ui \
+    calibraterotation.ui
 
 LIBS += -L C:\OpenCVNew\install\bin \
 -llibopencv_core231d \
@@ -101,8 +109,12 @@ LIBS += -L C:\OpenCVNew\install\bin \
 -llibopencv_video231d \
 -lopencv_ffmpeg
 
+#INCLUDEPATH += C:\Users\Nulogy\Downloads\qserialdevice-qserialdevice-2.0\qserialdevice-qserialdevice\src
+#LIBS += -L "C:\Users\Nulogy\Downloads\qserialdevice-qserialdevice-2.0\qserialdevice-qserialdevice\src\release"
+#LIBS += -qserialdevice
+
 INCLUDEPATH += C:\OpenCVNew\install\include \
-C:\OpenCVNew\install\include\opencv
+C:\OpenCVNew\install\include\opencv \
 
 
 QT           += opengl
@@ -131,3 +143,29 @@ RESOURCES =
 #
 #LIBS += C:\Qt\4.4.2\externals\qwt-5.1.1\lib\qwt5.dll
 #INCLUDEPATH += C:\Qt\4.4.2\externals\qwt-5.1.1\src
+
+
+win32: LIBS += -L$$PWD/ -liweardrv
+
+INCLUDEPATH += $$PWD/
+DEPENDPATH += $$PWD/
+
+win32: PRE_TARGETDEPS += $$PWD/iweardrv.lib
+
+OTHER_FILES += \
+    wilhelm.wav
+
+INCLUDEPATH += \
+    C:/qserialport/qserialdevice-qserialdevice/include \
+    C:/qserialport/qserialdevice-qserialdevice/src
+
+include(C:/qserialport/qserialdevice-qserialdevice/src/src.pri)
+
+
+
+
+
+
+
+
+

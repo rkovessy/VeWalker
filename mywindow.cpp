@@ -7,7 +7,7 @@ MyWindow::MyWindow()
     setWindowTitle(tr("Walker Scene"));
     replay = false;
     glWidget->set_window(window_width, window_height);
-    setMouseTracking(true);
+    //setMouseTracking(true);
 }
 
 void MyWindow::settingLayout() {
@@ -40,62 +40,20 @@ void MyWindow::settingLayout() {
  void MyWindow::keyPressEvent(QKeyEvent *e) {
      switch ( e->key() )
      {
-        case Qt::Key_Left:
-            glWidget->Zrotation(-1);
-            break;
-        case Qt::Key_Right:
-            glWidget->Zrotation(1);
-            break;
-        case Qt::Key_Up:
-            glWidget->Xrotation(1);
-            break;
-        case Qt::Key_Down:
-            glWidget->Xrotation(-1);
+        case Qt::Key_Space:
+            glWidget->setXRotation(270.0);
+            glWidget->setYRotation(0.0);
+            glWidget->setZRotation(0.0);
             break;
 
      }
  }
 
  void MyWindow::keyReleaseEvent(QKeyEvent *e) {
-     switch ( e->key() )
-     {
-        case Qt::Key_Left:
-            glWidget->Zrotation(0);
-            break;
-        case Qt::Key_Right:
-            glWidget->Zrotation(0);
-            break;
-        case Qt::Key_Up:
-            glWidget->Xrotation(0);
-            break;
-        case Qt::Key_Down:
-            glWidget->Xrotation(0);
-            break;
-
-     }
  }
 
  //captures the mouse movement to rotate the screen
  void MyWindow::mouseMoveEvent(QMouseEvent *e) {
-
-     //up and down rotation
-     if(e->x() > previousXPos) {
-         glWidget->Zrotation(1);
-     } else if(e->x() < previousXPos) {
-         glWidget->Zrotation(-1);
-     } else
-         glWidget->Zrotation(0);
-
-     //left/right rotation
-     if(e->y() > previousYPos) {
-         glWidget->Xrotation(1);
-     } else if(e->y() < previousYPos) {
-         glWidget->Xrotation(-1);
-     } else
-         glWidget->Xrotation(0);
-
-     previousXPos = e->x();
-     previousYPos = e->y();
 
  }
 
@@ -104,28 +62,46 @@ void MyWindow::settingLayout() {
  }
 
  void MyWindow::updateMotor(double m, bool s, double z) {
-     if (s && glWidget->tc.data.step && glWidget->tc.data.time_arrive == 0.0)
-         glWidget->tc.data.steps++;
-     glWidget->setTranslation(m, z); // updates GLWidget, connected to sendMotor(...) signal from legoThread
+//     if (s && glWidget->tc.data.step && glWidget->tc.data.time_arrive == 0.0)
+//         glWidget->tc.data.steps++;
+//     glWidget->setTranslation(m*1.25, z); // updates GLWidget, connected to sendMotor(...) signal from legoThread
  }
 
  void MyWindow::updateCompass(double anglediff) {
-     glWidget->rotation(anglediff);
+     //glWidget->rotation(anglediff);
  }
 
 void MyWindow::updateCameraValues(int x1, int x2, int y1, int y2){
-    int oppositeSide = (y2-y1);
-    int adjacentSide = (x2-x1);
+    double oppositeSide = (y2-y1);
+    double adjacentSide = (x2-x1);
+    double angleThreshold = 0.175;
     double angleRads;
-    double angleDegrees;
-    if (adjacentSide != 0)
-    {
-        angleRads = atan(oppositeSide/adjacentSide);
-        angleDegrees = angleRads*180/3.14159;
+
+    if (x1==0 || x2==0 || y1==0 || y2 == 0 ||adjacentSide == 0)
+        angleRads=0;
+
+    else{
+        double oppAdjParam = oppositeSide/adjacentSide;
+        angleRads = atan(oppAdjParam);
+    }
+    if(fabs(angleRads) >= angleThreshold){
+        glWidget->determineAngularAccel(angleRads);
+        glWidget->Zrotation(angleRads); //To be removed when determineAngularAccel working
     }
     else
-        angleDegrees=0;
+        glWidget->determineAngularAccel(0);
+        glWidget->Zrotation(angleRads); //To be removed when determineAngularAccel working
+}
 
-    glWidget->Zrotation(angleRads*-2);
-    printf("angleDeg: [%f], angleRads[%f]\n",angleDegrees, angleRads);
+void MyWindow::updateHTrackerValues(long HTyaw, long HTpitch, long HTroll)
+{
+    glWidget->Xrotation(HTpitch*-0.006+270);
+    glWidget->Yrotation(HTroll*-0.006);
+    glWidget->Zrotation(HTyaw*-0.01);
+
+}
+
+void MyWindow::updatePotRotation(long potRotation)
+{
+    //do nothing right now
 }

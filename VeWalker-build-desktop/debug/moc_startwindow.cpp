@@ -1,7 +1,15 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'startwindow.h'
 **
+<<<<<<< .merge_file_a05280
 ** Created: Wed Nov 30 14:53:56 2011
+=======
+<<<<<<< HEAD
+** Created: Wed Feb 22 19:56:42 2012
+=======
+** Created: Sat Feb 25 18:27:57 2012
+>>>>>>> origin/macgregor_demo_code
+>>>>>>> .merge_file_a03820
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!

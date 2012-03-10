@@ -5,13 +5,16 @@ GLWidget::GLWidget(QWidget *parent)
 {
     object = 0;
     backgroundColor = Qt::white;
-
+    prevRotation = 0;
     hit = false;
 
+    shoulderRot = 0.0;
+    headRot = 0.0;
     time = 0.0;
     started = false;
 
-    setMouseTracking(true);
+
+    //setMouseTracking(true);
 }
 
 GLWidget::~GLWidget()
@@ -25,8 +28,7 @@ void GLWidget::setPedestrian(double x, double y, double mid) {
     startingyTrans[0] = y;
     startingyTrans[1] = 0.0;
     startingxTrans[0] = x; //This is about at the cross walk
-    startingrotation[0] = 315.0;
-    startingrotation[1] = 225.0;
+    startingrotation[0] = 0.0;
 
     startPos = tc.get_start();
     if (startPos == "A")
@@ -90,6 +92,8 @@ void GLWidget::setZRotation(double angle)
 }
 
 void GLWidget::setTranslation(double mag, double z) { // connected to senddata(double,double) signal in collectdata which runs update slot in mywindow
+
+    qDebug() << "mag " << mag << " z " << z;
     if (!hit) {
         if (!(tc.get_screen()))
             motorSpeed = mag;
@@ -99,20 +103,39 @@ void GLWidget::setTranslation(double mag, double z) { // connected to senddata(d
     }
 }
 
+void GLWidget::setArduinoTranslation(int potRot)
+{
+    currRotation = potRot;
+    //qDebug() << "potRot:    " << potRot;
+    if(!hit) {
+        if(!(tc.get_screen()))
+            motorSpeed = abs(currRotation - prevRotation) * PI / 180.0 * 0.14;
+         else
+            motorSpeed = 0.0;
+    }
+    //zTrans = height / 30.0 * sin(PI * (rValueNXT + 20) / 40) + height + height / 30;
+    prevRotation = currRotation;
+    zTrans = 0.5;
+}
+
 void GLWidget::rotation(double anglediff)
 {
     if (!(tc.get_screen()))
         compassSpeed = anglediff;
     else
         compassSpeed = 0.0;
+
+    qDebug() << "compassSpeed rotation" << compassSpeed;
 }
 
 void GLWidget::Zrotation(double anglediff)
 {
-    if (!(tc.get_screen()))
-        compassSpeed = anglediff;
+    if (!(tc.get_screen())) {
+        zcompassSpeed = anglediff;
+       // qDebug() << "compassSpeed Zrotation  " << compassSpeed;
+    }
     else
-        compassSpeed = 0.0;
+        zcompassSpeed = 0.0;
 }
 
 void GLWidget::Xrotation(double anglediff)
@@ -123,32 +146,50 @@ void GLWidget::Xrotation(double anglediff)
         xcompassSpeed = 0.0;
 }
 
+void GLWidget::Yrotation(double anglediff)
+{
+    if(!tc.get_screen())
+        ycompassSpeed = anglediff;
+    else
+        ycompassSpeed = 0.0;
+}
+
 void GLWidget::updateScene() {
+    //this->database_connect();
+    //get_tracker_settings();
+
     if (tc.get_screen())
         updateGL();
 
     else if (started) {
-        setZRotation(zRot + compassSpeed);
-        setXRotation(xRot + xcompassSpeed);
-        compassSpeed = 0;
-        xcompassSpeed = 0;
+        setArduinoTranslation(arduinoThread.output());
+        //qDebug() << "zRotation: " << compassSpeed;
+        setXRotation(xcompassSpeed);
+        setYRotation(ycompassSpeed);
+        setZRotation(zRot+(zcompassSpeed*2.20)+(angularAccelActual*0.0075));
 
+        shoulderRot += (angularAccelActual*0.0075);
+        headRot += (zcompassSpeed*2.25);
         double y;
         double x;
 
-        double pi=3.14159265;
+        qDebug() << "motoSpeed" << motorSpeed;
+        //qDebug() << "calc " << (zRot+(zcompassSpeed*2.25)+(angularAccelActual*0.0075));
+        //motorSpeed = .1; //Remove when working with actual motor
+        y = (yTrans + (motorSpeed*cos(shoulderRot*PI/180)));//(zRot-(zcompassSpeed*2.25)+(angularAccelActual*0.0075))*PI/180)));
+        x = (xTrans + (motorSpeed*sin(shoulderRot*PI/180)));//(zRot-(zcompassSpeed*2.25)+(angularAccelActual*0.0075))*PI/180)));
 
-        y = (yTrans + (motorSpeed*cos(zRot*pi/180)));
-        x = (xTrans + (motorSpeed*sin(zRot*pi/180)));
-
+        qDebug() << "xy [" << x << "," << y << "]";
+        //qDebug() << "motorSpeed " << motorSpeed << " angle: " << angularAccelActual << "xy [" << x << "," << y << "]";
         //if (fabs(y) <= maxTrans && fabs(x) >= maxTrans) {
             yTrans = y;
             xTrans = x;
         //}
 
-        tc.data.writePedestrian(tc.get_trials(), xTrans, yTrans, zTrans, xRot, yRot, zRot);
+            //printf("xRot [%f] yRot [%f] zRot[%f}\n", xRot, yRot, zRot);
+        //tc.data.writePedestrian(tc.get_trials(), xTrans, yTrans, zTrans, xRot, yRot, zRot);
 
-        if ((startPos == "A" && yTrans >= startingyTrans[1] && fabs(xTrans-startingxTrans[0]) <= 1) || (startPos == "B" && yTrans <= startingyTrans[0])) {
+       if ((startPos == "A" && yTrans >= startingyTrans[1] && fabs(xTrans-startingxTrans[0]) <= 1) || (startPos == "B" && yTrans <= startingyTrans[0])) {
             tc.nexttrial();
             startPos = tc.get_start();
             if (startPos == "A")
@@ -157,7 +198,7 @@ void GLWidget::updateScene() {
                 start = 1;
             yTrans = startingyTrans[start];
             xTrans = startingxTrans[start];
-            setZRotation(startingrotation[start]);
+           // setZRotation(startingrotation[start]);
         }
         updateGL();
     }
@@ -166,7 +207,7 @@ void GLWidget::updateScene() {
 //! [6]
 void GLWidget::initializeGL()
 {
-    setXRotation(290.0); //270 results in normal view, 290 gives 20 degrees below horizontal
+    setXRotation(270.0); //270 results in normal view, 290 gives 20 degrees below horizontal
     setYRotation(0.0);
     setZRotation(0.0);
 
@@ -201,6 +242,7 @@ void GLWidget::paintGL()
     tc.updatePedestrian(xTrans, yTrans, zRot);
 
     if (tc.limits.hit && !tc.get_failed()) {
+        QSound::play("wilhelm.wav");
         yTrans = startingyTrans[start];
         xTrans = startingxTrans[0];
         setZRotation(startingrotation[start]);
@@ -267,4 +309,75 @@ GLuint GLWidget::makeObject()
     glEndList();
     return list;
 
+}
+
+//Determine value of angularAccelActual
+void GLWidget::determineAngularAccel(double alphaActual)
+{
+    angularAccelMaximum = 1000.0; //Maximum turning speed, needs to be calibrated
+    alphaRightMin = .000485; //5 degree tolerance
+    alphaLeftMin = -.000485;
+
+    //Call alphaLeftMax and alphaRightMax values from the DB
+    alphaLeftMax = 0;
+    alphaRightMax = 0;
+
+    //If it has not been calibrated, just use a default weighting to turn
+    if (alphaRightMax == 0 && alphaLeftMax ==0)
+    {
+        if(alphaActual > alphaRightMin){
+            angularAccelActual = angularAccelMaximum;
+        }
+        else if (alphaActual < alphaLeftMin)
+            angularAccelActual = -1*angularAccelMaximum;
+        else
+            angularAccelActual = alphaActual;
+    }
+    else
+    {
+        if (alphaActual > 0.0)
+        {
+            angularAccelActual = (abs(alphaRightMax)-abs(alphaActual))/(abs(alphaRightMax)-abs(alphaRightMin));
+        }
+        else
+        {
+            angularAccelActual = -1*(abs(alphaLeftMax)-abs(alphaActual))/(abs(alphaLeftMax)-abs(alphaLeftMin));
+        }
+    }
+}
+
+void GLWidget::database_connect()
+{
+    db = QSqlDatabase::addDatabase("QPSQL", "glWidgetConnect");
+    db.setHostName("localhost");
+    db.setUserName("postgres");
+    db.setPassword("abc123");
+    db.setDatabaseName("configDb");
+    db.open();
+}
+
+void GLWidget::get_tracker_settings()
+{
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT directional_control FROM loadconfig order by reference_id desc limit 1");
+        QSqlQuery qry(db);
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                directionalControlMethod = qry.value(0).toString();
+                //qDebug() << "Color selected from DB:" << colorSelected;
+            }
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+
+    }
+    else
+    {
+        qDebug() << "GLWidget failed to open database connection to pull data.";
+    }
 }

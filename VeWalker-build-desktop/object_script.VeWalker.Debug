@@ -1,5 +1,4 @@
 INPUT(
-./debug\startwindow.o
 ./debug\mainwindow.o
 ./debug\main.o
 ./debug\demographics.o
@@ -28,7 +27,13 @@ INPUT(
 ./debug\ve.o
 ./debug\data.o
 ./debug\popupscreen.o
-./debug\moc_startwindow.o
+./debug\vuzixthread.o
+./debug\arduino.o
+./debug\calibraterotation.o
+./debug\serialport.o
+./debug\serialportinfo.o
+./debug\serialportengine_p_win.o
+./debug\serialportinfo_win.o
 ./debug\moc_mainwindow.o
 ./debug\moc_demographics.o
 ./debug\moc_trafficcontrol.o
@@ -38,4 +43,9 @@ INPUT(
 ./debug\moc_collectdata.o
 ./debug\moc_ve.o
 ./debug\moc_popupscreen.o
+./debug\moc_vuzixthread.o
+./debug\moc_arduino.o
+./debug\moc_serialport.o
+./debug\moc_calibraterotation.o
+./debug\moc_serialportengine_p_win.o
 );
