@@ -7,27 +7,27 @@ Data::Data()
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //DEMOGRAPHICS
 
-void Data::writeDemographics(int pid, QString age, QString sex, QString dominance)
-{
-    QString f = "Demographics";
-    if (!QDir(f).exists())
-        QDir().mkdir(f);
+//void Data::writeDemographics(int pid, QString age, QString sex, QString dominance)
+//{
+//    QString f = "Demographics";
+//    if (!QDir(f).exists())
+//        QDir().mkdir(f);
 
-    QString personId = QString::number(pid);
-    if (pid < 10)
-        personId.prepend("0");
-    filename[DEMOGRAPHICS] = QString("Demographics/") + "P"+ personId + QString("_Demographics.txt");
-    file[DEMOGRAPHICS].setFileName(filename[DEMOGRAPHICS]);
-    text[DEMOGRAPHICS].setDevice(&file[DEMOGRAPHICS]);
+//    QString personId = QString::number(pid);
+//    if (pid < 10)
+//        personId.prepend("0");
+//    filename[DEMOGRAPHICS] = QString("Demographics/") + "P"+ personId + QString("_Demographics.txt");
+//    file[DEMOGRAPHICS].setFileName(filename[DEMOGRAPHICS]);
+//    text[DEMOGRAPHICS].setDevice(&file[DEMOGRAPHICS]);
 
-    file[DEMOGRAPHICS].open(QIODevice::WriteOnly | QIODevice::Text);
+//    file[DEMOGRAPHICS].open(QIODevice::WriteOnly | QIODevice::Text);
 
-    text[DEMOGRAPHICS].setFieldWidth(20);
-    text[DEMOGRAPHICS] << "PID" << "Age" << "Sex" << "Dominance" << endl;
-    text[DEMOGRAPHICS] << personId << age << sex << dominance;
+//    text[DEMOGRAPHICS].setFieldWidth(20);
+//    text[DEMOGRAPHICS] << "PID" << "Age" << "Sex" << "Dominance" << endl;
+//    text[DEMOGRAPHICS] << personId << age << sex << dominance;
 
-    file[DEMOGRAPHICS].close();
-}
+//    file[DEMOGRAPHICS].close();
+//}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //SPECS

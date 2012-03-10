@@ -445,8 +445,6 @@ void Demographics::on_quit_clicked()
     }
     else
     {
-        //data.writeDemographics(id, age, sex, dominance);
-
         virtuale.start(participantid);
         this->hide();
     }
