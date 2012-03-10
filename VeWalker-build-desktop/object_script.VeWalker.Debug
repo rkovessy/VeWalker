@@ -30,6 +30,7 @@ INPUT(
 ./debug\vuzixthread.o
 ./debug\arduino.o
 ./debug\calibraterotation.o
+./debug\poisson.o
 ./debug\serialport.o
 ./debug\serialportinfo.o
 ./debug\serialportengine_p_win.o
