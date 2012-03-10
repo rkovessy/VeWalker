@@ -1,15 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'demographics.ui'
 **
-<<<<<<< HEAD
-<<<<<<< .merge_file_a06996
-** Created: Wed Nov 30 12:49:40 2011
-=======
-** Created: Fri Mar 9 13:03:00 2012
->>>>>>> .merge_file_a06924
-=======
-** Created: Thu Mar 8 12:29:59 2012
->>>>>>> origin/rob_eod_0309
+** Created: Sat Mar 10 14:56:48 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -25,6 +17,7 @@
 #include <QtGui/QButtonGroup>
 #include <QtGui/QDateEdit>
 #include <QtGui/QDialog>
+#include <QtGui/QGridLayout>
 #include <QtGui/QGroupBox>
 #include <QtGui/QHeaderView>
 #include <QtGui/QLabel>
@@ -32,6 +25,7 @@
 #include <QtGui/QRadioButton>
 #include <QtGui/QSlider>
 #include <QtGui/QSpinBox>
+#include <QtGui/QWidget>
 
 QT_BEGIN_NAMESPACE
 
@@ -62,14 +56,21 @@ public:
     QLabel *maxlabel1;
     QLabel *maxlabel2;
     QGroupBox *groupBox_2;
-    QRadioButton *neonpink;
-    QPushButton *calibrate;
+    QWidget *widget;
+    QGridLayout *gridLayout;
     QLabel *heightlabel;
     QSpinBox *participantheight;
+    QLabel *trackinglabel_2;
+    QRadioButton *shoulderControl;
+    QRadioButton *headControl;
     QLabel *trackinglabel;
     QRadioButton *neongreen;
     QRadioButton *neonorange;
+    QRadioButton *neonpink;
+    QWidget *widget1;
+    QGridLayout *gridLayout_2;
     QLabel *rotationalspeed;
+    QPushButton *calibrate;
     QLabel *displaylabel;
     QPushButton *datum;
     QGroupBox *groupBox_3;
@@ -97,7 +98,7 @@ public:
         if (Demographics->objectName().isEmpty())
             Demographics->setObjectName(QString::fromUtf8("Demographics"));
         Demographics->setEnabled(true);
-        Demographics->resize(713, 442);
+        Demographics->resize(713, 476);
         groupBox_1 = new QGroupBox(Demographics);
         groupBox_1->setObjectName(QString::fromUtf8("groupBox_1"));
         groupBox_1->setGeometry(QRect(9, 9, 371, 241));
@@ -232,69 +233,129 @@ public:
         maxlabel2->setFont(font3);
         groupBox_2 = new QGroupBox(Demographics);
         groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
-        groupBox_2->setGeometry(QRect(10, 250, 371, 151));
+        groupBox_2->setGeometry(QRect(10, 250, 371, 181));
         groupBox_2->setFont(font);
-        neonpink = new QRadioButton(groupBox_2);
-        neonpink->setObjectName(QString::fromUtf8("neonpink"));
-        neonpink->setGeometry(QRect(317, 55, 48, 22));
+        widget = new QWidget(groupBox_2);
+        widget->setObjectName(QString::fromUtf8("widget"));
+        widget->setGeometry(QRect(11, 26, 359, 82));
+        gridLayout = new QGridLayout(widget);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        gridLayout->setContentsMargins(0, 0, 0, 0);
+        heightlabel = new QLabel(widget);
+        heightlabel->setObjectName(QString::fromUtf8("heightlabel"));
+        heightlabel->setFont(font1);
+
+        gridLayout->addWidget(heightlabel, 0, 0, 1, 1);
+
+        participantheight = new QSpinBox(widget);
+        participantheight->setObjectName(QString::fromUtf8("participantheight"));
+        participantheight->setFont(font1);
+        participantheight->setValue(70);
+
+        gridLayout->addWidget(participantheight, 0, 1, 1, 1);
+
+        trackinglabel_2 = new QLabel(widget);
+        trackinglabel_2->setObjectName(QString::fromUtf8("trackinglabel_2"));
+        trackinglabel_2->setMaximumSize(QSize(130, 16777215));
+        trackinglabel_2->setFont(font1);
+
+        gridLayout->addWidget(trackinglabel_2, 1, 0, 1, 1);
+
+        shoulderControl = new QRadioButton(widget);
+        shoulderControl->setObjectName(QString::fromUtf8("shoulderControl"));
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(neonpink->sizePolicy().hasHeightForWidth());
-        neonpink->setSizePolicy(sizePolicy);
-        neonpink->setFont(font1);
-        neonpink->setAutoExclusive(false);
-        calibrate = new QPushButton(groupBox_2);
-        calibrate->setObjectName(QString::fromUtf8("calibrate"));
-        calibrate->setGeometry(QRect(159, 83, 75, 26));
-        calibrate->setFont(font1);
-        calibrate->setCheckable(false);
-        calibrate->setDefault(true);
-        calibrate->setFlat(false);
-        heightlabel = new QLabel(groupBox_2);
-        heightlabel->setObjectName(QString::fromUtf8("heightlabel"));
-        heightlabel->setGeometry(QRect(11, 25, 142, 18));
-        heightlabel->setFont(font1);
-        participantheight = new QSpinBox(groupBox_2);
-        participantheight->setObjectName(QString::fromUtf8("participantheight"));
-        participantheight->setGeometry(QRect(159, 25, 39, 24));
-        participantheight->setFont(font1);
-        participantheight->setValue(70);
-        trackinglabel = new QLabel(groupBox_2);
+        sizePolicy.setHeightForWidth(shoulderControl->sizePolicy().hasHeightForWidth());
+        shoulderControl->setSizePolicy(sizePolicy);
+        shoulderControl->setFont(font1);
+        shoulderControl->setChecked(true);
+        shoulderControl->setAutoExclusive(false);
+
+        gridLayout->addWidget(shoulderControl, 1, 1, 1, 1);
+
+        headControl = new QRadioButton(widget);
+        headControl->setObjectName(QString::fromUtf8("headControl"));
+        sizePolicy.setHeightForWidth(headControl->sizePolicy().hasHeightForWidth());
+        headControl->setSizePolicy(sizePolicy);
+        headControl->setFont(font1);
+        headControl->setCheckable(true);
+        headControl->setChecked(false);
+        headControl->setAutoExclusive(false);
+
+        gridLayout->addWidget(headControl, 1, 2, 1, 1);
+
+        trackinglabel = new QLabel(widget);
         trackinglabel->setObjectName(QString::fromUtf8("trackinglabel"));
-        trackinglabel->setGeometry(QRect(11, 55, 103, 18));
         trackinglabel->setFont(font1);
-        neongreen = new QRadioButton(groupBox_2);
+
+        gridLayout->addWidget(trackinglabel, 2, 0, 1, 1);
+
+        neongreen = new QRadioButton(widget);
         neongreen->setObjectName(QString::fromUtf8("neongreen"));
-        neongreen->setGeometry(QRect(159, 55, 62, 22));
         sizePolicy.setHeightForWidth(neongreen->sizePolicy().hasHeightForWidth());
         neongreen->setSizePolicy(sizePolicy);
         neongreen->setFont(font1);
         neongreen->setCheckable(true);
         neongreen->setChecked(true);
         neongreen->setAutoExclusive(false);
-        neonorange = new QRadioButton(groupBox_2);
+
+        gridLayout->addWidget(neongreen, 2, 1, 1, 1);
+
+        neonorange = new QRadioButton(widget);
         neonorange->setObjectName(QString::fromUtf8("neonorange"));
-        neonorange->setGeometry(QRect(240, 55, 71, 22));
         sizePolicy.setHeightForWidth(neonorange->sizePolicy().hasHeightForWidth());
         neonorange->setSizePolicy(sizePolicy);
         neonorange->setFont(font1);
         neonorange->setAutoExclusive(false);
-        rotationalspeed = new QLabel(groupBox_2);
+
+        gridLayout->addWidget(neonorange, 2, 2, 1, 1);
+
+        neonpink = new QRadioButton(widget);
+        neonpink->setObjectName(QString::fromUtf8("neonpink"));
+        sizePolicy.setHeightForWidth(neonpink->sizePolicy().hasHeightForWidth());
+        neonpink->setSizePolicy(sizePolicy);
+        neonpink->setFont(font1);
+        neonpink->setAutoExclusive(false);
+
+        gridLayout->addWidget(neonpink, 2, 3, 1, 1);
+
+        widget1 = new QWidget(groupBox_2);
+        widget1->setObjectName(QString::fromUtf8("widget1"));
+        widget1->setGeometry(QRect(11, 112, 291, 60));
+        gridLayout_2 = new QGridLayout(widget1);
+        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
+        gridLayout_2->setContentsMargins(0, 0, 0, 0);
+        rotationalspeed = new QLabel(widget1);
         rotationalspeed->setObjectName(QString::fromUtf8("rotationalspeed"));
-        rotationalspeed->setGeometry(QRect(11, 83, 112, 18));
         rotationalspeed->setFont(font1);
-        displaylabel = new QLabel(groupBox_2);
+
+        gridLayout_2->addWidget(rotationalspeed, 0, 0, 1, 1);
+
+        calibrate = new QPushButton(widget1);
+        calibrate->setObjectName(QString::fromUtf8("calibrate"));
+        calibrate->setFont(font1);
+        calibrate->setCheckable(false);
+        calibrate->setDefault(true);
+        calibrate->setFlat(false);
+
+        gridLayout_2->addWidget(calibrate, 0, 1, 1, 1);
+
+        displaylabel = new QLabel(widget1);
         displaylabel->setObjectName(QString::fromUtf8("displaylabel"));
-        displaylabel->setGeometry(QRect(11, 115, 50, 18));
         displaylabel->setFont(font1);
-        datum = new QPushButton(groupBox_2);
+
+        gridLayout_2->addWidget(displaylabel, 1, 0, 1, 1);
+
+        datum = new QPushButton(widget1);
         datum->setObjectName(QString::fromUtf8("datum"));
-        datum->setGeometry(QRect(159, 115, 75, 26));
         datum->setFont(font1);
         datum->setCheckable(false);
         datum->setDefault(true);
         datum->setFlat(false);
+
+        gridLayout_2->addWidget(datum, 1, 1, 1, 1);
+
         groupBox_3 = new QGroupBox(Demographics);
         groupBox_3->setObjectName(QString::fromUtf8("groupBox_3"));
         groupBox_3->setGeometry(QRect(410, 10, 291, 141));
@@ -318,6 +379,7 @@ public:
         id->setGeometry(QRect(150, 27, 39, 24));
         id->setMaximumSize(QSize(116, 135));
         id->setFont(font2);
+        id->setValue(1);
         sexlabel = new QLabel(groupBox_3);
         sexlabel->setObjectName(QString::fromUtf8("sexlabel"));
         sexlabel->setGeometry(QRect(13, 57, 29, 18));
@@ -382,7 +444,7 @@ public:
         dateupperrange->setCalendarPopup(true);
         quit = new QPushButton(Demographics);
         quit->setObjectName(QString::fromUtf8("quit"));
-        quit->setGeometry(QRect(279, 410, 75, 26));
+        quit->setGeometry(QRect(280, 440, 75, 26));
         sizePolicy.setHeightForWidth(quit->sizePolicy().hasHeightForWidth());
         quit->setSizePolicy(sizePolicy);
         QFont font4;
@@ -393,7 +455,7 @@ public:
         quit->setFlat(false);
         cancel = new QPushButton(Demographics);
         cancel->setObjectName(QString::fromUtf8("cancel"));
-        cancel->setGeometry(QRect(360, 410, 75, 26));
+        cancel->setGeometry(QRect(361, 440, 75, 26));
         sizePolicy.setHeightForWidth(cancel->sizePolicy().hasHeightForWidth());
         cancel->setSizePolicy(sizePolicy);
         cancel->setFont(font4);
@@ -406,142 +468,11 @@ public:
 
         retranslateUi(Demographics);
 
-<<<<<<< .merge_file_a06996
-        age->setCurrentIndex(20);
-        cbFaculty->setCurrentIndex(1);
-
-
-=======
->>>>>>> .merge_file_a06924
         QMetaObject::connectSlotsByName(Demographics);
     } // setupUi
 
     void retranslateUi(QDialog *Demographics)
     {
-<<<<<<< .merge_file_a06996
-        Demographics->setWindowTitle(QApplication::translate("Demographics", "Dialog", 0, QApplication::UnicodeUTF8));
-        age->clear();
-        age->insertItems(0, QStringList()
-         << QApplication::translate("Demographics", "0", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "1", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "2", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "3", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "4", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "5", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "6", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "7", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "8", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "9", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "10", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "11", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "12", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "13", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "14", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "15", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "16", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "17", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "18", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "19", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "20", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "21", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "22", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "23", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "24", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "25", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "26", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "27", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "28", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "29", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "30", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "31", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "32", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "33", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "34", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "35", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "36", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "37", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "38", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "39", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "40", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "41", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "42", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "43", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "44", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "45", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "46", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "47", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "48", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "49", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "50", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "51", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "52", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "53", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "54", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "55", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "56", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "57", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "58", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "59", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "60", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "61", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "62", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "63", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "64", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "65", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "66", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "67", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "68", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "69", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "70", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "71", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "72", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "73", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "74", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "75", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "76", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "77", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "78", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "79", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "80", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "81", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "82", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "83", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "84", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "85", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "86", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "87", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "88", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "89", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "90", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "91", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "92", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "93", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "94", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "95", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "96", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "97", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "98", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "99", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "100+", 0, QApplication::UnicodeUTF8)
-        );
-        teProgram->setText(QApplication::translate("Demographics", "Enter your program", 0, QApplication::UnicodeUTF8));
-        quiterror->setText(QApplication::translate("Demographics", "Please complete all items before submitting", 0, QApplication::UnicodeUTF8));
-        caucasian->setText(QApplication::translate("Demographics", "Caucasian", 0, QApplication::UnicodeUTF8));
-        lbProgramError->setText(QApplication::translate("Demographics", "(*)", 0, QApplication::UnicodeUTF8));
-        ethnicityerror->setText(QApplication::translate("Demographics", "(*)", 0, QApplication::UnicodeUTF8));
-        idlabel->setText(QApplication::translate("Demographics", "ID:", 0, QApplication::UnicodeUTF8));
-        quit->setText(QApplication::translate("Demographics", "Submit", 0, QApplication::UnicodeUTF8));
-        namelabel_3->setText(QApplication::translate("Demographics", "Program:", 0, QApplication::UnicodeUTF8));
-        black->setText(QApplication::translate("Demographics", "Black", 0, QApplication::UnicodeUTF8));
-        ageerror->setText(QApplication::translate("Demographics", "(*)", 0, QApplication::UnicodeUTF8));
-        male->setText(QApplication::translate("Demographics", "Male", 0, QApplication::UnicodeUTF8));
-        ethnicitylabel->setText(QApplication::translate("Demographics", "Ethnicity:", 0, QApplication::UnicodeUTF8));
-        middleeastern->setText(QApplication::translate("Demographics", "Middle-Eastern", 0, QApplication::UnicodeUTF8));
-        other->setText(QApplication::translate("Demographics", "Other:", 0, QApplication::UnicodeUTF8));
-        eastasian->setText(QApplication::translate("Demographics", "East Asian", 0, QApplication::UnicodeUTF8));
-        lbFacultyError->setText(QApplication::translate("Demographics", "(*)", 0, QApplication::UnicodeUTF8));
-        sexerror->setText(QApplication::translate("Demographics", "(*)", 0, QApplication::UnicodeUTF8));
-=======
         Demographics->setWindowTitle(QApplication::translate("Demographics", "VeWalker Configuration", 0, QApplication::UnicodeUTF8));
         groupBox_1->setTitle(QApplication::translate("Demographics", "Trial Configuration", 0, QApplication::UnicodeUTF8));
         trafficdisable->setText(QApplication::translate("Demographics", "Disable", 0, QApplication::UnicodeUTF8));
@@ -567,44 +498,28 @@ public:
         maxlabel1->setText(QApplication::translate("Demographics", "Max", 0, QApplication::UnicodeUTF8));
         maxlabel2->setText(QApplication::translate("Demographics", "10", 0, QApplication::UnicodeUTF8));
         groupBox_2->setTitle(QApplication::translate("Demographics", "Simulation Calibration", 0, QApplication::UnicodeUTF8));
+        heightlabel->setText(QApplication::translate("Demographics", "Participant height (in):", 0, QApplication::UnicodeUTF8));
+        trackinglabel_2->setText(QApplication::translate("Demographics", "Rotational control", 0, QApplication::UnicodeUTF8));
+        shoulderControl->setText(QApplication::translate("Demographics", "Shoulder", 0, QApplication::UnicodeUTF8));
+        headControl->setText(QApplication::translate("Demographics", "Head", 0, QApplication::UnicodeUTF8));
+        trackinglabel->setText(QApplication::translate("Demographics", "Object tracking:", 0, QApplication::UnicodeUTF8));
+        neongreen->setText(QApplication::translate("Demographics", "Green", 0, QApplication::UnicodeUTF8));
+        neonorange->setText(QApplication::translate("Demographics", "Orange", 0, QApplication::UnicodeUTF8));
         neonpink->setText(QApplication::translate("Demographics", "Pink", 0, QApplication::UnicodeUTF8));
+        rotationalspeed->setText(QApplication::translate("Demographics", "Rotational speed:", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
         calibrate->setToolTip(QApplication::translate("Demographics", "Calibrate rotational speed based on lean extents.", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
         calibrate->setText(QApplication::translate("Demographics", "Calibrate", 0, QApplication::UnicodeUTF8));
-        heightlabel->setText(QApplication::translate("Demographics", "Participant height (in):", 0, QApplication::UnicodeUTF8));
-        trackinglabel->setText(QApplication::translate("Demographics", "Object tracking:", 0, QApplication::UnicodeUTF8));
-        neongreen->setText(QApplication::translate("Demographics", "Green", 0, QApplication::UnicodeUTF8));
-        neonorange->setText(QApplication::translate("Demographics", "Orange", 0, QApplication::UnicodeUTF8));
-        rotationalspeed->setText(QApplication::translate("Demographics", "Rotational speed:", 0, QApplication::UnicodeUTF8));
         displaylabel->setText(QApplication::translate("Demographics", "Display:", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
         datum->setToolTip(QApplication::translate("Demographics", "Calibrate zero position of head.", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
         datum->setText(QApplication::translate("Demographics", "Datum", 0, QApplication::UnicodeUTF8));
         groupBox_3->setTitle(QApplication::translate("Demographics", "Participant Background Information", 0, QApplication::UnicodeUTF8));
->>>>>>> .merge_file_a06924
         agelabel->setText(QApplication::translate("Demographics", "Age:", 0, QApplication::UnicodeUTF8));
         participantnumberlabel->setText(QApplication::translate("Demographics", "Participant number: ", 0, QApplication::UnicodeUTF8));
         sexlabel->setText(QApplication::translate("Demographics", "Sex:", 0, QApplication::UnicodeUTF8));
-<<<<<<< .merge_file_a06996
-        name->setText(QApplication::translate("Demographics", "Enter your name", 0, QApplication::UnicodeUTF8));
-        othertext->setText(QString());
-        southasian->setText(QApplication::translate("Demographics", "South Asian", 0, QApplication::UnicodeUTF8));
-        cbFaculty->clear();
-        cbFaculty->insertItems(0, QStringList()
-         << QString()
-         << QApplication::translate("Demographics", "Applied Health and Sciences", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "Arts", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "Engineering", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "Environment", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "Mathematics", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("Demographics", "Science", 0, QApplication::UnicodeUTF8)
-        );
-        nameerror->setText(QApplication::translate("Demographics", "(*)", 0, QApplication::UnicodeUTF8));
-        namelabel_2->setText(QApplication::translate("Demographics", "Faculty:", 0, QApplication::UnicodeUTF8));
-        namelabel->setText(QApplication::translate("Demographics", "Name:", 0, QApplication::UnicodeUTF8));
-=======
         male->setText(QApplication::translate("Demographics", "Male", 0, QApplication::UnicodeUTF8));
         female->setText(QApplication::translate("Demographics", "Female", 0, QApplication::UnicodeUTF8));
         handdominancelabel->setText(QApplication::translate("Demographics", "Hand dominance:", 0, QApplication::UnicodeUTF8));
@@ -616,7 +531,6 @@ public:
         heightlabel_3->setText(QApplication::translate("Demographics", "to", 0, QApplication::UnicodeUTF8));
         quit->setText(QApplication::translate("Demographics", "Start", 0, QApplication::UnicodeUTF8));
         cancel->setText(QApplication::translate("Demographics", "Cancel", 0, QApplication::UnicodeUTF8));
->>>>>>> .merge_file_a06924
     } // retranslateUi
 
 };

@@ -547,6 +547,13 @@ void Demographics::on_shoulderControl_clicked()
     else
         ui->shoulderControl->setChecked(true);
 
+    ui->neongreen->setEnabled(true);
+    ui->neonpink->setEnabled(true);
+    ui->neonorange->setEnabled(true);
+    ui->rotationalspeed->setEnabled(true);
+    ui->calibrate->setEnabled(true);
+    ui->trackinglabel->setEnabled(true);
+
 }
 
 void Demographics::on_headControl_clicked()
@@ -555,4 +562,11 @@ void Demographics::on_headControl_clicked()
         ui->shoulderControl->setChecked(false);
     else
         ui->headControl->setChecked(true);
+
+    ui->neongreen->setEnabled(false);
+    ui->neonpink->setEnabled(false);
+    ui->neonorange->setEnabled(false);
+    ui->trackinglabel->setEnabled(false);
+    ui->rotationalspeed->setEnabled(false);
+    ui->calibrate->setEnabled(false);
 }
