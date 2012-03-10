@@ -177,17 +177,17 @@ QString Data::setCars(int pid) {
 
 void Data::writeCars_trial(QString trial, double time, bool trials, bool practice, bool white, bool failed)
 {
-    if (trials)
-        text[CARS] << "starttrials_" + trial;
-    else if (practice)
-        text[CARS] << "startpractice_" + trial;
-    else if (white)
-        text[CARS] << "white_" + trial;
-    else if (failed)
-        text[CARS] << "fail_" + trial;
-    else
-        text[CARS] << trial;
-    text[CARS] << time;
+//    if (trials)
+//        text[CARS] << "starttrials_" + trial;
+//    else if (practice)
+//        text[CARS] << "startpractice_" + trial;
+//    else if (white)
+//        text[CARS] << "white_" + trial;
+//    else if (failed)
+//        text[CARS] << "fail_" + trial;
+//    else
+//        text[CARS] << trial;
+//    text[CARS] << time;
 }
 
 void Data::writeCars(double a, double b, double c)
