@@ -123,19 +123,19 @@ void Data::updateinfo(int p) {
 }
 
 void Data::writeData(QString trial, bool failed) {
-    if (failed)
-        trial.prepend("failed_");
-    text[DATA] <<  trial << start << time_starttrial << time_bumper << time_step << time_latency << time_arrive << time_crossing << steps << gap_chosen << endl;
+//    if (failed)
+//        trial.prepend("failed_");
+//    text[DATA] <<  trial << start << time_starttrial << time_bumper << time_step << time_latency << time_arrive << time_crossing << steps << gap_chosen << endl;
 
-    time_bumper = 0.0;
-    time_step = 0.0;
-    time_latency = 0.0;
-    time_crossing = 0.0;
-    time_arrive = 0.0;
-    gap_chosen = 0;
-    steps = 0;
+//    time_bumper = 0.0;
+//    time_step = 0.0;
+//    time_latency = 0.0;
+//    time_crossing = 0.0;
+//    time_arrive = 0.0;
+//    gap_chosen = 0;
+//    steps = 0;
 
-    step = false;
+//    step = false;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
