@@ -282,14 +282,14 @@ void calibrateRotation::get_current_id()
 {
     if (db.isOpen())
     {
-        QString readStatement = ("SELECT reference_id FROM loadconfig order by reference_id desc limit 1");
+        QString readStatement = ("SELECT reference_id FROM trialconfig order by reference_id desc limit 1");
         QSqlQuery qry(db);
 
         if (qry.exec(readStatement))
         {
             while(qry.next()){
                 referenceid = qry.value(0).toInt();
-                qDebug() << "Last Reference ID:" << referenceid;
+                //qDebug() << "Last Reference ID:" << referenceid;
             }
         }
         else {
@@ -308,7 +308,7 @@ void calibrateRotation::write_calibration_values()
 {
     if (db.isOpen())
     {
-        QString inStatement = "update loadconfig set right_calibration = :right_calibration, left_calibration = :left_calibration, center_calibration = :center_calibration WHERE reference_id = :reference_id;";
+        QString inStatement = "update trialconfig set right_calibration = :right_calibration, left_calibration = :left_calibration, center_calibration = :center_calibration WHERE reference_id = :reference_id;";
         QSqlQuery qry(db);
 
         qry.prepare(inStatement);

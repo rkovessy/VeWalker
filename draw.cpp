@@ -21,7 +21,7 @@ Draw::Draw()
     numberOfLanes = 1;
     /*if (db.isOpen())
     {
-        QString readStatement = ("SELECT roundabout FROM loadconfig order by id desc limit 1");
+        QString readStatement = ("SELECT roundabout FROM trialconfig order by id desc limit 1");
         QSqlQuery qry(db);
 
         if (qry.exec(readStatement))

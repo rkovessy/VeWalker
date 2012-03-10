@@ -378,7 +378,7 @@ void GLWidget::get_tracker_settings()
 {
     if (db.isOpen())
     {
-        QString readStatement = ("SELECT directional_control FROM loadconfig order by reference_id desc limit 1");
+        QString readStatement = ("SELECT directional_control FROM trialconfig order by reference_id desc limit 1");
         QSqlQuery qry(db);
 
         if (qry.exec(readStatement))
