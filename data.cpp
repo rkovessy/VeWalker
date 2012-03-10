@@ -32,39 +32,52 @@ Data::Data()
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //SPECS
 
-void Data::read_specs() {
+void Data::read_specs()
+{
+    numberOfTrials=60;
+    for (int count = 0; count < numberOfTrials; ++count)
+    {
+        speeds[count] = 60;
+        startPos[count] = "A";
+        popUps[count] = "none";
+        for (int gap = 0; gap < 5; ++gap)
+        {
+            gaps[count][gap] = 6;
+        }
+    }
+
     filename[SPECS] = "Setup/specs.txt";
 
     file[SPECS].setFileName(filename[SPECS]);
     text[SPECS].setDevice(&file[SPECS]);
     file[SPECS].open(QIODevice::ReadOnly);
 
-    QString null;
+//    QString null;
 
-    text[SPECS] >> null >> numberOfTrials;
-    if (numberOfTrials > 100 || numberOfTrials < 1)
-        qDebug() << "read number of trials error" << numberOfTrials;
-    for (int count = 0; count <= 8; ++count)
-        text[SPECS] >> null;
-    for (int count = 0; count < numberOfTrials; ++count) {
-        text[SPECS] >> trials[count];
-        for (int gap = 0; gap < 5; ++gap)
-            text[SPECS] >> gaps[count][gap];
-        text[SPECS] >> speeds[count] >> startPos[count] >> popUps[count];
+//    text[SPECS] >> null >> numberOfTrials;
+//    if (numberOfTrials > 100 || numberOfTrials < 1)
+//        qDebug() << "read number of trials error" << numberOfTrials;
+//    for (int count = 0; count <= 8; ++count)
+//        text[SPECS] >> null;
+//    for (int count = 0; count < numberOfTrials; ++count) {
+//        text[SPECS] >> trials[count];
+//        for (int gap = 0; gap < 5; ++gap)
+//            text[SPECS] >> gaps[count][gap];
+//        text[SPECS] >> speeds[count] >> startPos[count] >> popUps[count];
 
-        if (trials[count].size() > 2)
-            qDebug() << "read trials error" << trials[count];
-        for (int gap = 0; gap < 5; ++gap)
-            if ((speeds[count] != 0 && !(gaps[count][gap] == 2 || gaps[count][gap] == 4 || gaps[count][gap] == 6 || gaps[count][gap] == 8 || gaps[count][gap] == 10))
-                || (speeds[count] == 0 && gaps[0][gap] != 0))
-                qDebug() << "read gap error" << gaps[count][gap];
-        if (speeds[count] < 0 || speeds[count] > 100)
-            //qDebug() << "read speed error" << speeds[count];
-        if (!(startPos[count] == "A" || startPos[count] == "B"))
-            qDebug() << "read start position error" << startPos[count];
-        if (!(popUps[count] == "none" || popUps[count] == "startpractice" || popUps[count] == "starttrials"))
-            qDebug() << "read pop ups error" << popUps[count];
-    }
+//        if (trials[count].size() > 2)
+//            qDebug() << "read trials error" << trials[count];
+//        for (int gap = 0; gap < 5; ++gap)
+//            if ((speeds[count] != 0 && !(gaps[count][gap] == 2 || gaps[count][gap] == 4 || gaps[count][gap] == 6 || gaps[count][gap] == 8 || gaps[count][gap] == 10))
+//                || (speeds[count] == 0 && gaps[0][gap] != 0))
+//                qDebug() << "read gap error" << gaps[count][gap];
+//        if (speeds[count] < 0 || speeds[count] > 100)
+//            //qDebug() << "read speed error" << speeds[count];
+//        if (!(startPos[count] == "A" || startPos[count] == "B"))
+//            qDebug() << "read start position error" << startPos[count];
+//        if (!(popUps[count] == "none" || popUps[count] == "startpractice" || popUps[count] == "starttrials"))
+//            qDebug() << "read pop ups error" << popUps[count];
+//    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
