@@ -158,19 +158,19 @@ void Data::writeData(QString trial, bool failed) {
 //CARS
 
 QString Data::setCars(int pid) {
-    filename[CARS] = "Cars";
-    if (!QDir(filename[CARS]).exists())
-        QDir().mkdir(filename[CARS]);
-    filename[CARS].append("/P");
+//    filename[CARS] = "Cars";
+//    if (!QDir(filename[CARS]).exists())
+//        QDir().mkdir(filename[CARS]);
+//    filename[CARS].append("/P");
 
-    QString id = QString::number(pid);
-    if (pid < 10)
-        id.prepend("0");
-    filename[CARS].append(id + "_Cars.txt");
-    file[CARS].setFileName(filename[CARS]);
-    text[CARS].setDevice(&file[CARS]);
-    file[CARS].open(QIODevice::WriteOnly | QIODevice::Text);
-    text[CARS].setFieldWidth(10);
+//    QString id = QString::number(pid);
+//    if (pid < 10)
+//        id.prepend("0");
+//    filename[CARS].append(id + "_Cars.txt");
+//    file[CARS].setFileName(filename[CARS]);
+//    text[CARS].setDevice(&file[CARS]);
+//    file[CARS].open(QIODevice::WriteOnly | QIODevice::Text);
+//    text[CARS].setFieldWidth(10);
 
     return "0";
 }
