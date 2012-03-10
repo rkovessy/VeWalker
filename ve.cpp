@@ -19,5 +19,5 @@ void VE::start(int pid) {
     mywindow.show();
     mywindow.set(pid);
     //cvNamedWindow("Raw Video");
-    //cvNamedWindow("Processed Video");
+    cvNamedWindow("Processed Video");
 }
