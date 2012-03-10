@@ -2,7 +2,7 @@
 
 VE::VE()
 {
-    qDebug() << "constructor was called";
+    //qDebug() << "constructor was called";
 }
 
 void VE::start(int pid) {

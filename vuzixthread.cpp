@@ -19,7 +19,7 @@ VuzixThread::VuzixThread(QObject *parent) :
 
 void VuzixThread::run()
 {
-    qDebug("vuzikThread is running!");
+    //qDebug("vuzikThread is running!");
     bool flag = false;
    do {
         msec = double(time.elapsed());

@@ -1,11 +1,19 @@
 /********************************************************************************
 ** Form generated from reading UI file 'popupscreen.ui'
 **
+<<<<<<< HEAD
 <<<<<<< .merge_file_a03492
 ** Created: Wed Nov 30 11:04:03 2011
 =======
 ** Created: Thu Mar 8 15:39:39 2012
 >>>>>>> .merge_file_a05180
+=======
+<<<<<<< .merge_file_a05472
+** Created: Thu Mar 8 15:39:39 2012
+=======
+** Created: Wed Nov 30 11:04:03 2011
+>>>>>>> .merge_file_a06080
+>>>>>>> origin/rob_eod_0309
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!

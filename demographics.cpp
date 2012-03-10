@@ -8,15 +8,14 @@ Demographics::Demographics(QWidget *parent) :
     ui->setupUi(this);
     ui->dateupperrange->setDate(QDate::currentDate());
     referenceid=1;
-
     db = QSqlDatabase::addDatabase("QPSQL", "demoConnect");
     db.setHostName("localhost");
     db.setUserName("postgres");
     db.setPassword("abc123");
     db.setDatabaseName("configDb");
     db.open();
-    if (db.lastError().isValid());
-        qDebug() << "lastDB error from opening connection " << db.lastError();
+//    if (db.lastError().isValid());
+//        qDebug() << "lastDB error from opening connection " << db.lastError();
 
     get_last_id();
     write_new_id();
@@ -101,12 +100,7 @@ void Demographics::database_insert_config()
 
         qry.bindValue(":trial_date", QDate::currentDate());
 
-        if (qry.exec())
-            qDebug() << "Insert successful";
-        else
-            qDebug() << "Insertion failed";
-
-
+        qry.exec();
     }
     else
     {
@@ -450,7 +444,7 @@ QString Demographics::getDominance()
 
 void Demographics::get_last_id()
 {
-    printf("GetlastID called \n");
+    //printf("GetlastID called \n");
     if (db.isOpen())
     {
         QString readStatement = ("SELECT reference_id FROM loadconfig order by reference_id desc limit 1");
@@ -460,7 +454,7 @@ void Demographics::get_last_id()
         {
             while(qry.next()){
                 referenceid = qry.value(0).toInt();
-                qDebug() << "Last Reference ID:" << referenceid;
+                //qDebug() << "Last Reference ID:" << referenceid;
             }
             referenceid++;
         }
@@ -478,7 +472,6 @@ void Demographics::get_last_id()
 
 void Demographics::write_new_id()
 {
-    printf("Writecurrentid called \n");
     if (db.isOpen())
     {
         QString inStatement = "INSERT INTO loadconfig (reference_id) VALUES (:reference_id)";
@@ -488,10 +481,7 @@ void Demographics::write_new_id()
 
         qry.bindValue(":reference_id", referenceid);
 
-        if (qry.exec())
-            qDebug() << "Insert successful";
-        else
-            qDebug() << "Insertion failed";
+        qry.exec();
     }
         else
         {

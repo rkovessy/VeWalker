@@ -59,7 +59,7 @@ void Data::read_specs() {
                 || (speeds[count] == 0 && gaps[0][gap] != 0))
                 qDebug() << "read gap error" << gaps[count][gap];
         if (speeds[count] < 0 || speeds[count] > 100)
-            qDebug() << "read speed error" << speeds[count];
+            //qDebug() << "read speed error" << speeds[count];
         if (!(startPos[count] == "A" || startPos[count] == "B"))
             qDebug() << "read start position error" << startPos[count];
         if (!(popUps[count] == "none" || popUps[count] == "startpractice" || popUps[count] == "starttrials"))

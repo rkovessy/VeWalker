@@ -15,6 +15,7 @@ int main(int argc, char *argv[])
    QApplication a(argc, argv);
    Demographics w;
    w.show();
+   cvNamedWindow("Processed Video");
 
 
     return a.exec();
