@@ -411,7 +411,7 @@ void TrafficControl::database_get_vals()
 {
     if (db.isOpen())
     {
-        QString readStatement = ("SELECT vehicle_quantity FROM loadconfig order by reference_id desc limit 1");
+        QString readStatement = ("SELECT vehicle_quantity FROM trialconfig order by reference_id desc limit 1");
         QSqlQuery qry(db);
 
         if (qry.exec(readStatement))
@@ -437,7 +437,7 @@ void TrafficControl::database_get_trafficenable()
     int trafficEnable;
     if (db.isOpen())
     {
-        QString readStatement = ("SELECT vehicle_traffic FROM loadconfig order by reference_id desc limit 1");
+        QString readStatement = ("SELECT vehicle_traffic FROM trialconfig order by reference_id desc limit 1");
         QSqlQuery qry(db);
 
         if (qry.exec(readStatement))
@@ -466,7 +466,7 @@ void TrafficControl::database_get_traffic_intensity()
     int trafficEnable;
     if (db.isOpen())
     {
-        QString readStatement = ("SELECT traffic_intensity FROM loadconfig order by reference_id desc limit 1");
+        QString readStatement = ("SELECT traffic_intensity FROM trialconfig order by reference_id desc limit 1");
         QSqlQuery qry(db);
 
         if (qry.exec(readStatement))

@@ -357,7 +357,7 @@ void LegoThread::database_get_vals()
 {
     if (db.isOpen())
     {
-        QString readStatement = ("SELECT object_tracking FROM loadconfig order by reference_id desc limit 1");
+        QString readStatement = ("SELECT object_tracking FROM trialconfig order by reference_id desc limit 1");
         QSqlQuery qry(db);
 
         if (qry.exec(readStatement))

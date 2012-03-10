@@ -40,67 +40,79 @@ void Demographics::database_insert_config()
 
     if (db.isOpen())
     {
-        QString inStatement = "UPDATE loadconfig set participant_id = :participant_id, sex = :sex, age = :age, hand_dom = :hand_dom, mode = :mode, roundabout = :roundabout, vehicle_traffic = :vehicle_traffic, unsafe_crossing = :unsafe_crossing, traffic_intensity = :traffic_intensity, vehicle_quantity = :vehicle_quantity, trial_quantity = :trial_quantity, participant_height = :participant_height, directional_control = :directional_control, object_tracking = :object_tracking, trial_date = :trial_date where reference_id = :reference_id;";
-        QSqlQuery qry(db);
+        QString inStatementParticipant = "UPDATE participantdata set participant_id = :participant_id, sex = :sex, age = :age, hand_dom = :hand_dom, trial_date = :trial_date where reference_id = :reference_id;";
 
-        qry.prepare(inStatement);
+        QSqlQuery qryParticipant(db);
 
-        qry.bindValue(":reference_id", referenceid);
+        qryParticipant.prepare(inStatementParticipant);
 
-        qry.bindValue(":participant_id", participantid);
+        qryParticipant.bindValue(":reference_id", referenceid);
+
+        qryParticipant.bindValue(":participant_id", participantid);
 
         if (male)
-            qry.bindValue(":sex", "male");
+            qryParticipant.bindValue(":sex", "male");
         else
-            qry.bindValue(":sex", "female");
+            qryParticipant.bindValue(":sex", "female");
 
-        qry.bindValue(":age", age);
+        qryParticipant.bindValue(":age", age);
 
         if (righthanded)
-            qry.bindValue(":hand_dom", "right");
+            qryParticipant.bindValue(":hand_dom", "right");
         else
-            qry.bindValue(":hand_dom", "left");
+            qryParticipant.bindValue(":hand_dom", "left");
+
+        qryParticipant.bindValue(":trial_date", QDate::currentDate());
+
+        qryParticipant.exec();
+
+        QSqlQuery qryConfig(db);
+        QString inStatementConfig = "UPDATE trialconfig set mode = :mode, roundabout = :roundabout, vehicle_traffic = :vehicle_traffic, unsafe_crossing = :unsafe_crossing, traffic_intensity = :traffic_intensity, vehicle_quantity = :vehicle_quantity, trial_quantity = :trial_quantity, participant_height = :participant_height, directional_control = :directional_control, object_tracking = :object_tracking, trial_date = :trial_date where reference_id = :reference_id;";
+
+        qryConfig.prepare(inStatementConfig);
+
+        qryConfig.bindValue(":reference_id", referenceid);
 
         if (demo)
-            qry.bindValue(":mode", "demo");
+            qryConfig.bindValue(":mode", "demo");
         else
-            qry.bindValue(":mode", "trial");
+            qryConfig.bindValue(":mode", "trial");
 
         if (singlelane)
-            qry.bindValue(":roundabout", 1);
+            qryConfig.bindValue(":roundabout", 1);
         else
-            qry.bindValue(":roundabout", 2);
+            qryConfig.bindValue(":roundabout", 2);
 
         if (trafficenable)
-            qry.bindValue(":vehicle_traffic", 1);
+            qryConfig.bindValue(":vehicle_traffic", 1);
         else
-            qry.bindValue(":vehicle_traffic", 0);
+            qryConfig.bindValue(":vehicle_traffic", 0);
 
         if (unsafeenable)
-            qry.bindValue(":unsafe_crossing", 1);
+            qryConfig.bindValue(":unsafe_crossing", 1);
         else
-            qry.bindValue(":unsafe_crossing", 0);
+            qryConfig.bindValue(":unsafe_crossing", 0);
 
-        qry.bindValue(":vehicle_quantity", vehiclequantityslider);
-        qry.bindValue(":traffic_intensity", intensityslider);
-        qry.bindValue(":trial_quantity", trialquantity);
-        qry.bindValue(":participant_height", participantheight);
+        qryConfig.bindValue(":vehicle_quantity", vehiclequantityslider);
+        qryConfig.bindValue(":traffic_intensity", intensityslider);
+        qryConfig.bindValue(":trial_quantity", trialquantity);
+        qryConfig.bindValue(":participant_height", participantheight);
 
         if (shoulderControl)
-            qry.bindValue(":directional_control", "shoulder");
+            qryConfig.bindValue(":directional_control", "shoulder");
         else
-            qry.bindValue(":directional_control", "head");
+            qryConfig.bindValue(":directional_control", "head");
 
         if (neongreen)
-            qry.bindValue(":object_tracking", "green");
+            qryConfig.bindValue(":object_tracking", "green");
         else if(neonpink)
-            qry.bindValue(":object_tracking", "pink");
+            qryConfig.bindValue(":object_tracking", "pink");
         else
-            qry.bindValue(":object_tracking", "orange");
+            qryConfig.bindValue(":object_tracking", "orange");
 
-        qry.bindValue(":trial_date", QDate::currentDate());
+        qryConfig.bindValue(":trial_date", QDate::currentDate());
 
-        qry.exec();
+        qryConfig.exec();
     }
     else
     {
@@ -447,7 +459,7 @@ void Demographics::get_last_id()
     //printf("GetlastID called \n");
     if (db.isOpen())
     {
-        QString readStatement = ("SELECT reference_id FROM loadconfig order by reference_id desc limit 1");
+        QString readStatement = ("SELECT reference_id FROM trialconfig order by reference_id desc limit 1");
         QSqlQuery qry(db);
 
         if (qry.exec(readStatement))
@@ -468,13 +480,14 @@ void Demographics::get_last_id()
     {
         qDebug() << "Demographics failed to open database connection to pull data.";
     }
+
 }
 
 void Demographics::write_new_id()
 {
     if (db.isOpen())
     {
-        QString inStatement = "INSERT INTO loadconfig (reference_id) VALUES (:reference_id)";
+        QString inStatement = "INSERT INTO trialconfig (reference_id) VALUES (:reference_id)";
         QSqlQuery qry(db);
 
         qry.prepare(inStatement);
@@ -483,12 +496,48 @@ void Demographics::write_new_id()
 
         qry.exec();
     }
-        else
-        {
-            if (db.lastError().isValid());
-                qDebug() << db.lastError();
-                qDebug() << "Demographics failed to open database connection to insert data.";
-        }
+    else
+    {
+        if (db.lastError().isValid());
+        qDebug() << db.lastError();
+        qDebug() << "Demographics failed to open database connection to insert data.";
+    }
+
+    if (db.isOpen())
+    {
+        QString inStatement = "INSERT INTO participantdata (reference_id) VALUES (:reference_id)";
+        QSqlQuery qry(db);
+
+        qry.prepare(inStatement);
+
+        qry.bindValue(":reference_id", referenceid);
+
+        qry.exec();
+    }
+    else
+    {
+        if (db.lastError().isValid());
+        qDebug() << db.lastError();
+        qDebug() << "Demographics failed to open database connection to insert data.";
+    }
+
+    if (db.isOpen())
+    {
+        QString inStatement = "INSERT INTO performancedata (reference_id) VALUES (:reference_id)";
+        QSqlQuery qry(db);
+
+        qry.prepare(inStatement);
+
+        qry.bindValue(":reference_id", referenceid);
+
+        qry.exec();
+    }
+    else
+    {
+        if (db.lastError().isValid());
+        qDebug() << db.lastError();
+        qDebug() << "Demographics failed to open database connection to insert data.";
+    }
 }
 
 void Demographics::on_shoulderControl_clicked()
