@@ -172,10 +172,11 @@ QString Data::setCars(int pid) {
     file[CARS].open(QIODevice::WriteOnly | QIODevice::Text);
     text[CARS].setFieldWidth(10);
 
-    return id;
+    return "0";
 }
 
-void Data::writeCars_trial(QString trial, double time, bool trials, bool practice, bool white, bool failed) {
+void Data::writeCars_trial(QString trial, double time, bool trials, bool practice, bool white, bool failed)
+{
     if (trials)
         text[CARS] << "starttrials_" + trial;
     else if (practice)
@@ -189,10 +190,12 @@ void Data::writeCars_trial(QString trial, double time, bool trials, bool practic
     text[CARS] << time;
 }
 
-void Data::writeCars(double a, double b, double c) {
-    text[CARS] << a << b << c << " ";
+void Data::writeCars(double a, double b, double c)
+{
+//    text[CARS] << a << b << c << " ";
 }
 
-void Data::writeCars_endl() {
-    text[CARS] << endl;
+void Data::writeCars_endl()
+{
+//    text[CARS] << endl;
 }
