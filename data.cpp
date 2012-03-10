@@ -5,33 +5,7 @@ Data::Data()
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//DEMOGRAPHICS
-
-//void Data::writeDemographics(int pid, QString age, QString sex, QString dominance)
-//{
-//    QString f = "Demographics";
-//    if (!QDir(f).exists())
-//        QDir().mkdir(f);
-
-//    QString personId = QString::number(pid);
-//    if (pid < 10)
-//        personId.prepend("0");
-//    filename[DEMOGRAPHICS] = QString("Demographics/") + "P"+ personId + QString("_Demographics.txt");
-//    file[DEMOGRAPHICS].setFileName(filename[DEMOGRAPHICS]);
-//    text[DEMOGRAPHICS].setDevice(&file[DEMOGRAPHICS]);
-
-//    file[DEMOGRAPHICS].open(QIODevice::WriteOnly | QIODevice::Text);
-
-//    text[DEMOGRAPHICS].setFieldWidth(20);
-//    text[DEMOGRAPHICS] << "PID" << "Age" << "Sex" << "Dominance" << endl;
-//    text[DEMOGRAPHICS] << personId << age << sex << dominance;
-
-//    file[DEMOGRAPHICS].close();
-//}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//SPECS
-
+//SPECS - these are now the only two functions in data that do anything
 void Data::read_specs()
 {
     numberOfTrials=60;
@@ -81,21 +55,6 @@ void Data::read_specs()
 //    }
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//DATA
-
-void Data::writeIntro(QString f) {
-//    filename[DATA] = f;
-//    if (!QDir("Data").exists())
-//        QDir().mkdir("Data");
-
-//    file[DATA].setFileName(filename[DATA]);
-//    text[DATA].setDevice(&file[DATA]);
-//    file[DATA].open(QIODevice::WriteOnly | QIODevice::Text);
-//    text[DATA].setFieldWidth(20);
-//    text[DATA] <<  "trial" << "start" << "time_starttrial" << "time_bumper" << "time_step" << "time_latency" << "time_arrive" << "time_crossing" << "steps" << "gap_chosen" << endl;
-}
-
 void Data::updateinfo(int p) {
     if (start == "A") {
         if (position == SIDE && p == ROAD) {
@@ -120,6 +79,46 @@ void Data::updateinfo(int p) {
         }
     }
     position = p;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//DEMOGRAPHICS
+
+//void Data::writeDemographics(int pid, QString age, QString sex, QString dominance)
+//{
+//    QString f = "Demographics";
+//    if (!QDir(f).exists())
+//        QDir().mkdir(f);
+
+//    QString personId = QString::number(pid);
+//    if (pid < 10)
+//        personId.prepend("0");
+//    filename[DEMOGRAPHICS] = QString("Demographics/") + "P"+ personId + QString("_Demographics.txt");
+//    file[DEMOGRAPHICS].setFileName(filename[DEMOGRAPHICS]);
+//    text[DEMOGRAPHICS].setDevice(&file[DEMOGRAPHICS]);
+
+//    file[DEMOGRAPHICS].open(QIODevice::WriteOnly | QIODevice::Text);
+
+//    text[DEMOGRAPHICS].setFieldWidth(20);
+//    text[DEMOGRAPHICS] << "PID" << "Age" << "Sex" << "Dominance" << endl;
+//    text[DEMOGRAPHICS] << personId << age << sex << dominance;
+
+//    file[DEMOGRAPHICS].close();
+//}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//DATA
+
+void Data::writeIntro(QString f) {
+//    filename[DATA] = f;
+//    if (!QDir("Data").exists())
+//        QDir().mkdir("Data");
+
+//    file[DATA].setFileName(filename[DATA]);
+//    text[DATA].setDevice(&file[DATA]);
+//    file[DATA].open(QIODevice::WriteOnly | QIODevice::Text);
+//    text[DATA].setFieldWidth(20);
+//    text[DATA] <<  "trial" << "start" << "time_starttrial" << "time_bumper" << "time_step" << "time_latency" << "time_arrive" << "time_crossing" << "steps" << "gap_chosen" << endl;
 }
 
 void Data::writeData(QString trial, bool failed) {

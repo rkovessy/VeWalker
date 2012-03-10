@@ -23,9 +23,9 @@ class Data
 public:
     Data();
 
-    QString filename[5];
-    QFile file[5];
-    QTextStream text[5];
+//    QString filename[5];
+//    QFile file[5];
+//    QTextStream text[5];
 
     double time; // time program has been running
 
