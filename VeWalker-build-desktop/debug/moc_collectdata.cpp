@@ -1,15 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'collectdata.h'
 **
-<<<<<<< HEAD
-<<<<<<< .merge_file_a04932
-** Created: Wed Nov 30 11:05:29 2011
-=======
-** Created: Fri Mar 9 13:59:05 2012
->>>>>>> .merge_file_a04408
-=======
-** Created: Fri Mar 9 16:42:51 2012
->>>>>>> origin/rob_eod_0309
+** Created: Sat Mar 10 16:15:07 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!

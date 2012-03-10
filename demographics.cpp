@@ -7,7 +7,8 @@ Demographics::Demographics(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->dateupperrange->setDate(QDate::currentDate());
-    referenceid=1;
+    referenceid=0;
+    calibrateAccessedFlag = false;
     db = QSqlDatabase::addDatabase("QPSQL", "demoConnect");
     db.setHostName("localhost");
     db.setUserName("postgres");
@@ -113,6 +114,24 @@ void Demographics::database_insert_config()
         qryConfig.bindValue(":trial_date", QDate::currentDate());
 
         qryConfig.exec();
+
+        if (calibrateAccessedFlag == false)
+        {
+            QSqlQuery qryCalibrateVals(db);
+            QString inStatementCalibrate = "UPDATE trialconfig set left_calibration = :left_calibration, right_calibration = :right_calibration, center_calibration = :center_calibration where reference_id = :reference_id;";
+
+            qryCalibrateVals.prepare(inStatementCalibrate);
+
+            qryCalibrateVals.bindValue(":reference_id", referenceid);
+
+            qryCalibrateVals.bindValue(":left_calibration", 0.0);
+
+            qryCalibrateVals.bindValue(":right_calibration", 0.0);
+
+            qryCalibrateVals.bindValue(":center_calibration", 0.0);
+
+            qryCalibrateVals.exec();
+        }
     }
     else
     {
@@ -385,6 +404,7 @@ void Demographics::on_calibrate_clicked()
 {
     calibrateRotation *calibrateMe = new calibrateRotation();
     calibrateMe->show();
+    calibrateAccessedFlag = true;
 }
 
 void Demographics::on_quit_clicked()

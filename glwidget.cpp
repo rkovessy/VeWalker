@@ -332,14 +332,7 @@ GLuint GLWidget::makeObject()
 //Determine value of angularAccelActual
 void GLWidget::determineAngularAccel(double alphaActual)
 {
-    angularAccelMaximum = 1000.0; //Maximum turning speed, needs to be calibrated
-    alphaRightMin = .000485; //5 degree tolerance
-    alphaLeftMin = -.000485;
-
-    //Call alphaLeftMax and alphaRightMax values from the DB
-    alphaLeftMax = 0;
-    alphaRightMax = 0;
-
+    get_calibration_settings();
     //If it has not been calibrated, just use a default weighting to turn
     if (alphaRightMax == 0 && alphaLeftMax ==0)
     {
@@ -349,18 +342,24 @@ void GLWidget::determineAngularAccel(double alphaActual)
         else if (alphaActual < alphaLeftMin)
             angularAccelActual = -1*angularAccelMaximum;
         else
-            angularAccelActual = alphaActual;
+            angularAccelActual = 0;
     }
+
+    //Actual turning algorithm if the camera has been calibrated
     else
     {
-        if (alphaActual > 0.0)
+        //Adjust values based on center value captured during calibration
+        alphaActual -= alphaZeroPosition;
+        if (alphaActual > alphaRightMin)
         {
             angularAccelActual = (abs(alphaRightMax)-abs(alphaActual))/(abs(alphaRightMax)-abs(alphaRightMin));
         }
-        else
+        else if (alphaActual < alphaLeftMin)
         {
             angularAccelActual = -1*(abs(alphaLeftMax)-abs(alphaActual))/(abs(alphaLeftMax)-abs(alphaLeftMin));
         }
+        else
+            angularAccelActual = 0;
     }
 }
 
@@ -385,6 +384,76 @@ void GLWidget::get_tracker_settings()
         {
             while(qry.next()){
                 directionalControlMethod = qry.value(0).toString();
+                //qDebug() << "Control selected from DB:" << directionalControlMethod;
+            }
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+
+    }
+    else
+    {
+        qDebug() << "GLWidget failed to open database connection to pull data.";
+    }
+}
+
+void GLWidget::get_calibration_settings()
+{
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT left_calibration FROM trialconfig order by reference_id desc limit 1");
+        QSqlQuery qry(db);
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                alphaLeftMax = qry.value(0).toDouble();
+                //qDebug() << "Control selected from DB:" << directionalControlMethod;
+            }
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+
+    }
+    else
+    {
+        qDebug() << "GLWidget failed to open database connection to pull data.";
+    }
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT right_calibration FROM trialconfig order by reference_id desc limit 1");
+        QSqlQuery qry(db);
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                alphaRightMax = qry.value(0).toDouble();
+                //qDebug() << "Control selected from DB:" << directionalControlMethod;
+            }
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+
+    }
+    else
+    {
+        qDebug() << "GLWidget failed to open database connection to pull data.";
+    }
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT center_calibration FROM trialconfig order by reference_id desc limit 1");
+        QSqlQuery qry(db);
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                alphaZeroPosition = qry.value(0).toDouble();
                 //qDebug() << "Control selected from DB:" << directionalControlMethod;
             }
         }

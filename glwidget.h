@@ -46,6 +46,7 @@
      void set_window(int x, int y); // sets window_height/width
      void get_tracker_settings();
      void database_connect();
+     void get_calibration_settings();
 
  public slots:
      void setXRotation(double angle);
@@ -87,9 +88,7 @@
      double zTrans; // position up from ground
      double elevated; // elevates zTrans when pedestrian is on sidewalk
      double angularAccelActual; //Angular acceleration of avatar
-     double angularAccelMaximum; //Maximum turning speed, needs to be calibrated
-     double alphaRightMin;
-     double alphaLeftMin;
+     double alphaZeroPosition;
      double alphaRightMax;
      double alphaLeftMax;
      double alphaActual;
@@ -97,6 +96,9 @@
      double headRot;
      QPoint lastPos;
      QColor backgroundColor;
+     const static double alphaRightMin = .000485;
+     const static double alphaLeftMin = -.000485;
+     const static double angularAccelMaximum = 1000.0;
 
      bool hit; // whether or not pedestrian is hit
 
