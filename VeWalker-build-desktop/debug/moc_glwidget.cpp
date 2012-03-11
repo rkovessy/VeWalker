@@ -1,11 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'glwidget.h'
 **
-<<<<<<< HEAD
-** Created: Sat Mar 10 16:37:10 2012
-=======
-** Created: Sun Mar 11 16:22:05 2012
->>>>>>> origin/rob_performancevar_db
+** Created: Sun Mar 11 19:40:01 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
