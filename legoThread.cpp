@@ -55,7 +55,7 @@ LegoThread::~LegoThread()
 IplImage* LegoThread::GetThresholdedImage(IplImage* img)
 {
     // Convert the image into an HSV image
-    this->database_get_vals();
+    database_get_vals();
     IplImage* imgHSV = cvCreateImage(cvGetSize(img), 8, 3);
     cvCvtColor(img, imgHSV, CV_BGR2HSV);
     IplImage* imgThreshed1 = cvCreateImage(cvGetSize(img), 8, 1);
@@ -134,7 +134,7 @@ IplImage* LegoThread::GetDilatedImage(IplImage* img)
     //(Optional) Perform iterations of erosion on the image to filter noise
     cvErode(img, img, NULL, 1);
     //Perform iterations of dilation on the threshed image
-    cvDilate(img, img, NULL, 6);
+    cvDilate(img, img, NULL, 12);
     return img;
 }
 
@@ -262,7 +262,7 @@ void LegoThread::UpdateCamera()
     IplImage* imgBlurred = GetBlurredImage(imgResized);
     IplImage* imgThresh = GetThresholdedImage(imgBlurred);
     IplImage* imgDilated = GetDilatedImage(imgThresh);
-    cvShowImage("Processed Video", imgDilated);
+    //cvShowImage("Processed Video", imgDilated);
 
     //Get the contour vectors and store in contours
     cvFindContours(imgDilated, storage, &contours, sizeof(CvContour), CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE, cvPoint(0,0));

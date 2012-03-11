@@ -77,6 +77,7 @@ public:
     QString upperDateRange;
     bool headControl;
     bool shoulderControl;
+    bool calibrateAccessedFlag;
 
     //Data data; // writes files for demographics
      // top class for all VE code

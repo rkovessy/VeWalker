@@ -1,7 +1,11 @@
 /********************************************************************************
 ** Form generated from reading UI file 'demographics.ui'
 **
+<<<<<<< HEAD
 ** Created: Sat Mar 10 20:27:32 2012
+=======
+** Created: Sun Mar 11 16:25:59 2012
+>>>>>>> origin/rob_performancevar_db
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -17,6 +21,7 @@
 #include <QtGui/QButtonGroup>
 #include <QtGui/QDateEdit>
 #include <QtGui/QDialog>
+#include <QtGui/QGridLayout>
 #include <QtGui/QGroupBox>
 #include <QtGui/QHeaderView>
 #include <QtGui/QLabel>
@@ -24,6 +29,7 @@
 #include <QtGui/QRadioButton>
 #include <QtGui/QSlider>
 #include <QtGui/QSpinBox>
+#include <QtGui/QWidget>
 
 QT_BEGIN_NAMESPACE
 
@@ -54,19 +60,23 @@ public:
     QLabel *maxlabel1;
     QLabel *maxlabel2;
     QGroupBox *groupBox_2;
-    QRadioButton *neonpink;
-    QPushButton *calibrate;
+    QWidget *layoutWidget;
+    QGridLayout *gridLayout;
     QLabel *heightlabel;
     QSpinBox *participantheight;
+    QLabel *trackinglabel_2;
+    QRadioButton *shoulderControl;
+    QRadioButton *headControl;
     QLabel *trackinglabel;
     QRadioButton *neongreen;
     QRadioButton *neonorange;
+    QRadioButton *neonpink;
+    QWidget *layoutWidget1;
+    QGridLayout *gridLayout_2;
     QLabel *rotationalspeed;
+    QPushButton *calibrate;
     QLabel *displaylabel;
     QPushButton *datum;
-    QLabel *trackinglabel_2;
-    QRadioButton *headControl;
-    QRadioButton *shoulderControl;
     QGroupBox *groupBox_3;
     QLabel *agelabel;
     QSpinBox *age;
@@ -169,15 +179,20 @@ public:
         intensityslider->setObjectName(QString::fromUtf8("intensityslider"));
         intensityslider->setEnabled(true);
         intensityslider->setGeometry(QRect(172, 141, 151, 24));
-        intensityslider->setMaximum(10);
+        intensityslider->setMinimum(1);
+        intensityslider->setMaximum(20);
+        intensityslider->setValue(1);
         intensityslider->setOrientation(Qt::Horizontal);
         intensityslider->setTickPosition(QSlider::TicksBelow);
+        intensityslider->setTickInterval(1);
         vehiclequantityslider = new QSlider(groupBox_1);
         vehiclequantityslider->setObjectName(QString::fromUtf8("vehiclequantityslider"));
         vehiclequantityslider->setGeometry(QRect(172, 171, 151, 24));
-        vehiclequantityslider->setMaximum(10);
+        vehiclequantityslider->setMinimum(1);
+        vehiclequantityslider->setMaximum(20);
         vehiclequantityslider->setOrientation(Qt::Horizontal);
         vehiclequantityslider->setTickPosition(QSlider::TicksBelow);
+        vehiclequantityslider->setTickInterval(1);
         vehiclequantitylabel = new QLabel(groupBox_1);
         vehiclequantitylabel->setObjectName(QString::fromUtf8("vehiclequantitylabel"));
         vehiclequantitylabel->setGeometry(QRect(14, 171, 130, 18));
@@ -185,7 +200,7 @@ public:
         trafficintensitylabel = new QLabel(groupBox_1);
         trafficintensitylabel->setObjectName(QString::fromUtf8("trafficintensitylabel"));
         trafficintensitylabel->setEnabled(true);
-        trafficintensitylabel->setGeometry(QRect(14, 141, 101, 18));
+        trafficintensitylabel->setGeometry(QRect(14, 141, 121, 18));
         trafficintensitylabel->setFont(font1);
         trafficintensitylabel->setTextFormat(Qt::AutoText);
         unsafedisable = new QRadioButton(groupBox_1);
@@ -229,87 +244,127 @@ public:
         groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
         groupBox_2->setGeometry(QRect(10, 250, 371, 181));
         groupBox_2->setFont(font);
-        neonpink = new QRadioButton(groupBox_2);
-        neonpink->setObjectName(QString::fromUtf8("neonpink"));
-        neonpink->setGeometry(QRect(317, 84, 48, 22));
+        layoutWidget = new QWidget(groupBox_2);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(11, 26, 359, 82));
+        gridLayout = new QGridLayout(layoutWidget);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        gridLayout->setContentsMargins(0, 0, 0, 0);
+        heightlabel = new QLabel(layoutWidget);
+        heightlabel->setObjectName(QString::fromUtf8("heightlabel"));
+        heightlabel->setFont(font1);
+
+        gridLayout->addWidget(heightlabel, 0, 0, 1, 1);
+
+        participantheight = new QSpinBox(layoutWidget);
+        participantheight->setObjectName(QString::fromUtf8("participantheight"));
+        participantheight->setFont(font1);
+        participantheight->setValue(70);
+
+        gridLayout->addWidget(participantheight, 0, 1, 1, 1);
+
+        trackinglabel_2 = new QLabel(layoutWidget);
+        trackinglabel_2->setObjectName(QString::fromUtf8("trackinglabel_2"));
+        trackinglabel_2->setMaximumSize(QSize(130, 16777215));
+        trackinglabel_2->setFont(font1);
+
+        gridLayout->addWidget(trackinglabel_2, 1, 0, 1, 1);
+
+        shoulderControl = new QRadioButton(layoutWidget);
+        shoulderControl->setObjectName(QString::fromUtf8("shoulderControl"));
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(neonpink->sizePolicy().hasHeightForWidth());
-        neonpink->setSizePolicy(sizePolicy);
-        neonpink->setFont(font1);
-        neonpink->setAutoExclusive(false);
-        calibrate = new QPushButton(groupBox_2);
-        calibrate->setObjectName(QString::fromUtf8("calibrate"));
-        calibrate->setGeometry(QRect(159, 112, 75, 26));
-        calibrate->setFont(font1);
-        calibrate->setCheckable(false);
-        calibrate->setDefault(true);
-        calibrate->setFlat(false);
-        heightlabel = new QLabel(groupBox_2);
-        heightlabel->setObjectName(QString::fromUtf8("heightlabel"));
-        heightlabel->setGeometry(QRect(11, 26, 142, 18));
-        heightlabel->setFont(font1);
-        participantheight = new QSpinBox(groupBox_2);
-        participantheight->setObjectName(QString::fromUtf8("participantheight"));
-        participantheight->setGeometry(QRect(159, 26, 39, 24));
-        participantheight->setFont(font1);
-        participantheight->setValue(70);
-        trackinglabel = new QLabel(groupBox_2);
+        sizePolicy.setHeightForWidth(shoulderControl->sizePolicy().hasHeightForWidth());
+        shoulderControl->setSizePolicy(sizePolicy);
+        shoulderControl->setFont(font1);
+        shoulderControl->setChecked(true);
+        shoulderControl->setAutoExclusive(false);
+
+        gridLayout->addWidget(shoulderControl, 1, 1, 1, 1);
+
+        headControl = new QRadioButton(layoutWidget);
+        headControl->setObjectName(QString::fromUtf8("headControl"));
+        sizePolicy.setHeightForWidth(headControl->sizePolicy().hasHeightForWidth());
+        headControl->setSizePolicy(sizePolicy);
+        headControl->setFont(font1);
+        headControl->setCheckable(true);
+        headControl->setChecked(false);
+        headControl->setAutoExclusive(false);
+
+        gridLayout->addWidget(headControl, 1, 2, 1, 1);
+
+        trackinglabel = new QLabel(layoutWidget);
         trackinglabel->setObjectName(QString::fromUtf8("trackinglabel"));
-        trackinglabel->setGeometry(QRect(11, 84, 103, 18));
         trackinglabel->setFont(font1);
-        neongreen = new QRadioButton(groupBox_2);
+
+        gridLayout->addWidget(trackinglabel, 2, 0, 1, 1);
+
+        neongreen = new QRadioButton(layoutWidget);
         neongreen->setObjectName(QString::fromUtf8("neongreen"));
-        neongreen->setGeometry(QRect(159, 84, 62, 22));
         sizePolicy.setHeightForWidth(neongreen->sizePolicy().hasHeightForWidth());
         neongreen->setSizePolicy(sizePolicy);
         neongreen->setFont(font1);
         neongreen->setCheckable(true);
         neongreen->setChecked(true);
         neongreen->setAutoExclusive(false);
-        neonorange = new QRadioButton(groupBox_2);
+
+        gridLayout->addWidget(neongreen, 2, 1, 1, 1);
+
+        neonorange = new QRadioButton(layoutWidget);
         neonorange->setObjectName(QString::fromUtf8("neonorange"));
-        neonorange->setGeometry(QRect(240, 84, 71, 22));
         sizePolicy.setHeightForWidth(neonorange->sizePolicy().hasHeightForWidth());
         neonorange->setSizePolicy(sizePolicy);
         neonorange->setFont(font1);
         neonorange->setAutoExclusive(false);
-        rotationalspeed = new QLabel(groupBox_2);
+
+        gridLayout->addWidget(neonorange, 2, 2, 1, 1);
+
+        neonpink = new QRadioButton(layoutWidget);
+        neonpink->setObjectName(QString::fromUtf8("neonpink"));
+        sizePolicy.setHeightForWidth(neonpink->sizePolicy().hasHeightForWidth());
+        neonpink->setSizePolicy(sizePolicy);
+        neonpink->setFont(font1);
+        neonpink->setAutoExclusive(false);
+
+        gridLayout->addWidget(neonpink, 2, 3, 1, 1);
+
+        layoutWidget1 = new QWidget(groupBox_2);
+        layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(11, 112, 291, 60));
+        gridLayout_2 = new QGridLayout(layoutWidget1);
+        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
+        gridLayout_2->setContentsMargins(0, 0, 0, 0);
+        rotationalspeed = new QLabel(layoutWidget1);
         rotationalspeed->setObjectName(QString::fromUtf8("rotationalspeed"));
-        rotationalspeed->setGeometry(QRect(11, 112, 112, 18));
         rotationalspeed->setFont(font1);
-        displaylabel = new QLabel(groupBox_2);
+
+        gridLayout_2->addWidget(rotationalspeed, 0, 0, 1, 1);
+
+        calibrate = new QPushButton(layoutWidget1);
+        calibrate->setObjectName(QString::fromUtf8("calibrate"));
+        calibrate->setFont(font1);
+        calibrate->setCheckable(false);
+        calibrate->setDefault(true);
+        calibrate->setFlat(false);
+
+        gridLayout_2->addWidget(calibrate, 0, 1, 1, 1);
+
+        displaylabel = new QLabel(layoutWidget1);
         displaylabel->setObjectName(QString::fromUtf8("displaylabel"));
-        displaylabel->setGeometry(QRect(11, 144, 50, 18));
         displaylabel->setFont(font1);
-        datum = new QPushButton(groupBox_2);
+
+        gridLayout_2->addWidget(displaylabel, 1, 0, 1, 1);
+
+        datum = new QPushButton(layoutWidget1);
         datum->setObjectName(QString::fromUtf8("datum"));
-        datum->setGeometry(QRect(159, 144, 75, 26));
         datum->setFont(font1);
         datum->setCheckable(false);
         datum->setDefault(true);
         datum->setFlat(false);
-        trackinglabel_2 = new QLabel(groupBox_2);
-        trackinglabel_2->setObjectName(QString::fromUtf8("trackinglabel_2"));
-        trackinglabel_2->setGeometry(QRect(11, 56, 116, 18));
-        trackinglabel_2->setFont(font1);
-        headControl = new QRadioButton(groupBox_2);
-        headControl->setObjectName(QString::fromUtf8("headControl"));
-        headControl->setGeometry(QRect(159, 56, 57, 22));
-        sizePolicy.setHeightForWidth(headControl->sizePolicy().hasHeightForWidth());
-        headControl->setSizePolicy(sizePolicy);
-        headControl->setFont(font1);
-        headControl->setCheckable(true);
-        headControl->setChecked(true);
-        headControl->setAutoExclusive(false);
-        shoulderControl = new QRadioButton(groupBox_2);
-        shoulderControl->setObjectName(QString::fromUtf8("shoulderControl"));
-        shoulderControl->setGeometry(QRect(240, 56, 78, 22));
-        sizePolicy.setHeightForWidth(shoulderControl->sizePolicy().hasHeightForWidth());
-        shoulderControl->setSizePolicy(sizePolicy);
-        shoulderControl->setFont(font1);
-        shoulderControl->setAutoExclusive(false);
+
+        gridLayout_2->addWidget(datum, 1, 1, 1, 1);
+
         groupBox_3 = new QGroupBox(Demographics);
         groupBox_3->setObjectName(QString::fromUtf8("groupBox_3"));
         groupBox_3->setGeometry(QRect(410, 10, 291, 141));
@@ -440,36 +495,39 @@ public:
         trafficlabel->setText(QApplication::translate("Demographics", "Vehicle traffic:", 0, QApplication::UnicodeUTF8));
         trialquantitylabel->setText(QApplication::translate("Demographics", "Number of trials:", 0, QApplication::UnicodeUTF8));
         vehiclequantitylabel->setText(QApplication::translate("Demographics", "Number of vehicles:", 0, QApplication::UnicodeUTF8));
-        trafficintensitylabel->setText(QApplication::translate("Demographics", "Traffic intensty:", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_TOOLTIP
+        trafficintensitylabel->setToolTip(QApplication::translate("Demographics", "Average time between vehicles based on a Poisson distribution.", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_TOOLTIP
+        trafficintensitylabel->setText(QApplication::translate("Demographics", "Interarrival time:", 0, QApplication::UnicodeUTF8));
         unsafedisable->setText(QApplication::translate("Demographics", "Disable", 0, QApplication::UnicodeUTF8));
         unsafeenable->setText(QApplication::translate("Demographics", "Enable", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
-        unsafeintensitylabel->setToolTip(QApplication::translate("Demographics", "Inter-vehicle distance prevents safe crossing.", 0, QApplication::UnicodeUTF8));
+        unsafeintensitylabel->setToolTip(QApplication::translate("Demographics", "Intervehicle distance set to constant of 5 seconds.", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
         unsafeintensitylabel->setText(QApplication::translate("Demographics", "Unsafe crossing:", 0, QApplication::UnicodeUTF8));
-        minlabel1->setText(QApplication::translate("Demographics", "Min", 0, QApplication::UnicodeUTF8));
-        minlabel2->setText(QApplication::translate("Demographics", "0", 0, QApplication::UnicodeUTF8));
-        maxlabel1->setText(QApplication::translate("Demographics", "Max", 0, QApplication::UnicodeUTF8));
-        maxlabel2->setText(QApplication::translate("Demographics", "10", 0, QApplication::UnicodeUTF8));
+        minlabel1->setText(QApplication::translate("Demographics", "1", 0, QApplication::UnicodeUTF8));
+        minlabel2->setText(QApplication::translate("Demographics", "1", 0, QApplication::UnicodeUTF8));
+        maxlabel1->setText(QApplication::translate("Demographics", "20", 0, QApplication::UnicodeUTF8));
+        maxlabel2->setText(QApplication::translate("Demographics", "20", 0, QApplication::UnicodeUTF8));
         groupBox_2->setTitle(QApplication::translate("Demographics", "Simulation Calibration", 0, QApplication::UnicodeUTF8));
+        heightlabel->setText(QApplication::translate("Demographics", "Participant height (in):", 0, QApplication::UnicodeUTF8));
+        trackinglabel_2->setText(QApplication::translate("Demographics", "Rotational control", 0, QApplication::UnicodeUTF8));
+        shoulderControl->setText(QApplication::translate("Demographics", "Shoulder", 0, QApplication::UnicodeUTF8));
+        headControl->setText(QApplication::translate("Demographics", "Head", 0, QApplication::UnicodeUTF8));
+        trackinglabel->setText(QApplication::translate("Demographics", "Object tracking:", 0, QApplication::UnicodeUTF8));
+        neongreen->setText(QApplication::translate("Demographics", "Green", 0, QApplication::UnicodeUTF8));
+        neonorange->setText(QApplication::translate("Demographics", "Orange", 0, QApplication::UnicodeUTF8));
         neonpink->setText(QApplication::translate("Demographics", "Pink", 0, QApplication::UnicodeUTF8));
+        rotationalspeed->setText(QApplication::translate("Demographics", "Rotational speed:", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
         calibrate->setToolTip(QApplication::translate("Demographics", "Calibrate rotational speed based on lean extents.", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
         calibrate->setText(QApplication::translate("Demographics", "Calibrate", 0, QApplication::UnicodeUTF8));
-        heightlabel->setText(QApplication::translate("Demographics", "Participant height (in):", 0, QApplication::UnicodeUTF8));
-        trackinglabel->setText(QApplication::translate("Demographics", "Object tracking:", 0, QApplication::UnicodeUTF8));
-        neongreen->setText(QApplication::translate("Demographics", "Green", 0, QApplication::UnicodeUTF8));
-        neonorange->setText(QApplication::translate("Demographics", "Orange", 0, QApplication::UnicodeUTF8));
-        rotationalspeed->setText(QApplication::translate("Demographics", "Rotational speed:", 0, QApplication::UnicodeUTF8));
         displaylabel->setText(QApplication::translate("Demographics", "Display:", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
         datum->setToolTip(QApplication::translate("Demographics", "Calibrate zero position of head.", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
         datum->setText(QApplication::translate("Demographics", "Datum", 0, QApplication::UnicodeUTF8));
-        trackinglabel_2->setText(QApplication::translate("Demographics", "Rotational control:", 0, QApplication::UnicodeUTF8));
-        headControl->setText(QApplication::translate("Demographics", "Head", 0, QApplication::UnicodeUTF8));
-        shoulderControl->setText(QApplication::translate("Demographics", "Shoulder", 0, QApplication::UnicodeUTF8));
         groupBox_3->setTitle(QApplication::translate("Demographics", "Participant Background Information", 0, QApplication::UnicodeUTF8));
         agelabel->setText(QApplication::translate("Demographics", "Age:", 0, QApplication::UnicodeUTF8));
         participantnumberlabel->setText(QApplication::translate("Demographics", "Participant number: ", 0, QApplication::UnicodeUTF8));

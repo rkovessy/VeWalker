@@ -40,7 +40,8 @@ SOURCES += \
     popupscreen.cpp \
     vuzixthread.cpp \
     arduino.cpp \
-    calibraterotation.cpp
+    calibraterotation.cpp \
+    poisson.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -86,7 +87,8 @@ HEADERS  += \
     arduino.h \
     serialportinfo.h \
     serialport.h \
-    calibraterotation.h
+    calibraterotation.h \
+    poisson.h
 
 FORMS    += \
     mainwindow.ui \
@@ -160,6 +162,14 @@ INCLUDEPATH += \
     C:/qserialport/qserialdevice-qserialdevice/src
 
 include(C:/qserialport/qserialdevice-qserialdevice/src/src.pri)
+
+
+
+
+
+
+
+
 
 
 

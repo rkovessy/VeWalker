@@ -18,6 +18,4 @@ void VE::start(int pid) {
     collectdata.set(height);
     mywindow.show();
     mywindow.set(pid);
-    //cvNamedWindow("Raw Video");
-    //cvNamedWindow("Processed Video");
 }

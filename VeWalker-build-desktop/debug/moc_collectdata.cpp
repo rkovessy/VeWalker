@@ -1,7 +1,11 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'collectdata.h'
 **
+<<<<<<< HEAD
 ** Created: Sat Mar 10 16:37:13 2012
+=======
+** Created: Sun Mar 11 16:22:08 2012
+>>>>>>> origin/rob_performancevar_db
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!

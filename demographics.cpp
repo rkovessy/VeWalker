@@ -7,7 +7,8 @@ Demographics::Demographics(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->dateupperrange->setDate(QDate::currentDate());
-    referenceid=1;
+    referenceid=0;
+    calibrateAccessedFlag = false;
     db = QSqlDatabase::addDatabase("QPSQL", "demoConnect");
     db.setHostName("localhost");
     db.setUserName("postgres");
@@ -113,6 +114,24 @@ void Demographics::database_insert_config()
         qryConfig.bindValue(":trial_date", QDate::currentDate());
 
         qryConfig.exec();
+
+        if (calibrateAccessedFlag == false)
+        {
+            QSqlQuery qryCalibrateVals(db);
+            QString inStatementCalibrate = "UPDATE trialconfig set left_calibration = :left_calibration, right_calibration = :right_calibration, center_calibration = :center_calibration where reference_id = :reference_id;";
+
+            qryCalibrateVals.prepare(inStatementCalibrate);
+
+            qryCalibrateVals.bindValue(":reference_id", referenceid);
+
+            qryCalibrateVals.bindValue(":left_calibration", 0.0);
+
+            qryCalibrateVals.bindValue(":right_calibration", 0.0);
+
+            qryCalibrateVals.bindValue(":center_calibration", 0.0);
+
+            qryCalibrateVals.exec();
+        }
     }
     else
     {
@@ -250,12 +269,8 @@ void Demographics::on_unsafeenable_clicked()
     //diable quantity and intensity and use unsafe traffic pattern
     ui->intensityslider->setEnabled(false);
     ui->trafficintensitylabel->setEnabled(false);
-    ui->vehiclequantityslider->setEnabled(false);
-    ui->vehiclequantitylabel->setEnabled(false);
     ui->minlabel1->setEnabled(false);
     ui->maxlabel1->setEnabled(false);
-    ui->minlabel2->setEnabled(false);
-    ui->maxlabel2->setEnabled(false);
 
     if (ui->unsafedisable->isChecked())
         ui->unsafedisable->setChecked(false);
@@ -268,12 +283,8 @@ void Demographics::on_unsafedisable_clicked()
     //enable use of traffic instenity and quantity
     ui->intensityslider->setEnabled(true);
     ui->trafficintensitylabel->setEnabled(true);
-    ui->vehiclequantityslider->setEnabled(true);
-    ui->vehiclequantitylabel->setEnabled(true);
     ui->minlabel1->setEnabled(true);
     ui->maxlabel1->setEnabled(true);
-    ui->minlabel2->setEnabled(true);
-    ui->maxlabel2->setEnabled(true);
 
     if(ui->unsafeenable->isChecked())
         ui->unsafeenable->setChecked(false);
@@ -385,6 +396,7 @@ void Demographics::on_calibrate_clicked()
 {
     calibrateRotation *calibrateMe = new calibrateRotation();
     calibrateMe->show();
+    calibrateAccessedFlag = true;
 }
 
 void Demographics::on_quit_clicked()
@@ -425,8 +437,6 @@ void Demographics::on_quit_clicked()
     }
     else
     {
-        //data.writeDemographics(id, age, sex, dominance);
-
         virtuale.start(participantid);
         this->hide();
     }
@@ -492,23 +502,23 @@ void Demographics::write_new_id()
         qDebug() << "Demographics failed to open database connection to insert data.";
     }
 
-    if (db.isOpen())
-    {
-        QString inStatement = "INSERT INTO performancedata (reference_id) VALUES (:reference_id)";
-        QSqlQuery qry(db);
+//    if (db.isOpen())
+//    {
+//        QString inStatement = "INSERT INTO performancedata (reference_id) VALUES (:reference_id)";
+//        QSqlQuery qry(db);
 
-        qry.prepare(inStatement);
+//        qry.prepare(inStatement);
 
-        qry.bindValue(":reference_id", referenceid);
+//        qry.bindValue(":reference_id", referenceid);
 
-        qry.exec();
-    }
-    else
-    {
-        if (db.lastError().isValid());
-        qDebug() << db.lastError();
-        qDebug() << "Demographics failed to open database connection to insert data.";
-    }
+//        qry.exec();
+//    }
+//    else
+//    {
+//        if (db.lastError().isValid());
+//        qDebug() << db.lastError();
+//        qDebug() << "Demographics failed to open database connection to insert data.";
+//    }
 }
 
 void Demographics::get_last_id()
@@ -547,6 +557,13 @@ void Demographics::on_shoulderControl_clicked()
     else
         ui->shoulderControl->setChecked(true);
 
+    ui->neongreen->setEnabled(true);
+    ui->neonpink->setEnabled(true);
+    ui->neonorange->setEnabled(true);
+    ui->rotationalspeed->setEnabled(true);
+    ui->calibrate->setEnabled(true);
+    ui->trackinglabel->setEnabled(true);
+
 }
 
 void Demographics::on_headControl_clicked()
@@ -555,4 +572,11 @@ void Demographics::on_headControl_clicked()
         ui->shoulderControl->setChecked(false);
     else
         ui->headControl->setChecked(true);
+
+    ui->neongreen->setEnabled(false);
+    ui->neonpink->setEnabled(false);
+    ui->neonorange->setEnabled(false);
+    ui->trackinglabel->setEnabled(false);
+    ui->rotationalspeed->setEnabled(false);
+    ui->calibrate->setEnabled(false);
 }

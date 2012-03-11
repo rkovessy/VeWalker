@@ -89,9 +89,9 @@ void TrafficControl::update() { // pedestrian location updated, car status updat
         data.writeCars_endl();
         time += 0.02;
         data.time = time;
-        if (trial != 0)
+        if (trial >= 0) //Set to !=0 to have practise trial
             elapsed[0] += 0.02;
-        if (trial != 0 && elapsed[0] >= gaps[trial][carCounter]) {
+        if (trial >= 0 && elapsed[0] >= gaps[trial][carCounter]) { //Set to !=0 to have practise trial
             elapsed[0] = 0.0;
             carCounter++;
             if (carCounter < 6)
@@ -405,6 +405,7 @@ void TrafficControl::clicked() {
 
 void TrafficControl::database_connect()
 {
+
 }
 
 void TrafficControl::database_get_trafficenable()
@@ -436,32 +437,6 @@ void TrafficControl::database_get_trafficenable()
     }
 }
 
-void TrafficControl::database_get_traffic_intensity()
-{
-    int trafficEnable;
-    if (db.isOpen())
-    {
-        QString readStatement = ("SELECT traffic_intensity FROM trialconfig order by reference_id desc limit 1");
-        QSqlQuery qry(db);
-
-        if (qry.exec(readStatement))
-        {
-            while(qry.next()){
-                trafficIntensity = qry.value(0).toInt();
-                //qDebug() << "Number of Cars:" << numberOfCars;
-            }
-        }
-        else {
-            qDebug() << "DbError";
-            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
-        }
-    }
-    else
-    {
-        qDebug() << "TrafficControl failed to open database connection to pull data.";
-    }
-}
-
 void TrafficControl::database_get_vals()
 {
     if (db.isOpen())
@@ -485,4 +460,5 @@ void TrafficControl::database_get_vals()
     {
         qDebug() << "TrafficControl failed to open database connection to pull data.";
     }
+    numberOfCars = 5;
 }

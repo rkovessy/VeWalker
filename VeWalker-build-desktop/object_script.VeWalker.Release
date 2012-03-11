@@ -30,6 +30,7 @@ INPUT(
 ./release\vuzixthread.o
 ./release\arduino.o
 ./release\calibraterotation.o
+./release\poisson.o
 ./release\serialport.o
 ./release\serialportinfo.o
 ./release\serialportengine_p_win.o

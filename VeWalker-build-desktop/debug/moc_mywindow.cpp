@@ -1,15 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mywindow.h'
 **
-<<<<<<< HEAD
-<<<<<<< .merge_file_a05148
-** Created: Wed Nov 30 14:54:12 2011
-=======
-** Created: Fri Mar 9 13:58:58 2012
->>>>>>> .merge_file_a05136
-=======
-** Created: Fri Mar 9 16:42:45 2012
->>>>>>> origin/rob_eod_0309
+** Created: Sun Mar 11 16:22:02 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!

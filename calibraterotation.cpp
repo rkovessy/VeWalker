@@ -18,6 +18,9 @@ calibrateRotation::calibrateRotation(QWidget *parent) :
     angleRads = 0;
     rightExtentCalibrated = false;
     leftExtentCalibrated = false;
+    alphaRightActual = 0.0;
+    alphaLeftActual = 0.0;
+    alphaCenterActual = 0.0;
 }
 
 calibrateRotation::~calibrateRotation()

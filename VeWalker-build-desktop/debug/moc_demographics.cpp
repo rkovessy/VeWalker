@@ -1,7 +1,11 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'demographics.h'
 **
+<<<<<<< HEAD
 ** Created: Sat Mar 10 20:42:38 2012
+=======
+** Created: Sun Mar 11 16:27:01 2012
+>>>>>>> origin/rob_performancevar_db
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
