@@ -2,6 +2,13 @@
 #define CAR_H
 
 #include "path.h"
+#include <QSqlDatabase>
+#include <QStringList>
+#include <QtSql>
+#include <QSqlDriver>
+#include <QMessageBox>
+#include <QObject>
+#include "poisson.h"
 
 enum Signals { NONE, SIGNALLING, STOPPED }; // numbers are added to get to the number that corresponds to the right texture
 
@@ -39,6 +46,8 @@ public:
     double get_dimensions(int);
     void set_dimensions(int index, double);
     void set_id(int id); // sets occupied.id
+    void database_get_numberOfCars();
+    void connect_to_database();
 
     Status status; // status holds info for its lights
     Occupied occupied; // holds info to determine its global info
@@ -62,6 +71,8 @@ private:
     double distanceTravelled; // magnitude of travel for determining rotation of rims
     static const int numberOfLanes = 1; // number of lanes, used for determining what lane car should be in
     double dimensions[4]; // dimensions of car for randomness
+    QSqlDatabase db;
+    int numberOfCars; //VehicleQauntitySwitching
 
     bool onTrack; // whether the car is in the environment or not at the current time
 };
