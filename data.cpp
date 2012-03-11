@@ -4,63 +4,28 @@ Data::Data()
 {
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//SPECS - these are now the only two functions in data that do anything
+//Configuration settings - basically setting up the trials
 void Data::read_specs()
 {
     connect_to_database();
-    get_numberOfTrials();
+    //get_numberOfTrials();
+    numberOfTrials=60;
     get_mode();
-    get_numberOfCars();
-    get_trafficEnable();
+    //get_numberOfCars();
+    numberOfCars = 5;
+    //get_trafficEnable();
     get_trafficIntensity();
     get_unsafeCrossing();
     generate_interarrival_time();
+    get_participantId();
+    get_referenceId();
 
     for (int count = 0; count < numberOfTrials; ++count)
     {
-        speeds[count] = 60;
+        speeds[count] = 50;
         startPos[count] = "A";
         popUps[count] = "none";
-//        for (int gap = 0; gap < 5; ++gap)
-//        {
-//            gaps[count][gap] = 1;
-//        }
     }
-    //time =0;
-
-//    filename[SPECS] = "Setup/specs.txt";
-
-//    file[SPECS].setFileName(filename[SPECS]);
-//    text[SPECS].setDevice(&file[SPECS]);
-//    file[SPECS].open(QIODevice::ReadOnly);
-
-//    QString null;
-
-//    text[SPECS] >> null >> numberOfTrials;
-//    if (numberOfTrials > 100 || numberOfTrials < 1)
-//        qDebug() << "read number of trials error" << numberOfTrials;
-//    for (int count = 0; count <= 8; ++count)
-//        text[SPECS] >> null;
-//    for (int count = 0; count < numberOfTrials; ++count) {
-//        text[SPECS] >> trials[count];
-//        for (int gap = 0; gap < 5; ++gap)
-//            text[SPECS] >> gaps[count][gap];
-//        text[SPECS] >> speeds[count] >> startPos[count] >> popUps[count];
-
-//        if (trials[count].size() > 2)
-//            qDebug() << "read trials error" << trials[count];
-//        for (int gap = 0; gap < 5; ++gap)
-//            if ((speeds[count] != 0 && !(gaps[count][gap] == 2 || gaps[count][gap] == 4 || gaps[count][gap] == 6 || gaps[count][gap] == 8 || gaps[count][gap] == 10))
-//                || (speeds[count] == 0 && gaps[0][gap] != 0))
-//                qDebug() << "read gap error" << gaps[count][gap];
-//        if (speeds[count] < 0 || speeds[count] > 100)
-//            //qDebug() << "read speed error" << speeds[count];
-//        if (!(startPos[count] == "A" || startPos[count] == "B"))
-//            qDebug() << "read start position error" << startPos[count];
-//        if (!(popUps[count] == "none" || popUps[count] == "startpractice" || popUps[count] == "starttrials"))
-//            qDebug() << "read pop ups error" << popUps[count];
-//    }
 }
 
 void Data::updateinfo(int p) {
@@ -90,31 +55,6 @@ void Data::updateinfo(int p) {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//DEMOGRAPHICS
-
-//void Data::writeDemographics(int pid, QString age, QString sex, QString dominance)
-//{
-//    QString f = "Demographics";
-//    if (!QDir(f).exists())
-//        QDir().mkdir(f);
-
-//    QString personId = QString::number(pid);
-//    if (pid < 10)
-//        personId.prepend("0");
-//    filename[DEMOGRAPHICS] = QString("Demographics/") + "P"+ personId + QString("_Demographics.txt");
-//    file[DEMOGRAPHICS].setFileName(filename[DEMOGRAPHICS]);
-//    text[DEMOGRAPHICS].setDevice(&file[DEMOGRAPHICS]);
-
-//    file[DEMOGRAPHICS].open(QIODevice::WriteOnly | QIODevice::Text);
-
-//    text[DEMOGRAPHICS].setFieldWidth(20);
-//    text[DEMOGRAPHICS] << "PID" << "Age" << "Sex" << "Dominance" << endl;
-//    text[DEMOGRAPHICS] << personId << age << sex << dominance;
-
-//    file[DEMOGRAPHICS].close();
-//}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //DATA
 
 void Data::writeIntro(QString f) {
@@ -130,6 +70,58 @@ void Data::writeIntro(QString f) {
 }
 
 void Data::writeData(QString trial, bool failed) {
+
+
+    if (db.isOpen())
+    {
+        QString inStatementPerformance = "INSERT INTO performancedata (reference_id, participant_id, trial, start, time_starttrial, time_bumper, time_step, time_latency, time_crossing, time_arrive, gap_chosen, steps) VALUES (:reference_id, :participant_id, :trial, :start, :time_starttrial, :time_bumper, :time_step, :time_latency, :time_crossing, :time_arrive, :gap_chosen, :steps);";
+
+        QSqlQuery qryPerformance(db);
+
+        qryPerformance.prepare(inStatementPerformance);
+
+        qryPerformance.bindValue(":reference_id", referenceId);
+
+        qryPerformance.bindValue(":participant_id", participantId);
+
+        qryPerformance.bindValue(":trial", trial);
+
+        qryPerformance.bindValue(":start", start);
+
+        qryPerformance.bindValue(":time_starttrial", time_starttrial);
+
+        qryPerformance.bindValue(":time_bumper", time_bumper);
+
+        qryPerformance.bindValue(":time_step", time_step);
+
+        qryPerformance.bindValue(":time_latency", time_latency);
+
+        qryPerformance.bindValue(":time_crossing", time_crossing);
+
+        qryPerformance.bindValue(":time_arrive", time_arrive);
+
+        qryPerformance.bindValue(":gap_chosen", gap_chosen);
+
+        qryPerformance.bindValue(":steps", steps);
+
+        qryPerformance.exec();
+    }
+    else
+    {
+        if (db.lastError().isValid());
+        qDebug() << db.lastError();
+        qDebug() << "Data failed to open database connection to insert data.";
+    }
+
+        time_bumper = 0.0;
+        time_step = 0.0;
+        time_latency = 0.0;
+        time_crossing = 0.0;
+        time_arrive = 0.0;
+        gap_chosen = 0;
+        steps = 0;
+        step = false;
+
 //    if (failed)
 //        trial.prepend("failed_");
 //    text[DATA] <<  trial << start << time_starttrial << time_bumper << time_step << time_latency << time_arrive << time_crossing << steps << gap_chosen << endl;
@@ -273,7 +265,7 @@ void Data::get_trafficIntensity()
         if (qry.exec(readStatement))
         {
             while(qry.next()){
-                trafficIntensity = qry.value(0).toInt();
+                trafficIntensity = qry.value(0).toDouble();
             }
         }
         else {
@@ -300,22 +292,34 @@ void Data::connect_to_database()
 
 void Data::generate_interarrival_time()
 {
-    //QCoreApplication a(argc, argv);
-    poisson generateArrivalTimes;
 
     //srand(time(NULL));
-
-    for (int count = 0; count < numberOfTrials; ++count)
+    if (unsafeCrossingEnable == false)
     {
-        for (int i=0;i<numberOfCars;i++){
-            do{
-            gaps[count][i] = generateArrivalTimes.createintervals(trafficIntensity);
-            gaps[count][i] += generateArrivalTimes.createintervals(trafficIntensity)/10;
-            gaps[count][i] += generateArrivalTimes.createintervals(trafficIntensity)/100;
-            gaps[count][i] += generateArrivalTimes.createintervals(trafficIntensity)/1000;
-            gaps[count][i] += generateArrivalTimes.createintervals(trafficIntensity)/10000;
-             }while(gaps[count][i] <= 1);
+        poisson generateArrivalTimes;
+        for (int count = 0; count < numberOfTrials; ++count)
+        {
+            for (int i=0;i<numberOfCars;i++){
+                do{
+                    gaps[count][i]  = 2;
+//                    gaps[count][i] = generateArrivalTimes.createintervals(trafficIntensity);
+//                    gaps[count][i] += generateArrivalTimes.createintervals(trafficIntensity)/10;
+//                    gaps[count][i] += generateArrivalTimes.createintervals(trafficIntensity)/100;
+//                    gaps[count][i] += generateArrivalTimes.createintervals(trafficIntensity)/1000;
+//                    gaps[count][i] += generateArrivalTimes.createintervals(trafficIntensity)/10000;
+                }while(gaps[count][i] <= .5);
+            }
         }
+    }
+    else
+    {
+        for (int count = 0; count < numberOfTrials; ++count)
+        {
+            for (int i=0;i<numberOfCars;i++){
+                    gaps[count][i] = unsafeCrossingInterarrival;
+            }
+        }
+
     }
 
 }
@@ -372,7 +376,6 @@ void Data::get_numberOfCars()
     {
         qDebug() << "Data failed to open database connection to pull data.";
     }
-    numberOfCars = 5;
 }
 
 void Data::get_unsafeCrossing()
@@ -398,6 +401,54 @@ void Data::get_unsafeCrossing()
             QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
         }
 
+    }
+    else
+    {
+        qDebug() << "Data failed to open database connection to pull data.";
+    }
+}
+
+void Data::get_referenceId()
+{
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT reference_id FROM trialconfig order by reference_id desc limit 1");
+        QSqlQuery qry(db);
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                referenceId = qry.value(0).toInt();
+            }
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+    }
+    else
+    {
+        qDebug() << "Data failed to open database connection to pull data.";
+    }
+}
+
+void Data::get_participantId()
+{
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT participant_id FROM participantdata order by reference_id desc limit 1");
+        QSqlQuery qry(db);
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                participantId = qry.value(0).toInt();
+            }
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
     }
     else
     {

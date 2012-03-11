@@ -467,7 +467,7 @@
      </font>
     </property>
     <property name="toolTip">
-     <string>Intervehicle distance prevents safe crossing.</string>
+     <string>Intervehicle distance set to constant of 5 seconds.</string>
     </property>
     <property name="text">
      <string>Unsafe crossing:</string>

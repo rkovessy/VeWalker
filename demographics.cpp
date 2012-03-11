@@ -269,12 +269,8 @@ void Demographics::on_unsafeenable_clicked()
     //diable quantity and intensity and use unsafe traffic pattern
     ui->intensityslider->setEnabled(false);
     ui->trafficintensitylabel->setEnabled(false);
-    ui->vehiclequantityslider->setEnabled(false);
-    ui->vehiclequantitylabel->setEnabled(false);
     ui->minlabel1->setEnabled(false);
     ui->maxlabel1->setEnabled(false);
-    ui->minlabel2->setEnabled(false);
-    ui->maxlabel2->setEnabled(false);
 
     if (ui->unsafedisable->isChecked())
         ui->unsafedisable->setChecked(false);
@@ -287,12 +283,8 @@ void Demographics::on_unsafedisable_clicked()
     //enable use of traffic instenity and quantity
     ui->intensityslider->setEnabled(true);
     ui->trafficintensitylabel->setEnabled(true);
-    ui->vehiclequantityslider->setEnabled(true);
-    ui->vehiclequantitylabel->setEnabled(true);
     ui->minlabel1->setEnabled(true);
     ui->maxlabel1->setEnabled(true);
-    ui->minlabel2->setEnabled(true);
-    ui->maxlabel2->setEnabled(true);
 
     if(ui->unsafeenable->isChecked())
         ui->unsafeenable->setChecked(false);
@@ -510,23 +502,23 @@ void Demographics::write_new_id()
         qDebug() << "Demographics failed to open database connection to insert data.";
     }
 
-    if (db.isOpen())
-    {
-        QString inStatement = "INSERT INTO performancedata (reference_id) VALUES (:reference_id)";
-        QSqlQuery qry(db);
+//    if (db.isOpen())
+//    {
+//        QString inStatement = "INSERT INTO performancedata (reference_id) VALUES (:reference_id)";
+//        QSqlQuery qry(db);
 
-        qry.prepare(inStatement);
+//        qry.prepare(inStatement);
 
-        qry.bindValue(":reference_id", referenceid);
+//        qry.bindValue(":reference_id", referenceid);
 
-        qry.exec();
-    }
-    else
-    {
-        if (db.lastError().isValid());
-        qDebug() << db.lastError();
-        qDebug() << "Demographics failed to open database connection to insert data.";
-    }
+//        qry.exec();
+//    }
+//    else
+//    {
+//        if (db.lastError().isValid());
+//        qDebug() << db.lastError();
+//        qDebug() << "Demographics failed to open database connection to insert data.";
+//    }
 }
 
 void Demographics::get_last_id()

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'demographics.ui'
 **
-** Created: Sat Mar 10 20:16:02 2012
+** Created: Sun Mar 11 16:25:59 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -498,7 +498,7 @@ public:
         unsafedisable->setText(QApplication::translate("Demographics", "Disable", 0, QApplication::UnicodeUTF8));
         unsafeenable->setText(QApplication::translate("Demographics", "Enable", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
-        unsafeintensitylabel->setToolTip(QApplication::translate("Demographics", "Intervehicle distance prevents safe crossing.", 0, QApplication::UnicodeUTF8));
+        unsafeintensitylabel->setToolTip(QApplication::translate("Demographics", "Intervehicle distance set to constant of 5 seconds.", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
         unsafeintensitylabel->setText(QApplication::translate("Demographics", "Unsafe crossing:", 0, QApplication::UnicodeUTF8));
         minlabel1->setText(QApplication::translate("Demographics", "1", 0, QApplication::UnicodeUTF8));

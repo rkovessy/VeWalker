@@ -173,3 +173,9 @@ include(C:/qserialport/qserialdevice-qserialdevice/src/src.pri)
 
 
 
+
+
+
+
+
+

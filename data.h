@@ -37,9 +37,14 @@ public:
     void get_numberOfCars();
     void get_trafficEnable();
     void get_unsafeCrossing();
+    void get_referenceId();
+    void get_participantId();
 
     int numberOfCars;
-    int trafficIntensity;
+    int referenceId;
+    int participantId;
+    double trafficIntensity;
+    const static double unsafeCrossingInterarrival = 2.5;
     bool demoMode;
     bool unsafeCrossingEnable;
 
@@ -60,10 +65,10 @@ public:
     void read_specs(); // reads from spec file
     int numberOfTrials; // number of trials including practice trials
     QString trials[100]; // for output files
-    QString startPos[100]; // whether pedestrian starts on A or B
-    QString popUps[100]; // when and which popups appear
-    double speeds[100]; // speeds defined for each trial
-    double gaps[100][100]; // seperation times, where array is path, trial, time
+    QString startPos[200]; // whether pedestrian starts on A or B
+    QString popUps[200]; // when and which popups appear
+    double speeds[200]; // speeds defined for each trial
+    double gaps[200][100]; // seperation times, where array is path, trial, time
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //DATA
