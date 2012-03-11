@@ -359,7 +359,7 @@
      <rect>
       <x>14</x>
       <y>141</y>
-      <width>101</width>
+      <width>121</width>
       <height>18</height>
      </rect>
     </property>
@@ -370,8 +370,11 @@
       <bold>false</bold>
      </font>
     </property>
+    <property name="toolTip">
+     <string>Average time between vehicles based on a Poisson distribution.</string>
+    </property>
     <property name="text">
-     <string>Traffic intensty:</string>
+     <string>Interarrival time:</string>
     </property>
     <property name="textFormat">
      <enum>Qt::AutoText</enum>
@@ -472,7 +475,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Min</string>
+     <string>0</string>
     </property>
    </widget>
    <widget class="QLabel" name="minlabel2">
@@ -512,7 +515,7 @@
      </font>
     </property>
     <property name="text">
-     <string>Max</string>
+     <string>10</string>
     </property>
    </widget>
    <widget class="QLabel" name="maxlabel2">
@@ -555,7 +558,7 @@
    <property name="title">
     <string>Simulation Calibration</string>
    </property>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>11</x>
@@ -759,7 +762,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>11</x>
