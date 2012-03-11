@@ -14,6 +14,7 @@ void Data::read_specs()
     get_numberOfCars();
     get_trafficEnable();
     get_trafficIntensity();
+    get_unsafeCrossing();
     generate_interarrival_time();
 
     for (int count = 0; count < numberOfTrials; ++count)
@@ -313,7 +314,7 @@ void Data::generate_interarrival_time()
             gaps[count][i] += generateArrivalTimes.createintervals(trafficIntensity)/100;
             gaps[count][i] += generateArrivalTimes.createintervals(trafficIntensity)/1000;
             gaps[count][i] += generateArrivalTimes.createintervals(trafficIntensity)/10000;
-             }while(gaps[count][i] == 0.0000);
+             }while(gaps[count][i] <= 1);
         }
     }
 
@@ -341,7 +342,7 @@ void Data::get_trafficEnable()
     }
     else
     {
-        qDebug() << "TrafficControl failed to open database connection to pull data.";
+        qDebug() << "Data failed to open database connection to pull data.";
     }
     if (trafficEnable == 0){
         numberOfCars = 0;
@@ -369,7 +370,37 @@ void Data::get_numberOfCars()
     }
     else
     {
-        qDebug() << "TrafficControl failed to open database connection to pull data.";
+        qDebug() << "Data failed to open database connection to pull data.";
     }
     numberOfCars = 5;
+}
+
+void Data::get_unsafeCrossing()
+{
+    int unsafeCrossingInt;
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT unsafe_crossing FROM trialconfig order by reference_id desc limit 1");
+        QSqlQuery qry(db);
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                unsafeCrossingInt = qry.value(0).toInt();
+            }
+            if (unsafeCrossingInt == 1)
+                unsafeCrossingEnable = true;
+            else
+                unsafeCrossingEnable = false;
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+
+    }
+    else
+    {
+        qDebug() << "Data failed to open database connection to pull data.";
+    }
 }

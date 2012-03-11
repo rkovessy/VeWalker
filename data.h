@@ -36,10 +36,12 @@ public:
     void generate_interarrival_time();
     void get_numberOfCars();
     void get_trafficEnable();
+    void get_unsafeCrossing();
 
     int numberOfCars;
     int trafficIntensity;
     bool demoMode;
+    bool unsafeCrossingEnable;
 
 //    QString filename[5];
 //    QFile file[5];
