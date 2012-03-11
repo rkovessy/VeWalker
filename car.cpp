@@ -22,9 +22,9 @@ Car::Car()
     keyPosition[AWAY] = 3451 + 90 * 5;
 }
 
-void Car::setCar(const double sp[2][5]) {
+void Car::setCar(const double sp[2][100]) {
     for (int lane = 0; lane < 2; ++lane)
-        for (int count = 0; count < 5; ++count)
+        for (int count = 0; count < 5; ++count) //VehicleQuantitySwitching
             referenceSpeed[lane][count] = sp[lane][count];
 }
 

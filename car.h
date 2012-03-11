@@ -30,7 +30,7 @@ class Car
 public:
     Car();
 
-    void setCar(const double speed[2][5]); // gives car info needed for current and future implementations //VehicleQauntitySwitching
+    void setCar(const double speed[2][100]); // gives car info needed for current and future implementations //VehicleQauntitySwitching
     void newCar(double speed); // called when a new car is needed, random variables are set
     void stopCar(); // called when trial is ended
     void update(bool initial = false); // moves car forward by current tmpSpeed, initial is true when we don't want to move the car but figure out its occupied position
@@ -57,7 +57,7 @@ public:
 
 private:
     void translateSpeed(int index); // translates speed[index] for all other paths
-    double referenceSpeed[2][5]; // reference speed translations used for translating tmp, follow and (normal)Speed //VehicleQauntitySwitching
+    double referenceSpeed[2][100]; // reference speed translations used for translating tmp, follow and (normal)Speed //VehicleQauntitySwitching
     double speed[100]; // holds translations for different paths of current speed, only one lane reference is needed //VehicleQauntitySwitching
     const static int start = 2; // start road of current car
     const static int end = 0; // end road of current car
