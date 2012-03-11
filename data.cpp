@@ -307,8 +307,13 @@ void Data::generate_interarrival_time()
     for (int count = 0; count < numberOfTrials; ++count)
     {
         for (int i=0;i<numberOfCars;i++){
+            do{
             gaps[count][i] = generateArrivalTimes.createintervals(trafficIntensity);
-            //printf("interarrival time: %d", gaps[count][i]);
+            gaps[count][i] += generateArrivalTimes.createintervals(trafficIntensity)/10;
+            gaps[count][i] += generateArrivalTimes.createintervals(trafficIntensity)/100;
+            gaps[count][i] += generateArrivalTimes.createintervals(trafficIntensity)/1000;
+            gaps[count][i] += generateArrivalTimes.createintervals(trafficIntensity)/10000;
+             }while(gaps[count][i] == 0.0000);
         }
     }
 

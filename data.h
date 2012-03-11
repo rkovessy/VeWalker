@@ -61,7 +61,7 @@ public:
     QString startPos[100]; // whether pedestrian starts on A or B
     QString popUps[100]; // when and which popups appear
     double speeds[100]; // speeds defined for each trial
-    int gaps[100][100]; // seperation times, where array is path, trial, time
+    double gaps[100][100]; // seperation times, where array is path, trial, time
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //DATA
