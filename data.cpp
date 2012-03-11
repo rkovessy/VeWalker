@@ -302,14 +302,12 @@ void Data::generate_interarrival_time()
     //QCoreApplication a(argc, argv);
     poisson generateArrivalTimes;
 
-    double averagetime = 5; //average interval time in sec
-
     //srand(time(NULL));
 
     for (int count = 0; count < numberOfTrials; ++count)
     {
         for (int i=0;i<numberOfCars;i++){
-            gaps[count][i] = generateArrivalTimes.createintervals(averagetime);
+            gaps[count][i] = generateArrivalTimes.createintervals(trafficIntensity);
             //printf("interarrival time: %d", gaps[count][i]);
         }
     }

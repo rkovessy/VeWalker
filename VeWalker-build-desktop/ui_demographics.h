@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'demographics.ui'
 **
-** Created: Sat Mar 10 20:04:01 2012
+** Created: Sat Mar 10 20:16:05 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -175,15 +175,20 @@ public:
         intensityslider->setObjectName(QString::fromUtf8("intensityslider"));
         intensityslider->setEnabled(true);
         intensityslider->setGeometry(QRect(172, 141, 151, 24));
-        intensityslider->setMaximum(10);
+        intensityslider->setMinimum(1);
+        intensityslider->setMaximum(20);
+        intensityslider->setValue(1);
         intensityslider->setOrientation(Qt::Horizontal);
         intensityslider->setTickPosition(QSlider::TicksBelow);
+        intensityslider->setTickInterval(1);
         vehiclequantityslider = new QSlider(groupBox_1);
         vehiclequantityslider->setObjectName(QString::fromUtf8("vehiclequantityslider"));
         vehiclequantityslider->setGeometry(QRect(172, 171, 151, 24));
-        vehiclequantityslider->setMaximum(10);
+        vehiclequantityslider->setMinimum(1);
+        vehiclequantityslider->setMaximum(20);
         vehiclequantityslider->setOrientation(Qt::Horizontal);
         vehiclequantityslider->setTickPosition(QSlider::TicksBelow);
+        vehiclequantityslider->setTickInterval(1);
         vehiclequantitylabel = new QLabel(groupBox_1);
         vehiclequantitylabel->setObjectName(QString::fromUtf8("vehiclequantitylabel"));
         vehiclequantitylabel->setGeometry(QRect(14, 171, 130, 18));
@@ -493,13 +498,13 @@ public:
         unsafedisable->setText(QApplication::translate("Demographics", "Disable", 0, QApplication::UnicodeUTF8));
         unsafeenable->setText(QApplication::translate("Demographics", "Enable", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
-        unsafeintensitylabel->setToolTip(QApplication::translate("Demographics", "Inter-vehicle distance prevents safe crossing.", 0, QApplication::UnicodeUTF8));
+        unsafeintensitylabel->setToolTip(QApplication::translate("Demographics", "Intervehicle distance prevents safe crossing.", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
         unsafeintensitylabel->setText(QApplication::translate("Demographics", "Unsafe crossing:", 0, QApplication::UnicodeUTF8));
-        minlabel1->setText(QApplication::translate("Demographics", "0", 0, QApplication::UnicodeUTF8));
-        minlabel2->setText(QApplication::translate("Demographics", "0", 0, QApplication::UnicodeUTF8));
-        maxlabel1->setText(QApplication::translate("Demographics", "10", 0, QApplication::UnicodeUTF8));
-        maxlabel2->setText(QApplication::translate("Demographics", "10", 0, QApplication::UnicodeUTF8));
+        minlabel1->setText(QApplication::translate("Demographics", "1", 0, QApplication::UnicodeUTF8));
+        minlabel2->setText(QApplication::translate("Demographics", "1", 0, QApplication::UnicodeUTF8));
+        maxlabel1->setText(QApplication::translate("Demographics", "20", 0, QApplication::UnicodeUTF8));
+        maxlabel2->setText(QApplication::translate("Demographics", "20", 0, QApplication::UnicodeUTF8));
         groupBox_2->setTitle(QApplication::translate("Demographics", "Simulation Calibration", 0, QApplication::UnicodeUTF8));
         heightlabel->setText(QApplication::translate("Demographics", "Participant height (in):", 0, QApplication::UnicodeUTF8));
         trackinglabel_2->setText(QApplication::translate("Demographics", "Rotational control", 0, QApplication::UnicodeUTF8));

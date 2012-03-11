@@ -302,14 +302,23 @@
       <height>24</height>
      </rect>
     </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
     <property name="maximum">
-     <number>10</number>
+     <number>20</number>
+    </property>
+    <property name="value">
+     <number>1</number>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
     </property>
     <property name="tickPosition">
      <enum>QSlider::TicksBelow</enum>
+    </property>
+    <property name="tickInterval">
+     <number>1</number>
     </property>
    </widget>
    <widget class="QSlider" name="vehiclequantityslider">
@@ -321,14 +330,20 @@
       <height>24</height>
      </rect>
     </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
     <property name="maximum">
-     <number>10</number>
+     <number>20</number>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
     </property>
     <property name="tickPosition">
      <enum>QSlider::TicksBelow</enum>
+    </property>
+    <property name="tickInterval">
+     <number>1</number>
     </property>
    </widget>
    <widget class="QLabel" name="vehiclequantitylabel">
@@ -452,7 +467,7 @@
      </font>
     </property>
     <property name="toolTip">
-     <string>Inter-vehicle distance prevents safe crossing.</string>
+     <string>Intervehicle distance prevents safe crossing.</string>
     </property>
     <property name="text">
      <string>Unsafe crossing:</string>
@@ -475,7 +490,7 @@
      </font>
     </property>
     <property name="text">
-     <string>0</string>
+     <string>1</string>
     </property>
    </widget>
    <widget class="QLabel" name="minlabel2">
@@ -495,7 +510,7 @@
      </font>
     </property>
     <property name="text">
-     <string>0</string>
+     <string>1</string>
     </property>
    </widget>
    <widget class="QLabel" name="maxlabel1">
@@ -515,7 +530,7 @@
      </font>
     </property>
     <property name="text">
-     <string>10</string>
+     <string>20</string>
     </property>
    </widget>
    <widget class="QLabel" name="maxlabel2">
@@ -535,7 +550,7 @@
      </font>
     </property>
     <property name="text">
-     <string>10</string>
+     <string>20</string>
     </property>
    </widget>
   </widget>
