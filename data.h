@@ -6,6 +6,12 @@
 #include <QTextStream>
 #include <QDir>
 #include <QDebug>
+#include <QSqlDatabase>
+#include <QStringList>
+#include <QtSql>
+#include <QSqlDriver>
+#include <QMessageBox>
+#include <QObject>
 
 enum directory {DEMOGRAPHICS, SPECS, DATA, PEDESTRIAN, CARS};
 enum roadclassification {SIDE, ROAD, REFUGE};
@@ -22,6 +28,12 @@ class Data
     */
 public:
     Data();
+    void get_numberOfTrials();
+    void connect_to_database();
+    void get_mode();
+    void get_trafficintensity();
+    int trafficIntensity;
+    bool demoMode;
 
 //    QString filename[5];
 //    QFile file[5];
@@ -79,6 +91,9 @@ public:
     void writeCars_trial(QString trial, double time, bool trials, bool practice, bool white, bool failed);
     void writeCars(double, double, double);
     void writeCars_endl();
+
+private:
+    QSqlDatabase db;
 };
 
 #endif // DATA_H

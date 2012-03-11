@@ -8,7 +8,11 @@ Data::Data()
 //SPECS - these are now the only two functions in data that do anything
 void Data::read_specs()
 {
-    numberOfTrials=60;
+    connect_to_database();
+    get_numberOfTrials();
+    get_mode();
+    get_trafficintensity();
+
     for (int count = 0; count < numberOfTrials; ++count)
     {
         speeds[count] = 60;
@@ -16,7 +20,7 @@ void Data::read_specs()
         popUps[count] = "none";
         for (int gap = 0; gap < 5; ++gap)
         {
-            gaps[count][gap] = 6;
+            gaps[count][gap] = 1;
         }
     }
     //time =0;
@@ -198,4 +202,95 @@ void Data::writeCars(double a, double b, double c)
 void Data::writeCars_endl()
 {
 //    text[CARS] << endl;
+}
+
+void Data::get_numberOfTrials()
+{
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT trial_quantity FROM trialconfig order by reference_id desc limit 1");
+        QSqlQuery qry(db);
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                numberOfTrials = qry.value(0).toInt();
+            }
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+
+    }
+    else
+    {
+        qDebug() << "Data failed to open database connection to pull data.";
+    }
+}
+
+void Data::get_mode()
+{
+    QString modeConfigured;
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT mode FROM trialconfig order by reference_id desc limit 1");
+        QSqlQuery qry(db);
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                modeConfigured = qry.value(0).toString();
+            }
+        if (QString::compare("demo", modeConfigured, Qt::CaseInsensitive)==0)
+            demoMode = true;
+        else
+            demoMode = false;
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+
+    }
+    else
+    {
+        qDebug() << "Data failed to open database connection to pull data.";
+    }
+}
+
+void Data::get_trafficintensity()
+{
+    QString modeConfigured;
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT traffic_intensity FROM trialconfig order by reference_id desc limit 1");
+        QSqlQuery qry(db);
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                trafficIntensity = qry.value(0).toInt();
+            }
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+
+    }
+    else
+    {
+        qDebug() << "Data failed to open database connection to pull data.";
+    }
+}
+
+void Data::connect_to_database()
+{
+    db = QSqlDatabase::addDatabase("QPSQL", "dataConnect");
+    db.setHostName("localhost");
+    db.setUserName("postgres");
+    db.setPassword("abc123");
+    db.setDatabaseName("configDb");
+    db.open();
 }
