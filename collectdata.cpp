@@ -6,7 +6,7 @@ CollectData::CollectData(QWidget *parent) :
    threading = false;
    started = false;
 
-   updater.start(40); // connected to update()
+   updater.start(20); // connected to update()
    connect(&updater, SIGNAL(timeout()), this, SLOT(update()));
 }
 

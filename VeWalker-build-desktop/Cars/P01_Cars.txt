@@ -23,126 +23,71 @@ startpractice_p1         0
 startpractice_p1         0         
 startpractice_p1         0         
 startpractice_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
-  white_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
