@@ -192,6 +192,9 @@ void Car::database_get_numberOfCars()
     {
         qDebug() << "Car failed to open database connection to pull data.";
     }
+
+    QSqlDatabase::database("carConnect").close();
+    QSqlDatabase::removeDatabase("carConnect");
 }
 
 void Car::connect_to_database()
