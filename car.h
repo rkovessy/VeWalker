@@ -30,7 +30,7 @@ class Car
 public:
     Car();
 
-    void setCar(const double speed[2][5]); // gives car info needed for current and future implementations
+    void setCar(const double speed[2][5]); // gives car info needed for current and future implementations //VehicleQauntitySwitching
     void newCar(double speed); // called when a new car is needed, random variables are set
     void stopCar(); // called when trial is ended
     void update(bool initial = false); // moves car forward by current tmpSpeed, initial is true when we don't want to move the car but figure out its occupied position
@@ -57,13 +57,13 @@ public:
 
 private:
     void translateSpeed(int index); // translates speed[index] for all other paths
-    double referenceSpeed[2][5]; // reference speed translations used for translating tmp, follow and (normal)Speed
-    double speed[5]; // holds translations for different paths of current speed, only one lane reference is needed
+    double referenceSpeed[2][5]; // reference speed translations used for translating tmp, follow and (normal)Speed //VehicleQauntitySwitching
+    double speed[100]; // holds translations for different paths of current speed, only one lane reference is needed //VehicleQauntitySwitching
     const static int start = 2; // start road of current car
     const static int end = 0; // end road of current car
     int position; // position non-specific to the cars current position, is global for determining occupied, int since needed for referencing arrays
     double dposition; // position is set to int(dposition), is the double of position, needed since speed is double
-    int keyPosition[5]; // positions where car changes paths, different depending on difference between start and end roads
+    int keyPosition[100]; // positions where car changes paths, different depending on difference between start and end roads //VehicleQauntitySwitching
     int colour; // colours are 0 to 7
     bool signalling; // true if car is in zone where car should be signalling
     int signalCounter; // counter for determining when actual light should be on for signalling
