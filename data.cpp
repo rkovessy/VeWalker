@@ -11,7 +11,7 @@ void Data::read_specs()
     //get_numberOfTrials();
     numberOfTrials=60;
     get_mode();
-    //get_numberOfCars();
+    //get_numberOfCars(); //VehicleQauntitySwitching
     numberOfCars = 5;
     //get_trafficEnable();
     get_trafficIntensity();
