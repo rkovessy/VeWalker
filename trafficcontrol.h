@@ -46,7 +46,6 @@ public:
     QString get_start();
     int get_display(); // for the countdown lcd in glwidget
     void database_get_trafficenable();
-    void database_get_traffic_intensity();
 
     void nexttrial(); // sets up trafficcontrol for next trial, called after pedestrian reaches end
     void resettrial(); // called after failed trial

@@ -11,17 +11,20 @@ void Data::read_specs()
     connect_to_database();
     get_numberOfTrials();
     get_mode();
-    get_trafficintensity();
+    get_numberOfCars();
+    get_trafficEnable();
+    get_trafficIntensity();
+    generate_interarrival_time();
 
     for (int count = 0; count < numberOfTrials; ++count)
     {
         speeds[count] = 60;
         startPos[count] = "A";
         popUps[count] = "none";
-        for (int gap = 0; gap < 5; ++gap)
-        {
-            gaps[count][gap] = 1;
-        }
+//        for (int gap = 0; gap < 5; ++gap)
+//        {
+//            gaps[count][gap] = 1;
+//        }
     }
     //time =0;
 
@@ -259,9 +262,8 @@ void Data::get_mode()
     }
 }
 
-void Data::get_trafficintensity()
+void Data::get_trafficIntensity()
 {
-    QString modeConfigured;
     if (db.isOpen())
     {
         QString readStatement = ("SELECT traffic_intensity FROM trialconfig order by reference_id desc limit 1");
@@ -293,4 +295,78 @@ void Data::connect_to_database()
     db.setPassword("abc123");
     db.setDatabaseName("configDb");
     db.open();
+}
+
+void Data::generate_interarrival_time()
+{
+    //QCoreApplication a(argc, argv);
+    poisson generateArrivalTimes;
+
+    double averagetime = 5; //average interval time in sec
+
+    //srand(time(NULL));
+
+    for (int count = 0; count < numberOfTrials; ++count)
+    {
+        for (int i=0;i<numberOfCars;i++){
+            gaps[count][i] = generateArrivalTimes.createintervals(averagetime);
+            //printf("interarrival time: %d", gaps[count][i]);
+        }
+    }
+
+}
+
+void Data::get_trafficEnable()
+{
+    int trafficEnable;
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT vehicle_traffic FROM trialconfig order by reference_id desc limit 1");
+        QSqlQuery qry(db);
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                trafficEnable = qry.value(0).toInt();
+                //qDebug() << "Number of Cars:" << numberOfCars;
+            }
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+    }
+    else
+    {
+        qDebug() << "TrafficControl failed to open database connection to pull data.";
+    }
+    if (trafficEnable == 0){
+        numberOfCars = 0;
+    }
+}
+
+void Data::get_numberOfCars()
+{
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT vehicle_quantity FROM trialconfig order by reference_id desc limit 1");
+        QSqlQuery qry(db);
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                numberOfCars = qry.value(0).toInt();
+                //qDebug() << "Number of Cars:" << numberOfCars;
+            }
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+    }
+    else
+    {
+        qDebug() << "TrafficControl failed to open database connection to pull data.";
+    }
+    numberOfCars = 5;
 }

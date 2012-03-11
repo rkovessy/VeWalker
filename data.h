@@ -12,6 +12,7 @@
 #include <QSqlDriver>
 #include <QMessageBox>
 #include <QObject>
+#include "poisson.h"
 
 enum directory {DEMOGRAPHICS, SPECS, DATA, PEDESTRIAN, CARS};
 enum roadclassification {SIDE, ROAD, REFUGE};
@@ -31,7 +32,12 @@ public:
     void get_numberOfTrials();
     void connect_to_database();
     void get_mode();
-    void get_trafficintensity();
+    void get_trafficIntensity();
+    void generate_interarrival_time();
+    void get_numberOfCars();
+    void get_trafficEnable();
+
+    int numberOfCars;
     int trafficIntensity;
     bool demoMode;
 
@@ -55,7 +61,7 @@ public:
     QString startPos[100]; // whether pedestrian starts on A or B
     QString popUps[100]; // when and which popups appear
     double speeds[100]; // speeds defined for each trial
-    int gaps[100][5]; // seperation times, where array is path, trial, time
+    int gaps[100][100]; // seperation times, where array is path, trial, time
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //DATA
