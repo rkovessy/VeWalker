@@ -29,8 +29,9 @@ class Car
 {
 public:
     Car();
+    ~Car();
 
-    void setCar(const double speed[2][100]); // gives car info needed for current and future implementations //VehicleQauntitySwitching
+    void setCar(const double speed[2][100], int vehicleQuantity); // gives car info needed for current and future implementations //VehicleQauntitySwitching
     void newCar(double speed); // called when a new car is needed, random variables are set
     void stopCar(); // called when trial is ended
     void update(bool initial = false); // moves car forward by current tmpSpeed, initial is true when we don't want to move the car but figure out its occupied position
@@ -47,6 +48,7 @@ public:
     void set_dimensions(int index, double);
     void set_id(int id); // sets occupied.id
     void database_get_numberOfCars();
+    void database_get_trafficenable();
     void connect_to_database();
 
     Status status; // status holds info for its lights

@@ -30,9 +30,10 @@ TrafficControl::TrafficControl(QWidget *parent) :
     db.setPassword("abc123");
     db.setDatabaseName("configDb");
     db.open();
-    //this->database_connect();
-    //database_get_vals();
-    //database_get_trafficenable(); //VehicleQauntitySwitching
+    this->database_connect();
+//    database_get_vals();
+//    database_get_trafficenable(); //VehicleQauntitySwitching
+    numberOfCars = 5;
     connect(&popupscreen, SIGNAL(clicked()), this, SLOT(clicked()));
 }
 
@@ -45,7 +46,7 @@ TrafficControl::~TrafficControl()
 void TrafficControl::set(int pid) {
     path.set(draw.centerRadius, draw.LANE_WIDTH);
     for (int count = 0; count < numberOfCars; ++count) //VehicleQauntitySwitching
-        cars[count].setCar(path.speed);
+        cars[count].setCar(path.speed, numberOfCars);
 
     time = 0.0;
     data.time = 0.0;
@@ -362,8 +363,6 @@ bool TrafficControl::pointCollision(Car a, Point p) { // determines whether Poin
 }
 
 void TrafficControl::setCarstart() {
-    numberOfCars = 5;
-
     if (speeds[trial] != 0) {
         double t = path.distance_tostart / (speeds[trial] * path.DISTANCE / 0.02);
         cars[0].newCar(speeds[trial]);
