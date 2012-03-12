@@ -45,7 +45,7 @@ public:
     Point into[4][2][1500]; // linear, starts car outside of environment box
     Point away[4][2][1500]; // linear, takes car outside of environment box
 
-    double speed[2][5]; // holds reference values for speeds at all lanes and paths
+    double speed[2][100]; // holds reference values for speeds at all lanes and paths //VehicleQauntitySwitching
 
     double distance_tostart; // distance cars travel from first position to actual start
 

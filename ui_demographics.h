@@ -1,11 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'demographics.ui'
 **
-<<<<<<< HEAD
-** Created: Sat Mar 10 20:27:32 2012
-=======
-** Created: Sun Mar 11 16:25:59 2012
->>>>>>> origin/rob_performancevar_db
+** Created: Sun Mar 11 20:01:51 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!

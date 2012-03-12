@@ -18,7 +18,7 @@ TrafficControl::TrafficControl(QWidget *parent) :
     trial = -1;
     for (int count = 0; count < 2; ++count)
         elapsed[count] = 0.0;
-    carCounter = 0;
+    carCounter = 0; //VehicleQauntitySwitching
 
     starttrials = "starttrials";
     startpractice = "startpractice";
@@ -31,9 +31,9 @@ TrafficControl::TrafficControl(QWidget *parent) :
     db.setDatabaseName("configDb");
     db.open();
     this->database_connect();
-    database_get_vals();
-    database_get_trafficenable();
-
+//    database_get_vals();
+//    database_get_trafficenable(); //VehicleQauntitySwitching
+    numberOfCars = 5;
     connect(&popupscreen, SIGNAL(clicked()), this, SLOT(clicked()));
 }
 
@@ -45,8 +45,8 @@ TrafficControl::~TrafficControl()
 
 void TrafficControl::set(int pid) {
     path.set(draw.centerRadius, draw.LANE_WIDTH);
-    for (int count = 0; count < numberOfCars; ++count)
-        cars[count].setCar(path.speed);
+    for (int count = 0; count < numberOfCars; ++count) //VehicleQauntitySwitching
+        cars[count].setCar(path.speed, numberOfCars);
 
     time = 0.0;
     data.time = 0.0;
@@ -60,7 +60,7 @@ void TrafficControl::set(int pid) {
         startPos[count] = data.startPos[count];
         speeds[count] = double(data.speeds[count]) / 21.9456; // translating from km/h to 0.04units/0.02s;
         popUps[count] = data.popUps[count];
-        for (int gap = 0; gap < 5; ++gap)
+        for (int gap = 0; gap <= numberOfCars; ++gap) //VehicleQauntitySwitching
             gaps[count][gap] = data.gaps[count][gap];
     }
     nexttrial();
@@ -70,8 +70,8 @@ void TrafficControl::update() { // pedestrian location updated, car status updat
     data.writeCars_trial(trials[trial], time, starttrialsscreen, startpracticescreen, whitescreen, failed);
 
     if (whitescreen || failed || starttrialsscreen || startpracticescreen) {
-        for (int count = 0; count < numberOfCars; ++count)
-            data.writeCars(0.0, 0.0, 0.0);
+        for (int count = 0; count < numberOfCars; ++count) //VehicleQauntitySwitching
+            data.writeCars(0.0, 0.0, 0.0); //VehicleQauntitySwitching
         data.writeCars_endl();
         if (whitescreen) {
             elapsed[1] += 0.02;
@@ -84,7 +84,7 @@ void TrafficControl::update() { // pedestrian location updated, car status updat
         }
     }
     else {
-        for (int count = 0; count < numberOfCars; ++count)
+        for (int count = 0; count < numberOfCars; ++count) //VehicleQauntitySwitching
             data.writeCars(cars[count].point.x, cars[count].point.y, cars[count].point.rotation);
         data.writeCars_endl();
         time += 0.02;
@@ -94,10 +94,10 @@ void TrafficControl::update() { // pedestrian location updated, car status updat
         if (trial >= 0 && elapsed[0] >= gaps[trial][carCounter]) { //Set to !=0 to have practise trial
             elapsed[0] = 0.0;
             carCounter++;
-            if (carCounter < 6)
+            if (carCounter <= numberOfCars) //VehicleQauntitySwitching
                 cars[carCounter].newCar(speeds[trial]);
         }
-        for (int count = 0; count < numberOfCars; ++count) {
+        for (int count = 0; count < numberOfCars; ++count) { //VehicleQauntitySwitching
             if (cars[count].get_onTrack()) {
                 updateCar(count);
                 checkCar(count);
@@ -166,7 +166,7 @@ void TrafficControl::nexttrial() {
         for (int count = 0; count < 2; ++count)
             elapsed[count] = 0.0;
         carCounter = 0;
-        for (int count = 0; count < numberOfCars; ++count)
+        for (int count = 0; count < numberOfCars; ++count) //VehicleQauntitySwitching
             cars[count].stopCar();
     }
     trial++;
@@ -245,10 +245,10 @@ void TrafficControl::checkCar(int index) { // checks if car needs to slow down b
         cars[index].passedp = true;
     }
 
-    if (cars[5].passedp) {
-        qDebug() << "fail";
-        limits.hit = true;
-    }
+//    if (cars[5].passedp) { //VehicleQauntitySwitching
+//        qDebug() << "fail";
+//        limits.hit = true;
+//    }
 }
 
 int TrafficControl::checkPedestrian() {
@@ -363,10 +363,6 @@ bool TrafficControl::pointCollision(Car a, Point p) { // determines whether Poin
 }
 
 void TrafficControl::setCarstart() {
-    this->database_connect();
-    database_get_vals();
-    database_get_trafficenable();
-
     if (speeds[trial] != 0) {
         double t = path.distance_tostart / (speeds[trial] * path.DISTANCE / 0.02);
         cars[0].newCar(speeds[trial]);
@@ -389,7 +385,7 @@ void TrafficControl::setCarstart() {
             elapsed[0] += 0.02;
         }
         elapsed[1] = 0.0;
-        for (int count = 0; count < numberOfCars; ++count)
+        for (int count = 0; count < numberOfCars; ++count) //VehicleQauntitySwitching
             if (cars[count].get_onTrack())
                 draw.car(cars[count]);
     }
@@ -460,5 +456,4 @@ void TrafficControl::database_get_vals()
     {
         qDebug() << "TrafficControl failed to open database connection to pull data.";
     }
-    numberOfCars = 5;
 }

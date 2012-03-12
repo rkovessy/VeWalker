@@ -11,9 +11,9 @@ void Data::read_specs()
     //get_numberOfTrials();
     numberOfTrials=60;
     get_mode();
-    //get_numberOfCars();
+//    get_numberOfCars(); //VehicleQauntitySwitching
+//    get_trafficEnable();
     numberOfCars = 5;
-    //get_trafficEnable();
     get_trafficIntensity();
     get_unsafeCrossing();
     generate_interarrival_time();
@@ -301,12 +301,12 @@ void Data::generate_interarrival_time()
         {
             for (int i=0;i<numberOfCars;i++){
                 do{
-                    gaps[count][i]  = 2;
-//                    gaps[count][i] = generateArrivalTimes.createintervals(trafficIntensity);
-//                    gaps[count][i] += generateArrivalTimes.createintervals(trafficIntensity)/10;
-//                    gaps[count][i] += generateArrivalTimes.createintervals(trafficIntensity)/100;
-//                    gaps[count][i] += generateArrivalTimes.createintervals(trafficIntensity)/1000;
-//                    gaps[count][i] += generateArrivalTimes.createintervals(trafficIntensity)/10000;
+                    //gaps[count][i]  = 5;
+                    gaps[count][i] = generateArrivalTimes.createintervals(trafficIntensity);
+                    gaps[count][i] += generateArrivalTimes.createintervals(trafficIntensity)/10;
+                    gaps[count][i] += generateArrivalTimes.createintervals(trafficIntensity)/100;
+                    gaps[count][i] += generateArrivalTimes.createintervals(trafficIntensity)/1000;
+                    gaps[count][i] += generateArrivalTimes.createintervals(trafficIntensity)/10000;
                 }while(gaps[count][i] <= .5);
             }
         }
