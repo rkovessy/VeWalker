@@ -114,7 +114,7 @@ void GLWidget::setArduinoTranslation(int potRot)
         if(!(tc.get_screen()))
             motorSpeed = 0.00; //abs(currRotation - prevRotation) * PI / 180.0 * 0.14;
          else
-            motorSpeed = 0.00; //0.0;
+            motorSpeed = 0.0; //0.0;
     }
     //zTrans = height / 30.0 * sin(PI * (rValueNXT + 20) / 40) + height + height / 30;
     prevRotation = currRotation;
@@ -170,9 +170,9 @@ void GLWidget::updateScene() {
         setYRotation(ycompassSpeed);
         if (QString::compare("shoulder", directionalControlMethod, Qt::CaseInsensitive)==0)
         {
-            shoulderRot += (angularAccelActual*0.0075);
+            shoulderRot += (angularAccelActual*0.0015);//0.0075 was tuned value for laptop/slow system time
             headRot += (zcompassSpeed*2.25);
-            setZRotation(zRot+(zcompassSpeed*2.20)+(angularAccelActual*0.0075));
+            setZRotation(zRot+(zcompassSpeed*2.20)+(angularAccelActual*0.0015));//0.0075 was tuned value for laptop/slow system time
         }
         else
         {
