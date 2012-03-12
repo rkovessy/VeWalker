@@ -1,3 +1,16 @@
+<<<<<<< HEAD
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+startpractice_p1         0         
+=======
     white_         0         
     white_         0         
     white_         0         
@@ -324,3 +337,4 @@
                 1.44  -63.0213     -0.85         0            -63.0213     -0.85         0            -63.0213     -0.85         0                   0         0         0                   0         0         0                   
                 1.46  -63.0213     -0.85         0            -63.0213     -0.85         0            -63.0213     -0.85         0                   0         0         0                   0         0         0                   
                 1.48  -63.0213     -0.85         0            -63.0213     -0.85         0            -63.0213     -0.85         0                   0         0         0                   0         0         0                   
+>>>>>>> origin/rob_performancevar_db

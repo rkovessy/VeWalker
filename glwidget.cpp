@@ -335,8 +335,9 @@ void GLWidget::determineAngularAccel(double alphaActual)
 {
     get_calibration_settings();
     //If it has not been calibrated, just use a default weighting to turn
-    if (alphaRightMax == 0 && alphaLeftMax ==0)
+    if (alphaRightMax == 0 && alphaLeftMax ==0 && alphaZeroPosition ==0)
     {
+        printf("Uncalibrated Rotation \n");
         if(alphaActual > alphaRightMin){
             angularAccelActual = angularAccelMaximum;
         }
@@ -349,15 +350,20 @@ void GLWidget::determineAngularAccel(double alphaActual)
     //Actual turning algorithm if the camera has been calibrated
     else
     {
+        printf("Calibrated Rotation \n");
         //Adjust values based on center value captured during calibration
         alphaActual -= alphaZeroPosition;
         if (alphaActual > alphaRightMin)
         {
-            angularAccelActual = (abs(alphaRightMax)-abs(alphaActual))/(abs(alphaRightMax)-abs(alphaRightMin));
+            angularAccelActual = angularAccelMaximum*abs(alphaActual)/abs(alphaRightMax-alphaRightMin);
+            printf("Angular Accel Maximum %f \n", angularAccelMaximum);
+            printf("Angular Accel Actual %f \n", angularAccelActual);
         }
         else if (alphaActual < alphaLeftMin)
         {
-            angularAccelActual = -1*(abs(alphaLeftMax)-abs(alphaActual))/(abs(alphaLeftMax)-abs(alphaLeftMin));
+            angularAccelActual = -1*angularAccelMaximum*abs(alphaActual)/abs(alphaLeftMax-alphaLeftMin);
+            printf("Angular Accel Maximum %f \n", angularAccelMaximum);
+            printf("Angular Accel Actual %f \n", angularAccelActual);
         }
         else
             angularAccelActual = 0;

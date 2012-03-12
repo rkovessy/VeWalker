@@ -1,11 +1,5 @@
 #include "legoThread.h"
 
-//Connection *connection = new Bluetooth();
-//Brick *nxt = new Brick(connection);
-//Motor *motor = new Motor(OUT_A, connection);
-//Tilt *tilt = new Tilt (IN_1, connection, 0x02);
-//Compass *compass = new Compass (IN_1, connection, 40, 0x02);
-//Xyz_position *result = new Xyz_position();
 
 LegoThread::LegoThread() {
     PI = (asin(0.5) * 6.0);

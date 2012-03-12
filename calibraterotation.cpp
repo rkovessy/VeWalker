@@ -21,12 +21,14 @@ calibrateRotation::calibrateRotation(QWidget *parent) :
     alphaRightActual = 0.0;
     alphaLeftActual = 0.0;
     alphaCenterActual = 0.0;
+    cvNamedWindow("Calibration");
 }
 
 calibrateRotation::~calibrateRotation()
 {
     QSqlDatabase::database("calibrateRotationConnection").close();
     QSqlDatabase::removeDatabase("calibrateRotationConnection");
+    cvDestroyWindow("Calibration");
     delete ui;
 }
 
@@ -68,6 +70,7 @@ void calibrateRotation::calibrate(int leftRightIndex)
     IplImage* imgBlurred = GetBlurredImage(imgResized);
     IplImage* imgThresh = GetThresholdedImage(imgBlurred);
     IplImage* imgDilated = GetDilatedImage(imgThresh);
+    cvShowImage("Calibration",imgDilated);
 
     //Get the contour vectors and store in contours
     cvFindContours(imgDilated, storage, &contours, sizeof(CvContour), CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE, cvPoint(0,0));
@@ -120,16 +123,16 @@ void calibrateRotation::calibrate(int leftRightIndex)
     {
         if (leftRightIndex == 1){
             alphaRightActual = atan(oppAdjParam);
-            //printf("Alpha Right Actual: %f \n", alphaRightActual);
+            printf("Alpha Right Actual: %f \n", alphaRightActual);
         }
         else if (leftRightIndex == 3)
         {
             alphaCenterActual = atan(oppAdjParam);
-            //printf("Alpha Left Actual: %f \n", alphaLeftActual);
+            printf("Alpha Center Actual: %f \n", alphaLeftActual);
         }
         else{
             alphaLeftActual = atan(oppAdjParam);
-            //printf("Alpha Left Actual: %f \n", alphaLeftActual);
+            printf("Alpha Left Actual: %f \n", alphaLeftActual);
         }
     }
     else
@@ -226,6 +229,8 @@ void calibrateRotation::on_rightExtentCapture_clicked()
     int rightIndex = 1;
     rightExtentCalibrated = true;
     calibrate(rightIndex);
+    calibrate(rightIndex);
+    calibrate(rightIndex);
     return;
 }
 
@@ -233,6 +238,8 @@ void calibrateRotation::on_leftExtentCapture_clicked()
 {
     int leftIndex = 2;
     leftExtentCalibrated=true;
+    calibrate(leftIndex);
+    calibrate(leftIndex);
     calibrate(leftIndex);
     return;
 }
@@ -335,6 +342,8 @@ void calibrateRotation::on_centerCapture_clicked()
 {
     int centerIndex = 3; //ie. choose center
     centerCalibrated=true;
+    calibrate(centerIndex);
+    calibrate(centerIndex);
     calibrate(centerIndex);
     return;
 }
