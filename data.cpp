@@ -70,21 +70,6 @@ void Data::updateinfo(int p) {
     position = p;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//DATA
-
-void Data::writeIntro(QString f) {
-//    filename[DATA] = f;
-//    if (!QDir("Data").exists())
-//        QDir().mkdir("Data");
-
-//    file[DATA].setFileName(filename[DATA]);
-//    text[DATA].setDevice(&file[DATA]);
-//    file[DATA].open(QIODevice::WriteOnly | QIODevice::Text);
-//    text[DATA].setFieldWidth(20);
-//    text[DATA] <<  "trial" << "start" << "time_starttrial" << "time_bumper" << "time_step" << "time_latency" << "time_arrive" << "time_crossing" << "steps" << "gap_chosen" << endl;
-}
-
 void Data::writeData(QString trial, bool failed) {
 
 
@@ -137,73 +122,6 @@ void Data::writeData(QString trial, bool failed) {
         gap_chosen = 0;
         steps = 0;
         step = false;
-
-//    if (failed)
-//        trial.prepend("failed_");
-//    text[DATA] <<  trial << start << time_starttrial << time_bumper << time_step << time_latency << time_arrive << time_crossing << steps << gap_chosen << endl;
-
-//    time_bumper = 0.0;
-//    time_step = 0.0;
-//    time_latency = 0.0;
-//    time_crossing = 0.0;
-//    time_arrive = 0.0;
-//    gap_chosen = 0;
-//    steps = 0;
-
-//    step = false;
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//PEDESTRIAN
-
-//void Data::setPedestrian(QString f) {
-//    filename[PEDESTRIAN] = f;
-//    file[PEDESTRIAN].setFileName(filename[PEDESTRIAN]);
-//    text[PEDESTRIAN].setDevice(&file[PEDESTRIAN]);
-//    file[PEDESTRIAN].open(QIODevice::WriteOnly | QIODevice::Text);
-//    text[PEDESTRIAN].setFieldWidth(10);
-//    text[PEDESTRIAN] << "trial" << "time" << "xTrans" << "yTrans" << "zTrans" << "xRot" << "yRot" << "zRot" << endl;
-//}
-
-//void Data::writePedestrian(QString trial, double xTrans, double yTrans, double zTrans, double xRot, double yRot, double zRot) {
-//    text[PEDESTRIAN] << trial << time << xTrans << yTrans << zTrans << xRot << yRot << zRot << endl;
-//}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//CARS
-
-QString Data::setCars(int pid)
-{
-//    filename[CARS] = "Cars";
-//    if (!QDir(filename[CARS]).exists())
-//        QDir().mkdir(filename[CARS]);
-//    filename[CARS].append("/P");
-
-//    QString id = QString::number(pid);
-//    if (pid < 10)
-//        id.prepend("0");
-//    filename[CARS].append(id + "_Cars.txt");
-//    file[CARS].setFileName(filename[CARS]);
-//    text[CARS].setDevice(&file[CARS]);
-//    file[CARS].open(QIODevice::WriteOnly | QIODevice::Text);
-//    text[CARS].setFieldWidth(10);
-
-    return "0";
-}
-
-void Data::writeCars_trial(QString trial, double time, bool trials, bool practice, bool white, bool failed)
-{
-//    if (trials)
-//        text[CARS] << "starttrials_" + trial;
-//    else if (practice)
-//        text[CARS] << "startpractice_" + trial;
-//    else if (white)
-//        text[CARS] << "white_" + trial;
-//    else if (failed)
-//        text[CARS] << "fail_" + trial;
-//    else
-//        text[CARS] << trial;
-//    text[CARS] << time;
 }
 
 void Data::writeCars(double a, double b, double c)
