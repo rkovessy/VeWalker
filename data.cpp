@@ -9,11 +9,10 @@ void Data::read_specs()
 {
     connect_to_database();
     get_numberOfTrials();
-    //numberOfTrials=60;
     get_mode();
-//    get_numberOfCars(); //VehicleQauntitySwitching
-//    get_trafficEnable();
-    numberOfCars = 5;
+    get_numberOfCars(); //VehicleQauntitySwitching
+    get_trafficEnable();
+    //numberOfCars = 5;
     get_trafficIntensity();
     get_unsafeCrossing();
     generate_interarrival_time();
@@ -25,7 +24,7 @@ void Data::read_specs()
     {
         for (int count = 0; count < numberOfTrials; ++count)
         {
-            speeds[count] = 50;
+            speeds[count] = 90;
             startPos[count] = "A";
             popUps[count] = "none";
         }
@@ -319,7 +318,7 @@ void Data::generate_interarrival_time()
         for (int count = 0; count < numberOfTrials; ++count)
         {
             demoTrafficIntensity = rand() % 20 + 1;
-            for (int i=0;i<numberOfCars;i++){
+            for (int i=0;i<20;i++){//for (int i=0;i<numberOfCars;i++){
                 do{
                     //generate gap times to 5 significant digits, but don't allow overlap of vehicles (ie. arrival time>.5)
                     gaps[count][i] = generateArrivalTimes.createintervals(demoTrafficIntensity);

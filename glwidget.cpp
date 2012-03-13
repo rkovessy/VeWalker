@@ -34,7 +34,7 @@ void GLWidget::setPedestrian(double x, double y, double mid) {
     startingyTrans[0] = y;
     startingyTrans[1] = 0.0;
     startingxTrans[0] = x; //This is about at the cross walk
-    startingrotation[0] = 0;
+    startingrotation[0] = 290;
 
     startPos = tc.get_start();
     if (startPos == "A")
@@ -115,7 +115,7 @@ void GLWidget::setArduinoTranslation(int potRot)
     //qDebug() << "potRot:    " << potRot;
     if(!hit) {
         if(!(tc.get_screen()))
-            motorSpeed = .2;//abs(currRotation - prevRotation) * PI / 180.0 * 0.14; //Change these values to set constant motor speed
+            motorSpeed = 0.0;//abs(currRotation - prevRotation) * PI / 180.0 * 0.14; //Change these values to set constant motor speed
          else
             motorSpeed = 0.0; //Change these values to set constant motor speed
     }

@@ -31,8 +31,12 @@ Car::~Car()
 void Car::setCar(const double sp[2][100], int vehicleQuantity) {
     numberOfCars = vehicleQuantity;
     for (int lane = 0; lane < 2; ++lane)
-        for (int count = 0; count < numberOfCars; ++count) //VehicleQuantitySwitching
-            referenceSpeed[lane][count] = sp[lane][count];
+    {
+        for (int carCounter = 0; carCounter < numberOfCars; ++carCounter){ //VehicleQuantitySwitching
+            referenceSpeed[lane][carCounter] = sp[lane][carCounter];
+            printf("Car set %d \n", carCounter);
+        }
+    }
 }
 
 void Car::newCar(double spee) {

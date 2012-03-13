@@ -31,9 +31,9 @@ TrafficControl::TrafficControl(QWidget *parent) :
     db.setDatabaseName("configDb");
     db.open();
     this->database_connect();
-//    database_get_vals();
-//    database_get_trafficenable(); //VehicleQauntitySwitching
-    numberOfCars = 5;
+    database_get_vals();
+    database_get_trafficenable(); //VehicleQauntitySwitching
+    //numberOfCars = 5;
     connect(&popupscreen, SIGNAL(clicked()), this, SLOT(clicked()));
 }
 
