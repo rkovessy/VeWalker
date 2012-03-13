@@ -11,7 +11,6 @@ void Data::read_specs()
     get_numberOfTrials();
     get_mode();
     get_numberOfCars(); //VehicleQauntitySwitching
-    printf("Number of cars data: %d \n", numberOfCars);
     get_trafficEnable();
     get_trafficIntensity();
     get_unsafeCrossing();
@@ -31,9 +30,9 @@ void Data::read_specs()
     //Generate arrays of random parameters within bounds if demo mode was selected
     else
     {
+        numberOfCars = 20; //Select maximum number of vehicles for most complete demo
         for (int count = 0; count < numberOfTrials; ++count)
         {
-            //numberOfCars = rand() % 20 + 1; //Have between 1 and 20 vehicles per trial
             speeds[count] = rand() % 50 + 20;//Have vehicles move at random speed between 20 and 70
             startPos[count] = "A"; //Always start at A
             popUps[count] = "none"; //No popups between trials

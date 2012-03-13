@@ -45,7 +45,8 @@ public:
     QString get_trials();
     QString get_start();
     int get_display(); // for the countdown lcd in glwidget
-    void database_get_trafficenable();
+    void database_get_trafficenable(); //Determine if traffic is enabled or disabled
+    void database_get_mode(); //Get demo or trial mode to set number of vehicles
 
     void nexttrial(); // sets up trafficcontrol for next trial, called after pedestrian reaches end
     void resettrial(); // called after failed trial
@@ -54,8 +55,8 @@ public:
     Data data; // writes info for pedestrian, data, and cars
     Limits limits; // limits for pedestrian
 
-    void database_get_vals();
-    void database_connect();
+    void database_get_vals(); //Get NumberOfVehicles
+    void database_connect(); //Connect to database
 
 public slots:
     void clicked(); // executed after aknowledgement from user after failed trial or start of real trials.

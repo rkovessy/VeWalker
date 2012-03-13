@@ -426,6 +426,40 @@ void TrafficControl::database_get_trafficenable()
     }
 }
 
+//Determine if demo mode is selected based off call to database
+void::TrafficControl::database_get_mode()
+{
+    bool demoMode;
+    QString modeConfigured;
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT mode FROM trialconfig order by reference_id desc limit 1");
+        QSqlQuery qry(db);
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                modeConfigured = qry.value(0).toString();
+            }
+        if (QString::compare("demo", modeConfigured, Qt::CaseInsensitive)==0)
+            demoMode = true;
+        else
+            demoMode = false;
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+        if (demoMode = true)
+            numberOfCars = 20; //Choose maximum of 20 cars for full demo
+
+    }
+    else
+    {
+        qDebug() << "TrafficControl failed to open database connection to pull data.";
+    }
+}
+
 void TrafficControl::database_get_vals()
 {
     if (db.isOpen())
@@ -449,4 +483,6 @@ void TrafficControl::database_get_vals()
     {
         qDebug() << "TrafficControl failed to open database connection to pull data.";
     }
+    database_get_trafficenable(); //Overwrite numberOfCars if traffic is disabled
+    database_get_mode(); //Overwrite numberOfCars if there is a demo in progress
 }
