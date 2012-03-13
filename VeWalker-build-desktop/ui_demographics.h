@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'demographics.ui'
 **
-** Created: Sun Mar 11 20:24:38 2012
+** Created: Tue Mar 13 16:33:45 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -177,6 +177,7 @@ public:
         intensityslider->setGeometry(QRect(172, 141, 151, 24));
         intensityslider->setMinimum(1);
         intensityslider->setMaximum(20);
+        intensityslider->setPageStep(1);
         intensityslider->setValue(1);
         intensityslider->setOrientation(Qt::Horizontal);
         intensityslider->setTickPosition(QSlider::TicksBelow);
@@ -186,6 +187,7 @@ public:
         vehiclequantityslider->setGeometry(QRect(172, 171, 151, 24));
         vehiclequantityslider->setMinimum(1);
         vehiclequantityslider->setMaximum(20);
+        vehiclequantityslider->setPageStep(1);
         vehiclequantityslider->setOrientation(Qt::Horizontal);
         vehiclequantityslider->setTickPosition(QSlider::TicksBelow);
         vehiclequantityslider->setTickInterval(1);

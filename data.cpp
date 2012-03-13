@@ -8,24 +8,40 @@ Data::Data()
 void Data::read_specs()
 {
     connect_to_database();
-    //get_numberOfTrials();
-    numberOfTrials=60;
+    get_numberOfTrials();
     get_mode();
-//    get_numberOfCars(); //VehicleQauntitySwitching
-//    get_trafficEnable();
-    numberOfCars = 5;
+    get_numberOfCars(); //VehicleQauntitySwitching
+    printf("Number of cars data: %d \n", numberOfCars);
+    get_trafficEnable();
     get_trafficIntensity();
     get_unsafeCrossing();
-    generate_interarrival_time();
     get_participantId();
     get_referenceId();
 
-    for (int count = 0; count < numberOfTrials; ++count)
+    //Generate arrays with trial parameters based on selections for trial mode
+    if (demoMode==false)
     {
-        speeds[count] = 25;
-        startPos[count] = "A";
-        popUps[count] = "none";
+        for (int count = 0; count < numberOfTrials; ++count)
+        {
+            speeds[count] = 90;
+            startPos[count] = "A";
+            popUps[count] = "none";
+        }
     }
+    //Generate arrays of random parameters within bounds if demo mode was selected
+    else
+    {
+        for (int count = 0; count < numberOfTrials; ++count)
+        {
+            //numberOfCars = rand() % 20 + 1; //Have between 1 and 20 vehicles per trial
+            speeds[count] = rand() % 50 + 20;//Have vehicles move at random speed between 20 and 70
+            startPos[count] = "A"; //Always start at A
+            popUps[count] = "none"; //No popups between trials
+        }
+    }
+
+    generate_interarrival_time();
+
 }
 
 void Data::updateinfo(int p) {
@@ -290,18 +306,43 @@ void Data::connect_to_database()
     db.open();
 }
 
+
+//Generate the interarrival times based on a poisson process
 void Data::generate_interarrival_time()
 {
-
-    //srand(time(NULL));
-    if (unsafeCrossingEnable == false)
+    //If demo mode is selected generate random interarrival times for each trial based on poisson distributions
+    if (demoMode == true)
     {
-        poisson generateArrivalTimes;
+        int demoTrafficIntensity; //Initialize new intensity for random values to be generated
+        poisson generateArrivalTimes; //Create poisson class
+        //Generate different interarrival times for each trial based on random interarrival time between 1 and 20
+        for (int count = 0; count < numberOfTrials; ++count)
+        {
+            demoTrafficIntensity = rand() % 20 + 1;
+            for (int i=0;i<numberOfCars;i++){//for (int i=0;i<numberOfCars;i++){
+                do{
+                    //generate gap times to 5 significant digits, but don't allow overlap of vehicles (ie. arrival time>.5)
+                    gaps[count][i] = generateArrivalTimes.createintervals(demoTrafficIntensity);
+                    gaps[count][i] += generateArrivalTimes.createintervals(demoTrafficIntensity)/10;
+                    gaps[count][i] += generateArrivalTimes.createintervals(demoTrafficIntensity)/100;
+                    gaps[count][i] += generateArrivalTimes.createintervals(demoTrafficIntensity)/1000;
+                    gaps[count][i] += generateArrivalTimes.createintervals(demoTrafficIntensity)/10000;
+                }while(gaps[count][i] <= .5);
+            }
+        }
+    }
+
+    //If there is no unsafe crossing enabled and demo mode is not enabled generate based on a poisson distribution with
+    //interarrival time selected
+    else if (unsafeCrossingEnable == false && demoMode == false)
+    {
+        poisson generateArrivalTimes; //Create poisson class
+        //Generate different interarrival times for every car in every trial and stroe in array
         for (int count = 0; count < numberOfTrials; ++count)
         {
             for (int i=0;i<numberOfCars;i++){
                 do{
-                    //gaps[count][i]  = 5;
+                    //generate gap times to 5 significant digits, but don't allow overlap of vehicles (ie. arrival time>.5)
                     gaps[count][i] = generateArrivalTimes.createintervals(trafficIntensity);
                     gaps[count][i] += generateArrivalTimes.createintervals(trafficIntensity)/10;
                     gaps[count][i] += generateArrivalTimes.createintervals(trafficIntensity)/100;
@@ -311,6 +352,7 @@ void Data::generate_interarrival_time()
             }
         }
     }
+    //If unsafe crossing selected, generate array of constant unsafe interarrival time for all cars and all trials
     else
     {
         for (int count = 0; count < numberOfTrials; ++count)
@@ -321,9 +363,10 @@ void Data::generate_interarrival_time()
         }
 
     }
-
 }
 
+
+//Database call to determien if traffic is disabled
 void Data::get_trafficEnable()
 {
     int trafficEnable;
@@ -353,6 +396,8 @@ void Data::get_trafficEnable()
     }
 }
 
+
+//Database call to get number of cars selected
 void Data::get_numberOfCars()
 {
     if (db.isOpen())
@@ -378,6 +423,8 @@ void Data::get_numberOfCars()
     }
 }
 
+
+//Database call to determien if unsafe crossing was selected
 void Data::get_unsafeCrossing()
 {
     int unsafeCrossingInt;
@@ -408,6 +455,7 @@ void Data::get_unsafeCrossing()
     }
 }
 
+//Database call for getting unique reference ID for current run of application
 void Data::get_referenceId()
 {
     if (db.isOpen())
@@ -432,6 +480,7 @@ void Data::get_referenceId()
     }
 }
 
+//Database call for accessing participant id number
 void Data::get_participantId()
 {
     if (db.isOpen())

@@ -18,8 +18,8 @@ calibrateRotation::calibrateRotation(QWidget *parent) :
     angleRads = 0;
     rightExtentCalibrated = false;
     leftExtentCalibrated = false;
-    alphaRightActual = 0.0;
-    alphaLeftActual = 0.0;
+    alphaRightActual = 45*3.14159/180; //default value of 45 degree angle, with right being positive
+    alphaLeftActual = -45*3.14159/180; //default value of 45 degree angle, with left bveing negative
     alphaCenterActual = 0.0;
     cvNamedWindow("Calibration");
 }
@@ -66,7 +66,8 @@ void calibrateRotation::calibrate(int leftRightIndex)
     CvMoments *moments2 = (CvMoments*)malloc(sizeof(CvMoments));
 
     //Process image
-    IplImage* imgResized = GetResizedImage(frame);
+    IplImage* imgCropped = GetCroppedImage(frame);
+    IplImage* imgResized = GetResizedImage(imgCropped);
     IplImage* imgBlurred = GetBlurredImage(imgResized);
     IplImage* imgThresh = GetThresholdedImage(imgBlurred);
     IplImage* imgDilated = GetDilatedImage(imgThresh);
@@ -207,6 +208,18 @@ IplImage* calibrateRotation::GetBlurredImage(IplImage* img)
     return imgBlur;
 }
 
+//Convert image to a cropped image around the participant
+IplImage* calibrateRotation::GetCroppedImage(IplImage* img)
+{
+    //Set image ROI to be cropped based on starting position and window size
+    cvSetImageROI(img, cvRect(0, 0, 640, 480)); //image is (640, 480)
+
+    //Create new blank image of correct size and copy ROI into it
+    IplImage *imgBlankCanvas = cvCreateImage(cvGetSize(img),img->depth,img->nChannels);
+    cvCopy(img, imgBlankCanvas, NULL);
+    return img;
+}
+
 IplImage* calibrateRotation::GetResizedImage(IplImage* img)
 {
     //Resize image to 1/4 size to speed up processing
@@ -254,6 +267,10 @@ void calibrateRotation::on_completeButton_clicked()
 
 void calibrateRotation::on_cancelButton_clicked()
 {
+    alphaRightActual = 45*3.14159/180; //default value of 45 degree angle, with right being positive
+    alphaLeftActual = -45*3.14159/180; //default value of 45 degree angle, with left bveing negative
+    alphaCenterActual = 0.0;
+    write_calibration_values();
     this->hide();
 }
 

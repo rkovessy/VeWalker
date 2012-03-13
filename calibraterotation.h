@@ -69,6 +69,7 @@ public:
     IplImage* GetBlurredImage(IplImage* img);
     IplImage* GetResizedImage(IplImage* img);
     IplImage* GetDilatedImage(IplImage* img);
+    IplImage* GetCroppedImage(IplImage* img);
     CvCapture* capture;
     double alphaLeftActual;
     double alphaRightActual;

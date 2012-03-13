@@ -124,6 +124,17 @@ IplImage* LegoThread::GetBlurredImage(IplImage* img)
     return imgBlur;
 }
 
+IplImage* LegoThread::GetCroppedImage(IplImage* img)
+{
+    //Set image ROI to be cropped based on starting position and window size
+    cvSetImageROI(img, cvRect(0, 0, 640, 480));  //image is (640, 480)
+
+    //Create new blank image of correct size and copy ROI into it
+    IplImage *imgBlankCanvas = cvCreateImage(cvGetSize(img),img->depth,img->nChannels);
+    cvCopy(img, imgBlankCanvas, NULL);
+    return img;
+}
+
 IplImage* LegoThread::GetResizedImage(IplImage* img)
 {
     //Resize image to 1/4 size to speed up processing
@@ -262,7 +273,8 @@ void LegoThread::UpdateCamera()
 
     //Process image
     cvShowImage("Raw Video", frame);
-    IplImage* imgResized = GetResizedImage(frame);
+    IplImage* imgCropped = GetCroppedImage(frame);
+    IplImage* imgResized = GetResizedImage(imgCropped);
     IplImage* imgBlurred = GetBlurredImage(imgResized);
     IplImage* imgThresh = GetThresholdedImage(imgBlurred);
     IplImage* imgDilated = GetDilatedImage(imgThresh);

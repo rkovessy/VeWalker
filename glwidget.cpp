@@ -15,8 +15,8 @@ GLWidget::GLWidget(QWidget *parent)
 
     this->database_connect();
 
-
-
+    alphaRightMin = .000485;
+    alphaLeftMin = -.000485;
     //setMouseTracking(true);
 }
 
@@ -31,7 +31,7 @@ void GLWidget::setPedestrian(double x, double y, double mid) {
     startingyTrans[0] = y;
     startingyTrans[1] = 0.0;
     startingxTrans[0] = x; //This is about at the cross walk
-    startingrotation[0] = 0;
+    startingrotation[0] = 290;
 
     startPos = tc.get_start();
     if (startPos == "A")
@@ -112,9 +112,9 @@ void GLWidget::setArduinoTranslation(int potRot)
     //qDebug() << "potRot:    " << potRot;
     if(!hit) {
         if(!(tc.get_screen()))
-            motorSpeed = abs(currRotation - prevRotation) * PI / 180.0 * 0.14;
+            motorSpeed = abs(currRotation - prevRotation) * PI / 180.0 * 0.14; //Change these values to set constant motor speed
          else
-            motorSpeed = 0.0;
+            motorSpeed = 0.0; //Change these values to set constant motor speed
     }
     //zTrans = height / 30.0 * sin(PI * (rValueNXT + 20) / 40) + height + height / 30;
     prevRotation = currRotation;
@@ -335,40 +335,24 @@ GLuint GLWidget::makeObject()
 void GLWidget::determineAngularAccel(double alphaActual)
 {
     get_calibration_settings();
-    //If it has not been calibrated, just use a default weighting to turn
-    if (alphaRightMax == 0 && alphaLeftMax ==0 && alphaZeroPosition ==0)
+    alphaRightMax += alphaZeroPosition;
+    alphaRightMin += alphaZeroPosition;
+    alphaLeftMax += alphaZeroPosition;
+    alphaLeftMin += alphaZeroPosition;
+    if (alphaActual > alphaRightMin)
     {
-        printf("Uncalibrated Rotation \n");
-        if(alphaActual > alphaRightMin){
-            angularAccelActual = angularAccelMaximum;
-        }
-        else if (alphaActual < alphaLeftMin)
-            angularAccelActual = -1*angularAccelMaximum;
-        else
-            angularAccelActual = 0;
+        angularAccelActual = angularAccelMaximum*abs(alphaActual)/abs(alphaRightMax-alphaRightMin);
+        //printf("Angular Accel Maximum %f \n", angularAccelMaximum);
+        //printf("Angular Accel Actual %f \n", angularAccelActual);
     }
-
-    //Actual turning algorithm if the camera has been calibrated
+    else if (alphaActual < alphaLeftMin)
+    {
+        angularAccelActual = -1*angularAccelMaximum*abs(alphaActual)/abs(alphaLeftMax-alphaLeftMin);
+        //printf("Angular Accel Maximum %f \n", angularAccelMaximum);
+        //printf("Angular Accel Actual %f \n", angularAccelActual);
+    }
     else
-    {
-        printf("Calibrated Rotation \n");
-        //Adjust values based on center value captured during calibration
-        alphaActual -= alphaZeroPosition;
-        if (alphaActual > alphaRightMin)
-        {
-            angularAccelActual = angularAccelMaximum*abs(alphaActual)/abs(alphaRightMax-alphaRightMin);
-            printf("Angular Accel Maximum %f \n", angularAccelMaximum);
-            printf("Angular Accel Actual %f \n", angularAccelActual);
-        }
-        else if (alphaActual < alphaLeftMin)
-        {
-            angularAccelActual = -1*angularAccelMaximum*abs(alphaActual)/abs(alphaLeftMax-alphaLeftMin);
-            printf("Angular Accel Maximum %f \n", angularAccelMaximum);
-            printf("Angular Accel Actual %f \n", angularAccelActual);
-        }
-        else
-            angularAccelActual = 0;
-    }
+        angularAccelActual = 0;
 }
 
 void GLWidget::database_connect()

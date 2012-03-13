@@ -59,8 +59,8 @@ public:
 
 private:
     void translateSpeed(int index); // translates speed[index] for all other paths
-    double referenceSpeed[2][100]; // reference speed translations used for translating tmp, follow and (normal)Speed //VehicleQauntitySwitching
-    double speed[100]; // holds translations for different paths of current speed, only one lane reference is needed //VehicleQauntitySwitching
+    double referenceSpeed[2][100]; // reference speed translations used for translating tmp, follow and (normal)Speed
+    double speed[100]; // holds translations for different paths of current speed, only one lane reference is needed
     const static int start = 2; // start road of current car
     const static int end = 0; // end road of current car
     int position; // position non-specific to the cars current position, is global for determining occupied, int since needed for referencing arrays
