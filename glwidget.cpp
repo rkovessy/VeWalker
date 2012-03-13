@@ -173,9 +173,9 @@ void GLWidget::updateScene() {
         setYRotation(ycompassSpeed);
         if (QString::compare("shoulder", directionalControlMethod, Qt::CaseInsensitive)==0)
         {
-            shoulderRot += (angularAccelActual*0.0075);
+            shoulderRot += (angularAccelActual*0.0015);//0.0075 was tuned value for laptop/slow system time
             headRot += (zcompassSpeed*2.25);
-            setZRotation(zRot+(zcompassSpeed*2.20)+(angularAccelActual*0.0075));
+            setZRotation(zRot+(zcompassSpeed*2.20)+(angularAccelActual*0.0015));//0.0075 was tuned value for laptop/slow system time
         }
         else
         {
@@ -343,11 +343,15 @@ void GLWidget::determineAngularAccel(double alphaActual)
     alphaLeftMin += alphaZeroPosition;
     if (alphaActual > alphaRightMin)
     {
-        angularAccelActual = (abs(alphaRightMax)-abs(alphaActual))/(abs(alphaRightMax)-abs(alphaRightMin));
+        angularAccelActual = angularAccelMaximum*abs(alphaActual)/abs(alphaRightMax-alphaRightMin);
+        //printf("Angular Accel Maximum %f \n", angularAccelMaximum);
+        //printf("Angular Accel Actual %f \n", angularAccelActual);
     }
     else if (alphaActual < alphaLeftMin)
     {
-        angularAccelActual = -1*(abs(alphaLeftMax)-abs(alphaActual))/(abs(alphaLeftMax)-abs(alphaLeftMin));
+        angularAccelActual = -1*angularAccelMaximum*abs(alphaActual)/abs(alphaLeftMax-alphaLeftMin);
+        //printf("Angular Accel Maximum %f \n", angularAccelMaximum);
+        //printf("Angular Accel Actual %f \n", angularAccelActual);
     }
     else
         angularAccelActual = 0;

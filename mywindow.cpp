@@ -74,7 +74,7 @@ void MyWindow::settingLayout() {
 void MyWindow::updateCameraValues(int x1, int x2, int y1, int y2){
     double oppositeSide = (y2-y1);
     double adjacentSide = (x2-x1);
-    double angleThreshold = 0.175;
+    double angleThreshold = 0.0872;
     double angleRads;
 
     if (x1==0 || x2==0 || y1==0 || y2 == 0 ||adjacentSide == 0)

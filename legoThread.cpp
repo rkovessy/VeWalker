@@ -44,6 +44,9 @@ LegoThread::LegoThread() {
     db.open();
 
     this->database_connect();
+
+    cvNamedWindow("Processed Video");
+    cvNamedWindow("Raw Video");
 }
 
 LegoThread::~LegoThread()
@@ -123,7 +126,12 @@ IplImage* LegoThread::GetBlurredImage(IplImage* img)
 
 IplImage* LegoThread::GetCroppedImage(IplImage* img)
 {
-    //Convert image to a cropped image around the participant
+    //Set image ROI to be cropped based on starting position and window size
+    cvSetImageROI(img, cvRect(0, 0, 640, 480));  //image is (640, 480)
+
+    //Create new blank image of correct size and copy ROI into it
+    IplImage *imgBlankCanvas = cvCreateImage(cvGetSize(img),img->depth,img->nChannels);
+    cvCopy(img, imgBlankCanvas, NULL);
     return img;
 }
 
@@ -264,12 +272,13 @@ void LegoThread::UpdateCamera()
     CvMoments *moments2 = (CvMoments*)malloc(sizeof(CvMoments));
 
     //Process image
-    IplImage* imgResized = GetResizedImage(frame);
+    cvShowImage("Raw Video", frame);
+    IplImage* imgCropped = GetCroppedImage(frame);
+    IplImage* imgResized = GetResizedImage(imgCropped);
     IplImage* imgBlurred = GetBlurredImage(imgResized);
     IplImage* imgThresh = GetThresholdedImage(imgBlurred);
-    IplImage* imgCropped = GetCroppedImage(imgThresh);
-    IplImage* imgDilated = GetDilatedImage(imgCropped);
-    //cvShowImage("Processed Video", imgDilated);
+    IplImage* imgDilated = GetDilatedImage(imgThresh);
+    cvShowImage("Processed Video", imgDilated);
 
     //Get the contour vectors and store in contours
     cvFindContours(imgDilated, storage, &contours, sizeof(CvContour), CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE, cvPoint(0,0));
