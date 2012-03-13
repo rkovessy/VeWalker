@@ -8,7 +8,7 @@ Data::Data()
 void Data::read_specs()
 {
     connect_to_database();
-    //get_numberOfTrials();
+    get_numberOfTrials();
     numberOfTrials=60;
     get_mode();
 //    get_numberOfCars(); //VehicleQauntitySwitching
