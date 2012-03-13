@@ -31,7 +31,7 @@ void GLWidget::setPedestrian(double x, double y, double mid) {
     startingyTrans[0] = y;
     startingyTrans[1] = 0.0;
     startingxTrans[0] = x; //This is about at the cross walk
-    startingrotation[0] = 270;
+    startingrotation[0] = 0;
 
     startPos = tc.get_start();
     if (startPos == "A")
@@ -112,9 +112,9 @@ void GLWidget::setArduinoTranslation(int potRot)
     //qDebug() << "potRot:    " << potRot;
     if(!hit) {
         if(!(tc.get_screen()))
-            motorSpeed = 0.00; //abs(currRotation - prevRotation) * PI / 180.0 * 0.14;
+            motorSpeed = abs(currRotation - prevRotation) * PI / 180.0 * 0.14;
          else
-            motorSpeed = 0.0; //0.0;
+            motorSpeed = 0.0;
     }
     //zTrans = height / 30.0 * sin(PI * (rValueNXT + 20) / 40) + height + height / 30;
     prevRotation = currRotation;
@@ -172,7 +172,7 @@ void GLWidget::updateScene() {
         {
             shoulderRot += (angularAccelActual*0.0015);//0.0075 was tuned value for laptop/slow system time
             headRot += (zcompassSpeed*2.25);
-            setZRotation(zRot+(zcompassSpeed*2.20)+(angularAccelActual*0.0015));//0.0075 was tuned value for laptop/slow system time
+            setZRotation(zRot+(angularAccelActual*0.0015));//setZRotation(zRot+(zcompassSpeed*2.20)+(angularAccelActual*0.0015));//0.0075 was tuned value for laptop/slow system time
         }
         else
         {
@@ -193,7 +193,8 @@ void GLWidget::updateScene() {
             y = (yTrans + (motorSpeed*cos(shoulderRot*PI/180)));
             x = (xTrans + (motorSpeed*sin(shoulderRot*PI/180)));
         }
-        else{
+        else
+        {
             y = (yTrans + (motorSpeed*cos((zRot-(zcompassSpeed*2.25))*PI/180)));
             x = (xTrans + (motorSpeed*sin((zRot-(zcompassSpeed*2.25))*PI/180)));
         }

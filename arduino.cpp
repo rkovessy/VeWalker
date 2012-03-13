@@ -10,7 +10,7 @@ ArduinoThread::ArduinoThread(QObject *parent) :
     potRotation = 0;
 
     m_port = new SerialPort(this);
-    m_port->setPort("COM4");
+    m_port->setPort("COM5");
 
     if (m_port->open((QIODevice::OpenMode)1)) {
         qDebug("Arduino is running!\n");

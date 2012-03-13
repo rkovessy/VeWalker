@@ -22,7 +22,7 @@ void Data::read_specs()
 
     for (int count = 0; count < numberOfTrials; ++count)
     {
-        speeds[count] = 50;
+        speeds[count] = 25;
         startPos[count] = "A";
         popUps[count] = "none";
     }
