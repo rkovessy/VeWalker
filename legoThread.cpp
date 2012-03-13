@@ -121,6 +121,12 @@ IplImage* LegoThread::GetBlurredImage(IplImage* img)
     return imgBlur;
 }
 
+IplImage* LegoThread::GetCroppedImage(IplImage* img)
+{
+    //Convert image to a cropped image around the participant
+    return img;
+}
+
 IplImage* LegoThread::GetResizedImage(IplImage* img)
 {
     //Resize image to 1/4 size to speed up processing
@@ -261,7 +267,8 @@ void LegoThread::UpdateCamera()
     IplImage* imgResized = GetResizedImage(frame);
     IplImage* imgBlurred = GetBlurredImage(imgResized);
     IplImage* imgThresh = GetThresholdedImage(imgBlurred);
-    IplImage* imgDilated = GetDilatedImage(imgThresh);
+    IplImage* imgCropped = GetCroppedImage(imgThresh);
+    IplImage* imgDilated = GetDilatedImage(imgCropped);
     //cvShowImage("Processed Video", imgDilated);
 
     //Get the contour vectors and store in contours

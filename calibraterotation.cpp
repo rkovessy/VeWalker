@@ -67,7 +67,8 @@ void calibrateRotation::calibrate(int leftRightIndex)
     IplImage* imgResized = GetResizedImage(frame);
     IplImage* imgBlurred = GetBlurredImage(imgResized);
     IplImage* imgThresh = GetThresholdedImage(imgBlurred);
-    IplImage* imgDilated = GetDilatedImage(imgThresh);
+    IplImage* imgCropped = GetCroppedImage(imgThresh);
+    IplImage* imgDilated = GetDilatedImage(imgCropped);
 
     //Get the contour vectors and store in contours
     cvFindContours(imgDilated, storage, &contours, sizeof(CvContour), CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE, cvPoint(0,0));
@@ -202,6 +203,18 @@ IplImage* calibrateRotation::GetBlurredImage(IplImage* img)
     IplImage* imgBlur = cvCreateImage(cvGetSize(img), 8, 3);
     cvSmooth(img, imgBlur, CV_GAUSSIAN, 11, 11);
     return imgBlur;
+}
+
+//Convert image to a cropped image around the participant
+IplImage* calibrateRotation::GetCroppedImage(IplImage* img)
+{
+    //Set image ROI to be cropped based on starting position and window size
+    cvSetImageROI(img, cvRect(10, 15, 150, 250));
+
+    //Create new blank image of correct size and copy ROI into it
+    IplImage *imgBlankCanvas = cvCreateImage(cvGetSize(img),img->depth,img->nChannels);
+    cvCopy(img, imgBlankCanvas, NULL);
+    return img;
 }
 
 IplImage* calibrateRotation::GetResizedImage(IplImage* img)

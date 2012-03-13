@@ -42,6 +42,7 @@ public:
     IplImage* GetBlurredImage(IplImage* img);
     IplImage* GetResizedImage(IplImage* img);
     IplImage* GetDilatedImage(IplImage* img);
+    IplImage* GetCroppedImage(IplImage* img);
     void database_connect();
     void database_get_vals();
     CvCapture* capture;
