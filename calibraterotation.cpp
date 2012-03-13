@@ -247,6 +247,10 @@ void calibrateRotation::on_completeButton_clicked()
 
 void calibrateRotation::on_cancelButton_clicked()
 {
+    alphaRightActual = 45*3.14159/180; //default value of 45 degree angle, with right being positive
+    alphaLeftActual = -45*3.14159/180; //default value of 45 degree angle, with left bveing negative
+    alphaCenterActual = 0.0;
+    write_calibration_values();
     this->hide();
 }
 

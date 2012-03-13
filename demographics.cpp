@@ -124,9 +124,9 @@ void Demographics::database_insert_config()
 
             qryCalibrateVals.bindValue(":reference_id", referenceid);
 
-            qryCalibrateVals.bindValue(":left_calibration", 0.0);
+            qryCalibrateVals.bindValue(":left_calibration", -45*3.14159/180); //default value of 45 degree angle, with left bveing negative
 
-            qryCalibrateVals.bindValue(":right_calibration", 0.0);
+            qryCalibrateVals.bindValue(":right_calibration", 45*3.14159/180); //default value of 45 degree angle, with left bveing negative
 
             qryCalibrateVals.bindValue(":center_calibration", 0.0);
 
