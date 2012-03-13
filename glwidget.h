@@ -96,8 +96,8 @@
      double headRot;
      QPoint lastPos;
      QColor backgroundColor;
-     const static double alphaRightMin = .000485;
-     const static double alphaLeftMin = -.000485;
+     double alphaRightMin;
+     double alphaLeftMin;
      const static double angularAccelMaximum = 1000.0;
 
      bool hit; // whether or not pedestrian is hit

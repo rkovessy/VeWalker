@@ -15,6 +15,9 @@ GLWidget::GLWidget(QWidget *parent)
 
     this->database_connect();
 
+    alphaRightMin = .000485;
+    alphaLeftMin = -.000485;
+
 
 
     //setMouseTracking(true);
@@ -112,9 +115,9 @@ void GLWidget::setArduinoTranslation(int potRot)
     //qDebug() << "potRot:    " << potRot;
     if(!hit) {
         if(!(tc.get_screen()))
-            motorSpeed = 0.00; //abs(currRotation - prevRotation) * PI / 180.0 * 0.14;
+            motorSpeed = abs(currRotation - prevRotation) * PI / 180.0 * 0.14; //Change these values to set constant motor speed
          else
-            motorSpeed = 0.00; //0.0;
+            motorSpeed = 0.0; //Change these values to set constant motor speed
     }
     //zTrans = height / 30.0 * sin(PI * (rValueNXT + 20) / 40) + height + height / 30;
     prevRotation = currRotation;
@@ -334,34 +337,20 @@ GLuint GLWidget::makeObject()
 void GLWidget::determineAngularAccel(double alphaActual)
 {
     get_calibration_settings();
-    //If it has not been calibrated, just use a default weighting to turn
-    if (alphaRightMax == 0 && alphaLeftMax ==0)
+    alphaRightMax += alphaZeroPosition;
+    alphaRightMin += alphaZeroPosition;
+    alphaLeftMax += alphaZeroPosition;
+    alphaLeftMin += alphaZeroPosition;
+    if (alphaActual > alphaRightMin)
     {
-        if(alphaActual > alphaRightMin){
-            angularAccelActual = angularAccelMaximum;
-        }
-        else if (alphaActual < alphaLeftMin)
-            angularAccelActual = -1*angularAccelMaximum;
-        else
-            angularAccelActual = 0;
+        angularAccelActual = (abs(alphaRightMax)-abs(alphaActual))/(abs(alphaRightMax)-abs(alphaRightMin));
     }
-
-    //Actual turning algorithm if the camera has been calibrated
+    else if (alphaActual < alphaLeftMin)
+    {
+        angularAccelActual = -1*(abs(alphaLeftMax)-abs(alphaActual))/(abs(alphaLeftMax)-abs(alphaLeftMin));
+    }
     else
-    {
-        //Adjust values based on center value captured during calibration
-        alphaActual -= alphaZeroPosition;
-        if (alphaActual > alphaRightMin)
-        {
-            angularAccelActual = (abs(alphaRightMax)-abs(alphaActual))/(abs(alphaRightMax)-abs(alphaRightMin));
-        }
-        else if (alphaActual < alphaLeftMin)
-        {
-            angularAccelActual = -1*(abs(alphaLeftMax)-abs(alphaActual))/(abs(alphaLeftMax)-abs(alphaLeftMin));
-        }
-        else
-            angularAccelActual = 0;
-    }
+        angularAccelActual = 0;
 }
 
 void GLWidget::database_connect()

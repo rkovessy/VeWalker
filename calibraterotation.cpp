@@ -18,8 +18,8 @@ calibrateRotation::calibrateRotation(QWidget *parent) :
     angleRads = 0;
     rightExtentCalibrated = false;
     leftExtentCalibrated = false;
-    alphaRightActual = 0.0;
-    alphaLeftActual = 0.0;
+    alphaRightActual = 45*3.14159/180; //default value of 45 degree angle, with right being positive
+    alphaLeftActual = -45*3.14159/180; //default value of 45 degree angle, with left bveing negative
     alphaCenterActual = 0.0;
 }
 
