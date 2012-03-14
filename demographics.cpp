@@ -68,7 +68,7 @@ void Demographics::database_insert_config()
         qryParticipant.exec();
 
         QSqlQuery qryConfig(db);
-        QString inStatementConfig = "UPDATE trialconfig set mode = :mode, roundabout = :roundabout, vehicle_traffic = :vehicle_traffic, unsafe_crossing = :unsafe_crossing, traffic_intensity = :traffic_intensity, vehicle_quantity = :vehicle_quantity, trial_quantity = :trial_quantity, participant_height = :participant_height, directional_control = :directional_control, object_tracking = :object_tracking, trial_date = :trial_date where reference_id = :reference_id;";
+        QString inStatementConfig = "UPDATE trialconfig set mode = :mode, roundabout = :roundabout, vehicle_traffic = :vehicle_traffic, unsafe_crossing = :unsafe_crossing, traffic_speed = :traffic_speed, traffic_intensity = :traffic_intensity, vehicle_quantity = :vehicle_quantity, trial_quantity = :trial_quantity, participant_height = :participant_height, directional_control = :directional_control, object_tracking = :object_tracking, trial_date = :trial_date where reference_id = :reference_id;";
 
         qryConfig.prepare(inStatementConfig);
 
@@ -94,6 +94,7 @@ void Demographics::database_insert_config()
         else
             qryConfig.bindValue(":unsafe_crossing", 0);
 
+        qryConfig.bindValue(":traffic_speed", vehicleSpeed);
         qryConfig.bindValue(":vehicle_quantity", vehiclequantityslider);
         qryConfig.bindValue(":traffic_intensity", intensityslider);
         qryConfig.bindValue(":trial_quantity", trialquantity);
@@ -219,6 +220,8 @@ void Demographics::on_trial_clicked()
     ui->maxlabel1->setEnabled(true);
     ui->minlabel2->setEnabled(true);
     ui->maxlabel2->setEnabled(true);
+    ui->trafficSpeed->setEnabled(true);
+    ui->trafficSpeedLabel->setEnabled(true);
 
     if (ui->demo->isChecked())
         ui->demo->setChecked(false);
@@ -256,6 +259,8 @@ void Demographics::on_demo_clicked()
     ui->maxlabel1->setEnabled(false);
     ui->minlabel2->setEnabled(false);
     ui->maxlabel2->setEnabled(false);
+    ui->trafficSpeed->setEnabled(true);
+    ui->trafficSpeedLabel->setEnabled(true);
 
     if(ui->trial->isChecked())
         ui->trial->setChecked(false);
@@ -320,6 +325,8 @@ void Demographics::on_trafficdisable_clicked()
     ui->maxlabel1->setEnabled(false);
     ui->minlabel2->setEnabled(false);
     ui->maxlabel2->setEnabled(false);
+    ui->trafficSpeed->setEnabled(false);
+    ui->trafficSpeedLabel->setEnabled(false);
 
     if(ui->trafficenable->isChecked())
         ui->trafficenable->setChecked(false);
@@ -337,6 +344,8 @@ void Demographics::on_trafficenable_clicked()
     ui->maxlabel1->setEnabled(true);
     ui->minlabel2->setEnabled(true);
     ui->maxlabel2->setEnabled(true);
+    ui->trafficSpeed->setEnabled(true);
+    ui->trafficSpeedLabel->setEnabled(true);
 
     if(ui->trafficdisable->isChecked())
         ui->trafficdisable->setChecked(false);

@@ -1,11 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'collectdata.h'
 **
-<<<<<<< HEAD
-** Created: Tue Mar 13 20:02:27 2012
-=======
-** Created: Tue Mar 13 21:01:49 2012
->>>>>>> origin/roger_laneswitching
+** Created: Tue Mar 13 22:57:08 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!

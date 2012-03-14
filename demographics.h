@@ -54,6 +54,7 @@ public:
     int vehiclequantityslider;
     int intensityslider;
     int age;
+    int vehicleSpeed;
     bool male;
     bool female;
     bool neongreen;

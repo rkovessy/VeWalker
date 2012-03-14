@@ -1,11 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'demographics.h'
 **
-<<<<<<< HEAD
-** Created: Tue Mar 13 20:15:01 2012
-=======
-** Created: Tue Mar 13 21:01:39 2012
->>>>>>> origin/roger_laneswitching
+** Created: Tue Mar 13 22:56:54 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!

@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'vuzixthread.h'
 **
-** Created: Sun Mar 11 18:36:05 2012
+** Created: Tue Mar 13 22:57:15 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
