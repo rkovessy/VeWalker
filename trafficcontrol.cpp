@@ -151,11 +151,12 @@ int TrafficControl::get_display() {
 
 void TrafficControl::nexttrial() {
     database_get_vals();
-    if (trial > numberOfTrials) {
-        emit close_window();
+    if (trial >= numberOfTrials-1) {
+        finalTrial = true;
     }
-    else if (trial >= 0) {
+    else if (trial >= 0 && trial<numberOfTrials-1) {
         data.writeData(trials[trial], failed);
+        finalTrial = false;
         for (int count = 0; count < 2; ++count)
             elapsed[count] = 0.0;
         carCounter = 0;
@@ -214,6 +215,9 @@ void TrafficControl::nexttrial() {
         data.position = SIDE;
     else if (startPos[trial] == "B")
         data.position = REFUGE;
+
+    if (finalTrial == true)
+        emit close_window();
 }
 
 void TrafficControl::resettrial() {
