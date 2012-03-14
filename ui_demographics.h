@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'demographics.ui'
 **
-** Created: Tue Mar 13 20:12:08 2012
+** Created: Tue Mar 13 20:14:53 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -136,12 +136,13 @@ public:
         trial->setGeometry(QRect(127, 24, 48, 22));
         trial->setFont(font1);
         trial->setCheckable(true);
-        trial->setChecked(true);
+        trial->setChecked(false);
         trial->setAutoExclusive(false);
         demo = new QRadioButton(groupBox_1);
         demo->setObjectName(QString::fromUtf8("demo"));
         demo->setGeometry(QRect(223, 24, 62, 22));
         demo->setFont(font1);
+        demo->setChecked(true);
         demo->setAutoExclusive(false);
         singlelane = new QRadioButton(groupBox_1);
         singlelane->setObjectName(QString::fromUtf8("singlelane"));
@@ -178,7 +179,7 @@ public:
         intensityslider->setMinimum(1);
         intensityslider->setMaximum(20);
         intensityslider->setPageStep(1);
-        intensityslider->setValue(1);
+        intensityslider->setValue(10);
         intensityslider->setOrientation(Qt::Horizontal);
         intensityslider->setTickPosition(QSlider::TicksBelow);
         intensityslider->setTickInterval(1);
@@ -188,6 +189,7 @@ public:
         vehiclequantityslider->setMinimum(1);
         vehiclequantityslider->setMaximum(20);
         vehiclequantityslider->setPageStep(1);
+        vehiclequantityslider->setValue(10);
         vehiclequantityslider->setOrientation(Qt::Horizontal);
         vehiclequantityslider->setTickPosition(QSlider::TicksBelow);
         vehiclequantityslider->setTickInterval(1);
