@@ -18,6 +18,7 @@ calibrateRotation::calibrateRotation(QWidget *parent) :
     angleRads = 0;
     rightExtentCalibrated = false;
     leftExtentCalibrated = false;
+    centerCalibrated = false;
     alphaRightActual = 45*3.14159/180; //default value of 45 degree angle, with right being positive
     alphaLeftActual = -45*3.14159/180; //default value of 45 degree angle, with left bveing negative
     alphaCenterActual = 0.0;
@@ -125,15 +126,18 @@ void calibrateRotation::calibrate(int leftRightIndex)
         if (leftRightIndex == 1){
             alphaRightActual = atan(oppAdjParam);
             printf("Alpha Right Actual: %f \n", alphaRightActual);
+            rightExtentCalibrated = true;
         }
         else if (leftRightIndex == 3)
         {
             alphaCenterActual = atan(oppAdjParam);
             printf("Alpha Center Actual: %f \n", alphaLeftActual);
+            centerCalibrated = true;
         }
         else{
             alphaLeftActual = atan(oppAdjParam);
             printf("Alpha Left Actual: %f \n", alphaLeftActual);
+            leftExtentCalibrated = true;
         }
     }
     else
@@ -212,7 +216,7 @@ IplImage* calibrateRotation::GetBlurredImage(IplImage* img)
 IplImage* calibrateRotation::GetCroppedImage(IplImage* img)
 {
     //Set image ROI to be cropped based on top left and bottom right veritces - currently a window around the shoulders
-    cvSetImageROI(img, cvRect(0, 0, 640, 300)); //image is (640, 480)
+    cvSetImageROI(img, cvRect(0, 0, 640, 480)); //image is (640, 480)
 
     //Create new blank image of correct size and copy ROI into it
     IplImage *imgBlankCanvas = cvCreateImage(cvGetSize(img),img->depth,img->nChannels);
@@ -240,7 +244,7 @@ IplImage* calibrateRotation::GetDilatedImage(IplImage* img)
 void calibrateRotation::on_rightExtentCapture_clicked()
 {
     int rightIndex = 1;
-    rightExtentCalibrated = true;
+
     calibrate(rightIndex);
     calibrate(rightIndex);
     calibrate(rightIndex);
@@ -250,7 +254,7 @@ void calibrateRotation::on_rightExtentCapture_clicked()
 void calibrateRotation::on_leftExtentCapture_clicked()
 {
     int leftIndex = 2;
-    leftExtentCalibrated=true;
+
     calibrate(leftIndex);
     calibrate(leftIndex);
     calibrate(leftIndex);
@@ -259,9 +263,11 @@ void calibrateRotation::on_leftExtentCapture_clicked()
 
 void calibrateRotation::on_completeButton_clicked()
 {
-    this->database_connect();
+    database_connect();
     get_current_id();
     write_calibration_values();
+    db.close();
+    QSqlDatabase::removeDatabase("calibrateRotationConnection");
     this->hide();
 }
 
@@ -270,7 +276,11 @@ void calibrateRotation::on_cancelButton_clicked()
     alphaRightActual = 45*3.14159/180; //default value of 45 degree angle, with right being positive
     alphaLeftActual = -45*3.14159/180; //default value of 45 degree angle, with left bveing negative
     alphaCenterActual = 0.0;
+    database_connect();
+    get_current_id();
     write_calibration_values();
+    db.close();
+    QSqlDatabase::removeDatabase("calibrateRotationConnection");
     this->hide();
 }
 
@@ -323,6 +333,7 @@ void calibrateRotation::get_current_id()
             qDebug() << "DbError";
             QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
         }
+        qry.finish();
 
     }
     else
@@ -346,19 +357,19 @@ void calibrateRotation::write_calibration_values()
         qry.bindValue(":reference_id", referenceid);
 
         qry.exec();
+        qry.finish();
     }
         else
         {
             if (db.lastError().isValid());
                 qDebug() << db.lastError();
-                qDebug() << "Calibrate Rotation failed to open database connection to insert data.";
+                qDebug() << "Calibrate Rotation failed to open database connection to insert data";
         }
 }
 
 void calibrateRotation::on_centerCapture_clicked()
 {
     int centerIndex = 3; //ie. choose center
-    centerCalibrated=true;
     calibrate(centerIndex);
     calibrate(centerIndex);
     calibrate(centerIndex);

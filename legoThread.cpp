@@ -127,7 +127,7 @@ IplImage* LegoThread::GetBlurredImage(IplImage* img)
 IplImage* LegoThread::GetCroppedImage(IplImage* img)
 {
     //Set image ROI to be cropped based on top left and bottom right vertices - currently a window around the shoulders
-    cvSetImageROI(img, cvRect(0, 0, 640, 300));  //image is (640, 480)
+    cvSetImageROI(img, cvRect(0, 0, 640, 480));  //image is (640, 480)
 
     //Create new blank image of correct size and copy ROI into it
     IplImage *imgBlankCanvas = cvCreateImage(cvGetSize(img),img->depth,img->nChannels);
