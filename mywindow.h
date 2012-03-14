@@ -29,6 +29,8 @@ public:
      MyWindow();
      GLWidget *glWidget;
 
+     void setupGLWidget();
+
 protected:
      void keyPressEvent( QKeyEvent *e );
      void keyReleaseEvent( QKeyEvent *e );

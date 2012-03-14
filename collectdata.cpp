@@ -3,6 +3,7 @@
 CollectData::CollectData(QWidget *parent) :
     QWidget(parent)
 {
+   //qDebug() << "collectData Constructor called";
    threading = false;
    started = false;
 

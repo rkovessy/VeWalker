@@ -2,8 +2,9 @@
 
 VE::VE()
 {
-    //qDebug() << "constructor was called";
+    qDebug() << "VE constructor was called";
 }
+
 
 void VE::start(int pid) {
     collectdata.connect(&collectdata.legoThread, SIGNAL(sendCameraValues(int,int,int,int)), &mywindow, SLOT(updateCameraValues(int,int,int,int)));

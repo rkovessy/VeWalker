@@ -2,12 +2,17 @@
 
 MyWindow::MyWindow()
 {
+    qDebug() << "MyWindow constructor called";
+    //setMouseTracking(true);
+}
+
+void MyWindow::setupGLWidget()
+{
     glWidget = new GLWidget();
     settingLayout();
     setWindowTitle(tr("Walker Scene"));
     replay = false;
     glWidget->set_window(window_width, window_height);
-    //setMouseTracking(true);
 }
 
 void MyWindow::settingLayout() {

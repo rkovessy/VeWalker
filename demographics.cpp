@@ -437,6 +437,7 @@ void Demographics::on_quit_clicked()
     }
     else
     {
+        virtuale.mywindow.setupGLWidget();
         virtuale.start(participantid);
         this->hide();
     }

@@ -115,9 +115,9 @@ void GLWidget::setArduinoTranslation(int potRot)
     //qDebug() << "potRot:    " << potRot;
     if(!hit) {
         if(!(tc.get_screen()))
-            motorSpeed = 0.0;//abs(currRotation - prevRotation) * PI / 180.0 * 0.14; //Change these values to set constant motor speed
+            motorSpeed = 0.1;//abs(currRotation - prevRotation) * PI / 180.0 * 0.14; //Change these values to set constant motor speed
          else
-            motorSpeed = 0.0; //Change these values to set constant motor speed
+            motorSpeed = 0.1; //Change these values to set constant motor speed
     }
     //zTrans = height / 30.0 * sin(PI * (rValueNXT + 20) / 40) + height + height / 30;
     prevRotation = currRotation;
