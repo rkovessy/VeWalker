@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'demographics.ui'
 **
-** Created: Wed Mar 14 15:54:51 2012
+** Created: Wed Mar 14 17:00:25 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -254,7 +254,8 @@ public:
         medianHeight->setObjectName(QString::fromUtf8("medianHeight"));
         medianHeight->setGeometry(QRect(160, 230, 62, 22));
         medianHeight->setFont(font1);
-        medianHeight->setMaximum(10);
+        medianHeight->setMinimum(0.2);
+        medianHeight->setMaximum(5);
         medianHeight->setSingleStep(0.1);
         medianHeight->setValue(0.3);
         maxlabel2 = new QLabel(groupBox_1);

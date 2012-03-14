@@ -15,6 +15,8 @@ Draw::Draw()
     db.setDatabaseName("configDb");
     db.open();
 
+    get_centerheight();
+
     if (db.lastError().isValid());
         qDebug() << "lastDB error from opening connection " << db.lastError();
 
@@ -38,32 +40,6 @@ Draw::Draw()
     {
         qDebug() << "Draw failed to open database connection to pull data.";
     }
-
-    if (db.lastError().isValid())
-        qDebug() << "lastDB error from opening connection " << db.lastError();
-
-    if (db.isOpen())
-    {
-        QString readStatement = ("SELECT median_height FROM trialconfig order by reference_id desc limit 1");
-        QSqlQuery qry(db);
-
-        if (qry.exec(readStatement))
-        {
-            while(qry.next()){
-                centerHeight = qry.value(0).toDouble();
-                centerHeight = centerHeight + .001; //Adjust center height as drawing a zero height causes draw error
-            }
-        }
-        else {
-            qDebug() << "DbError";
-            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
-        }
-    }
-    else
-    {
-        qDebug() << "Draw failed to open database connection to pull data.";
-    }
-
     get_database_mode(); // If demo mode is selected use the more impressive two-lane roundabout, and default denter median height
     setStatic_Environment();
 }
@@ -998,6 +974,33 @@ void::Draw::get_database_mode()
     }
     else
     {
-        qDebug() << "TrafficControl failed to open database connection to pull data.";
+        qDebug() << "Draw failed to open database connection to pull data.";
+    }
+}
+
+//Determine if demo mode is selected based off call to database
+void::Draw::get_centerheight()
+{
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT median_height FROM trialconfig order by reference_id desc limit 1");
+        QSqlQuery qry(db);
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next())
+            {
+                centerHeight = qry.value(0).toDouble();
+                centerHeight +=0.01;
+            }
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR here!"),db.lastError().text());
+        }
+    }
+    else
+    {
+        qDebug() << "Draw failed to open database connection to pull data.";
     }
 }
