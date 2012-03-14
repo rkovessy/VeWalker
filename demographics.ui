@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>713</width>
-    <height>494</height>
+    <width>772</width>
+    <height>490</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,7 +22,7 @@
      <x>9</x>
      <y>9</y>
      <width>371</width>
-     <height>261</height>
+     <height>291</height>
     </rect>
    </property>
    <property name="font">
@@ -38,8 +38,8 @@
    <widget class="QRadioButton" name="trafficdisable">
     <property name="geometry">
      <rect>
-      <x>222</x>
-      <y>81</y>
+      <x>229</x>
+      <y>82</y>
       <width>68</width>
       <height>22</height>
      </rect>
@@ -62,7 +62,7 @@
     <property name="geometry">
      <rect>
       <x>126</x>
-      <y>81</y>
+      <y>82</y>
       <width>65</width>
       <height>22</height>
      </rect>
@@ -91,7 +91,7 @@
     <property name="geometry">
      <rect>
       <x>11</x>
-      <y>53</y>
+      <y>54</y>
       <width>83</width>
       <height>18</height>
      </rect>
@@ -111,7 +111,7 @@
     <property name="geometry">
      <rect>
       <x>11</x>
-      <y>25</y>
+      <y>26</y>
       <width>41</width>
       <height>18</height>
      </rect>
@@ -131,7 +131,7 @@
     <property name="geometry">
      <rect>
       <x>126</x>
-      <y>25</y>
+      <y>26</y>
       <width>48</width>
       <height>22</height>
      </rect>
@@ -159,8 +159,8 @@
    <widget class="QRadioButton" name="demo">
     <property name="geometry">
      <rect>
-      <x>222</x>
-      <y>25</y>
+      <x>229</x>
+      <y>26</y>
       <width>62</width>
       <height>22</height>
      </rect>
@@ -186,7 +186,7 @@
     <property name="geometry">
      <rect>
       <x>126</x>
-      <y>53</y>
+      <y>54</y>
       <width>90</width>
       <height>22</height>
      </rect>
@@ -214,8 +214,8 @@
    <widget class="QRadioButton" name="doublelane">
     <property name="geometry">
      <rect>
-      <x>222</x>
-      <y>53</y>
+      <x>229</x>
+      <y>54</y>
       <width>98</width>
       <height>22</height>
      </rect>
@@ -238,7 +238,7 @@
     <property name="geometry">
      <rect>
       <x>11</x>
-      <y>81</y>
+      <y>82</y>
       <width>90</width>
       <height>18</height>
      </rect>
@@ -258,7 +258,7 @@
     <property name="geometry">
      <rect>
       <x>11</x>
-      <y>227</y>
+      <y>258</y>
       <width>109</width>
       <height>18</height>
      </rect>
@@ -277,8 +277,8 @@
    <widget class="QSpinBox" name="trialquantity">
     <property name="geometry">
      <rect>
-      <x>158</x>
-      <y>227</y>
+      <x>160</x>
+      <y>260</y>
       <width>39</width>
       <height>24</height>
      </rect>
@@ -299,9 +299,9 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>167</y>
-      <width>131</width>
+      <x>160</x>
+      <y>169</y>
+      <width>181</width>
       <height>24</height>
      </rect>
     </property>
@@ -330,9 +330,9 @@
    <widget class="QSlider" name="vehiclequantityslider">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>197</y>
-      <width>131</width>
+      <x>160</x>
+      <y>199</y>
+      <width>181</width>
       <height>24</height>
      </rect>
     </property>
@@ -361,8 +361,8 @@
    <widget class="QLabel" name="vehiclequantitylabel">
     <property name="geometry">
      <rect>
-      <x>11</x>
-      <y>197</y>
+      <x>12</x>
+      <y>199</y>
       <width>130</width>
       <height>18</height>
      </rect>
@@ -384,8 +384,8 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>11</x>
-      <y>167</y>
+      <x>12</x>
+      <y>169</y>
       <width>108</width>
       <height>18</height>
      </rect>
@@ -410,8 +410,8 @@
    <widget class="QRadioButton" name="unsafedisable">
     <property name="geometry">
      <rect>
-      <x>222</x>
-      <y>109</y>
+      <x>229</x>
+      <y>110</y>
       <width>68</width>
       <height>22</height>
      </rect>
@@ -437,7 +437,7 @@
     <property name="geometry">
      <rect>
       <x>126</x>
-      <y>109</y>
+      <y>110</y>
       <width>65</width>
       <height>22</height>
      </rect>
@@ -466,7 +466,7 @@
     <property name="geometry">
      <rect>
       <x>11</x>
-      <y>109</y>
+      <y>110</y>
       <width>108</width>
       <height>18</height>
      </rect>
@@ -488,8 +488,8 @@
    <widget class="QLabel" name="minlabel1">
     <property name="geometry">
      <rect>
-      <x>158</x>
-      <y>167</y>
+      <x>148</x>
+      <y>169</y>
       <width>16</width>
       <height>16</height>
      </rect>
@@ -508,8 +508,8 @@
    <widget class="QLabel" name="minlabel2">
     <property name="geometry">
      <rect>
-      <x>158</x>
-      <y>197</y>
+      <x>148</x>
+      <y>199</y>
       <width>16</width>
       <height>16</height>
      </rect>
@@ -528,28 +528,8 @@
    <widget class="QLabel" name="maxlabel1">
     <property name="geometry">
      <rect>
-      <x>326</x>
-      <y>167</y>
-      <width>16</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>8</pointsize>
-      <weight>50</weight>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>20</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="maxlabel2">
-    <property name="geometry">
-     <rect>
-      <x>326</x>
-      <y>197</y>
+      <x>349</x>
+      <y>169</y>
       <width>16</width>
       <height>16</height>
      </rect>
@@ -569,8 +549,8 @@
     <property name="geometry">
      <rect>
       <x>11</x>
-      <y>137</y>
-      <width>87</width>
+      <y>138</y>
+      <width>92</width>
       <height>18</height>
      </rect>
     </property>
@@ -591,8 +571,8 @@
    <widget class="QSpinBox" name="trafficSpeed">
     <property name="geometry">
      <rect>
-      <x>158</x>
-      <y>137</y>
+      <x>162</x>
+      <y>138</y>
       <width>39</width>
       <height>24</height>
      </rect>
@@ -613,12 +593,78 @@
      <number>60</number>
     </property>
    </widget>
+   <widget class="QLabel" name="medianHeightLabel">
+    <property name="geometry">
+     <rect>
+      <x>11</x>
+      <y>228</y>
+      <width>151</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Center height (m):</string>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="medianHeight">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>230</y>
+      <width>62</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>11</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="maximum">
+     <double>10.000000000000000</double>
+    </property>
+    <property name="singleStep">
+     <double>0.100000000000000</double>
+    </property>
+    <property name="value">
+     <double>0.300000000000000</double>
+    </property>
+   </widget>
+   <widget class="QLabel" name="maxlabel2">
+    <property name="geometry">
+     <rect>
+      <x>349</x>
+      <y>199</y>
+      <width>16</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>8</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>20</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QGroupBox" name="groupBox_2">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>270</y>
+     <x>390</x>
+     <y>10</y>
      <width>371</width>
      <height>181</height>
     </rect>
@@ -987,9 +1033,9 @@
   <widget class="QGroupBox" name="groupBox_3">
    <property name="geometry">
     <rect>
-     <x>410</x>
-     <y>10</y>
-     <width>291</width>
+     <x>10</x>
+     <y>300</y>
+     <width>371</width>
      <height>141</height>
     </rect>
    </property>
@@ -1235,9 +1281,9 @@
   <widget class="QGroupBox" name="groupBox_4">
    <property name="geometry">
     <rect>
-     <x>410</x>
-     <y>150</y>
-     <width>291</width>
+     <x>390</x>
+     <y>190</y>
+     <width>371</width>
      <height>121</height>
     </rect>
    </property>
@@ -1376,8 +1422,8 @@
   <widget class="QPushButton" name="quit">
    <property name="geometry">
     <rect>
-     <x>278</x>
-     <y>461</y>
+     <x>308</x>
+     <y>451</y>
      <width>75</width>
      <height>26</height>
     </rect>
@@ -1409,8 +1455,8 @@
   <widget class="QPushButton" name="cancel">
    <property name="geometry">
     <rect>
-     <x>359</x>
-     <y>461</y>
+     <x>389</x>
+     <y>451</y>
      <width>75</width>
      <height>26</height>
     </rect>

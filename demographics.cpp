@@ -69,7 +69,7 @@ void Demographics::database_insert_config()
         qryParticipant.exec();
 
         QSqlQuery qryConfig(db);
-        QString inStatementConfig = "UPDATE trialconfig set mode = :mode, roundabout = :roundabout, vehicle_traffic = :vehicle_traffic, unsafe_crossing = :unsafe_crossing, traffic_speed = :traffic_speed, traffic_intensity = :traffic_intensity, vehicle_quantity = :vehicle_quantity, trial_quantity = :trial_quantity, participant_height = :participant_height, directional_control = :directional_control, object_tracking = :object_tracking, trial_date = :trial_date where reference_id = :reference_id;";
+        QString inStatementConfig = "UPDATE trialconfig set mode = :mode, roundabout = :roundabout, vehicle_traffic = :vehicle_traffic, unsafe_crossing = :unsafe_crossing, traffic_speed = :traffic_speed, traffic_intensity = :traffic_intensity, vehicle_quantity = :vehicle_quantity, median_height = :median_height, trial_quantity = :trial_quantity, participant_height = :participant_height, directional_control = :directional_control, object_tracking = :object_tracking, trial_date = :trial_date where reference_id = :reference_id;";
 
         qryConfig.prepare(inStatementConfig);
 
@@ -98,6 +98,7 @@ void Demographics::database_insert_config()
         qryConfig.bindValue(":traffic_speed", trafficSpeed);
         qryConfig.bindValue(":vehicle_quantity", vehiclequantityslider);
         qryConfig.bindValue(":traffic_intensity", intensityslider);
+        qryConfig.bindValue(":median_height", medianHeight);
         qryConfig.bindValue(":trial_quantity", trialquantity);
         qryConfig.bindValue(":participant_height", participantheight);
 
@@ -223,6 +224,8 @@ void Demographics::on_trial_clicked()
     ui->maxlabel2->setEnabled(true);
     ui->trafficSpeed->setEnabled(true);
     ui->trafficSpeedLabel->setEnabled(true);
+    ui->medianHeight->setEnabled(true);
+    ui->medianHeightLabel->setEnabled(true);
 
     if (ui->demo->isChecked())
         ui->demo->setChecked(false);
@@ -262,6 +265,8 @@ void Demographics::on_demo_clicked()
     ui->maxlabel2->setEnabled(false);
     ui->trafficSpeed->setEnabled(false);
     ui->trafficSpeedLabel->setEnabled(false);
+    ui->medianHeight->setEnabled(false);
+    ui->medianHeightLabel->setEnabled(false);
 
     if(ui->trial->isChecked())
         ui->trial->setChecked(false);
@@ -413,6 +418,7 @@ void Demographics::on_quit_clicked()
 {
     participantid = ui->id->value();
     trafficSpeed = ui->trafficSpeed->value();
+    medianHeight = ui->medianHeight->value();
     bool inputError = false;
     age = ui->age->value();
     participantheight =ui->participantheight->value();

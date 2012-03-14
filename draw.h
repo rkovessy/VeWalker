@@ -67,7 +67,7 @@ public:
 
     int numberOfLanes; // number of lanes
     static const double centerRadius = 1.5; // radius from (0,0,0) to the outside of the grey border of the center of the roundabout
-    static const double centerHeight = .1 / 3.0; // height of the object in the center //VehicleRoadSwitch
+    double centerHeight; // height of the object in the center
 
 
 private:

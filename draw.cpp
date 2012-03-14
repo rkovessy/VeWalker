@@ -18,7 +18,6 @@ Draw::Draw()
     if (db.lastError().isValid());
         qDebug() << "lastDB error from opening connection " << db.lastError();
 
-    //numberOfLanes = 1;
     if (db.isOpen())
     {
         QString readStatement = ("SELECT roundabout FROM trialconfig order by reference_id desc limit 1");
@@ -28,7 +27,6 @@ Draw::Draw()
         {
             while(qry.next()){
                 numberOfLanes = qry.value(0).toInt();
-                qDebug() << "Number of Lane:" << numberOfLanes;
             }
         }
         else {
@@ -38,10 +36,35 @@ Draw::Draw()
     }
     else
     {
-        qDebug() << "TrafficControl failed to open database connection to pull data.";
+        qDebug() << "Draw failed to open database connection to pull data.";
     }
 
-    get_database_mode(); // If demo mode is selected use the more impressive two-lane roundabout
+    if (db.lastError().isValid())
+        qDebug() << "lastDB error from opening connection " << db.lastError();
+
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT median_height FROM trialconfig order by reference_id desc limit 1");
+        QSqlQuery qry(db);
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                centerHeight = qry.value(0).toDouble();
+                centerHeight = centerHeight + .001; //Adjust center height as drawing a zero height causes draw error
+            }
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+    }
+    else
+    {
+        qDebug() << "Draw failed to open database connection to pull data.";
+    }
+
+    get_database_mode(); // If demo mode is selected use the more impressive two-lane roundabout, and default denter median height
     setStatic_Environment();
 }
 Draw::~Draw()
@@ -965,7 +988,12 @@ void::Draw::get_database_mode()
             QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
         }
         if (demoMode == true)
-            numberOfLanes = 2; //Choose maximum of 20 cars for full demo
+        {
+            numberOfLanes = 2;
+            centerHeight = 1.0/3.0;
+            //printf("center height: %f \n", centerHeight);
+        }
+
 
     }
     else
