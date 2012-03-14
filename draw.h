@@ -40,7 +40,8 @@ public:
     void setDimensions(double height); // sets parameters of the environment
 
     void environment(); // draws the enviornment, ie the grass, road, sidewalk, trees, the refuges, the center
-    void car(Car car); // draws a car at Point with bottom middle of front bumper as point
+    void car(Car car); // draws a car at Point with bottom middle of front bumper as point //VehicleRoadSwitch
+    void carEast(Car car); //Same as above function, but draws a car intended to move east in opposing flow to cars drawn in prior function
 
     void setStatic_Environment();
     void set_move(double);
@@ -66,7 +67,7 @@ public:
 
     int numberOfLanes; // number of lanes
     static const double centerRadius = 1.5; // radius from (0,0,0) to the outside of the grey border of the center of the roundabout
-    static const double centerHeight = 1.0 / 3.0; // height of the object in the center
+    double centerHeight; // height of the object in the center
 
 
 private:
@@ -100,6 +101,9 @@ private:
     GLUquadricObj *quad; // needed for cylinders/circles/spheres
     QImage b[42]; // needed for loadTexture(...), textures are loaded via QImage
     QImage t[42]; // needed for loadTexture(...), textures are loaded via QImage
+
+    bool demoMode; //Determines if demo mode is chosen
+    void get_database_mode(); //Determines if demo mode was written to database for current run
 };
 
 #endif // DRAW_H

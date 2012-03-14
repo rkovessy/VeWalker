@@ -54,6 +54,7 @@ public:
     int vehiclequantityslider;
     int intensityslider;
     int age;
+    double medianHeight;
     int trafficSpeed;
     bool male;
     bool female;

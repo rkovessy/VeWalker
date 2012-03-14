@@ -32,13 +32,14 @@ void Car::setCar(const double sp[2][100], int vehicleQuantity) {
     numberOfCars = vehicleQuantity;
     for (int lane = 0; lane < 2; ++lane)
     {
-        for (int carCounter = 0; carCounter < numberOfCars; ++carCounter){ //VehicleQuantitySwitching
+        for (int carCounter = 0; carCounter < numberOfCars; ++carCounter){
             referenceSpeed[lane][carCounter] = sp[lane][carCounter];
         }
     }
 }
 
-void Car::newCar(double spee) {
+void Car::newCar(double spee, int lanes) {
+    numberOfLanes = lanes;
     passedp = false;
     onTrack = true;
 
@@ -48,7 +49,12 @@ void Car::newCar(double spee) {
     dimensions[3] = dimensions[2] + 0.05;
 
     occupied.pathOn = INTO;
-    occupied.lane = 0;
+
+    //Randomly distribute vehicles across both lanes of traffic
+    if (numberOfLanes == 2)
+        occupied.lane = rand() % 2;
+    else
+        occupied.lane = 0;
 
     position = 0;
     dposition = 0;

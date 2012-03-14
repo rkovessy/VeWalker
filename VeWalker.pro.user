@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
+<<<<<<< HEAD
 <!-- Written by Qt Creator 2.4.0, 2012-03-14T13:50:02. -->
+=======
+<!-- Written by Qt Creator 2.3.1, 2012-03-14T16:15:36. -->
+>>>>>>> origin/fresh_branch
 <qtcreator>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -25,7 +29,11 @@
    </valuemap>
    <value type="int" key="EditorConfiguration.CodeStyle.Count">2</value>
    <value type="QByteArray" key="EditorConfiguration.Codec">System</value>
+<<<<<<< HEAD
    <value type="bool" key="EditorConfiguration.ConstrainTooltips">false</value>
+=======
+   <value type="QString" key="EditorConfiguration.CurrentFallback">Global</value>
+>>>>>>> origin/fresh_branch
    <value type="int" key="EditorConfiguration.IndentSize">4</value>
    <value type="bool" key="EditorConfiguration.MouseNavigation">true</value>
    <value type="int" key="EditorConfiguration.PaddingMode">1</value>

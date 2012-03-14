@@ -18,7 +18,7 @@ TrafficControl::TrafficControl(QWidget *parent) :
     trial = -1;
     for (int count = 0; count < 2; ++count)
         elapsed[count] = 0.0;
-    carCounter = 0; //VehicleQauntitySwitching
+    carCounter = 0;
 
     starttrials = "starttrials";
     startpractice = "startpractice";
@@ -45,6 +45,7 @@ TrafficControl::~TrafficControl()
 
 void TrafficControl::set(int pid) {
     database_get_vals();
+    database_get_lanes();
     path.set(draw.centerRadius, draw.LANE_WIDTH);
     for (int count = 0; count < numberOfCars; ++count) //VehicleQauntitySwitching
         cars[count].setCar(path.speed, numberOfCars);
@@ -65,6 +66,7 @@ void TrafficControl::set(int pid) {
 
 void TrafficControl::update() { // pedestrian location updated, car status updated and drawn
     database_get_vals();
+    database_get_lanes();
     if (whitescreen || failed || starttrialsscreen || startpracticescreen) {
         if (whitescreen) {
             elapsed[1] += 0.02;
@@ -87,7 +89,7 @@ void TrafficControl::update() { // pedestrian location updated, car status updat
             elapsed[0] = 0.0;
             carCounter++;
             if (carCounter <= numberOfCars) //VehicleQauntitySwitching
-                cars[carCounter].newCar(speeds[trial]);
+                cars[carCounter].newCar(speeds[trial], numberOfLanes);
         }
         for (int count = 0; count < numberOfCars; ++count) { //VehicleQauntitySwitching
             if (cars[count].get_onTrack()) {
@@ -151,11 +153,12 @@ int TrafficControl::get_display() {
 
 void TrafficControl::nexttrial() {
     database_get_vals();
-    if (trial > numberOfTrials) {
-        emit close_window();
+    if (trial >= numberOfTrials-1) {
+        finalTrial = true;
     }
-    else if (trial >= 0) {
+    else if (trial >= 0 && trial<numberOfTrials-1) {
         data.writeData(trials[trial], failed);
+        finalTrial = false;
         for (int count = 0; count < 2; ++count)
             elapsed[count] = 0.0;
         carCounter = 0;
@@ -163,25 +166,6 @@ void TrafficControl::nexttrial() {
             cars[count].stopCar();
     }
     database_get_mode();
-    //If debug is enabled, alternate between single and double lane
-    if (demoMode == true)
-    {
-        if (trial<0){
-            printf("One lane \n");
-            draw.numberOfLanes = 1;
-        }
-        else if (trial%2 == 0)
-        {
-            printf("One Lane (greater than second) \n");
-            draw.numberOfLanes = 1;
-        }
-        else
-        {
-            printf("Two lanes (Greater than second) \n");
-            draw.numberOfLanes = 2;
-        }
-
-    }
 
     //Reconstruct environment
     qDebug() << "number of Lanes!!!! " << draw.numberOfLanes;
@@ -215,6 +199,9 @@ void TrafficControl::nexttrial() {
         data.position = SIDE;
     else if (startPos[trial] == "B")
         data.position = REFUGE;
+
+    if (finalTrial == true)
+        emit close_window();
 }
 
 void TrafficControl::resettrial() {
@@ -383,15 +370,16 @@ bool TrafficControl::pointCollision(Car a, Point p) { // determines whether Poin
 
 void TrafficControl::setCarstart() { //SetCarStart seems very important, possibly related to #of vehicles
     database_get_vals();
+    database_get_lanes();
     if (speeds[trial] != 0) {
         double t = path.distance_tostart / (speeds[trial] * path.DISTANCE / 0.02);
-        cars[0].newCar(speeds[trial]);
+        cars[0].newCar(speeds[trial], numberOfLanes);
 
         while (elapsed[1] <= t) {
             if (elapsed[0] >= gaps[trial][carCounter]) {
                 elapsed[0] = 0.0;
                 carCounter++;
-                cars[carCounter].newCar(speeds[trial]);
+                cars[carCounter].newCar(speeds[trial], numberOfLanes);
             }
             for (int count = 0; count < numberOfCars; ++count) {
                 if (cars[count].get_onTrack()) {
@@ -514,4 +502,33 @@ void TrafficControl::database_get_vals()
     }
     database_get_trafficenable(); //Overwrite numberOfCars if traffic is disabled
     database_get_mode(); //Overwrite numberOfCars if there is a demo in progress
+}
+
+void TrafficControl::database_get_lanes()
+{
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT roundabout FROM trialconfig order by reference_id desc limit 1");
+        QSqlQuery qry(db);
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                numberOfLanes = qry.value(0).toInt();
+            }
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+    }
+    else
+    {
+        qDebug() << "TrafficControl failed to open database connection to pull data.";
+    }
+    database_get_mode();
+    if(demoMode == true)
+    {
+        numberOfLanes = 2;
+    }
 }
