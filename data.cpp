@@ -29,9 +29,9 @@ void Data::read_specs()
         }
 
         popUps[0] = "startpractise";
-        popUps[1] = "starttrials";
-        if(numberOfTrials>=2)
+        if(numberOfTrials>=1)
         {
+            popUps[1] = "starttrials";
             for (int count = 2; count<numberOfTrials; ++count)
             {
                 popUps[count] = "none";
