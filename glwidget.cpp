@@ -30,7 +30,7 @@ void GLWidget::setPedestrian(double x, double y, double mid) {
 
     startingyTrans[0] = y;
     startingyTrans[1] = y; //0.0;  use 0.0 for switching to the other side of the street
-    endingyLocation[0] = 0.0;
+    endingyLocation[0] = -y; //Terminate on the opposite side of the road, not the median
     endingyLocation[1] = 0.0; //y;  use y for switching to the other side of the street
     startingxTrans[0] = x; //This is about at the cross walk
     startingrotation[0] = 290;
