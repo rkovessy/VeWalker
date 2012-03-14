@@ -460,19 +460,26 @@ void::TrafficControl::database_get_mode()
 
         if (qry.exec(readStatement))
         {
-            while(qry.next()){
+            while(qry.next())
+            {
                 modeConfigured = qry.value(0).toString();
             }
-        if (QString::compare("demo", modeConfigured, Qt::CaseInsensitive)==0)
-            demoMode = true;
-        else
-            demoMode = false;
+
+            if (QString::compare("demo", modeConfigured, Qt::CaseInsensitive)==0)
+            {
+                demoMode = true;
+            }
+
+            else
+            {
+                demoMode = false;
+            }
         }
         else {
             qDebug() << "DbError";
             QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
         }
-        if (demoMode = true)
+        if (demoMode == true)
             numberOfCars = 20; //Choose maximum of 20 cars for full demo
 
     }

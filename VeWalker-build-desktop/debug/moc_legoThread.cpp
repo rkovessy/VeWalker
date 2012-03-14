@@ -1,7 +1,11 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'legoThread.h'
 **
+<<<<<<< HEAD
 ** Created: Wed Mar 14 00:39:11 2012
+=======
+** Created: Wed Mar 14 00:42:12 2012
+>>>>>>> origin/fresh_branch
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!

@@ -39,8 +39,10 @@ public:
     void get_unsafeCrossing();
     void get_referenceId();
     void get_participantId();
+    void get_trafficSpeed();
 
     int numberOfCars;
+    int trafficSpeed;
     int referenceId;
     int participantId;
     double trafficIntensity;

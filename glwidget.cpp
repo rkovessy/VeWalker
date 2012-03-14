@@ -33,7 +33,7 @@ void GLWidget::setPedestrian(double x, double y, double mid) {
     endingyLocation[0] = 0.0;
     endingyLocation[1] = 0.0; //y;  use y for switching to the other side of the street
     startingxTrans[0] = x; //This is about at the cross walk
-    startingrotation[0] = 290;
+    startingrotation[0] = 0;
 
     startPos = tc.get_start();
     if (startPos == "A")
@@ -112,14 +112,20 @@ void GLWidget::setArduinoTranslation(int potRot)
 {
     currRotation = potRot;
     //qDebug() << "potRot:    " << potRot;
+
     if(!hit) {
-        if(!(tc.get_screen()))
-            motorSpeed = 0.1; //abs(currRotation - prevRotation) * PI / 180.0 * 0.14; //Change these values to set constant motor speed
+        //Three sets of conditions that ignore potentionmeter movement, first, make sure the pedestrian
+        //hasn't been hit, secondly if the rotation isn't greater than 5 it is likely just noise
+        //Thirdly if it is greater than 100 it is likely a startup condition and would be an
+        //unintentional lurch.
+        if(!(tc.get_screen())&& abs(currRotation - prevRotation)>5 &&  abs(currRotation - prevRotation) < 100)
+            motorSpeed = abs(currRotation - prevRotation) * PI / 180.0 * 0.14; //Change these values to set constant motor speed
          else
             motorSpeed = 0.0; //Change these values to set constant motor speed
     }
     //zTrans = height / 30.0 * sin(PI * (rValueNXT + 20) / 40) + height + height / 30;
     prevRotation = currRotation;
+
     zTrans = 0.5;
 }
 
@@ -174,7 +180,7 @@ void GLWidget::updateScene() {
         {
             shoulderRot += (angularAccelActual*0.0015);//0.0075 was tuned value for laptop/slow system time
             headRot += (zcompassSpeed*2.25);
-            setZRotation(zRot+(angularAccelActual*0.0015));//setZRotation(zRot+(zcompassSpeed*2.20)+(angularAccelActual*0.0015));//0.0075 was tuned value for laptop/slow system time
+            /*setZRotation(zRot+(angularAccelActual*0.0015));*/setZRotation(zRot+(zcompassSpeed*2.20)+(angularAccelActual*0.0015));//0.0075 was tuned value for laptop/slow system time
         }
         else
         {

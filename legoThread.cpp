@@ -242,6 +242,7 @@ void LegoThread::UpdatePotRotation()
 {
 
     emit sendPotRotation(potRotation);
+    qDebug() << "emitting from legoThread";
     //printf("yaw: [%li], pitch: [%li], roll: [%li]\n", HTyaw, HTpitch, HTroll);
 
 

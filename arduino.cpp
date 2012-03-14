@@ -10,7 +10,7 @@ ArduinoThread::ArduinoThread(QObject *parent) :
     potRotation = 0;
 
     m_port = new SerialPort(this);
-    m_port->setPort("COM5");
+    m_port->setPort("COM4");
 
     if (m_port->open((QIODevice::OpenMode)1)) {
         qDebug("Arduino is running!\n");
@@ -35,6 +35,7 @@ ArduinoThread::ArduinoThread(QObject *parent) :
     qDebug() << "Stop bits              : " << m_port->stopBits();
     qDebug() << "Flow                   : " << m_port->flowControl();
 
+    //potRotation = output();
     output();
 }
 
@@ -74,6 +75,7 @@ int ArduinoThread::output()
     int returnVal = data.toInt(&ok, 10);
     //Debug() << "-------------" << returnVal;
 
+    //qDebug() << "value: " << returnVal;
     return returnVal;
 }
 
