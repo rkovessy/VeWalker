@@ -11,7 +11,7 @@ void Data::read_specs()
     get_numberOfTrials();
     get_mode();
     get_numberOfCars(); //VehicleQauntitySwitching
-    get_trafficEnable();
+    //get_trafficEnable();
     get_trafficIntensity();
     get_unsafeCrossing();
     get_participantId();
@@ -307,9 +307,6 @@ void Data::get_trafficEnable()
     else
     {
         qDebug() << "Data failed to open database connection to pull data.";
-    }
-    if (trafficEnable == 0){
-        numberOfCars = 0;
     }
 }
 

@@ -47,6 +47,7 @@ public:
     int get_display(); // for the countdown lcd in glwidget
     void database_get_trafficenable(); //Determine if traffic is enabled or disabled
     void database_get_mode(); //Get demo or trial mode to set number of vehicles
+    int trafficEnable; //Determines if traffic is enabled or disabled and adjusts functions based on this. Returned from db as an int - 0 or 1
 
     void nexttrial(); // sets up trafficcontrol for next trial, called after pedestrian reaches end
     void resettrial(); // called after failed trial

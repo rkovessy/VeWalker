@@ -72,7 +72,8 @@ void TrafficControl::update() { // pedestrian location updated, car status updat
                 elapsed[1] = 0.0;
                 whitescreen = false;
                 failed = false;
-                setCarstart(); // comment this if you don't want cars, ctrl F 'comment' to find other part
+                if (trafficEnable == 1)
+                    setCarstart(); // comment this if you don't want cars, ctrl F 'comment' to find other part
             }
         }
     }
@@ -93,7 +94,8 @@ void TrafficControl::update() { // pedestrian location updated, car status updat
             if (cars[count].get_onTrack()) {
                 updateCar(count);
                 checkCar(count);
-                //cars[count].stopCar(); // comment this if you want cars, ctrl F 'comment' to find other part
+                if (trafficEnable == 0)
+                    cars[count].stopCar(); // comment this if you want cars, ctrl F 'comment' to find other part
                 draw.car(cars[count]);
             }
             else
@@ -399,7 +401,6 @@ void TrafficControl::database_connect()
 
 void TrafficControl::database_get_trafficenable()
 {
-    int trafficEnable;
     if (db.isOpen())
     {
         QString readStatement = ("SELECT vehicle_traffic FROM trialconfig order by reference_id desc limit 1");
@@ -420,9 +421,6 @@ void TrafficControl::database_get_trafficenable()
     else
     {
         qDebug() << "TrafficControl failed to open database connection to pull data.";
-    }
-    if (trafficEnable == 0){
-        numberOfCars = 0;
     }
 }
 
