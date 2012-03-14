@@ -150,7 +150,7 @@
      <bool>true</bool>
     </property>
     <property name="checked">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="autoExclusive">
      <bool>false</bool>
@@ -176,7 +176,7 @@
      <string>Demo</string>
     </property>
     <property name="checked">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="autoExclusive">
      <bool>false</bool>
@@ -301,7 +301,7 @@
      <rect>
       <x>190</x>
       <y>167</y>
-      <width>84</width>
+      <width>131</width>
       <height>24</height>
      </rect>
     </property>
@@ -332,7 +332,7 @@
      <rect>
       <x>190</x>
       <y>197</y>
-      <width>84</width>
+      <width>131</width>
       <height>24</height>
      </rect>
     </property>

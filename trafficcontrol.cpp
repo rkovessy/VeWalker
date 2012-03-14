@@ -168,7 +168,7 @@ void TrafficControl::nexttrial() {
     {
         if (trial<0){
             printf("Less than 1 \n");
-            draw.numberOfLanes = 1;
+            draw.numberOfLanes = 2;
         }
         else if (trial%2 == 0)
         {

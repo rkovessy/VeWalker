@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'demographics.ui'
 **
-** Created: Tue Mar 13 23:53:11 2012
+** Created: Wed Mar 14 00:08:43 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -132,13 +132,13 @@ public:
         trial->setGeometry(QRect(126, 25, 48, 22));
         trial->setFont(font1);
         trial->setCheckable(true);
-        trial->setChecked(false);
+        trial->setChecked(true);
         trial->setAutoExclusive(false);
         demo = new QRadioButton(groupBox_1);
         demo->setObjectName(QString::fromUtf8("demo"));
         demo->setGeometry(QRect(222, 25, 62, 22));
         demo->setFont(font1);
-        demo->setChecked(true);
+        demo->setChecked(false);
         demo->setAutoExclusive(false);
         singlelane = new QRadioButton(groupBox_1);
         singlelane->setObjectName(QString::fromUtf8("singlelane"));
@@ -171,7 +171,7 @@ public:
         intensityslider = new QSlider(groupBox_1);
         intensityslider->setObjectName(QString::fromUtf8("intensityslider"));
         intensityslider->setEnabled(true);
-        intensityslider->setGeometry(QRect(190, 167, 84, 24));
+        intensityslider->setGeometry(QRect(190, 167, 131, 24));
         intensityslider->setMinimum(1);
         intensityslider->setMaximum(20);
         intensityslider->setPageStep(1);
@@ -181,7 +181,7 @@ public:
         intensityslider->setTickInterval(1);
         vehiclequantityslider = new QSlider(groupBox_1);
         vehiclequantityslider->setObjectName(QString::fromUtf8("vehiclequantityslider"));
-        vehiclequantityslider->setGeometry(QRect(190, 197, 84, 24));
+        vehiclequantityslider->setGeometry(QRect(190, 197, 131, 24));
         vehiclequantityslider->setMinimum(1);
         vehiclequantityslider->setMaximum(20);
         vehiclequantityslider->setPageStep(1);
