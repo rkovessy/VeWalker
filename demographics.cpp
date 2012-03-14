@@ -260,8 +260,8 @@ void Demographics::on_demo_clicked()
     ui->maxlabel1->setEnabled(false);
     ui->minlabel2->setEnabled(false);
     ui->maxlabel2->setEnabled(false);
-    ui->trafficSpeed->setEnabled(true);
-    ui->trafficSpeedLabel->setEnabled(true);
+    ui->trafficSpeed->setEnabled(false);
+    ui->trafficSpeedLabel->setEnabled(false);
 
     if(ui->trial->isChecked())
         ui->trial->setChecked(false);

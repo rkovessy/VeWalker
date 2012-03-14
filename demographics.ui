@@ -585,7 +585,7 @@
      <string>Intervehicle distance set to constant of 5 seconds.</string>
     </property>
     <property name="text">
-     <string>Vehicle speed</string>
+     <string>Vehicle speed:</string>
     </property>
    </widget>
    <widget class="QSpinBox" name="trafficSpeed">

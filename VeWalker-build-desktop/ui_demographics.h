@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'demographics.ui'
 **
-** Created: Wed Mar 14 00:41:23 2012
+** Created: Wed Mar 14 01:14:19 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -481,7 +481,7 @@ public:
 #ifndef QT_NO_TOOLTIP
         trafficSpeedLabel->setToolTip(QApplication::translate("Demographics", "Intervehicle distance set to constant of 5 seconds.", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
-        trafficSpeedLabel->setText(QApplication::translate("Demographics", "Vehicle speed", 0, QApplication::UnicodeUTF8));
+        trafficSpeedLabel->setText(QApplication::translate("Demographics", "Vehicle speed:", 0, QApplication::UnicodeUTF8));
         groupBox_2->setTitle(QApplication::translate("Demographics", "Simulation Calibration", 0, QApplication::UnicodeUTF8));
         headControl->setText(QApplication::translate("Demographics", "Head", 0, QApplication::UnicodeUTF8));
         trackinglabel_2->setText(QApplication::translate("Demographics", "Rotational control", 0, QApplication::UnicodeUTF8));

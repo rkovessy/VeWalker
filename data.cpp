@@ -34,7 +34,7 @@ void Data::read_specs()
         numberOfCars = 20; //Select maximum number of vehicles for most complete demo
         for (int count = 0; count < numberOfTrials; ++count)
         {
-            speeds[count] = 10;//rand() % 50 + 20;//Have vehicles move at random speed between 20 and 70
+            speeds[count] = rand() % 50 + 20;//Have vehicles move at random speed between 20 and 70
             startPos[count] = "A"; //Always start at A
             popUps[count] = "none"; //No popups between trials
         }
