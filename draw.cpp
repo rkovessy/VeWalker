@@ -15,7 +15,7 @@ Draw::Draw()
     db.setDatabaseName("configDb");
     db.open();
 
-    get_centerheight();
+    //get_centerheight();
 
     if (db.lastError().isValid());
         qDebug() << "lastDB error from opening connection " << db.lastError();
@@ -839,7 +839,7 @@ void::Draw::get_database_mode()
         if (demoMode == true)
         {
             numberOfLanes = 2;
-            centerHeight = 1.0/3.0;
+            //centerHeight = 1.0/3.0;
             //printf("center height: %f \n", centerHeight);
         }
 
@@ -863,8 +863,8 @@ void::Draw::get_centerheight()
         {
             while(qry.next())
             {
-                centerHeight = qry.value(0).toDouble();
-                centerHeight +=0.01;
+                //centerHeight = qry.value(0).toDouble();
+                //centerHeight +=0.01;
             }
         }
         else {
