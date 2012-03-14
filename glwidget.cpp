@@ -29,7 +29,9 @@ GLWidget::~GLWidget()
 void GLWidget::setPedestrian(double x, double y, double mid) {
 
     startingyTrans[0] = y;
-    startingyTrans[1] = 0.0;
+    startingyTrans[1] = y; //0.0;  use 0.0 for switching to the other side of the street
+    endingyLocation[0] = 0.0;
+    endingyLocation[1] = 0.0; //y;  use y for switching to the other side of the street
     startingxTrans[0] = x; //This is about at the cross walk
     startingrotation[0] = 290;
 
@@ -209,7 +211,7 @@ void GLWidget::updateScene() {
             //printf("xRot [%f] yRot [%f] zRot[%f}\n", xRot, yRot, zRot);
         //tc.data.writePedestrian(tc.get_trials(), xTrans, yTrans, zTrans, xRot, yRot, zRot);
 
-       if ((startPos == "A" && yTrans >= startingyTrans[1] && fabs(xTrans-startingxTrans[0]) <= 1) || (startPos == "B" && yTrans <= startingyTrans[0])) {
+            if ((startPos == "A" && yTrans >= endingyLocation[0] && fabs(xTrans-startingxTrans[0]) <= 1) || (startPos == "B" && yTrans <= endingyLocation[1])) {
             tc.nexttrial();
             startPos = tc.get_start();
             if (startPos == "A")
