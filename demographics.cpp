@@ -528,7 +528,6 @@ void Demographics::get_last_id()
         {
             while(qry.next()){
                 referenceid = qry.value(0).toInt();
-                //qDebug() << "Last Reference ID:" << referenceid;
             }
             referenceid++;
         }

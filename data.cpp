@@ -424,7 +424,7 @@ void Data::get_participantId()
     }
 }
 
-//Database call for accessing participant id number
+//Database call for accessing traffic speed
 void Data::get_trafficSpeed()
 {
     if (db.isOpen())
