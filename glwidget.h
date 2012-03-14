@@ -79,6 +79,7 @@
      double xTrans; // position left / right
      double yTrans; // position into the screen / forward
      double startingyTrans[2], startingxTrans[2], startingrotation[2]; // info for starting location of each starting point for each trial
+     double endingyLocation[2]; // For the exit conditions
      QString startPos; // A or B
      int start; // 0 for A, 1 for B, used for referencing arrays
      int currRotation; //the current output from the potentiometer

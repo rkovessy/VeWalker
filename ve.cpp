@@ -2,7 +2,7 @@
 
 VE::VE()
 {
-    qDebug() << "VE constructor was called";
+    //qDebug() << "VE constructor was called";
 }
 
 

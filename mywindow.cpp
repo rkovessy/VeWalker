@@ -27,8 +27,6 @@ void MyWindow::settingLayout() {
      QString id = QString::number(pid);;
      if (pid < 10)
          id.prepend("0");QString::number(pid);
-     QString filename = "Pedestrian/P" + id + "_Pedestrian.txt";
-     //glWidget->tc.data.setPedestrian(filename);
 
      glWidget->tc.set(pid);
      double x = glWidget->tc.draw.get_walkwayDistance() + glWidget->tc.draw.MIDZONE_WIDTH / 2.0;
