@@ -8,6 +8,7 @@ MyWindow::MyWindow()
 
 void MyWindow::setupGLWidget()
 {
+    qDebug() << "setupGLWidget called";
     glWidget = new GLWidget();
     settingLayout();
     setWindowTitle(tr("Walker Scene"));
