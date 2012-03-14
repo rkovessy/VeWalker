@@ -55,6 +55,8 @@ void Car::newCar(double spee, int lanes) {
         occupied.lane = rand() % 2;
     else
         occupied.lane = 0;
+    if (numberOfLanes == 1)
+        occupied.lane = -3;
 
     position = 0;
     dposition = 0;

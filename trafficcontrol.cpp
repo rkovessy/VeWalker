@@ -18,7 +18,7 @@ TrafficControl::TrafficControl(QWidget *parent) :
     trial = -1;
     for (int count = 0; count < 2; ++count)
         elapsed[count] = 0.0;
-    carCounter = 0; //VehicleQauntitySwitching
+    carCounter = 0;
 
     starttrials = "starttrials";
     startpractice = "startpractice";
