@@ -40,10 +40,9 @@ Draw::Draw()
     {
         qDebug() << "TrafficControl failed to open database connection to pull data.";
     }
+
+    get_database_mode(); // If demo mode is selected use the more impressive two-lane roundabout
     setStatic_Environment();
-
-
-
 }
 Draw::~Draw()
 {
@@ -808,6 +807,42 @@ double Draw::treeCoordinate(int a) {
     return a * (coordinate + rand() % (50 - coordinate));
 }
 
+//Determine if demo mode is selected based off call to database
+void::Draw::get_database_mode()
+{
+    QString modeConfigured;
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT mode FROM trialconfig order by reference_id desc limit 1");
+        QSqlQuery qry(db);
 
+        if (qry.exec(readStatement))
+        {
+            while(qry.next())
+            {
+                modeConfigured = qry.value(0).toString();
+            }
 
+            if (QString::compare("demo", modeConfigured, Qt::CaseInsensitive)==0)
+            {
+                demoMode = true;
+            }
 
+            else
+            {
+                demoMode = false;
+            }
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+        if (demoMode == true)
+            numberOfLanes = 2; //Choose maximum of 20 cars for full demo
+
+    }
+    else
+    {
+        qDebug() << "TrafficControl failed to open database connection to pull data.";
+    }
+}

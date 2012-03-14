@@ -167,24 +167,6 @@ void TrafficControl::nexttrial() {
     }
     database_get_mode();
     //If debug is enabled, alternate between single and double lane
-    if (demoMode == true)
-    {
-        if (trial<0){
-            printf("Less than 1 \n");
-            draw.numberOfLanes = 1;
-        }
-        else if (trial%2 == 0)
-        {
-            printf("Greater than first \n");
-            draw.numberOfLanes = 1;
-        }
-        else
-        {
-            printf("Greater than second \n");
-            draw.numberOfLanes = 2;
-        }
-
-    }
 
     //Reconstruct environment
     draw.setStatic_Environment();
@@ -543,5 +525,10 @@ void TrafficControl::database_get_lanes()
     else
     {
         qDebug() << "TrafficControl failed to open database connection to pull data.";
+    }
+    database_get_mode();
+    if(demoMode == true)
+    {
+        numberOfLanes = 2;
     }
 }

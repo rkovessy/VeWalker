@@ -100,6 +100,9 @@ private:
     GLUquadricObj *quad; // needed for cylinders/circles/spheres
     QImage b[42]; // needed for loadTexture(...), textures are loaded via QImage
     QImage t[42]; // needed for loadTexture(...), textures are loaded via QImage
+
+    bool demoMode; //Determines if demo mode is chosen
+    void get_database_mode(); //Determines if demo mode was written to database for current run
 };
 
 #endif // DRAW_H
