@@ -124,7 +124,7 @@ void Draw::car(Car car) {
     glPushMatrix();
     glScaled(CAR_SCALING, CAR_SCALING, CAR_SCALING);
     glTranslated(car.point.x, car.point.y, 0.0);
-    glRotated(270 + car.point.rotation , 0, 0, 1);
+    glRotated(90 + car.point.rotation , 0, 0, 1);
 
     setTexture(BLACK + colour);
     rectangle(0, -1, 0, -0.25, 0, 0.07, 'x', CAR_WIDTH_DESIGN, 'z', 0.18); // front bumper
