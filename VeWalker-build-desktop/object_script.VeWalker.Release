@@ -1,5 +1,4 @@
 INPUT(
-./release\startwindow.o
 ./release\mainwindow.o
 ./release\main.o
 ./release\demographics.o
@@ -28,7 +27,14 @@ INPUT(
 ./release\ve.o
 ./release\data.o
 ./release\popupscreen.o
-./release\moc_startwindow.o
+./release\vuzixthread.o
+./release\arduino.o
+./release\calibraterotation.o
+./release\poisson.o
+./release\serialport.o
+./release\serialportinfo.o
+./release\serialportengine_p_win.o
+./release\serialportinfo_win.o
 ./release\moc_mainwindow.o
 ./release\moc_demographics.o
 ./release\moc_trafficcontrol.o
@@ -38,4 +44,9 @@ INPUT(
 ./release\moc_collectdata.o
 ./release\moc_ve.o
 ./release\moc_popupscreen.o
+./release\moc_vuzixthread.o
+./release\moc_arduino.o
+./release\moc_serialport.o
+./release\moc_calibraterotation.o
+./release\moc_serialportengine_p_win.o
 );

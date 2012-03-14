@@ -6,6 +6,13 @@
 #include <QTextStream>
 #include <QDir>
 #include <QDebug>
+#include <QSqlDatabase>
+#include <QStringList>
+#include <QtSql>
+#include <QSqlDriver>
+#include <QMessageBox>
+#include <QObject>
+#include "poisson.h"
 
 enum directory {DEMOGRAPHICS, SPECS, DATA, PEDESTRIAN, CARS};
 enum roadclassification {SIDE, ROAD, REFUGE};
@@ -22,17 +29,35 @@ class Data
     */
 public:
     Data();
+    void get_numberOfTrials();
+    void connect_to_database();
+    void get_mode();
+    void get_trafficIntensity();
+    void generate_interarrival_time();
+    void get_numberOfCars();
+    void get_trafficEnable();
+    void get_unsafeCrossing();
+    void get_referenceId();
+    void get_participantId();
 
-    QString filename[5];
-    QFile file[5];
-    QTextStream text[5];
+    int numberOfCars;
+    int referenceId;
+    int participantId;
+    double trafficIntensity;
+    const static double unsafeCrossingInterarrival = 2.5;
+    bool demoMode;
+    bool unsafeCrossingEnable;
+
+//    QString filename[5];
+//    QFile file[5];
+//    QTextStream text[5];
 
     double time; // time program has been running
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //DEMOGRAPHICS
 
-    void writeDemographics(int pid, QString name, QString age, QString gender, QString ethnicity, QString faculty);
+    //void writeDemographics(int pid, QString age, QString sex, QString dominance);
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //SPECS
@@ -40,10 +65,10 @@ public:
     void read_specs(); // reads from spec file
     int numberOfTrials; // number of trials including practice trials
     QString trials[100]; // for output files
-    QString startPos[100]; // whether pedestrian starts on A or B
-    QString popUps[100]; // when and which popups appear
-    double speeds[100]; // speeds defined for each trial
-    int gaps[100][5]; // seperation times, where array is path, trial, time
+    QString startPos[200]; // whether pedestrian starts on A or B
+    QString popUps[200]; // when and which popups appear
+    double speeds[200]; // speeds defined for each trial
+    double gaps[200][100]; // seperation times, where array is path, trial, time
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //DATA
@@ -79,6 +104,9 @@ public:
     void writeCars_trial(QString trial, double time, bool trials, bool practice, bool white, bool failed);
     void writeCars(double, double, double);
     void writeCars_endl();
+
+private:
+    QSqlDatabase db;
 };
 
 #endif // DATA_H

@@ -1,11 +1,19 @@
 #include <QtGui/QApplication>
-#include "startwindow.h"
+#include <QtCore/QCoreApplication>
+#include <QDebug>
+#include <QSqlDatabase>
+#include <QStringList>
+#include <QtSql>
+#include <QSqlDriver>
+#include <QMessageBox>
+#include <QObject>
+
+#include "demographics.h"
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    Startwindow w;
-    w.show();
-
-    return a.exec();
+   QApplication a(argc, argv);
+   Demographics w;
+   w.show();
+   return a.exec();
 }

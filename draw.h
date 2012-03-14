@@ -14,6 +14,14 @@
 #include <QImage>
 #include <QDir>
 #include <qgl.h>
+#include <QtGui/QApplication>
+#include <QtCore/QCoreApplication>
+#include <QSqlDatabase>
+#include <QStringList>
+#include <QtSql>
+#include <QSqlDriver>
+#include <QMessageBox>
+#include <QObject>
 
 #include "path.h"
 #include "car.h"
@@ -28,12 +36,13 @@ class Draw
     */
 public:
     Draw();
-
+    ~Draw();
     void setDimensions(double height); // sets parameters of the environment
 
     void environment(); // draws the enviornment, ie the grass, road, sidewalk, trees, the refuges, the center
     void car(Car car); // draws a car at Point with bottom middle of front bumper as point
 
+    void setStatic_Environment();
     void set_move(double);
     int get_numberOfLanes();
     double get_centerRadius();
@@ -55,7 +64,7 @@ public:
     const static double LINE_WIDTH = 0.05; // width of painted lane lines
     const static double LANE_WIDTH = 1.7;  // distance from edge of sidwalk to center of the white lane line or from the center of the white line to the center of the yellow line
 
-    static const int numberOfLanes = 1; // number of lanes
+    int numberOfLanes; // number of lanes
     static const double centerRadius = 1.5; // radius from (0,0,0) to the outside of the grey border of the center of the roundabout
     static const double centerHeight = 1.0 / 3.0; // height of the object in the center
 
@@ -71,6 +80,8 @@ private:
     void triangle(char horizontal, char vertical, double x, double y, double z, char direction1, double length1, char direction2, double length2); // draws a triangle parrallel to x, y, and z axes
     void trianglePoints(char horizontal, char vertical, double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3); // draws a triangle using points
     void triangleVectors(char horizontal, char vertical, double x, double y, double z, double x1, double y1, double z1, double x2, double y2, double z2); // draws a triangle using vectors
+
+    QSqlDatabase db;
 
     void center(); // draws the center of the roundabout and the circular lane line if needed
     void centersphere(); // draws the half sphere at center()

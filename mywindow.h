@@ -13,6 +13,7 @@
 #include <QDebug>
 #include "glwidget.h"
 #include <QWidgetAction>
+#include "iweardrv.h"
 
 class GLWidget;
 
@@ -28,6 +29,8 @@ public:
      MyWindow();
      GLWidget *glWidget;
 
+     void setupGLWidget();
+
 protected:
      void keyPressEvent( QKeyEvent *e );
      void keyReleaseEvent( QKeyEvent *e );
@@ -36,6 +39,8 @@ protected:
 public slots:
      void updateMotor(double magnitude, bool stepped, double zTrans); // connected to sendMotor(...) signal from legothread, updates GLWidget
      void updateCameraValues(int x1, int x2, int y1, int y2);
+     void updateHTrackerValues(long HTyaw, long HTpitch, long HTroll);
+     void updatePotRotation(long potRotation);
      void set(int pid); // sets up some recording stuff and the initial pedestrian location
      void set_replay();
      void updateCompass(double); // updates compass speed and sends to glWidget rotation(double)
@@ -45,8 +50,8 @@ private:
     void settingLayout(); // sets up physical dimensions of window
     bool replay;
 
-    static const int window_width = 1680; // pixel width of screen
-    static const int window_height = 700; // pixel height of screen
+    static const int window_width = 1920; // pixel width of screen
+    static const int window_height = 1080; // pixel height of screen
     int previousXPos;
     int previousYPos;
  };

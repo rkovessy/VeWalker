@@ -1,4 +1,6 @@
 #include "draw.h"
+#include <string>
+using namespace std;
 
 Draw::Draw()
 {
@@ -6,6 +8,52 @@ Draw::Draw()
     move = 0.0;
     loadTextures();
 
+    db = QSqlDatabase::addDatabase("QPSQL", "drawConn");
+    db.setHostName("localhost");
+    db.setUserName("postgres");
+    db.setPassword("abc123");
+    db.setDatabaseName("configDb");
+    db.open();
+
+    if (db.lastError().isValid());
+        qDebug() << "lastDB error from opening connection " << db.lastError();
+
+    //numberOfLanes = 1;
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT roundabout FROM trialconfig order by reference_id desc limit 1");
+        QSqlQuery qry(db);
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                numberOfLanes = qry.value(0).toInt();
+                qDebug() << "Number of Lane:" << numberOfLanes;
+            }
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+    }
+    else
+    {
+        qDebug() << "TrafficControl failed to open database connection to pull data.";
+    }
+    setStatic_Environment();
+
+
+
+}
+Draw::~Draw()
+{
+   // QSqlDatabase::database("drawConn").close();
+ //   QSqlDatabase::removeDatabase("drawConn");
+
+}
+
+void Draw::setStatic_Environment()
+{
     cornerRadius = ((centerRadius + LANE_WIDTH * numberOfLanes) * sin(PI / 4.0) - LANE_WIDTH * numberOfLanes) / (1 - sin(PI / 4.0));
     cornerCoordinate = LANE_WIDTH * numberOfLanes + cornerRadius;
     midzoneLength[0] = centerRadius + LANE_WIDTH * numberOfLanes;
@@ -21,8 +69,6 @@ Draw::Draw()
 
     CAR_LENGTH = CAR_LENGTH_DESIGN * CAR_SCALING;
     CAR_WIDTH = CAR_WIDTH_DESIGN * CAR_SCALING;
-
-
 }
 
 void Draw::environment() {

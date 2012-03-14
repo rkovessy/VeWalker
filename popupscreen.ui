@@ -42,7 +42,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Are you ready to start the experimental trials?</string>
+     <string>Click continue to initiate experimental trials.</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>

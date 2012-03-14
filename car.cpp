@@ -22,10 +22,20 @@ Car::Car()
     keyPosition[AWAY] = 3451 + 90 * 5;
 }
 
-void Car::setCar(const double sp[2][5]) {
+Car::~Car()
+{
+        QSqlDatabase::database("carConnect").close();
+        QSqlDatabase::removeDatabase("carConnect");
+}
+
+void Car::setCar(const double sp[2][100], int vehicleQuantity) {
+    numberOfCars = vehicleQuantity;
     for (int lane = 0; lane < 2; ++lane)
-        for (int count = 0; count < 5; ++count)
-            referenceSpeed[lane][count] = sp[lane][count];
+    {
+        for (int carCounter = 0; carCounter < numberOfCars; ++carCounter){ //VehicleQuantitySwitching
+            referenceSpeed[lane][carCounter] = sp[lane][carCounter];
+        }
+    }
 }
 
 void Car::newCar(double spee) {
@@ -165,6 +175,73 @@ void Car::set_id(int id) {
 }
 
 void Car::translateSpeed(int index) {
-    for (int count = 0; count < 5; ++count)
+    for (int count = 0; count < numberOfCars; ++count) //VehicleQauntitySwitching
         speed[count] = speed[index] / referenceSpeed[occupied.lane][index] * referenceSpeed[occupied.lane][count];
+}
+
+void Car::database_get_numberOfCars()
+{
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT vehicle_quantity FROM trialconfig order by reference_id desc limit 1");
+        QSqlQuery qry(db);
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                numberOfCars = qry.value(0).toInt();
+                //qDebug() << "Number of Cars:" << numberOfCars;
+            }
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+    }
+    else
+    {
+        qDebug() << "Car failed to open database connection to pull data.";
+    }
+}
+
+void Car::connect_to_database()
+{
+    db = QSqlDatabase::addDatabase("QPSQL", "carConnect");
+    db.setHostName("localhost");
+    db.setUserName("postgres");
+    db.setPassword("abc123");
+    db.setDatabaseName("configDb");
+    db.open();
+}
+
+void Car::database_get_trafficenable()
+{
+    int trafficEnable;
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT vehicle_traffic FROM trialconfig order by reference_id desc limit 1");
+        QSqlQuery qry(db);
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                trafficEnable = qry.value(0).toInt();
+                //qDebug() << "Number of Cars:" << numberOfCars;
+            }
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+    }
+    else
+    {
+        qDebug() << "Car failed to open database connection to pull data.";
+    }
+    if (trafficEnable == 0){
+        numberOfCars = 0;
+    }
+
+    QSqlDatabase::database("carConnect").close();
+    QSqlDatabase::removeDatabase("carConnect");
 }

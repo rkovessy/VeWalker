@@ -8,6 +8,14 @@
 #include <QDateTime>
 #include "nxt.h"
 #include "legoThread.h"
+#include "vuzixthread.h"
+#include "arduino.h"
+#include "mywindow.h"
+#include "collectdata.h"
+#include "iweardrv.h"
+#include "serialportinfo.h"
+#include "serialport.h"
+
 
 #include <QDebug>
 
@@ -16,6 +24,7 @@
 #include <windows.h>
 #include <winbase.h>
 #include "rcx21.h"
+
 
 class CollectData : public QWidget
 {
@@ -28,6 +37,7 @@ public:
 
     QTime time; // used for finding the time elaspsed between calling the nxt to send an appropriate NXT motor speed
     LegoThread legoThread; // collects nxt data
+    VuzixThread vuzikThread; //collects data from vuzix headset
 
 
 signals:

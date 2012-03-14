@@ -18,26 +18,38 @@ TrafficControl::TrafficControl(QWidget *parent) :
     trial = -1;
     for (int count = 0; count < 2; ++count)
         elapsed[count] = 0.0;
-    carCounter = 0;
+    carCounter = 0; //VehicleQauntitySwitching
 
     starttrials = "starttrials";
     startpractice = "startpractice";
     fail = "fail";
 
+    db = QSqlDatabase::addDatabase("QPSQL", "trafficConnect");
+    db.setHostName("localhost");
+    db.setUserName("postgres");
+    db.setPassword("abc123");
+    db.setDatabaseName("configDb");
+    db.open();
+    this->database_connect();
+    database_get_vals();
+    database_get_trafficenable(); //VehicleQauntitySwitching
+
     connect(&popupscreen, SIGNAL(clicked()), this, SLOT(clicked()));
 }
 
+TrafficControl::~TrafficControl()
+{
+    QSqlDatabase::database("trafficConnect").close();
+    QSqlDatabase::removeDatabase("trafficConnect");
+}
+
 void TrafficControl::set(int pid) {
+    database_get_vals();
     path.set(draw.centerRadius, draw.LANE_WIDTH);
-
-    for (int count = 0; count < numberOfCars; ++count)
-        cars[count].setCar(path.speed);
-
+    for (int count = 0; count < numberOfCars; ++count) //VehicleQauntitySwitching
+        cars[count].setCar(path.speed, numberOfCars);
     time = 0.0;
-    data.time = 0.0;
-    QString id = data.setCars(pid);
-    data.writeIntro("Data/P" + id + "_Data.txt");
-
+    data.time = 0.0;   
     data.read_specs();
     numberOfTrials = data.numberOfTrials;
     for (int count = 0; count < numberOfTrials; ++count) {
@@ -45,48 +57,44 @@ void TrafficControl::set(int pid) {
         startPos[count] = data.startPos[count];
         speeds[count] = double(data.speeds[count]) / 21.9456; // translating from km/h to 0.04units/0.02s;
         popUps[count] = data.popUps[count];
-        for (int gap = 0; gap < 5; ++gap)
+        for (int gap = 0; gap <= numberOfCars; ++gap) //VehicleQauntitySwitching
             gaps[count][gap] = data.gaps[count][gap];
     }
     nexttrial();
 }
 
 void TrafficControl::update() { // pedestrian location updated, car status updated and drawn
-    data.writeCars_trial(trials[trial], time, starttrialsscreen, startpracticescreen, whitescreen, failed);
-
+    database_get_vals();
     if (whitescreen || failed || starttrialsscreen || startpracticescreen) {
-        for (int count = 0; count < numberOfCars; ++count)
-            data.writeCars(0.0, 0.0, 0.0);
-        data.writeCars_endl();
         if (whitescreen) {
             elapsed[1] += 0.02;
-            if (elapsed[1] >= 5.0) {
+            if (elapsed[1] >= 5.0) { //What does this do?
                 elapsed[1] = 0.0;
                 whitescreen = false;
                 failed = false;
-                setCarstart(); // comment this if you don't want cars, ctrl F 'comment' to find other part
+                if (trafficEnable == 1)
+                    setCarstart(); // comment this if you don't want cars, ctrl F 'comment' to find other part
             }
         }
     }
     else {
-        for (int count = 0; count < numberOfCars; ++count)
-            data.writeCars(cars[count].point.x, cars[count].point.y, cars[count].point.rotation);
-        data.writeCars_endl();
+        for (int count = 0; count < numberOfCars; ++count) //VehicleQauntitySwitching
         time += 0.02;
         data.time = time;
-        if (trial != 0)
+        if (trial >= 0) //Set to !=0 to have practise trial
             elapsed[0] += 0.02;
-        if (trial != 0 && elapsed[0] >= gaps[trial][carCounter]) {
+        if (trial >= 0 && elapsed[0] >= gaps[trial][carCounter]) { //Set to !=0 to have practise trial
             elapsed[0] = 0.0;
             carCounter++;
-            if (carCounter < 6)
+            if (carCounter <= numberOfCars) //VehicleQauntitySwitching
                 cars[carCounter].newCar(speeds[trial]);
         }
-        for (int count = 0; count < numberOfCars; ++count) {
+        for (int count = 0; count < numberOfCars; ++count) { //VehicleQauntitySwitching
             if (cars[count].get_onTrack()) {
                 updateCar(count);
                 checkCar(count);
-                //cars[count].stopCar(); // comment this if you want cars, ctrl F 'comment' to find other part
+                if (trafficEnable == 0)
+                    cars[count].stopCar(); // comment this if you want cars, ctrl F 'comment' to find other part
                 draw.car(cars[count]);
             }
             else
@@ -142,8 +150,8 @@ int TrafficControl::get_display() {
 }
 
 void TrafficControl::nexttrial() {
-    if (trial >= numberOfTrials - 1) {
-        data.writeData(trials[trial]);
+    database_get_vals();
+    if (trial > numberOfTrials) {
         emit close_window();
     }
     else if (trial >= 0) {
@@ -151,9 +159,34 @@ void TrafficControl::nexttrial() {
         for (int count = 0; count < 2; ++count)
             elapsed[count] = 0.0;
         carCounter = 0;
-        for (int count = 0; count < numberOfCars; ++count)
+        for (int count = 0; count < numberOfCars; ++count) //VehicleQauntitySwitching
             cars[count].stopCar();
     }
+    database_get_mode();
+    //If debug is enabled, alternate between single and double lane
+    if (demoMode == true)
+    {
+        if (trial<0){
+            printf("Less than 1 \n");
+            draw.numberOfLanes = 1;
+        }
+//        else if (trial%2 == 0)
+//        {
+//            printf("Greater than first \n");
+//            draw.numberOfLanes = 1;
+//        }
+        else
+        {
+            printf("Greater than second \n");
+            draw.numberOfLanes = 2;
+        }
+
+    }
+
+    //Reconstruct environment
+    draw.setStatic_Environment();
+    draw.environment();
+
     trial++;
     if (!failed)
         qDebug() << trials[trial];
@@ -230,10 +263,10 @@ void TrafficControl::checkCar(int index) { // checks if car needs to slow down b
         cars[index].passedp = true;
     }
 
-    if (cars[5].passedp) {
-        qDebug() << "fail";
-        limits.hit = true;
-    }
+//    if (cars[5].passedp) { //VehicleQauntitySwitching
+//        qDebug() << "fail";
+//        limits.hit = true;
+//    }
 }
 
 int TrafficControl::checkPedestrian() {
@@ -347,7 +380,8 @@ bool TrafficControl::pointCollision(Car a, Point p) { // determines whether Poin
     return false;
 }
 
-void TrafficControl::setCarstart() {
+void TrafficControl::setCarstart() { //SetCarStart seems very important, possibly related to #of vehicles
+    database_get_vals();
     if (speeds[trial] != 0) {
         double t = path.distance_tostart / (speeds[trial] * path.DISTANCE / 0.02);
         cars[0].newCar(speeds[trial]);
@@ -370,7 +404,7 @@ void TrafficControl::setCarstart() {
             elapsed[0] += 0.02;
         }
         elapsed[1] = 0.0;
-        for (int count = 0; count < numberOfCars; ++count)
+        for (int count = 0; count < numberOfCars; ++count) //VehicleQauntitySwitching
             if (cars[count].get_onTrack())
                 draw.car(cars[count]);
     }
@@ -382,4 +416,94 @@ void TrafficControl::clicked() {
     starttrialsscreen = false;
     startpracticescreen = false;
     whitescreen = true;
+}
+
+void TrafficControl::database_connect()
+{
+
+}
+
+void TrafficControl::database_get_trafficenable()
+{
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT vehicle_traffic FROM trialconfig order by reference_id desc limit 1");
+        QSqlQuery qry(db);
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                trafficEnable = qry.value(0).toInt();
+                //qDebug() << "Number of Cars:" << numberOfCars;
+            }
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+    }
+    else
+    {
+        qDebug() << "TrafficControl failed to open database connection to pull data.";
+    }
+}
+
+//Determine if demo mode is selected based off call to database
+void::TrafficControl::database_get_mode()
+{
+    QString modeConfigured;
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT mode FROM trialconfig order by reference_id desc limit 1");
+        QSqlQuery qry(db);
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                modeConfigured = qry.value(0).toString();
+            }
+        if (QString::compare("demo", modeConfigured, Qt::CaseInsensitive)==0)
+            demoMode = true;
+        else
+            demoMode = false;
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+        if (demoMode = true)
+            numberOfCars = 20; //Choose maximum of 20 cars for full demo
+
+    }
+    else
+    {
+        qDebug() << "TrafficControl failed to open database connection to pull data.";
+    }
+}
+
+void TrafficControl::database_get_vals()
+{
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT vehicle_quantity FROM trialconfig order by reference_id desc limit 1");
+        QSqlQuery qry(db);
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                numberOfCars = qry.value(0).toInt();
+                //qDebug() << "Number of Cars:" << numberOfCars;
+            }
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+    }
+    else
+    {
+        qDebug() << "TrafficControl failed to open database connection to pull data.";
+    }
+    database_get_trafficenable(); //Overwrite numberOfCars if traffic is disabled
+    database_get_mode(); //Overwrite numberOfCars if there is a demo in progress
 }

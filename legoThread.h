@@ -4,25 +4,28 @@
 #include <stdio.h>
 #include "cv.h"
 #include "highgui.h"
-
 #include <QObject>
 #include <QThread>
 #include <QEventLoop>
-
 #include "math.h"
 #include <QWidget>
 #include <QString>
 #include <QTimer>
 #include <QDateTime>
 #include "nxt.h"
-
 #include <QDebug>
-
 #include <conio.h>
 #include <stdio.h>
 #include <windows.h>
 #include <winbase.h>
 #include "rcx21.h"
+#include "iweardrv.h"
+#include "serialportinfo.h"
+#include "serialport.h"
+#include <QSqlDatabase>
+#include <QtSql>
+#include <QSqlDriver>
+#include <QMessageBox>
 
 class LegoThread : public QThread
 {
@@ -33,30 +36,37 @@ class LegoThread : public QThread
 
 public:
     LegoThread();
+    ~LegoThread();
     void run();
     IplImage* GetThresholdedImage(IplImage* img);
+    IplImage* GetBlurredImage(IplImage* img);
+    IplImage* GetResizedImage(IplImage* img);
+    IplImage* GetDilatedImage(IplImage* img);
+    IplImage* GetCroppedImage(IplImage* img);
+    void database_connect();
+    void database_get_vals();
     CvCapture* capture;
     int id;
     double PI;
 
 signals:
-    void sendMotor(double magnitude, bool stepped, double zTrans); //sends motor data to glwidget setTranslation(double, double) through mywindow
-    void sendCompass(double angle); // sends compass data to glwidget rotation(double)
     void sendCameraValues(int posX1, int posX2, int posY1, int posY2);
+    void sendPotRotation(long potRotation);
 
 public slots:
     void set(double height, int timer); // sets height info and allows data to be collected
-    void UpdateRotation(); //calculates yTrans speed and zTrans and sends data via sendMotor(...)
-    void UpdateRoll(); //updates Roll from compass
     void UpdateCamera();
+    void UpdatePotRotation();
     //void UpdateTilt();//updates the tilt form accelerometer
 
 
 private:
+    QSqlDatabase db; //Database variables
     QEventLoop eventloop;
     QTime time; // used for determining time elapsed between motor readings to calculate speed
     double msec; // time between motor values
     double timer_interval;
+    QString colorSelected;
 
     int rValueNXT;//new motor value
     int lastrValueNXT; // last motor value
@@ -75,13 +85,13 @@ private:
 
     double angleRads; //Angle of bank in rads
     double angleDegrees; //Angle of bank in degrees
-    double oppositeSide; //Y distance between LED points;
-    double adjacentSide; //X distance between LED points;
+    double oppositeSide; //Y distance between points;
+    double adjacentSide; //X distance between points;
 
     bool left; // true when left foot on ground, false when right is
     bool stepped; // true when bool left has changed
 
-    const static int port = 14; // port for the bluetooth connection with the NXT
+    const static int port = 3; // port for the bluetooth connection with the NXT
 
     double moment101;
     double moment011;
@@ -93,6 +103,22 @@ private:
     int posY1;
     int posX2;
     int posY2;
+    CvPoint moment_center1;
+    CvPoint moment_center2;
+    CvScalar min_color1;
+    CvScalar max_color1;
+    CvScalar min_color2;
+    CvScalar max_color2;
+
+    double HTyaw2;
+    double HTpitch2;
+    double HTroll2;
+
+    long HTyaw;
+    long HTpitch;
+    long HTroll;
+
+    long potRotation;
 };
 
 #endif
