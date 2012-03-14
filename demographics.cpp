@@ -95,7 +95,7 @@ void Demographics::database_insert_config()
         else
             qryConfig.bindValue(":unsafe_crossing", 0);
 
-        qryConfig.bindValue(":traffic_speed", vehicleSpeed);
+        qryConfig.bindValue(":traffic_speed", trafficSpeed);
         qryConfig.bindValue(":vehicle_quantity", vehiclequantityslider);
         qryConfig.bindValue(":traffic_intensity", intensityslider);
         qryConfig.bindValue(":trial_quantity", trialquantity);
@@ -412,6 +412,7 @@ void Demographics::on_calibrate_clicked()
 void Demographics::on_quit_clicked()
 {
     participantid = ui->id->value();
+    trafficSpeed = ui->trafficSpeed->value();
     bool inputError = false;
     age = ui->age->value();
     participantheight =ui->participantheight->value();
@@ -513,24 +514,6 @@ void Demographics::write_new_id()
         qDebug() << db.lastError();
         qDebug() << "Demographics failed to open database connection to insert data.";
     }
-
-//    if (db.isOpen())
-//    {
-//        QString inStatement = "INSERT INTO performancedata (reference_id) VALUES (:reference_id)";
-//        QSqlQuery qry(db);
-
-//        qry.prepare(inStatement);
-
-//        qry.bindValue(":reference_id", referenceid);
-
-//        qry.exec();
-//    }
-//    else
-//    {
-//        if (db.lastError().isValid());
-//        qDebug() << db.lastError();
-//        qDebug() << "Demographics failed to open database connection to insert data.";
-//    }
 }
 
 void Demographics::get_last_id()

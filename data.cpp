@@ -12,6 +12,7 @@ void Data::read_specs()
     get_mode();
     get_numberOfCars(); //VehicleQauntitySwitching
     get_trafficEnable();
+    get_trafficSpeed();
     get_trafficIntensity();
     get_unsafeCrossing();
     get_participantId();
@@ -22,7 +23,7 @@ void Data::read_specs()
     {
         for (int count = 0; count < numberOfTrials; ++count)
         {
-            speeds[count] = 90;
+            speeds[count] = trafficSpeed;
             startPos[count] = "A";
             popUps[count] = "none";
         }
@@ -68,6 +69,7 @@ void Data::updateinfo(int p) {
     }
     position = p;
 }
+
 
 void Data::writeData(QString trial, bool failed) {
 
@@ -409,6 +411,31 @@ void Data::get_participantId()
         {
             while(qry.next()){
                 participantId = qry.value(0).toInt();
+            }
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+    }
+    else
+    {
+        qDebug() << "Data failed to open database connection to pull data.";
+    }
+}
+
+//Database call for accessing participant id number
+void Data::get_trafficSpeed()
+{
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT traffic_speed FROM trialconfig order by reference_id desc limit 1");
+        QSqlQuery qry(db);
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                trafficSpeed = qry.value(0).toInt();
             }
         }
         else {
