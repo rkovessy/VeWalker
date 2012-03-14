@@ -167,23 +167,24 @@ void TrafficControl::nexttrial() {
     if (demoMode == true)
     {
         if (trial<0){
-            printf("Less than 1 \n");
+            printf("One lane \n");
             draw.numberOfLanes = 1;
         }
-//        else if (trial%2 == 0)
-//        {
-//            printf("Greater than first \n");
-//            draw.numberOfLanes = 1;
-//        }
+        else if (trial%2 == 0)
+        {
+            printf("One Lane (greater than second) \n");
+            draw.numberOfLanes = 1;
+        }
         else
         {
-            printf("Greater than second \n");
+            printf("Two lanes (Greater than second) \n");
             draw.numberOfLanes = 2;
         }
 
     }
 
     //Reconstruct environment
+    qDebug() << "number of Lanes!!!! " << draw.numberOfLanes;
     draw.setStatic_Environment();
     draw.environment();
 

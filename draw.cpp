@@ -4,10 +4,6 @@ using namespace std;
 
 Draw::Draw()
 {
-    quad = gluNewQuadric();
-    move = 0.0;
-    loadTextures();
-
     db = QSqlDatabase::addDatabase("QPSQL", "drawConn");
     db.setHostName("localhost");
     db.setUserName("postgres");
@@ -54,6 +50,11 @@ Draw::~Draw()
 
 void Draw::setStatic_Environment()
 {
+    qDebug() << "Number of lanes: " << numberOfLanes;
+    quad = gluNewQuadric();
+    move = 0.0;
+    loadTextures();
+
     cornerRadius = ((centerRadius + LANE_WIDTH * numberOfLanes) * sin(PI / 4.0) - LANE_WIDTH * numberOfLanes) / (1 - sin(PI / 4.0));
     cornerCoordinate = LANE_WIDTH * numberOfLanes + cornerRadius;
     midzoneLength[0] = centerRadius + LANE_WIDTH * numberOfLanes;
@@ -72,6 +73,7 @@ void Draw::setStatic_Environment()
 }
 
 void Draw::environment() {
+    qDebug() << "drawing environmnet";
         setTexture(ASPHALT);
         for(double i=0.0; i<=100.0; i+=2.5)
         {

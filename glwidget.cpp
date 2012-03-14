@@ -114,7 +114,7 @@ void GLWidget::setArduinoTranslation(int potRot)
     //qDebug() << "potRot:    " << potRot;
     if(!hit) {
         if(!(tc.get_screen()))
-            motorSpeed = 0.02; //abs(currRotation - prevRotation) * PI / 180.0 * 0.14; //Change these values to set constant motor speed
+            motorSpeed = 0.1; //abs(currRotation - prevRotation) * PI / 180.0 * 0.14; //Change these values to set constant motor speed
          else
             motorSpeed = 0.0; //Change these values to set constant motor speed
     }
@@ -210,7 +210,6 @@ void GLWidget::updateScene() {
 
             //printf("xRot [%f] yRot [%f] zRot[%f}\n", xRot, yRot, zRot);
         //tc.data.writePedestrian(tc.get_trials(), xTrans, yTrans, zTrans, xRot, yRot, zRot);
-
             if ((startPos == "A" && yTrans >= endingyLocation[0] && fabs(xTrans-startingxTrans[0]) <= 1) || (startPos == "B" && yTrans <= endingyLocation[1])) {
             tc.nexttrial();
             startPos = tc.get_start();
@@ -222,6 +221,7 @@ void GLWidget::updateScene() {
             xTrans = startingxTrans[start];
            // setZRotation(startingrotation[start]);
         }
+
         updateGL();
     }
 }

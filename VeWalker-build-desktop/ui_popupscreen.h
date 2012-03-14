@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'popupscreen.ui'
 **
-** Created: Wed Mar 14 00:31:10 2012
+** Created: Wed Mar 14 00:37:46 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
