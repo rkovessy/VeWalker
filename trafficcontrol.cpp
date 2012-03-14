@@ -162,19 +162,19 @@ void TrafficControl::nexttrial() {
         for (int count = 0; count < numberOfCars; ++count) //VehicleQauntitySwitching
             cars[count].stopCar();
     }
-
+    database_get_mode();
     //If debug is enabled, alternate between single and double lane
     if (demoMode == true)
     {
         if (trial<0){
             printf("Less than 1 \n");
-            draw.numberOfLanes = 2;
-        }
-        else if (trial%2 == 0)
-        {
-            printf("Greater than first \n");
             draw.numberOfLanes = 1;
         }
+//        else if (trial%2 == 0)
+//        {
+//            printf("Greater than first \n");
+//            draw.numberOfLanes = 1;
+//        }
         else
         {
             printf("Greater than second \n");
