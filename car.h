@@ -32,7 +32,7 @@ public:
     ~Car();
 
     void setCar(const double speed[2][100], int vehicleQuantity); // gives car info needed for current and future implementations //VehicleQauntitySwitching
-    void newCar(double speed); // called when a new car is needed, random variables are set
+    void newCar(double speed, int lanes); // called when a new car is needed, random variables are set
     void stopCar(); // called when trial is ended
     void update(bool initial = false); // moves car forward by current tmpSpeed, initial is true when we don't want to move the car but figure out its occupied position
 
@@ -71,7 +71,7 @@ private:
     int signalCounter; // counter for determining when actual light should be on for signalling
     bool committed; // true if car has entered the inside lane, updated in trafficControl
     double distanceTravelled; // magnitude of travel for determining rotation of rims
-    static const int numberOfLanes = 1; // number of lanes, used for determining what lane car should be in
+    int numberOfLanes; // number of lanes, used for determining what lane car should be in
     double dimensions[4]; // dimensions of car for randomness
     QSqlDatabase db;
     int numberOfCars; //VehicleQauntitySwitching

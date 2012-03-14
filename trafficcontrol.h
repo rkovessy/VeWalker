@@ -81,6 +81,8 @@ private:
     Car cars[100]; // stores the cars //VehicleQauntitySwitching
     Point pedestrian; // stores x, y, and rotation of pedestrian
     bool finalTrial; //Used for checking if the final trial has occured to shut down program.
+    void database_get_lanes(); //Functionf or finding number of lanes, required by newCar in car.
+    int numberOfLanes; //Passed to newCar
 
     QFile file; // file for car output
     QTextStream text; // for cars

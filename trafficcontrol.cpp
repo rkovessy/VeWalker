@@ -45,6 +45,7 @@ TrafficControl::~TrafficControl()
 
 void TrafficControl::set(int pid) {
     database_get_vals();
+    database_get_lanes();
     path.set(draw.centerRadius, draw.LANE_WIDTH);
     for (int count = 0; count < numberOfCars; ++count) //VehicleQauntitySwitching
         cars[count].setCar(path.speed, numberOfCars);
@@ -65,6 +66,7 @@ void TrafficControl::set(int pid) {
 
 void TrafficControl::update() { // pedestrian location updated, car status updated and drawn
     database_get_vals();
+    database_get_lanes();
     if (whitescreen || failed || starttrialsscreen || startpracticescreen) {
         if (whitescreen) {
             elapsed[1] += 0.02;
@@ -87,7 +89,7 @@ void TrafficControl::update() { // pedestrian location updated, car status updat
             elapsed[0] = 0.0;
             carCounter++;
             if (carCounter <= numberOfCars) //VehicleQauntitySwitching
-                cars[carCounter].newCar(speeds[trial]);
+                cars[carCounter].newCar(speeds[trial], numberOfLanes);
         }
         for (int count = 0; count < numberOfCars; ++count) { //VehicleQauntitySwitching
             if (cars[count].get_onTrack()) {
@@ -386,15 +388,16 @@ bool TrafficControl::pointCollision(Car a, Point p) { // determines whether Poin
 
 void TrafficControl::setCarstart() { //SetCarStart seems very important, possibly related to #of vehicles
     database_get_vals();
+    database_get_lanes();
     if (speeds[trial] != 0) {
         double t = path.distance_tostart / (speeds[trial] * path.DISTANCE / 0.02);
-        cars[0].newCar(speeds[trial]);
+        cars[0].newCar(speeds[trial], numberOfLanes);
 
         while (elapsed[1] <= t) {
             if (elapsed[0] >= gaps[trial][carCounter]) {
                 elapsed[0] = 0.0;
                 carCounter++;
-                cars[carCounter].newCar(speeds[trial]);
+                cars[carCounter].newCar(speeds[trial], numberOfLanes);
             }
             for (int count = 0; count < numberOfCars; ++count) {
                 if (cars[count].get_onTrack()) {
@@ -517,4 +520,28 @@ void TrafficControl::database_get_vals()
     }
     database_get_trafficenable(); //Overwrite numberOfCars if traffic is disabled
     database_get_mode(); //Overwrite numberOfCars if there is a demo in progress
+}
+
+void TrafficControl::database_get_lanes()
+{
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT roundabout FROM trialconfig order by reference_id desc limit 1");
+        QSqlQuery qry(db);
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                numberOfLanes = qry.value(0).toInt();
+            }
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+    }
+    else
+    {
+        qDebug() << "TrafficControl failed to open database connection to pull data.";
+    }
 }
