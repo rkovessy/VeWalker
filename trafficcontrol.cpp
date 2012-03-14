@@ -163,7 +163,6 @@ void TrafficControl::nexttrial() {
             cars[count].stopCar();
     }
     database_get_mode();
-    qDebug() << "Mode            : "  << demoMode;
     //If debug is enabled, alternate between single and double lane
     if (demoMode == true)
     {
@@ -171,11 +170,11 @@ void TrafficControl::nexttrial() {
             printf("Less than 1 \n");
             draw.numberOfLanes = 1;
         }
-//        else if (trial%2 == 0)
-//        {
-//            printf("Greater than first \n");
-//            draw.numberOfLanes = 1;
-//        }
+        else if (trial%2 == 0)
+        {
+            printf("Greater than first \n");
+            draw.numberOfLanes = 1;
+        }
         else
         {
             printf("Greater than second \n");
