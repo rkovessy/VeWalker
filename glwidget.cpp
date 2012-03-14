@@ -33,7 +33,7 @@ void GLWidget::setPedestrian(double x, double y, double mid) {
     endingyLocation[0] = -y; //Terminate on the opposite side of the road, not the median
     endingyLocation[1] = 0.0; //y;  use y for switching to the other side of the street
     startingxTrans[0] = x; //This is about at the cross walk
-    startingrotation[0] = 290;
+    startingrotation[0] = 0;
 
     startPos = tc.get_start();
     if (startPos == "A")
@@ -114,7 +114,7 @@ void GLWidget::setArduinoTranslation(int potRot)
     //qDebug() << "potRot:    " << potRot;
     if(!hit) {
         if(!(tc.get_screen()))
-            motorSpeed = 0.00; //abs(currRotation - prevRotation) * PI / 180.0 * 0.14; //Change these values to set constant motor speed
+            motorSpeed = 0.0; //abs(currRotation - prevRotation) * PI / 180.0 * 0.14; //Change these values to set constant motor speed
          else
             motorSpeed = 0.0; //Change these values to set constant motor speed
     }
