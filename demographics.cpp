@@ -1,6 +1,7 @@
 #include "demographics.h"
 #include "ui_demographics.h"
 
+
 Demographics::Demographics(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Demographics)
@@ -447,6 +448,7 @@ void Demographics::on_quit_clicked()
     else
     {
         virtuale.mywindow.setupGLWidget();
+        Sleep(250);
         virtuale.start(participantid);
         this->hide();
     }

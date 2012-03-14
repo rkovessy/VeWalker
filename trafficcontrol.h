@@ -93,6 +93,7 @@ private:
     QString starttrials; // one of inputs to popupscreen found in spec file
     QString startpractice; // one of inputs to popupscreen found in spec file
     QString fail; // one of inputs to popupscreen
+    bool demoMode; //Determine if demo mode is selected to allow for alternatine single and double lane roads
 
     int numberOfTrials; // number of trials defined in specs file
     int trial; // trial for referencing array

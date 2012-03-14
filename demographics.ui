@@ -603,6 +603,12 @@
       <bold>false</bold>
      </font>
     </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>90</number>
+    </property>
     <property name="value">
      <number>60</number>
     </property>

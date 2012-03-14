@@ -39,7 +39,8 @@ public:
     void get_unsafeCrossing();
     void get_referenceId();
     void get_participantId();
-
+    void get_traffic_speed();
+    int trafficSpeed;
     int numberOfCars;
     int referenceId;
     int participantId;
@@ -47,21 +48,7 @@ public:
     const static double unsafeCrossingInterarrival = 2.5;
     bool demoMode;
     bool unsafeCrossingEnable;
-
-//    QString filename[5];
-//    QFile file[5];
-//    QTextStream text[5];
-
     double time; // time program has been running
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //DEMOGRAPHICS
-
-    //void writeDemographics(int pid, QString age, QString sex, QString dominance);
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //SPECS
-
     void read_specs(); // reads from spec file
     int numberOfTrials; // number of trials including practice trials
     QString trials[100]; // for output files
@@ -69,10 +56,6 @@ public:
     QString popUps[200]; // when and which popups appear
     double speeds[200]; // speeds defined for each trial
     double gaps[200][100]; // seperation times, where array is path, trial, time
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //DATA
-
     QString start; // A or B
     double time_starttrial; // global time the trial has started
     double time_bumper; // trial time that the last bumper crossed pedestrian before the pedestrian crosses the road
@@ -82,28 +65,10 @@ public:
     double time_crossing; // time_arrive - time_step
     int steps; // number of times foot was planted on road
     int gap_chosen; // time gap between cars the pedestrian accepted
-
     int position; // holds enum roadclassification for where the pedestrian is
     bool step; // true if step has been taken onto road
-
-    void writeIntro(QString f); // writes header for data file
     void updateinfo(int position); // updates position of pedestrian, where some of the data is recorded, ex time1_step
     void writeData(QString, bool failed = false); // writes data after trial ended or failed
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //PEDESTRIAN
-
-    void setPedestrian(QString filename); // sets filename for pedestrian file
-    void writePedestrian(QString trial, double xTrans, double yTrans, double zTrans,
-                         double xRot, double yRot, double zRot); // writes pedestrian file
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //CARS
-
-    QString setCars(int id);
-    void writeCars_trial(QString trial, double time, bool trials, bool practice, bool white, bool failed);
-    void writeCars(double, double, double);
-    void writeCars_endl();
 
 private:
     QSqlDatabase db;

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'demographics.ui'
 **
-** Created: Tue Mar 13 22:56:13 2012
+** Created: Tue Mar 13 23:53:11 2012
 **      by: Qt User Interface Compiler version 4.7.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -244,6 +244,8 @@ public:
         trafficSpeed->setObjectName(QString::fromUtf8("trafficSpeed"));
         trafficSpeed->setGeometry(QRect(158, 137, 39, 24));
         trafficSpeed->setFont(font2);
+        trafficSpeed->setMinimum(1);
+        trafficSpeed->setMaximum(90);
         trafficSpeed->setValue(60);
         groupBox_2 = new QGroupBox(Demographics);
         groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));

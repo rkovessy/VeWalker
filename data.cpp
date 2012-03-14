@@ -123,16 +123,6 @@ void Data::writeData(QString trial, bool failed) {
         step = false;
 }
 
-void Data::writeCars(double a, double b, double c)
-{
-//    text[CARS] << a << b << c << " ";
-}
-
-void Data::writeCars_endl()
-{
-//    text[CARS] << endl;
-}
-
 void Data::get_numberOfTrials()
 {
     if (db.isOpen())
@@ -406,6 +396,31 @@ void Data::get_participantId()
         {
             while(qry.next()){
                 participantId = qry.value(0).toInt();
+            }
+        }
+        else {
+            qDebug() << "DbError";
+            QMessageBox::critical(0, QObject::tr("DB - ERROR!"),db.lastError().text());
+        }
+    }
+    else
+    {
+        qDebug() << "Data failed to open database connection to pull data.";
+    }
+}
+
+//Database call for accessing vehicle speed
+void Data::get_traffic_speed()
+{
+    if (db.isOpen())
+    {
+        QString readStatement = ("SELECT traffic_speed FROM participantdata order by reference_id desc limit 1");
+        QSqlQuery qry(db);
+
+        if (qry.exec(readStatement))
+        {
+            while(qry.next()){
+                trafficSpeed = qry.value(0).toInt();
             }
         }
         else {

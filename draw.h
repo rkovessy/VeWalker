@@ -42,6 +42,7 @@ public:
     void environment(); // draws the enviornment, ie the grass, road, sidewalk, trees, the refuges, the center
     void car(Car car); // draws a car at Point with bottom middle of front bumper as point
 
+    void setStatic_Environment();
     void set_move(double);
     int get_numberOfLanes();
     double get_centerRadius();
