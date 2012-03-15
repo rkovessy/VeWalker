@@ -113,6 +113,8 @@ IplImage* LegoThread::GetThresholdedImage(IplImage* img)
 
     cvReleaseImage(&imgHSV);
     cvReleaseImage(&imgThreshed2);
+    //cvReleaseImage(&img);
+
     return imgThreshed1;
 }
 
@@ -121,25 +123,32 @@ IplImage* LegoThread::GetBlurredImage(IplImage* img)
     //Convert raw image to a blurred image using a Gaussian blur
     IplImage* imgBlur = cvCreateImage(cvGetSize(img), 8, 3);
     cvSmooth(img, imgBlur, CV_GAUSSIAN, 11, 11);
+
+    //cvReleaseImage(&img);
+
     return imgBlur;
 }
 
-IplImage* LegoThread::GetCroppedImage(IplImage* img)
-{
-    //Set image ROI to be cropped based on top left and bottom right vertices - currently a window around the shoulders
-    cvSetImageROI(img, cvRect(0, 0, 640, 480));  //image is (640, 480)
+//IplImage* LegoThread::GetCroppedImage(IplImage* img)
+//{
+//    //Set image ROI to be cropped based on top left and bottom right vertices - currently a window around the shoulders
+//    cvSetImageROI(img, cvRect(0, 0, 640, 480));  //image is (640, 480)
 
-    //Create new blank image of correct size and copy ROI into it
-    IplImage *imgBlankCanvas = cvCreateImage(cvGetSize(img),img->depth,img->nChannels);
-    cvCopy(img, imgBlankCanvas, NULL);
-    return img;
-}
+//    //Create new blank image of correct size and copy ROI into it
+//    IplImage *imgBlankCanvas = cvCreateImage(cvGetSize(img),img->depth,img->nChannels);
+//    cvCopy(img, imgBlankCanvas, NULL);
+//    cvReleaseImage(&imgBlankCanvas);
+//    return img;
+//}
 
 IplImage* LegoThread::GetResizedImage(IplImage* img)
 {
     //Resize image to 1/4 size to speed up processing
     IplImage* imgResized = cvCreateImage(cvSize(img->width, img->height), 8, 3);
     cvResize(img, imgResized, CV_INTER_AREA);
+
+    //cvReleaseImage(&img);
+
     return imgResized;
 }
 
@@ -273,8 +282,8 @@ void LegoThread::UpdateCamera()
 
     //Process image
     cvShowImage("Raw Video", frame);
-    IplImage* imgCropped = GetCroppedImage(frame);
-    IplImage* imgResized = GetResizedImage(imgCropped);
+    //IplImage* imgCropped = GetCroppedImage(frame);
+    IplImage* imgResized = GetResizedImage(frame);
     IplImage* imgBlurred = GetBlurredImage(imgResized);
     IplImage* imgThresh = GetThresholdedImage(imgBlurred);
     IplImage* imgDilated = GetDilatedImage(imgThresh);

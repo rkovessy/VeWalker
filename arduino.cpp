@@ -35,6 +35,7 @@ ArduinoThread::ArduinoThread(QObject *parent) :
     qDebug() << "Stop bits              : " << m_port->stopBits();
     qDebug() << "Flow                   : " << m_port->flowControl();
 
+    //potRotation = output();
     output();
 }
 
@@ -74,6 +75,7 @@ int ArduinoThread::output()
     int returnVal = data.toInt(&ok, 10);
     //Debug() << "-------------" << returnVal;
 
+    //qDebug() << "value: " << returnVal;
     return returnVal;
 }
 

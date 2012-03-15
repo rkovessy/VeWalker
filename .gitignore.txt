@@ -1,2 +1,0 @@
-VeWalker.pro.user
-*.txt

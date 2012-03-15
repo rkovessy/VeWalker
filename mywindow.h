@@ -51,7 +51,7 @@ private:
     bool replay;
 
     static const int window_width = 1920; // pixel width of screen
-    static const int window_height = 1080; // pixel height of screen
+    static const int window_height = 1024; // pixel height of screen
     int previousXPos;
     int previousYPos;
  };

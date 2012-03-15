@@ -166,9 +166,10 @@ void TrafficControl::nexttrial() {
             cars[count].stopCar();
     }
     database_get_mode();
-    //If debug is enabled, alternate between single and double lane
+
 
     //Reconstruct environment
+    qDebug() << "number of Lanes!!!! " << draw.numberOfLanes;
     draw.setStatic_Environment();
     draw.environment();
 

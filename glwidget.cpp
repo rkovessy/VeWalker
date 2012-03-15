@@ -112,14 +112,20 @@ void GLWidget::setArduinoTranslation(int potRot)
 {
     currRotation = potRot;
     //qDebug() << "potRot:    " << potRot;
+
     if(!hit) {
-        if(!(tc.get_screen()))
-            motorSpeed = 0.0; //abs(currRotation - prevRotation) * PI / 180.0 * 0.14; //Change these values to set constant motor speed
+        //Three sets of conditions that ignore potentionmeter movement, first, make sure the pedestrian
+        //hasn't been hit, secondly if the rotation isn't greater than 5 it is likely just noise
+        //Thirdly if it is greater than 100 it is likely a startup condition and would be an
+        //unintentional lurch.
+        if(!(tc.get_screen())&& abs(currRotation - prevRotation)>15 &&  abs(currRotation - prevRotation) < 100)
+            motorSpeed = abs(currRotation - prevRotation) * PI / 180.0 * 0.05; //Change these values to set constant motor speed
          else
             motorSpeed = 0.0; //Change these values to set constant motor speed
     }
     //zTrans = height / 30.0 * sin(PI * (rValueNXT + 20) / 40) + height + height / 30;
     prevRotation = currRotation;
+    qDebug() << "prevRotation " << prevRotation << " currRotation " << currRotation;
     zTrans = 0.5;
 }
 
@@ -174,12 +180,12 @@ void GLWidget::updateScene() {
         {
             shoulderRot += (angularAccelActual*0.0015);//0.0075 was tuned value for laptop/slow system time
             headRot += (zcompassSpeed*2.25);
-            setZRotation(zRot+(zcompassSpeed*2.20)+(angularAccelActual*0.0015));//setZRotation(zRot+(angularAccelActual*0.0015));//;//0.0075 was tuned value for laptop/slow system time
+            setZRotation(zRot+(zcompassSpeed*0.70)+(angularAccelActual*0.0015));//setZRotation(zRot+(angularAccelActual*0.0015));//;//0.0075 was tuned value for laptop/slow system time
         }
         else
         {
             headRot += (zcompassSpeed*2.25);
-            setZRotation(zRot+(zcompassSpeed*2.20));
+            setZRotation(zRot+(zcompassSpeed*0.70));
         }
 
 
@@ -210,7 +216,6 @@ void GLWidget::updateScene() {
 
             //printf("xRot [%f] yRot [%f] zRot[%f}\n", xRot, yRot, zRot);
         //tc.data.writePedestrian(tc.get_trials(), xTrans, yTrans, zTrans, xRot, yRot, zRot);
-
             if ((startPos == "A" && yTrans >= endingyLocation[0] && fabs(xTrans-startingxTrans[0]) <= 1) || (startPos == "B" && yTrans <= endingyLocation[1])) {
             tc.nexttrial();
             startPos = tc.get_start();
@@ -222,6 +227,7 @@ void GLWidget::updateScene() {
             xTrans = startingxTrans[start];
            // setZRotation(startingrotation[start]);
         }
+
         updateGL();
     }
 }
