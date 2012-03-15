@@ -101,6 +101,10 @@ void Draw::environment() {
                 for (int count = 0; count < 10; ++count)
                     tree((rand() % 11 - 5.0) / 10.0 + 1.0, treeCoordinate(xcount), treeCoordinate(ycount));
 
+        building();
+
+
+
         center();
         corners();
 }
@@ -126,6 +130,7 @@ void Draw::car(Car car) {
     glRotated(90 + car.point.rotation , 0, 0, 1);
 
     setTexture(BLACK + colour);
+
     rectangle(0, -1, 0, -0.25, 0, 0.07, 'x', CAR_WIDTH_DESIGN, 'z', 0.18); // front bumper
     rectangle(0, 1, 0, 0.25, CAR_LENGTH_DESIGN, 0.07, 'x', -1 * CAR_WIDTH_DESIGN, 'z', 0.18); // back bumper
     quadVectors(0, -0.15 / sqrt(0.0325), 0.1 / sqrt(0.0325), -0.25, dimension_0, 0.25, CAR_WIDTH_DESIGN, 0.0, 0.0, 0.0, 0.1, 0.15); // front window border
@@ -758,51 +763,133 @@ void Draw::corners() {
 }
 
 
-void Draw::building(double scale, double x, double y, double z)
+void Draw::building()
 {
     glPushMatrix();
-    glTranslated(x, y, z);
-    glScaled(scale, scale, scale);
+    glTranslated(2, 2, 0);
+    glScaled(2, 2, 5);
 
-    setTexture(TREEBROWN);
-    gluCylinder(quad, 0.05, 0.05, 0.15, 25, 25);
-
-    setTexture(TREEGREEN);
-    for (double count = 0; count <= 1.0; count += 0.05) {
-        for (int count2 = 0; count2 < 180; count2 += 10) {
-            glPushMatrix();
-            glRotated(rand() % 11 - 5, 0, 0, 1);
-
-            double y = count / ((rand()% 11) / 20.0 + 1.75);
-
-            glBegin(GL_QUADS);
-            glNormal3d(0, 0, 1);
-            glTexCoord2d(0,0); glVertex3d(-count/ 10.0, 0.0, 1.15 - count);
-            glNormal3d(0, 1 / -sqrt(2.0), 1 / sqrt(2.0));
-            glTexCoord2d(1,0); glVertex3d(0.0, -y, 1.05 - count);
-            glNormal3d(0, 0, 1);
-            glTexCoord2d(1,1); glVertex3d(count / 10.0, 0.0, 1.15 - count);
-            glNormal3d(0, 1 / sqrt(2.0), 1 / sqrt(2.0));
-            glTexCoord2d(0,1); glVertex3d(0.0, y, 1.05 - count);
-            glEnd();
-
-            glBegin(GL_QUADS);
-            glNormal3d(0, 0, 1);
-            glTexCoord2d(0,0); glVertex3d(-count/ 10.0, 0.0, 1.15 - count);
-            glNormal3d(0, 1 / sqrt(2.0), -1 / sqrt(2.0));
-            glTexCoord2d(1,0); glVertex3d(0.0, y, 1.05 - count);
-            glNormal3d(0, 0, 1);
-            glTexCoord2d(1,1); glVertex3d(count / 10.0, 0.0, 1.15 - count);
-            glNormal3d(0, -1 / sqrt(2.0), -1 / sqrt(2.0));
-            glTexCoord2d(0,1); glVertex3d(0.0, -y, 1.05 - count);
-            glEnd();
-
-            glPopMatrix();
-            glRotated(10, 0, 0, 1);
+    //Draw buildings for North East corner going east
+    for (int buildingCount = 0; buildingCount <5; buildingCount++)
+    {
+        int stories = rand()%4+2;
+        int textureNum = rand()%6+42;
+        for (int count = 0; count<stories; count++) //where upper limit is number of stories
+        {
+            setTexture(textureNum);
+            rectangle(1, 0, 0, 2 + (buildingCount*2.5), 2.5, 0.0 + count*0.6, 'y', 2, 'z', .6); // left side
+            rectangle(-1, 0, 0, 2+ (buildingCount*2.5), 4.5, 0.0 + count*0.6, 'y', -1 * 2, 'z', .6); // right side
+            rectangle(0, -1, 0, 2 + (buildingCount*2.5), 2.5, 0.0 + count*0.6, 'x', 2, 'z', .6); // front
+            rectangle(0, 1, 0, 4 + (buildingCount*2.5), 4.5, 0.0 + count*0.6, 'x', -1 * 2, 'z', .6); // back
         }
     }
-    glPopMatrix();
 
+    //Draw buildings for North East corner going north
+    for (int buildingCount = 0; buildingCount <5; buildingCount++)
+    {
+        int stories = rand()%4+2;
+        int textureNum = rand()%6+42;
+        for (int count = 0; count<stories; count++) //where upper limit is number of stories
+        {
+            setTexture(textureNum);
+            rectangle(1, 0, 0, 2, 5 + (buildingCount*2.5), 0.0 + count*0.6, 'y', 2, 'z', .6); // left side
+            rectangle(-1, 0, 0, 2, 7+ (buildingCount*2.5), 0.0 + count*0.6, 'y', -1 * 2, 'z', .6); // right side
+            rectangle(0, -1, 0, 2, 5+ (buildingCount*2.5), 0.0 + count*0.6, 'x', 2, 'z', .6); // front
+            rectangle(0, 1, 0, 4, 7+ (buildingCount*2.5), 0.0 + count*0.6, 'x', -1 * 2, 'z', .6); // back
+        }
+    }
+
+    //Draw buildings for North West corner going west
+    for (int buildingCount = 0; buildingCount <5; buildingCount++)
+    {
+        int stories = rand()%4+2;
+        int textureNum = rand()%6+42;
+        for (int count = 0; count<stories; count++) //where upper limit is number of stories
+        {
+            setTexture(textureNum);
+            rectangle(1, 0, 0, -5.5 - (buildingCount*2.5), 1.5, 0.0 + count*0.6, 'y', 2, 'z', .6);
+            rectangle(1, 0, 0, -7.5 - (buildingCount*2.5), 1.5, 0.0 + count*0.6, 'y', 2, 'z', .6);
+            rectangle(1, 0, 0, -7.5 - (buildingCount*2.5), 3.5, 0.0 + count*0.6, 'x', 2, 'z', .6);
+            rectangle(1, 0, 0, -7.5 - (buildingCount*2.5), 1.5, 0.0 + count*0.6, 'x', 2, 'z', .6);
+        }
+    }
+
+    //Draw buildings for North West corner going north
+    for (int buildingCount = 0; buildingCount <5; buildingCount++)
+    {
+        int stories = rand()%4+2;
+        int textureNum = rand()%6+42;
+        for (int count = 0; count<stories; count++) //where upper limit is number of stories
+        {
+            setTexture(textureNum);
+            rectangle(1, 0, 0, -5.0, 4 + (buildingCount*2.5), 0.0 + count*0.6, 'y', 2, 'z', .6);
+            rectangle(1, 0, 0, -7.0, 4 + (buildingCount*2.5), 0.0 + count*0.6, 'y', 2, 'z', .6);
+            rectangle(1, 0, 0, -7.0, 6 + (buildingCount*2.5), 0.0 + count*0.6, 'x', 2, 'z', .6);
+            rectangle(1, 0, 0, -7.0, 4 + (buildingCount*2.5), 0.0 + count*0.6, 'x', 2, 'z', .6);
+        }
+    }
+
+    //Draw buildings for South West corner going West
+    for (int buildingCount = 0; buildingCount <5; buildingCount++)
+    {
+        int stories = rand()%4+2;
+        int textureNum = rand()%6+42;
+        for (int count = 0; count<stories; count++) //where upper limit is number of stories
+        {
+            setTexture(textureNum);
+            rectangle(1, 0, 0, -8.5 - (buildingCount*2.5), -5.5, 0.0 + count*0.6, 'y', 2, 'z', .6);
+            rectangle(1, 0, 0, -6.5- (buildingCount*2.5), -5.5, 0.0 + count*0.6, 'y', 2, 'z', .6);
+            rectangle(0, -1, 0, -6.5 - (buildingCount*2.5), -5.5, 0.0 + count*0.6, 'x', -2, 'z', .6);
+            rectangle(0, -1, 0, -6.5 - (buildingCount*2.5), -3.5, 0.0 + count*0.6, 'x', -2, 'z', .6);
+        }
+    }
+
+    //Draw buildings for South West corner going South
+    for (int buildingCount = 0; buildingCount <5; buildingCount++)
+    {
+        int stories = rand()%4+2;
+        int textureNum = rand()%6+42;
+        for (int count = 0; count<stories; count++) //where upper limit is number of stories
+        {
+            setTexture(textureNum);
+            rectangle(1, 0, 0, -8, -8  - (buildingCount*2.5), 0.0 + count*0.6, 'y', 2, 'z', .6);
+            rectangle(1, 0, 0, -6, -8  - (buildingCount*2.5), 0.0 + count*0.6, 'y', 2, 'z', .6);
+            rectangle(0, -1, 0, -6, -8  - (buildingCount*2.5), 0.0 + count*0.6, 'x', -2, 'z', .6);
+            rectangle(0, -1, 0, -6, -6  - (buildingCount*2.5), 0.0 + count*0.6, 'x', -2, 'z', .6);
+        }
+    }
+
+    //Draw buildings for South East corner going east
+    for (int buildingCount = 0; buildingCount <5; buildingCount++)
+    {
+        int stories = rand()%4+2;
+        int textureNum = rand()%6+42;
+        for (int count = 0; count<stories; count++) //where upper limit is number of stories
+        {
+            setTexture(textureNum);
+            rectangle(-1, 0, 0, 2+ (buildingCount*2.5), -3.5, 0.0 + count*0.6, 'y', -1 * 2, 'z', .6);
+            rectangle(-1, 0, 0, 4+ (buildingCount*2.5), -3.5, 0.0 + count*0.6, 'y', -1 * 2, 'z', .6);
+            rectangle(0, -1, 0, 2 + (buildingCount*2.5), -3.5, 0.0 + count*0.6, 'x', 2, 'z', .6);
+            rectangle(0, 1, 0, 4 + (buildingCount*2.5), -3.5, 0.0 + count*0.6, 'x', -1 * 2, 'z', .6);
+        }
+    }
+
+    //Draw buildings for South East corner going south
+    for (int buildingCount = 0; buildingCount <5; buildingCount++)
+    {
+        int stories = rand()%4+2;
+        int textureNum = rand()%6+42;
+        for (int count = 0; count<stories; count++) //where upper limit is number of stories
+        {
+            setTexture(textureNum);
+            rectangle(-1, 0, 0, 2, -6 - (buildingCount*2.5), 0.0 + count*0.6, 'y', -1 * 2, 'z', .6);
+            rectangle(-1, 0, 0, 4, -6 - (buildingCount*2.5), 0.0 + count*0.6, 'y', -1 * 2, 'z', .6);
+            rectangle(0, -1, 0, 2, -6 - (buildingCount*2.5), 0.0 + count*0.6, 'x', 2, 'z', .6);
+            rectangle(0, 1, 0, 4, -6 - (buildingCount*2.5), 0.0 + count*0.6, 'x', -1 * 2, 'z', .6);
+        }
+    }
+
+    glPopMatrix();
 }
 
 void Draw::tree(double scale, double x, double y, double z) {

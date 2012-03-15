@@ -114,7 +114,7 @@ void GLWidget::setArduinoTranslation(int potRot)
     //qDebug() << "potRot:    " << potRot;
     if(!hit) {
         if(!(tc.get_screen()))
-            motorSpeed = 0.03; //abs(currRotation - prevRotation) * PI / 180.0 * 0.14; //Change these values to set constant motor speed
+            motorSpeed = 0.0; //abs(currRotation - prevRotation) * PI / 180.0 * 0.14; //Change these values to set constant motor speed
          else
             motorSpeed = 0.0; //Change these values to set constant motor speed
     }
@@ -174,7 +174,7 @@ void GLWidget::updateScene() {
         {
             shoulderRot += (angularAccelActual*0.0015);//0.0075 was tuned value for laptop/slow system time
             headRot += (zcompassSpeed*2.25);
-            setZRotation(zRot+(angularAccelActual*0.0015));//setZRotation(zRot+(zcompassSpeed*2.20)+(angularAccelActual*0.0015));//0.0075 was tuned value for laptop/slow system time
+            setZRotation(zRot+(zcompassSpeed*2.20)+(angularAccelActual*0.0015));//setZRotation(zRot+(angularAccelActual*0.0015));//;//0.0075 was tuned value for laptop/slow system time
         }
         else
         {
