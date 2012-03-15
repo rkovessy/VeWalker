@@ -98,7 +98,7 @@ void Draw::environment() {
 
         for (int xcount = -1; xcount < 2; xcount += 2)
             for (int ycount = -1; ycount < 2; ycount += 2)
-                for (int count = 0; count < 5; ++count)
+                for (int count = 0; count < 10; ++count)
                     tree((rand() % 11 - 5.0) / 10.0 + 1.0, treeCoordinate(xcount), treeCoordinate(ycount));
 
         center();
@@ -749,6 +749,54 @@ void Draw::corners() {
         glRotated(90, 0, 0, 1);
     }
     glPopMatrix();
+}
+
+
+void Draw::building(double scale, double x, double y, double z)
+{
+    glPushMatrix();
+    glTranslated(x, y, z);
+    glScaled(scale, scale, scale);
+
+    setTexture(TREEBROWN);
+    gluCylinder(quad, 0.05, 0.05, 0.15, 25, 25);
+
+    setTexture(TREEGREEN);
+    for (double count = 0; count <= 1.0; count += 0.05) {
+        for (int count2 = 0; count2 < 180; count2 += 10) {
+            glPushMatrix();
+            glRotated(rand() % 11 - 5, 0, 0, 1);
+
+            double y = count / ((rand()% 11) / 20.0 + 1.75);
+
+            glBegin(GL_QUADS);
+            glNormal3d(0, 0, 1);
+            glTexCoord2d(0,0); glVertex3d(-count/ 10.0, 0.0, 1.15 - count);
+            glNormal3d(0, 1 / -sqrt(2.0), 1 / sqrt(2.0));
+            glTexCoord2d(1,0); glVertex3d(0.0, -y, 1.05 - count);
+            glNormal3d(0, 0, 1);
+            glTexCoord2d(1,1); glVertex3d(count / 10.0, 0.0, 1.15 - count);
+            glNormal3d(0, 1 / sqrt(2.0), 1 / sqrt(2.0));
+            glTexCoord2d(0,1); glVertex3d(0.0, y, 1.05 - count);
+            glEnd();
+
+            glBegin(GL_QUADS);
+            glNormal3d(0, 0, 1);
+            glTexCoord2d(0,0); glVertex3d(-count/ 10.0, 0.0, 1.15 - count);
+            glNormal3d(0, 1 / sqrt(2.0), -1 / sqrt(2.0));
+            glTexCoord2d(1,0); glVertex3d(0.0, y, 1.05 - count);
+            glNormal3d(0, 0, 1);
+            glTexCoord2d(1,1); glVertex3d(count / 10.0, 0.0, 1.15 - count);
+            glNormal3d(0, -1 / sqrt(2.0), -1 / sqrt(2.0));
+            glTexCoord2d(0,1); glVertex3d(0.0, -y, 1.05 - count);
+            glEnd();
+
+            glPopMatrix();
+            glRotated(10, 0, 0, 1);
+        }
+    }
+    glPopMatrix();
+
 }
 
 void Draw::tree(double scale, double x, double y, double z) {

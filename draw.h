@@ -69,6 +69,7 @@ public:
     static const double centerRadius = 1.5; // radius from (0,0,0) to the outside of the grey border of the center of the roundabout
     static const double centerHeight = 1.0/3.0; // height of the object in the center
     void get_centerheight();
+    void building(double scale, double x, double y, double z); //Function to draw in buildings to environment
 
 
 private:
