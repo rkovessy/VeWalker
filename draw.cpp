@@ -775,7 +775,7 @@ void Draw::building()
     glTranslated(2, 2, 0);
     glScaled(2, 2, 5);
 
-    int numberOfBuildingsPerStreet = 7;
+    int numberOfBuildingsPerStreet = 3;
 
     //Draw buildings for North East corner going east
     for (int buildingCount = 0; buildingCount <numberOfBuildingsPerStreet; buildingCount++)
