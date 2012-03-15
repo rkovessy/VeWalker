@@ -104,7 +104,7 @@
      QColor backgroundColor;
      double alphaRightMin;
      double alphaLeftMin;
-     const static double ANGULAR_ACCEL_MAXIMUM = 1500.0;
+     const static double ANGULAR_ACCEL_MAXIMUM = 1200.0;
 
      bool hit; // whether or not pedestrian is hit
 

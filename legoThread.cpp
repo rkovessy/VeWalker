@@ -6,6 +6,7 @@ LegoThread::LegoThread() {
     counter = 0;
     magnitude = 0.0;
     lastrValueNXT = 0.0;
+    cvNamedWindow("Processed Video");
     //printf("LegoThread initialized \n");
     // Initialize capturing from webcam
     capture = cvCaptureFromCAM(-1);
@@ -45,8 +46,8 @@ LegoThread::LegoThread() {
 
     this->database_connect();
 
-    cvNamedWindow("Processed Video");
-    cvNamedWindow("Raw Video");
+    //cvNamedWindow("Processed Video");
+    //cvNamedWindow("Raw Video");
 }
 
 LegoThread::~LegoThread()
@@ -144,7 +145,7 @@ IplImage* LegoThread::GetBlurredImage(IplImage* img)
 IplImage* LegoThread::GetResizedImage(IplImage* img)
 {
     //Resize image to 1/4 size to speed up processing
-    IplImage* imgResized = cvCreateImage(cvSize(img->width, img->height), 8, 3);
+    IplImage* imgResized = cvCreateImage(cvSize(img->width/2, img->height/2), 8, 3);
     cvResize(img, imgResized, CV_INTER_AREA);
 
     //cvReleaseImage(&img);
@@ -155,9 +156,9 @@ IplImage* LegoThread::GetResizedImage(IplImage* img)
 IplImage* LegoThread::GetDilatedImage(IplImage* img)
 {
     //(Optional) Perform iterations of erosion on the image to filter noise
-    cvErode(img, img, NULL, 1);
+    cvErode(img, img, NULL, 3);
     //Perform iterations of dilation on the threshed image
-    cvDilate(img, img, NULL, 12);
+    cvDilate(img, img, NULL, 7);
     return img;
 }
 
@@ -263,7 +264,6 @@ void LegoThread::UpdateCamera()
     IplImage* frame = 0;
 
     frame = cvQueryFrame(capture);
-    cvFlip(frame, NULL, 1);
     //cvShowImage("Raw Video", frame);
     //frame=cvLoadImage("test_frame.jpg",1);
 
@@ -281,12 +281,15 @@ void LegoThread::UpdateCamera()
     CvMoments *moments2 = (CvMoments*)malloc(sizeof(CvMoments));
 
     //Process image
-    cvShowImage("Raw Video", frame);
+    //cvShowImage("Raw Video", frame);
     //IplImage* imgCropped = GetCroppedImage(frame);
+
+    //cvFlip(frame, NULL, 1);
     IplImage* imgResized = GetResizedImage(frame);
     IplImage* imgBlurred = GetBlurredImage(imgResized);
     IplImage* imgThresh = GetThresholdedImage(imgBlurred);
     IplImage* imgDilated = GetDilatedImage(imgThresh);
+    cvFlip(imgDilated, NULL, 0);
     cvShowImage("Processed Video", imgDilated);
 
     //Get the contour vectors and store in contours
@@ -333,6 +336,7 @@ void LegoThread::UpdateCamera()
 
         //Send cooridnates of moments as a signal
         emit sendCameraValues(posX1, posX2, posY1, posY2);
+        qDebug() << "X1 " << posX1 << "Y1 " << posY1 << "X2 " << posX2 << "Y2 " << posY2;
     }
 
     // Release images and moments

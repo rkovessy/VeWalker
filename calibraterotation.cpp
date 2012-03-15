@@ -22,7 +22,7 @@ calibrateRotation::calibrateRotation(QWidget *parent) :
     alphaRightActual = 45*3.14159/180; //default value of 45 degree angle, with right being positive
     alphaLeftActual = -45*3.14159/180; //default value of 45 degree angle, with left bveing negative
     alphaCenterActual = 0.0;
-    cvNamedWindow("Calibration");
+    //cvNamedWindow("Calibration");
 }
 
 calibrateRotation::~calibrateRotation()
@@ -67,12 +67,11 @@ void calibrateRotation::calibrate(int leftRightIndex)
     CvMoments *moments2 = (CvMoments*)malloc(sizeof(CvMoments));
 
     //Process image
-    IplImage* imgCropped = GetCroppedImage(frame);
-    IplImage* imgResized = GetResizedImage(imgCropped);
+    IplImage* imgResized = GetResizedImage(frame);
     IplImage* imgBlurred = GetBlurredImage(imgResized);
     IplImage* imgThresh = GetThresholdedImage(imgBlurred);
     IplImage* imgDilated = GetDilatedImage(imgThresh);
-    cvShowImage("Calibration",imgDilated);
+    //cvShowImage("Calibration",imgDilated);
 
     //Get the contour vectors and store in contours
     cvFindContours(imgDilated, storage, &contours, sizeof(CvContour), CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE, cvPoint(0,0));

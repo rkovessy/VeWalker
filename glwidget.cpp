@@ -15,8 +15,8 @@ GLWidget::GLWidget(QWidget *parent)
 
     this->database_connect();
 
-    alphaRightMin = .000485;
-    alphaLeftMin = -.000485;
+    alphaRightMin = 8*3.14159/180;
+    alphaLeftMin = -8*3.14159/180;
     //setMouseTracking(true);
 }
 
@@ -118,7 +118,7 @@ void GLWidget::setArduinoTranslation(int potRot)
         //hasn't been hit, secondly if the rotation isn't greater than 5 it is likely just noise
         //Thirdly if it is greater than 100 it is likely a startup condition and would be an
         //unintentional lurch.
-        if(!(tc.get_screen())&& abs(currRotation - prevRotation)>6 &&  abs(currRotation - prevRotation) < 100)
+        if(!(tc.get_screen())&& abs(currRotation - prevRotation)>7 &&  abs(currRotation - prevRotation) < 100)
             motorSpeed = abs(currRotation - prevRotation) * PI / 180.0 * 0.05; //Change these values to set constant motor speed
          else
             motorSpeed = 0.0; //Change these values to set constant motor speed
@@ -231,7 +231,7 @@ void GLWidget::updateScene() {
             x = (xTrans + (motorSpeed*sin((zRot-(zcompassSpeed*2.25))*PI/180)));
         }
 
-        qDebug() << "zRot: " << zRot << " zcompassSpeed: " << " yTrans/xTrans: " << yTrans << "/" << xTrans;
+//        qDebug() << "zRot: " << zRot << " zcompassSpeed: " << " yTrans/xTrans: " << yTrans << "/" << xTrans;
 
         //if (fabs(y) <= maxTrans && fabs(x) >= maxTrans) {
             yTrans = y;
@@ -366,6 +366,7 @@ GLuint GLWidget::makeObject()
 //Determine value of angularAccelActual
 void GLWidget::determineAngularAccel(double alphaActual)
 {
+    //printf("Alpha actual: %f \n", alphaActual);
     get_calibration_settings();
     alphaRightMax += alphaZeroPosition;
     alphaRightMin += alphaZeroPosition;
