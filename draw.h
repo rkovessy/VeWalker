@@ -26,7 +26,7 @@
 #include "path.h"
 #include "car.h"
 
-enum filename { STREET, GRASSGREEN, WALKWAYGREY, WALKWAYWHITE, LINEYELLOW, LINEWHITE, SKY, SKYBLUE, TREEBROWN, TREEGREEN, WINDOW, TIRE, LICENSE, TIREGREY, BLACK, GREY, WHITE, BLUE, RED, YELLOW, GREEN, FR, FRT, FL, FLT, BR, BRT, BRS, BRST, BL, BLT, BLS, BLST, TEXTUREGRASS01, TEXTUREGRASS02, TEXTUREGRASS03, ASPHALT, SIDEWALK, ASPHALT2, CLOUD, CLOUD2, CLOUD3 };
+enum filename { STREET, GRASSGREEN, WALKWAYGREY, WALKWAYWHITE, LINEYELLOW, LINEWHITE, SKY, SKYBLUE, TREEBROWN, TREEGREEN, WINDOW, TIRE, LICENSE, TIREGREY, BLACK, GREY, WHITE, BLUE, RED, YELLOW, GREEN, FR, FRT, FL, FLT, BR, BRT, BRS, BRST, BL, BLT, BLS, BLST, TEXTUREGRASS01, TEXTUREGRASS02, TEXTUREGRASS03, ASPHALT, SIDEWALK, ASPHALT2, CLOUD, CLOUD2, CLOUD3, BUILDING1, BUILDING2, BUILDING3, BUILDING4, BUILDING5, BUILDING6 };
                 // enum for switching between textures, the order of the lights textures is important
                 // F = front, B = back, R = right, L = left, S = stopping, T = turning
 class Draw
@@ -99,10 +99,10 @@ private:
     double midzoneVector[3]; // lengths from the origin to the specific points of the center refuge
     double walkwayDistance; // distance from origin to the closest edge to the center of the painted walkway on the road
 
-    GLuint texture[41]; // holds all the textures
+    GLuint texture[47]; // holds all the textures
     GLUquadricObj *quad; // needed for cylinders/circles/spheres
-    QImage b[42]; // needed for loadTexture(...), textures are loaded via QImage
-    QImage t[42]; // needed for loadTexture(...), textures are loaded via QImage
+    QImage b[48]; // needed for loadTexture(...), textures are loaded via QImage
+    QImage t[48]; // needed for loadTexture(...), textures are loaded via QImage
 
     bool demoMode; //Determines if demo mode is chosen
     void get_database_mode(); //Determines if demo mode was written to database for current run

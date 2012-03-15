@@ -274,7 +274,7 @@ void Draw::loadTextures() {
     if (!QDir(folder).exists())
         qDebug() << "image folder not found";
 
-    glGenTextures( 40, &texture[0] );
+    glGenTextures( 46, &texture[0] );
 
     loadTexture(folder + "street.bmp", STREET);
     loadTexture(folder + "grassgreen.bmp", GRASSGREEN);
@@ -317,6 +317,12 @@ void Draw::loadTextures() {
     loadTexture(folder + "cloud.bmp", CLOUD);
     loadTexture(folder + "cloud02.bmp", CLOUD2);
     loadTexture(folder + "cloud03.bmp", CLOUD3);
+    loadTexture(folder + "building1.bmp", BUILDING1);
+    loadTexture(folder + "building2.bmp", BUILDING2);
+    loadTexture(folder + "building3.bmp", BUILDING3);
+    loadTexture(folder + "building4.bmp", BUILDING4);
+    loadTexture(folder + "building5.bmp", BUILDING5);
+    loadTexture(folder + "building6.bmp", BUILDING6);
 }
 
 void Draw::loadTexture(QString filename, int index) { // loads texture via QImage
