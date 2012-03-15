@@ -48,6 +48,8 @@ void MyWindow::settingLayout() {
             glWidget->setXRotation(270.0);
             glWidget->setYRotation(0.0);
             glWidget->setZRotation(0.0);
+            glWidget->setZRot(0.0);
+            glWidget->setShoulderRot(0.0);
             break;
 
      }

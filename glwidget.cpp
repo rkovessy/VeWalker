@@ -118,14 +118,14 @@ void GLWidget::setArduinoTranslation(int potRot)
         //hasn't been hit, secondly if the rotation isn't greater than 5 it is likely just noise
         //Thirdly if it is greater than 100 it is likely a startup condition and would be an
         //unintentional lurch.
-        if(!(tc.get_screen())&& abs(currRotation - prevRotation)>15 &&  abs(currRotation - prevRotation) < 100)
+        if(!(tc.get_screen())&& abs(currRotation - prevRotation)>6 &&  abs(currRotation - prevRotation) < 100)
             motorSpeed = abs(currRotation - prevRotation) * PI / 180.0 * 0.05; //Change these values to set constant motor speed
          else
             motorSpeed = 0.0; //Change these values to set constant motor speed
     }
     //zTrans = height / 30.0 * sin(PI * (rValueNXT + 20) / 40) + height + height / 30;
     prevRotation = currRotation;
-    qDebug() << "prevRotation " << prevRotation << " currRotation " << currRotation;
+    //qDebug() << "prevRotation " << prevRotation << " currRotation " << currRotation;
     zTrans = 0.5;
 }
 
@@ -165,6 +165,30 @@ void GLWidget::Yrotation(double anglediff)
         ycompassSpeed = 0.0;
 }
 
+void GLWidget::setZRot(double zRotVal)
+{
+    zRot = zRotVal;
+}
+
+void GLWidget::setYTrans(double yTransVal)
+{
+    yTrans = yTransVal;
+}
+
+void GLWidget::setXTrans(double xTransVal)
+{
+    xTrans = xTransVal;
+}
+ void GLWidget::setAngularAccelActual(double angleVal)
+ {
+     angularAccelActual = angleVal;
+ }
+
+ void GLWidget::setShoulderRot(double rotVal)
+ {
+     shoulderRot = rotVal;
+ }
+
 void GLWidget::updateScene() {
     get_tracker_settings();
 
@@ -179,12 +203,12 @@ void GLWidget::updateScene() {
         if (QString::compare("shoulder", directionalControlMethod, Qt::CaseInsensitive)==0)
         {
             shoulderRot += (angularAccelActual*0.0015);//0.0075 was tuned value for laptop/slow system time
-            headRot += (zcompassSpeed*2.25);
-            setZRotation(zRot+(zcompassSpeed*0.70)+(angularAccelActual*0.0015));//setZRotation(zRot+(angularAccelActual*0.0015));//;//0.0075 was tuned value for laptop/slow system time
+            headRot += (zcompassSpeed*2.0);
+            setZRotation(zRot+(zcompassSpeed*0.44)+(angularAccelActual*0.0015));//setZRotation(zRot+(angularAccelActual*0.0015));//;//0.0075 was tuned value for laptop/slow system time
         }
         else
         {
-            headRot += (zcompassSpeed*2.25);
+            headRot += (zcompassSpeed*2.0);
             setZRotation(zRot+(zcompassSpeed*0.70));
         }
 
@@ -207,8 +231,8 @@ void GLWidget::updateScene() {
             x = (xTrans + (motorSpeed*sin((zRot-(zcompassSpeed*2.25))*PI/180)));
         }
 
-        //qDebug() << "xy [" << x << "," << y << "]";
-        //qDebug() << "motorSpeed " << motorSpeed << " angle: " << angularAccelActual << "xy [" << x << "," << y << "]";
+        qDebug() << "zRot: " << zRot << " zcompassSpeed: " << " yTrans/xTrans: " << yTrans << "/" << xTrans;
+
         //if (fabs(y) <= maxTrans && fabs(x) >= maxTrans) {
             yTrans = y;
             xTrans = x;
@@ -349,14 +373,14 @@ void GLWidget::determineAngularAccel(double alphaActual)
     alphaLeftMin += alphaZeroPosition;
     if (alphaActual > alphaRightMin)
     {
-        angularAccelActual = angularAccelMaximum*abs(alphaActual)/abs(alphaRightMax-alphaRightMin);
-        //printf("Angular Accel Maximum %f \n", angularAccelMaximum);
+        angularAccelActual = ANGULAR_ACCEL_MAXIMUM*abs(alphaActual)/abs(alphaRightMax-alphaRightMin);
+        //printf("Angular Accel Maximum %f \n", ANGULAR_ACCEL_MAXIMUM);
         //printf("Angular Accel Actual %f \n", angularAccelActual);
     }
     else if (alphaActual < alphaLeftMin)
     {
-        angularAccelActual = -1*angularAccelMaximum*abs(alphaActual)/abs(alphaLeftMax-alphaLeftMin);
-        //printf("Angular Accel Maximum %f \n", angularAccelMaximum);
+        angularAccelActual = -1*ANGULAR_ACCEL_MAXIMUM*abs(alphaActual)/abs(alphaLeftMax-alphaLeftMin);
+        //printf("Angular Accel Maximum %f \n", ANGULAR_ACCEL_MAXIMUM);
         //printf("Angular Accel Actual %f \n", angularAccelActual);
     }
     else

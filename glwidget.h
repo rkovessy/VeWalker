@@ -49,6 +49,11 @@
      void get_calibration_settings();
 
  public slots:
+     void setZRot(double zRotVal);
+     void setYTrans(double yTransVal);
+     void setXTrans(double xTransVal);
+     void setAngularAccelActual(double angleVal);
+     void setShoulderRot(double rotVal);
      void setXRotation(double angle);
      void setYRotation(double angle);
      void setZRotation(double angle);
@@ -99,7 +104,7 @@
      QColor backgroundColor;
      double alphaRightMin;
      double alphaLeftMin;
-     const static double angularAccelMaximum = 1000.0;
+     const static double ANGULAR_ACCEL_MAXIMUM = 1500.0;
 
      bool hit; // whether or not pedestrian is hit
 

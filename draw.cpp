@@ -131,6 +131,7 @@ void Draw::car(Car car) {
     glTranslated(car.point.x, car.point.y, 0.0);
     glRotated(90 + car.point.rotation , 0, 0, 1);
 
+    //Body
     setTexture(BLACK + colour);
 
     rectangle(0, -1, 0, -0.25, 0, 0.07, 'x', CAR_WIDTH_DESIGN, 'z', 0.18); // front bumper
@@ -775,7 +776,7 @@ void Draw::building()
     glTranslated(2, 2, 0);
     glScaled(2, 2, 5);
 
-    int numberOfBuildingsPerStreet = 3;
+    int numberOfBuildingsPerStreet = 6;
 
     //Draw buildings for North East corner going east
     for (int buildingCount = 0; buildingCount <numberOfBuildingsPerStreet; buildingCount++)

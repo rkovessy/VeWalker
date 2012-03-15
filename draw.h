@@ -54,7 +54,7 @@ public:
     double get_midzoneVector(int);
     double get_walkwayDistance();
 
-    const static double CAR_LENGTH_DESIGN = 0.8; // length of each car before scaling
+    const static double CAR_LENGTH_DESIGN = 1.0; // length of each car before scaling
     const static double CAR_WIDTH_DESIGN = 0.5; // width of each car before scaling
     double CAR_LENGTH; // length of each car after scaling
     double CAR_WIDTH; // width of each car after scaling
