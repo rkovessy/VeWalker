@@ -27,6 +27,16 @@ void Data::read_specs()
             startPos[count] = "A";
             popUps[count] = "none";
         }
+
+        popUps[0] = "startpractise";
+        if(numberOfTrials>=1)
+        {
+            popUps[1] = "starttrials";
+            for (int count = 2; count<numberOfTrials; ++count)
+            {
+                popUps[count] = "none";
+            }
+        }
     }
     //Generate arrays of random parameters within bounds if demo mode was selected
     else

@@ -1,11 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'demographics.h'
 **
-<<<<<<< HEAD
-** Created: Wed Mar 14 13:41:28 2012
-=======
-** Created: Wed Mar 14 16:07:40 2012
->>>>>>> origin/fresh_branch
+** Created: Wed Mar 14 19:53:53 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!

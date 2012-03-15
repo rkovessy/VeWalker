@@ -446,10 +446,10 @@ void Demographics::on_quit_clicked()
 
     this->database_connect();
     this->database_insert_config();
-
 //error handling finished, now we write to file by emitting a signal which is picked up in mainwindow.cpp:
     if(inputError)
     {
+        qDebug() << "inputError";
         return;
     }
     else
@@ -457,6 +457,7 @@ void Demographics::on_quit_clicked()
         virtuale.mywindow.setupGLWidget();
         Sleep(250);
         virtuale.start(participantid);
+        qDebug() << "about to hide";
         this->hide();
     }
 }

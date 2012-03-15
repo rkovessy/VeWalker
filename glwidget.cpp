@@ -118,14 +118,14 @@ void GLWidget::setArduinoTranslation(int potRot)
         //hasn't been hit, secondly if the rotation isn't greater than 5 it is likely just noise
         //Thirdly if it is greater than 100 it is likely a startup condition and would be an
         //unintentional lurch.
-        if(!(tc.get_screen())&& abs(currRotation - prevRotation)>5 &&  abs(currRotation - prevRotation) < 100)
+        if(!(tc.get_screen())&& abs(currRotation - prevRotation)>15 &&  abs(currRotation - prevRotation) < 100)
             motorSpeed = abs(currRotation - prevRotation) * PI / 180.0 * 0.14; //Change these values to set constant motor speed
          else
             motorSpeed = 0.0; //Change these values to set constant motor speed
     }
     //zTrans = height / 30.0 * sin(PI * (rValueNXT + 20) / 40) + height + height / 30;
     prevRotation = currRotation;
-
+    qDebug() << "prevRotation " << prevRotation << " currRotation " << currRotation;
     zTrans = 0.5;
 }
 

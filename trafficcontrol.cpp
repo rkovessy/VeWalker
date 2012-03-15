@@ -167,6 +167,7 @@ void TrafficControl::nexttrial() {
     }
     database_get_mode();
 
+
     //Reconstruct environment
     qDebug() << "number of Lanes!!!! " << draw.numberOfLanes;
     draw.setStatic_Environment();
