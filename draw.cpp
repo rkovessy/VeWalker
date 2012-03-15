@@ -195,6 +195,7 @@ void Draw::car(Car car) {
     glPopMatrix();
 
     // tread of tires
+    setTexture(TIRETREAD);
     glPushMatrix();
     glTranslatef(0.171, 0.2, 0.08);
     glRotatef(90, 0, 1, 0);
@@ -209,6 +210,7 @@ void Draw::car(Car car) {
     glPopMatrix();
 
     // inside tire
+    setTexture(TIREGREY);
     glPushMatrix();
     glTranslatef(0.171, 0.2, 0.08);
     glRotatef(-90, 0, 1, 0);
@@ -279,7 +281,7 @@ void Draw::loadTextures() {
     if (!QDir(folder).exists())
         qDebug() << "image folder not found";
 
-    glGenTextures( 46, &texture[0] );
+    glGenTextures( 47, &texture[0] );
 
     loadTexture(folder + "street.bmp", STREET);
     loadTexture(folder + "grassgreen.bmp", GRASSGREEN);
@@ -328,6 +330,8 @@ void Draw::loadTextures() {
     loadTexture(folder + "building4.bmp", BUILDING4);
     loadTexture(folder + "building5.bmp", BUILDING5);
     loadTexture(folder + "building6.bmp", BUILDING6);
+    loadTexture(folder + "tireedge.bmp", TIREEDGE);
+    loadTexture(folder + "tiretread.bmp", TIRETREAD);
 }
 
 void Draw::loadTexture(QString filename, int index) { // loads texture via QImage
@@ -777,10 +781,10 @@ void Draw::building()
         for (int count = 0; count<stories; count++) //where upper limit is number of stories
         {
             setTexture(textureNum);
-            rectangle(1, 0, 0, 2 + (buildingCount*2.5), 2.5, 0.0 + count*0.6, 'y', 2, 'z', .6); // left side
-            rectangle(-1, 0, 0, 2+ (buildingCount*2.5), 4.5, 0.0 + count*0.6, 'y', -1 * 2, 'z', .6); // right side
-            rectangle(0, -1, 0, 2 + (buildingCount*2.5), 2.5, 0.0 + count*0.6, 'x', 2, 'z', .6); // front
-            rectangle(0, 1, 0, 4 + (buildingCount*2.5), 4.5, 0.0 + count*0.6, 'x', -1 * 2, 'z', .6); // back
+            rectangle(1, 0, 0, 2 + (buildingCount*2.5), 2.5, 0.0 + count*0.4, 'y', 2, 'z', 0.4); // left side
+            rectangle(-1, 0, 0, 2+ (buildingCount*2.5), 4.5, 0.0 + count*0.4, 'y', -1 * 2, 'z', 0.4); // right side
+            rectangle(0, -1, 0, 2 + (buildingCount*2.5), 2.5, 0.0 + count*0.4, 'x', 2, 'z', 0.4); // front
+            rectangle(0, 1, 0, 4 + (buildingCount*2.5), 4.5, 0.0 + count*0.4, 'x', -1 * 2, 'z', 0.4); // back
         }
     }
 
@@ -792,10 +796,10 @@ void Draw::building()
         for (int count = 0; count<stories; count++) //where upper limit is number of stories
         {
             setTexture(textureNum);
-            rectangle(1, 0, 0, 2, 5 + (buildingCount*2.5), 0.0 + count*0.6, 'y', 2, 'z', .6); // left side
-            rectangle(-1, 0, 0, 2, 7+ (buildingCount*2.5), 0.0 + count*0.6, 'y', -1 * 2, 'z', .6); // right side
-            rectangle(0, -1, 0, 2, 5+ (buildingCount*2.5), 0.0 + count*0.6, 'x', 2, 'z', .6); // front
-            rectangle(0, 1, 0, 4, 7+ (buildingCount*2.5), 0.0 + count*0.6, 'x', -1 * 2, 'z', .6); // back
+            rectangle(1, 0, 0, 1.5, 5 + (buildingCount*2.5), 0.0 + count*0.4, 'y', 2, 'z', 0.4); // left side
+            rectangle(-1, 0, 0, 1.5, 7+ (buildingCount*2.5), 0.0 + count*0.4, 'y', -1 * 2, 'z', 0.4); // right side
+            rectangle(0, -1, 0, 1.5, 5+ (buildingCount*2.5), 0.0 + count*0.4, 'x', 2, 'z', 0.4); // front
+            rectangle(0, 1, 0, 3.5, 7+ (buildingCount*2.5), 0.0 + count*0.4, 'x', -1 * 2, 'z', 0.4); // back
         }
     }
 
@@ -807,10 +811,10 @@ void Draw::building()
         for (int count = 0; count<stories; count++) //where upper limit is number of stories
         {
             setTexture(textureNum);
-            rectangle(1, 0, 0, -5.5 - (buildingCount*2.5), 1.5, 0.0 + count*0.6, 'y', 2, 'z', .6);
-            rectangle(1, 0, 0, -7.5 - (buildingCount*2.5), 1.5, 0.0 + count*0.6, 'y', 2, 'z', .6);
-            rectangle(1, 0, 0, -7.5 - (buildingCount*2.5), 3.5, 0.0 + count*0.6, 'x', 2, 'z', .6);
-            rectangle(1, 0, 0, -7.5 - (buildingCount*2.5), 1.5, 0.0 + count*0.6, 'x', 2, 'z', .6);
+            rectangle(1, 0, 0, -5.5 - (buildingCount*2.5), 1.5, 0.0 + count*0.4, 'y', 2, 'z', 0.4);
+            rectangle(1, 0, 0, -7.5 - (buildingCount*2.5), 1.5, 0.0 + count*0.4, 'y', 2, 'z', 0.4);
+            rectangle(1, 0, 0, -7.5 - (buildingCount*2.5), 3.5, 0.0 + count*0.4, 'x', 2, 'z', 0.4);
+            rectangle(1, 0, 0, -7.5 - (buildingCount*2.5), 1.5, 0.0 + count*0.4, 'x', 2, 'z', 0.4);
         }
     }
 
@@ -822,10 +826,10 @@ void Draw::building()
         for (int count = 0; count<stories; count++) //where upper limit is number of stories
         {
             setTexture(textureNum);
-            rectangle(1, 0, 0, -5.0, 4 + (buildingCount*2.5), 0.0 + count*0.6, 'y', 2, 'z', .6);
-            rectangle(1, 0, 0, -7.0, 4 + (buildingCount*2.5), 0.0 + count*0.6, 'y', 2, 'z', .6);
-            rectangle(1, 0, 0, -7.0, 6 + (buildingCount*2.5), 0.0 + count*0.6, 'x', 2, 'z', .6);
-            rectangle(1, 0, 0, -7.0, 4 + (buildingCount*2.5), 0.0 + count*0.6, 'x', 2, 'z', .6);
+            rectangle(1, 0, 0, -5.0, 4 + (buildingCount*2.5), 0.0 + count*0.4, 'y', 2, 'z', 0.4);
+            rectangle(1, 0, 0, -7.0, 4 + (buildingCount*2.5), 0.0 + count*0.4, 'y', 2, 'z', 0.4);
+            rectangle(1, 0, 0, -7.0, 6 + (buildingCount*2.5), 0.0 + count*0.4, 'x', 2, 'z', 0.4);
+            rectangle(1, 0, 0, -7.0, 4 + (buildingCount*2.5), 0.0 + count*0.4, 'x', 2, 'z', 0.4);
         }
     }
 
@@ -837,10 +841,10 @@ void Draw::building()
         for (int count = 0; count<stories; count++) //where upper limit is number of stories
         {
             setTexture(textureNum);
-            rectangle(1, 0, 0, -8.5 - (buildingCount*2.5), -5.5, 0.0 + count*0.6, 'y', 2, 'z', .6);
-            rectangle(1, 0, 0, -6.5- (buildingCount*2.5), -5.5, 0.0 + count*0.6, 'y', 2, 'z', .6);
-            rectangle(0, -1, 0, -6.5 - (buildingCount*2.5), -5.5, 0.0 + count*0.6, 'x', -2, 'z', .6);
-            rectangle(0, -1, 0, -6.5 - (buildingCount*2.5), -3.5, 0.0 + count*0.6, 'x', -2, 'z', .6);
+            rectangle(1, 0, 0, -8.5 - (buildingCount*2.5), -5.5, 0.0 + count*0.4, 'y', 2, 'z', 0.4);
+            rectangle(1, 0, 0, -6.5- (buildingCount*2.5), -5.5, 0.0 + count*0.4, 'y', 2, 'z', 0.4);
+            rectangle(0, -1, 0, -6.5 - (buildingCount*2.5), -5.5, 0.0 + count*0.4, 'x', -2, 'z', 0.4);
+            rectangle(0, -1, 0, -6.5 - (buildingCount*2.5), -3.5, 0.0 + count*0.4, 'x', -2, 'z', 0.4);
         }
     }
 
@@ -852,10 +856,10 @@ void Draw::building()
         for (int count = 0; count<stories; count++) //where upper limit is number of stories
         {
             setTexture(textureNum);
-            rectangle(1, 0, 0, -8, -8  - (buildingCount*2.5), 0.0 + count*0.6, 'y', 2, 'z', .6);
-            rectangle(1, 0, 0, -6, -8  - (buildingCount*2.5), 0.0 + count*0.6, 'y', 2, 'z', .6);
-            rectangle(0, -1, 0, -6, -8  - (buildingCount*2.5), 0.0 + count*0.6, 'x', -2, 'z', .6);
-            rectangle(0, -1, 0, -6, -6  - (buildingCount*2.5), 0.0 + count*0.6, 'x', -2, 'z', .6);
+            rectangle(1, 0, 0, -8, -8  - (buildingCount*2.5), 0.0 + count*0.4, 'y', 2, 'z', 0.4);
+            rectangle(1, 0, 0, -6, -8  - (buildingCount*2.5), 0.0 + count*0.4, 'y', 2, 'z', 0.4);
+            rectangle(0, -1, 0, -6, -8  - (buildingCount*2.5), 0.0 + count*0.4, 'x', -2, 'z', 0.4);
+            rectangle(0, -1, 0, -6, -6  - (buildingCount*2.5), 0.0 + count*0.4, 'x', -2, 'z', 0.4);
         }
     }
 
@@ -867,10 +871,10 @@ void Draw::building()
         for (int count = 0; count<stories; count++) //where upper limit is number of stories
         {
             setTexture(textureNum);
-            rectangle(-1, 0, 0, 2+ (buildingCount*2.5), -3.5, 0.0 + count*0.6, 'y', -1 * 2, 'z', .6);
-            rectangle(-1, 0, 0, 4+ (buildingCount*2.5), -3.5, 0.0 + count*0.6, 'y', -1 * 2, 'z', .6);
-            rectangle(0, -1, 0, 2 + (buildingCount*2.5), -3.5, 0.0 + count*0.6, 'x', 2, 'z', .6);
-            rectangle(0, 1, 0, 4 + (buildingCount*2.5), -3.5, 0.0 + count*0.6, 'x', -1 * 2, 'z', .6);
+            rectangle(-1, 0, 0, 2+ (buildingCount*2.5), -3.5, 0.0 + count*0.4, 'y', -1 * 2, 'z', 0.4);
+            rectangle(-1, 0, 0, 4+ (buildingCount*2.5), -3.5, 0.0 + count*0.4, 'y', -1 * 2, 'z', 0.4);
+            rectangle(0, -1, 0, 2 + (buildingCount*2.5), -3.5, 0.0 + count*0.4, 'x', 2, 'z', 0.4);
+            rectangle(0, 1, 0, 4 + (buildingCount*2.5), -3.5, 0.0 + count*0.4, 'x', -1 * 2, 'z', 0.4);
         }
     }
 
@@ -882,10 +886,10 @@ void Draw::building()
         for (int count = 0; count<stories; count++) //where upper limit is number of stories
         {
             setTexture(textureNum);
-            rectangle(-1, 0, 0, 2, -6 - (buildingCount*2.5), 0.0 + count*0.6, 'y', -1 * 2, 'z', .6);
-            rectangle(-1, 0, 0, 4, -6 - (buildingCount*2.5), 0.0 + count*0.6, 'y', -1 * 2, 'z', .6);
-            rectangle(0, -1, 0, 2, -6 - (buildingCount*2.5), 0.0 + count*0.6, 'x', 2, 'z', .6);
-            rectangle(0, 1, 0, 4, -6 - (buildingCount*2.5), 0.0 + count*0.6, 'x', -1 * 2, 'z', .6);
+            rectangle(-1, 0, 0, 1.5, -6 - (buildingCount*2.5), 0.0 + count*0.4, 'y', -1 * 2, 'z', 0.4);
+            rectangle(-1, 0, 0, 3.5, -6 - (buildingCount*2.5), 0.0 + count*0.4, 'y', -1 * 2, 'z', 0.4);
+            rectangle(0, -1, 0, 1.5, -6 - (buildingCount*2.5), 0.0 + count*0.4, 'x', 2, 'z', 0.4);
+            rectangle(0, 1, 0, 3.5, -6 - (buildingCount*2.5), 0.0 + count*0.4, 'x', -1 * 2, 'z', 0.4);
         }
     }
 

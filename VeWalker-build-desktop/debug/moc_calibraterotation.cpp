@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'calibraterotation.h'
 **
-** Created: Wed Mar 14 22:23:29 2012
+** Created: Thu Mar 15 00:55:37 2012
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.4)
 **
 ** WARNING! All changes made in this file will be lost!
