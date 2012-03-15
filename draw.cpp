@@ -775,8 +775,10 @@ void Draw::building()
     glTranslated(2, 2, 0);
     glScaled(2, 2, 5);
 
+    int numberOfBuildingsPerStreet = 7;
+
     //Draw buildings for North East corner going east
-    for (int buildingCount = 0; buildingCount <5; buildingCount++)
+    for (int buildingCount = 0; buildingCount <numberOfBuildingsPerStreet; buildingCount++)
     {
         int stories = rand()%4+2;
         int textureNum = rand()%6+42;
@@ -791,7 +793,7 @@ void Draw::building()
     }
 
     //Draw buildings for North East corner going north
-    for (int buildingCount = 0; buildingCount <5; buildingCount++)
+    for (int buildingCount = 0; buildingCount <numberOfBuildingsPerStreet; buildingCount++)
     {
         int stories = rand()%4+2;
         int textureNum = rand()%6+42;
@@ -806,7 +808,7 @@ void Draw::building()
     }
 
     //Draw buildings for North West corner going west
-    for (int buildingCount = 0; buildingCount <5; buildingCount++)
+    for (int buildingCount = 0; buildingCount <numberOfBuildingsPerStreet; buildingCount++)
     {
         int stories = rand()%4+2;
         int textureNum = rand()%6+42;
@@ -821,7 +823,7 @@ void Draw::building()
     }
 
     //Draw buildings for North West corner going north
-    for (int buildingCount = 0; buildingCount <5; buildingCount++)
+    for (int buildingCount = 0; buildingCount <numberOfBuildingsPerStreet; buildingCount++)
     {
         int stories = rand()%4+2;
         int textureNum = rand()%6+42;
@@ -836,7 +838,7 @@ void Draw::building()
     }
 
     //Draw buildings for South West corner going West
-    for (int buildingCount = 0; buildingCount <5; buildingCount++)
+    for (int buildingCount = 0; buildingCount <numberOfBuildingsPerStreet; buildingCount++)
     {
         int stories = rand()%4+2;
         int textureNum = rand()%6+42;
@@ -851,7 +853,7 @@ void Draw::building()
     }
 
     //Draw buildings for South West corner going South
-    for (int buildingCount = 0; buildingCount <5; buildingCount++)
+    for (int buildingCount = 0; buildingCount <numberOfBuildingsPerStreet; buildingCount++)
     {
         int stories = rand()%4+2;
         int textureNum = rand()%6+42;
@@ -866,7 +868,7 @@ void Draw::building()
     }
 
     //Draw buildings for South East corner going east
-    for (int buildingCount = 0; buildingCount <5; buildingCount++)
+    for (int buildingCount = 0; buildingCount <numberOfBuildingsPerStreet; buildingCount++)
     {
         int stories = rand()%4+2;
         int textureNum = rand()%6+42;
@@ -881,7 +883,7 @@ void Draw::building()
     }
 
     //Draw buildings for South East corner going south
-    for (int buildingCount = 0; buildingCount <5; buildingCount++)
+    for (int buildingCount = 0; buildingCount <numberOfBuildingsPerStreet; buildingCount++)
     {
         int stories = rand()%4+2;
         int textureNum = rand()%6+42;
