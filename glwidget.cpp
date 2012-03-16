@@ -119,9 +119,9 @@ void GLWidget::setArduinoTranslation(int potRot)
         //Thirdly if it is greater than 100 it is likely a startup condition and would be an
         //unintentional lurch.
         if(!(tc.get_screen())&& abs(currRotation - prevRotation)>7 &&  abs(currRotation - prevRotation) < 100)
-            motorSpeed = .1;//abs(currRotation - prevRotation) * PI / 180.0 * 0.05; //Change these values to set constant motor speed
+            motorSpeed = abs(currRotation - prevRotation) * PI / 180.0 * 0.05; //Change these values to set constant motor speed
          else
-            motorSpeed = 0.1; //Change these values to set constant motor speed
+            motorSpeed = 0.0; //Change these values to set constant motor speed
     }
     //zTrans = height / 30.0 * sin(PI * (rValueNXT + 20) / 40) + height + height / 30;
     prevRotation = currRotation;
@@ -250,7 +250,7 @@ void GLWidget::updateScene() {
             yTrans = startingyTrans[start];
             xTrans = startingxTrans[start];
             setZRotation(startingrotation[start]);
-            setShoulderRot(startingrotation[start]);
+            shoulderRot = 0.0;
         }
 
         updateGL();
@@ -299,6 +299,7 @@ void GLWidget::paintGL()
         yTrans = startingyTrans[start];
         xTrans = startingxTrans[0];
         setZRotation(startingrotation[start]);
+        shoulderRot = 0.0;
         tc.resettrial();
     }
 
