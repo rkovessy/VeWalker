@@ -119,9 +119,9 @@ void GLWidget::setArduinoTranslation(int potRot)
         //Thirdly if it is greater than 100 it is likely a startup condition and would be an
         //unintentional lurch.
         if(!(tc.get_screen())&& abs(currRotation - prevRotation)>7 &&  abs(currRotation - prevRotation) < 100)
-            motorSpeed = abs(currRotation - prevRotation) * PI / 180.0 * 0.05; //Change these values to set constant motor speed
+            motorSpeed = .1;//abs(currRotation - prevRotation) * PI / 180.0 * 0.05; //Change these values to set constant motor speed
          else
-            motorSpeed = 0.0; //Change these values to set constant motor speed
+            motorSpeed = 0.1; //Change these values to set constant motor speed
     }
     //zTrans = height / 30.0 * sin(PI * (rValueNXT + 20) / 40) + height + height / 30;
     prevRotation = currRotation;
@@ -240,7 +240,7 @@ void GLWidget::updateScene() {
 
             //printf("xRot [%f] yRot [%f] zRot[%f}\n", xRot, yRot, zRot);
         //tc.data.writePedestrian(tc.get_trials(), xTrans, yTrans, zTrans, xRot, yRot, zRot);
-            if ((startPos == "A" && yTrans >= endingyLocation[0] && fabs(xTrans-startingxTrans[0]) <= 1) || (startPos == "B" && yTrans <= endingyLocation[1])) {
+        if ((startPos == "A" && yTrans >= endingyLocation[0] && fabs(xTrans-startingxTrans[0]) <= 1) || (startPos == "B" && yTrans <= endingyLocation[1])) {
             tc.nexttrial();
             startPos = tc.get_start();
             if (startPos == "A")
@@ -249,7 +249,8 @@ void GLWidget::updateScene() {
                 start = 1;
             yTrans = startingyTrans[start];
             xTrans = startingxTrans[start];
-           // setZRotation(startingrotation[start]);
+            setZRotation(startingrotation[start]);
+            setShoulderRot(startingrotation[start]);
         }
 
         updateGL();
